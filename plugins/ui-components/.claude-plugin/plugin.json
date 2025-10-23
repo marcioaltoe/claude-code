@@ -1,0 +1,11 @@
+{
+  "name": "ui-components",
+  "version": "1.0.0",
+  "description": "shadcn/ui and Tailwind CSS component generation and design utilities",
+  "author": {
+    "name": "Leon van Zyl",
+    "email": "leon.vanzyl@gmail.com"
+  },
+  "keywords": ["shadcn", "tailwind", "ui", "components", "design", "styling"],
+  "license": "MIT"
+}

@@ -1,0 +1,25 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(npm:*)",
+      "Bash(touch:*)",
+      "Bash(uv:*)",
+      "Edit",
+      "Write"
+    ],
+    "deny": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "uv run ~/.claude/statuslines/statusline.py",
+    "padding": 0
+  }
+}
