@@ -158,6 +158,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 - [Leon van Zyl](https://github.com/leonvanzyl/claude-code)
 - [Fred Lacs](https://github.com/fredlacs/claude-code)
 - [adrianpuiu](https://github.com/adrianpuiu/claude-skills-marketplace)
+- [Bryan Lackey](https://github.com/lackeyjb/playwright-skill)
 
 ## Learn More
 

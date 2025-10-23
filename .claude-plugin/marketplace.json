@@ -133,6 +133,46 @@
         "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
+    },
+    {
+      "name": "pr-reviewer",
+      "source": "./plugins/pr-reviewer",
+      "description": "CodeRabbit AI review management - download, organize, and fix PR review comments systematically",
+      "version": "1.0.0",
+      "category": "development",
+      "keywords": [
+        "github",
+        "pr",
+        "code-review",
+        "coderabbit",
+        "automation",
+        "pr-reviewer"
+      ],
+      "author": {
+        "name": "Marcio Altoé",
+        "email": "marcio.altoe@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "web-tests",
+      "source": "./plugins/web-tests",
+      "description": "Browser automation and web testing with Playwright - auto-detects dev servers, creates test scripts, captures screenshots",
+      "version": "1.0.0",
+      "category": "testing",
+      "keywords": [
+        "playwright",
+        "browser-automation",
+        "testing",
+        "e2e",
+        "screenshots",
+        "web-testing"
+      ],
+      "author": {
+        "name": "Marcio Altoé",
+        "email": "marcio.altoe@gmail.com"
+      },
+      "license": "MIT"
     }
   ]
 }
