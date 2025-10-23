@@ -1,0 +1,19 @@
+{
+  "name": "architecture-design",
+  "version": "1.0.0",
+  "description": "Architecture and design patterns with SOLID principles, Clean Code standards, and TypeScript best practices for building maintainable applications.",
+  "author": {
+    "name": "Marcio Altoé",
+    "email": "marcio.altoe@gmail.com"
+  },
+  "keywords": [
+    "architecture",
+    "design-patterns",
+    "solid-principles",
+    "clean-code",
+    "typescript",
+    "naming-conventions",
+    "best-practices"
+  ],
+  "license": "MIT"
+}
