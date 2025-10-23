@@ -164,8 +164,10 @@ MIT License - See [LICENSE](LICENSE) for details.
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/overview)
 - [Plugin System Documentation](https://docs.claude.com/en/docs/claude-code/plugins)
 - [Agent SDK Documentation](https://docs.claude.com/en/api/agent-sdk/overview)
+- [Anthropics Skills Paper](https://www.anthropic.com/news/create-files)
+- [Anthropics Skills Documentation](https://github.com/anthropics/skills)
 
 ---
 
-**Built for Claude Code users by Marcio Altoe**
+**Built for Claude Code users by Marcio Altoé**
 Happy coding! 🚀

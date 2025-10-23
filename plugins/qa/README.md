@@ -200,11 +200,13 @@ Generate a test file using Bun's built-in test runner.
 ### Hooks
 
 **Claude Code Hooks** (in `hooks/` directory):
+
 - `typescript-check.sh` - Real-time TypeScript/Biome validation on file Write/Edit
 - `hooks.json` - Hook configuration for Claude Code
 - `README.md` - Complete hook documentation
 
 **Git Hooks** (Husky templates in `templates/.husky/`):
+
 - `pre-commit` - Pre-commit validation with branch protection
 - `commit-msg` - Commit message validation (Conventional Commits)
 
@@ -499,7 +501,7 @@ Contributions are welcome! Please ensure:
 
 ## License
 
-MIT © [Marcio Altoe](mailto:marcio.altoe@gmail.com)
+MIT © [Marcio Altoé](mailto:marcio.altoe@gmail.com)
 
 ---
 

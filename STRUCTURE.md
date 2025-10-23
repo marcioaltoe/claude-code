@@ -144,7 +144,7 @@ Drizzle ORM and Postgres database management tools for Bun + Hono backend applic
 ### 2. UI Components (`ui`)
 
 **Category:** UI Architecture
-**Author:** Marcio Altoe
+**Author:** Marcio Altoé
 **License:** MIT
 
 Comprehensive UI/UX toolkit for React applications with shadcn/ui, Tailwind CSS v4, and Clean Architecture patterns.
@@ -202,7 +202,7 @@ Vercel AI SDK integration helpers and patterns for Bun + Hono backend applicatio
 ### 4. Testing & Quality (`qa`)
 
 **Category:** Testing
-**Author:** Marcio Altoe
+**Author:** Marcio Altoé
 **License:** MIT
 
 Comprehensive quality gates workflow with testing, linting, formatting, and automation.
@@ -257,7 +257,7 @@ Audio notifications for Claude Code - speaks notification messages out loud.
 ### 6. Commit Commands (`git`)
 
 **Category:** Workflow
-**Author:** Marcio Altoe
+**Author:** Marcio Altoé
 **License:** MIT
 
 Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation.
@@ -294,11 +294,11 @@ Complete list of all available commands across all plugins.
 
 ### UI Components (3 commands)
 
-| Command              | Description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `/add-shadcn`        | Install shadcn/ui components using MCP server integration            |
-| `/create-component`  | Generate custom React components with TypeScript and Tailwind CSS    |
-| `/create-form`       | Create forms with validation, error handling, and shadcn/ui elements |
+| Command             | Description                                                          |
+| ------------------- | -------------------------------------------------------------------- |
+| `/add-shadcn`       | Install shadcn/ui components using MCP server integration            |
+| `/create-component` | Generate custom React components with TypeScript and Tailwind CSS    |
+| `/create-form`      | Create forms with validation, error handling, and shadcn/ui elements |
 
 ### AI SDK (2 commands)
 
@@ -309,8 +309,8 @@ Complete list of all available commands across all plugins.
 
 ### Testing & Quality (2 commands)
 
-| Command        | Description                                                           |
-| -------------- | --------------------------------------------------------------------- |
+| Command        | Description                                                          |
+| -------------- | -------------------------------------------------------------------- |
 | `/create-test` | Generate test files with Bun test and React Testing Library examples |
 | `/check`       | Run complete workflow: craft → format → lint → type-check → test     |
 
@@ -335,6 +335,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Database design and Drizzle ORM
 
 **Invocation Examples:**
+
 - "set up database with Drizzle"
 - "create a users table"
 - "design a schema for blog posts"
@@ -356,6 +357,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** UI/UX with shadcn/ui and Tailwind CSS v4
 
 **Invocation Examples:**
+
 - "create a pricing card component"
 - "design a responsive navigation"
 - "build a form with validation"
@@ -377,6 +379,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Clean Architecture and TanStack ecosystem
 
 **Invocation Examples:**
+
 - "set up React project with Clean Architecture"
 - "organize feature modules"
 - "configure TanStack Router"
@@ -398,6 +401,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Gesttione brand identity and design system
 
 **Invocation Examples:**
+
 - "use Gesttione brand colors"
 - "create revenue metric card"
 - "apply Gesttione design system"
@@ -418,6 +422,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Vercel AI SDK and LLM integration
 
 **Invocation Examples:**
+
 - "create a chat endpoint"
 - "add AI streaming"
 - "implement function calling"
@@ -439,6 +444,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Test creation and testing best practices
 
 **Invocation Examples:**
+
 - "create tests for this component"
 - "write unit tests"
 - "add test coverage"
@@ -459,6 +465,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Code quality and linting configuration
 
 **Invocation Examples:**
+
 - "set up quality gates"
 - "configure linting"
 - "set up code quality tools"
@@ -479,6 +486,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Focus:** Barrel file management and exports
 
 **Invocation Examples:**
+
 - "update barrel files"
 - "organize exports"
 - "configure barrel-craft"
@@ -626,7 +634,7 @@ This marketplace provides comprehensive support for modern web development:
 ### ui
 
 - **Version:** 1.0.0
-- **Author:** Marcio Altoe
+- **Author:** Marcio Altoé
 - **License:** MIT
 - **Category:** UI Architecture
 - **Keywords:** react, vite, tanstack-router, shadcn, tailwind, clean-architecture, design-system, gesttione
@@ -642,7 +650,7 @@ This marketplace provides comprehensive support for modern web development:
 ### qa
 
 - **Version:** 1.0.0
-- **Author:** Marcio Altoe
+- **Author:** Marcio Altoé
 - **License:** MIT
 - **Category:** Testing
 - **Keywords:** bun-test, quality-gates, biome, prettier, barrel-craft, husky, testing, typescript
@@ -658,7 +666,7 @@ This marketplace provides comprehensive support for modern web development:
 ### git
 
 - **Version:** 1.0.0
-- **Author:** Marcio Altoe
+- **Author:** Marcio Altoé
 - **License:** MIT
 - **Category:** Workflow
 - **Keywords:** git, commit, conventional-commits, pull-request, workflow, automation, skills
@@ -777,7 +785,7 @@ Instructions for Claude on how to execute this skill...
 - **Marketplace Version:** 1.0.0
 - **All Plugin Versions:** 1.0.0
 - **Created:** 2025
-- **Maintainer:** Marcio Altoe (marcio.altoe@gmail.com)
+- **Maintainer:** Marcio Altoé (marcio.altoe@gmail.com)
 - **Contributors:** Leon van Zyl, Fred Lacs
 
 ## Maintenance

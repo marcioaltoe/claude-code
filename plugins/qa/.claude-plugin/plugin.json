@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Testing and code quality tools for Bun applications with native Bun test and Biome.",
   "author": {
-    "name": "Marcio Altoe",
+    "name": "Marcio Altoé",
     "email": "marcio.altoe@gmail.com"
   },
   "keywords": [

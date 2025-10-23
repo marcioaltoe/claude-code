@@ -599,7 +599,7 @@ Contributions are welcome! Please ensure:
 
 ## License
 
-MIT © [Marcio Altoe](mailto:marcio.altoe@gmail.com)
+MIT © [Marcio Altoé](mailto:marcio.altoe@gmail.com)
 
 ---
 

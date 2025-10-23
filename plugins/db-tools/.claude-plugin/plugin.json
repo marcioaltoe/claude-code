@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications.",
   "author": {
-    "name": "Marcio Altoe",
+    "name": "Marcio Altoé",
     "email": "marcio.altoe@gmail.com"
   },
   "keywords": ["drizzle", "postgres", "orm", "migrations", "database"],
