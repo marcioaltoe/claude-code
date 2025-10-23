@@ -1,4 +1,4 @@
-# Claude Code Marketplace
+# Claude Craftkit
 
 A comprehensive plugin and skill marketplace for Claude Code, providing specialized agents, commands, and utilities to enhance your development workflow.
 
@@ -41,15 +41,15 @@ Add this marketplace to Claude Code:
 
 ```bash
 # Add marketplace
-/plugin marketplace add marcioaltoe/claude-code
+/plugin marketplace add marcioaltoe/claude-craftkit
 
 # Install all plugins
-/plugin install db-tools@claude-code
-/plugin install ui@claude-code
-/plugin install ai-sdk@claude-code
-/plugin install qa@claude-code
-/plugin install audio-notifications@claude-code
-/plugin install git@claude-code
+/plugin install db-tools@claude-craftkit
+/plugin install ui@claude-craftkit
+/plugin install ai-sdk@claude-craftkit
+/plugin install qa@claude-craftkit
+/plugin install audio-notifications@claude-craftkit
+/plugin install git@claude-craftkit
 ```
 
 Or use the interactive installer: `/plugin` → Browse Plugins
@@ -139,8 +139,8 @@ For plugin structure and customization guide, see [STRUCTURE.md](STRUCTURE.md#cu
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/marcioaltoe/claude-code/issues)
-- **Repository:** [github.com/marcioaltoe/claude-code](https://github.com/marcioaltoe/claude-code)
+- **Issues:** [GitHub Issues](https://github.com/marcioaltoe/claude-craftkit/issues)
+- **Repository:** [github.com/marcioaltoe/claude-craftkit](https://github.com/marcioaltoe/claude-craftkit)
 - **Email:** marcio.altoe@gmail.com
 
 ## Requirements

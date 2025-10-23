@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get started with Claude Code Marketplace plugins in 5 minutes. This tutorial will walk you through installation, setup, and building your first feature.
+Get started with Claude Craftkit plugins in 5 minutes. This tutorial will walk you through installation, setup, and building your first feature.
 
 ## Step 1: Install the Marketplace
 
@@ -8,7 +8,7 @@ Get started with Claude Code Marketplace plugins in 5 minutes. This tutorial wil
 
 ```bash
 # Add this repository as a marketplace
-/plugin marketplace add marcioaltoe/claude-code
+/plugin marketplace add marcioaltoe/claude-craftkit
 ```
 
 ### Option 2: Manual Git Clone
@@ -17,8 +17,8 @@ Get started with Claude Code Marketplace plugins in 5 minutes. This tutorial wil
 
 ```bash
 cd ~/.claude/plugins/marketplaces
-git clone https://github.com/marcioaltoe/claude-code.git
-/plugin marketplace add claude-code
+git clone https://github.com/marcioaltoe/claude-craftkit.git
+/plugin marketplace add claude-craftkit
 ```
 
 **Project-Specific Installation:**
@@ -27,61 +27,61 @@ git clone https://github.com/marcioaltoe/claude-code.git
 cd /path/to/your/project
 mkdir -p .claude/plugins/marketplaces
 cd .claude/plugins/marketplaces
-git clone https://github.com/marcioaltoe/claude-code.git
-/plugin marketplace add ./claude-code
+git clone https://github.com/marcioaltoe/claude-craftkit.git
+/plugin marketplace add ./claude-craftkit
 ```
 
 ### Option 3: Download Release
 
-1. Download from [GitHub Releases](https://github.com/marcioaltoe/claude-code/releases)
+1. Download from [GitHub Releases](https://github.com/marcioaltoe/claude-craftkit/releases)
 2. Extract to:
-   - Global: `~/.claude/plugins/marketplaces/claude-code`
-   - Project: `<your-project>/.claude/plugins/marketplaces/claude-code`
-3. Add marketplace: `/plugin marketplace add claude-code`
+   - Global: `~/.claude/plugins/marketplaces/claude-craftkit`
+   - Project: `<your-project>/.claude/plugins/marketplaces/claude-craftkit`
+3. Add marketplace: `/plugin marketplace add claude-craftkit`
 
 ## Step 2: Install Plugins
 
 ### Install All Plugins at Once
 
 ```bash
-/plugin install db-tools@claude-code
-/plugin install ui@claude-code
-/plugin install ai-sdk@claude-code
-/plugin install qa@claude-code
-/plugin install audio-notifications@claude-code
-/plugin install git@claude-code
+/plugin install db-tools@claude-craftkit
+/plugin install ui@claude-craftkit
+/plugin install ai-sdk@claude-craftkit
+/plugin install qa@claude-craftkit
+/plugin install audio-notifications@claude-craftkit
+/plugin install git@claude-craftkit
 ```
 
 ### Or Install Selectively Based on Your Needs
 
 **For Database Development:**
 ```bash
-/plugin install db-tools@claude-code
+/plugin install db-tools@claude-craftkit
 ```
 
 **For UI Development:**
 ```bash
-/plugin install ui@claude-code
+/plugin install ui@claude-craftkit
 ```
 
 **For AI Features:**
 ```bash
-/plugin install ai-sdk@claude-code
+/plugin install ai-sdk@claude-craftkit
 ```
 
 **For Testing:**
 ```bash
-/plugin install qa@claude-code
+/plugin install qa@claude-craftkit
 ```
 
 **For Audio Feedback:**
 ```bash
-/plugin install audio-notifications@claude-code
+/plugin install audio-notifications@claude-craftkit
 ```
 
 **For Git Workflow Automation:**
 ```bash
-/plugin install git@claude-code
+/plugin install git@claude-craftkit
 ```
 
 ### Verify Installation
@@ -347,7 +347,7 @@ Create a chat application:
 - Ensure plugin is installed: `/plugin list`
 - Check for typos in command names
 - Use `/help` to see all available commands
-- Try reinstalling: `/plugin uninstall <name>@claude-code` then `/plugin install <name>@claude-code`
+- Try reinstalling: `/plugin uninstall <name>@claude-craftkit` then `/plugin install <name>@claude-craftkit`
 
 ### Audio notifications not playing?
 
@@ -394,19 +394,19 @@ Create a chat application:
 - Fork the repository
 - Create new plugins or improve existing ones
 - Submit pull requests
-- Report issues on [GitHub](https://github.com/marcioaltoe/claude-code/issues)
+- Report issues on [GitHub](https://github.com/marcioaltoe/claude-craftkit/issues)
 
 ## Support
 
 For issues or questions:
 
-- **Issues:** [GitHub Issues](https://github.com/marcioaltoe/claude-code/issues)
-- **Repository:** [github.com/marcioaltoe/claude-code](https://github.com/marcioaltoe/claude-code)
+- **Issues:** [GitHub Issues](https://github.com/marcioaltoe/claude-craftkit/issues)
+- **Repository:** [github.com/marcioaltoe/claude-craftkit](https://github.com/marcioaltoe/claude-craftkit)
 - **Email:** marcio.altoe@gmail.com
 - **Documentation:** Use `/help` in Claude Code
 
 ---
 
-**Happy coding with Claude Code Marketplace!** 🚀
+**Happy coding with Claude Craftkit!** 🚀
 
 Start building and let Claude handle the boilerplate.

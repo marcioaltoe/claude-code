@@ -1,6 +1,6 @@
 # Marketplace Structure Overview
 
-Complete technical reference and structure documentation for the Claude Code Marketplace.
+Complete technical reference and structure documentation for Claude Craftkit.
 
 ## Table of Contents
 
@@ -21,10 +21,10 @@ Complete technical reference and structure documentation for the Claude Code Mar
 
 ## Directory Tree
 
-Complete structure of the Claude Code Marketplace:
+Complete structure of Claude Craftkit:
 
 ```
-claude-code-marketplace/
+claude-craftkit/
 ├── .claude-plugin/
 │   └── marketplace.json              # Main marketplace manifest
 │
@@ -720,7 +720,7 @@ Approximate sizes:
 2. Add `.claude-plugin/plugin.json` with metadata
 3. Add `commands/` and/or `skills/` directories
 4. Update `.claude-plugin/marketplace.json`
-5. Install: `/plugin install your-plugin-name@claude-code-marketplace`
+5. Install: `/plugin install your-plugin-name@claude-craftkit`
 
 ### Plugin Structure Template
 
@@ -790,8 +790,8 @@ Instructions for Claude on how to execute this skill...
 4. Test changes locally
 5. Reinstall plugin:
    ```bash
-   /plugin uninstall plugin-name@claude-code-marketplace
-   /plugin install plugin-name@claude-code-marketplace
+   /plugin uninstall plugin-name@claude-craftkit
+   /plugin install plugin-name@claude-craftkit
    ```
 
 ### Publishing Updates
