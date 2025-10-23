@@ -50,6 +50,9 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 /plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
+/plugin install reviewer@claude-craftkit
+/plugin install ui-tests@claude-craftkit
+/plugin install architecture-design@claude-craftkit
 ```
 
 ### Or Install Selectively Based on Your Needs
@@ -82,6 +85,21 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 **For Git Workflow Automation:**
 ```bash
 /plugin install git@claude-craftkit
+```
+
+**For PR Review Management:**
+```bash
+/plugin install reviewer@claude-craftkit
+```
+
+**For Browser Automation & E2E Testing:**
+```bash
+/plugin install ui-tests@claude-craftkit
+```
+
+**For Architecture & Design Best Practices:**
+```bash
+/plugin install architecture-design@claude-craftkit
 ```
 
 ### Verify Installation

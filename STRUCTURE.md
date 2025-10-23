@@ -81,16 +81,48 @@ claude-craftkit/
 │   │   │   └── hooks.json
 │   │   └── README.md
 │   │
-│   └── git/
+│   ├── git/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── commands/
+│   │   │   ├── commit.md
+│   │   │   ├── commit-push-pr.md
+│   │   │   └── clean_gone.md
+│   │   ├── skills/
+│   │   │   ├── git-commit.md
+│   │   │   └── git-pr-creation.md
+│   │   └── README.md
+│   │
+│   ├── reviewer/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── commands/
+│   │   │   ├── download-issues.md
+│   │   │   ├── fix-issues.md
+│   │   │   └── pr-status.md
+│   │   └── README.md
+│   │
+│   ├── ui-tests/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── commands/
+│   │   │   ├── check.md
+│   │   │   ├── take-screenshot.md
+│   │   │   └── test-feature.md
+│   │   └── skills/
+│   │       └── web-tests.md
+│   │
+│   └── architecture-design/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
-│       ├── commands/
-│       │   ├── commit.md
-│       │   ├── commit-push-pr.md
-│       │   └── clean_gone.md
 │       ├── skills/
-│       │   ├── git-commit.md
-│       │   └── git-pr-creation.md
+│       │   ├── project-standards.md
+│       │   ├── clean-code-principles.md
+│       │   ├── solid-principles.md
+│       │   ├── clean-architecture.md
+│       │   ├── naming-conventions.md
+│       │   ├── error-handling-patterns.md
+│       │   └── typescript-type-safety.md
 │       └── README.md
 │
 ├── README.md                         # Main documentation
@@ -108,10 +140,13 @@ claude-craftkit/
 | db-tools            | 3        | 1      | 0     | Database        |
 | ui                  | 3        | 3      | 0     | UI Architecture |
 | ai-sdk              | 2        | 1      | 0     | AI              |
-| qa                  | 2        | 3      | 0     | Testing         |
+| quality             | 2        | 3      | 0     | Testing         |
 | audio-notifications | 0        | 0      | 3     | QoL             |
 | git                 | 3        | 2      | 0     | Workflow        |
-| **TOTAL**           | **13**   | **10** | **3** | -               |
+| reviewer            | 3        | 0      | 0     | Development     |
+| ui-tests            | 3        | 0      | 0     | Testing         |
+| architecture-design | 0        | 7      | 0     | Development     |
+| **TOTAL**           | **19**   | **17** | **3** | -               |
 
 ## Plugin Descriptions
 
@@ -280,6 +315,84 @@ Git workflow automation with intelligent skills and quick commands for conventio
 - Managing git branches
 - Enforcing commit standards
 
+### 7. PR Reviewer (`reviewer`)
+
+**Category:** Development
+**Author:** Marcio Altoé
+**License:** MIT
+
+CodeRabbit AI review management - download, organize, and fix PR review comments systematically.
+
+**Features:**
+
+- CodeRabbit AI integration
+- Download PR review comments
+- Organize issues by file and severity
+- Track review status
+- Systematic issue resolution workflow
+- GitHub CLI integration
+
+**Use Cases:**
+
+- Managing CodeRabbit AI review feedback
+- Tracking PR review progress
+- Organizing and prioritizing review comments
+- Systematic code review improvements
+
+### 8. UI Tests (`ui-tests`)
+
+**Category:** Testing
+**Author:** Marcio Altoé
+**License:** MIT
+
+Browser automation and web testing with Playwright - auto-detects dev servers, creates test scripts, captures screenshots.
+
+**Features:**
+
+- Playwright browser automation
+- Auto-detect development servers
+- Screenshot capture and comparison
+- Web page health checks (broken links, errors)
+- Feature testing automation
+- E2E test script generation
+
+**Use Cases:**
+
+- Browser automation and testing
+- Visual regression testing
+- Web page health monitoring
+- E2E test creation
+- Screenshot documentation
+
+### 9. Architecture & Design (`architecture-design`)
+
+**Category:** Development
+**Author:** Marcio Altoé
+**License:** MIT
+
+Architecture and design patterns with SOLID principles, Clean Code standards, and TypeScript best practices for building maintainable applications.
+
+**Features:**
+
+- 7 specialized skills covering all architecture aspects
+- SOLID principles enforcement
+- Clean Code standards (KISS, YAGNI, DRY, TDA)
+- Clean Architecture patterns (domain/application/infrastructure/presentation)
+- TypeScript type safety best practices
+- Comprehensive naming conventions
+- Error handling patterns and strategies
+- Project-specific standards for Bun + TypeScript stack
+
+**Use Cases:**
+
+- Enforcing SOLID principles in class design
+- Implementing Clean Architecture patterns
+- Applying Clean Code standards
+- TypeScript type safety guidance
+- Naming conventions enforcement
+- Error handling strategy implementation
+- Project standards compliance
+
 ## Command Reference
 
 Complete list of all available commands across all plugins.
@@ -323,6 +436,22 @@ Complete list of all available commands across all plugins.
 | `/clean`          | Clean up local branches that have been deleted on the remote            |
 
 **Note:** The git plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
+
+### PR Reviewer (3 commands)
+
+| Command              | Description                                                   |
+| -------------------- | ------------------------------------------------------------- |
+| `/download-issues`   | Download CodeRabbit AI review comments for a Pull Request     |
+| `/fix-issues`        | Fix issues for a given PR systematically                      |
+| `/pr-status`         | Check status of PR review issues                              |
+
+### UI Tests (3 commands)
+
+| Command            | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `/check`           | Check webpage for issues (broken links, errors, etc.)         |
+| `/take-screenshot` | Take screenshots of web pages                                 |
+| `/test-feature`    | Test a webapp feature with Playwright                         |
 
 ## Intelligent Skills
 
@@ -562,6 +691,178 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 5. Creates detailed PR body with examples
 6. Executes gh pr create command
 
+### 11. project-standards
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Project-specific standards and critical rules for Bun + TypeScript stack
+
+**Invocation Examples:**
+
+- "What are the project standards?"
+- "Starting development task"
+- "Before committing code"
+- "Tech stack configuration"
+
+**Capabilities:**
+
+- Critical rules enforcement (barrel files, testing, type safety, git workflow)
+- Tech stack guidance (Bun, Hono, Drizzle, React 19, Vite 6, TanStack Router)
+- Bun runtime best practices
+- MCP server usage (Context7 and Perplexity)
+- Pre-commit checklist validation
+- Commit message conventions
+- Quality gates workflow
+- Security requirements
+
+### 12. clean-code-principles
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Clean Code principles including KISS, YAGNI, DRY, and TDA patterns
+
+**Invocation Examples:**
+
+- "Keep this code simple"
+- "Refactor this function"
+- "Code review needed"
+- "Avoid over-engineering"
+
+**Capabilities:**
+
+- KISS (Keep It Simple, Stupid) - Simplicity over complexity
+- YAGNI (You Aren't Gonna Need It) - Build only what's needed
+- DRY (Don't Repeat Yourself) - Apply after Rule of Three
+- TDA (Tell, Don't Ask) - Encapsulation and command methods
+- Function design best practices
+- Code organization patterns
+- Anti-pattern detection
+
+### 13. solid-principles
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** SOLID principles and clean architecture patterns
+
+**Invocation Examples:**
+
+- "Apply SOLID principles to this class"
+- "Designing new module"
+- "Architecture review needed"
+- "Multiple implementations needed"
+
+**Capabilities:**
+
+- Single Responsibility Principle (SRP) - One reason to change
+- Open/Closed Principle (OCP) - Open for extension, closed for modification
+- Liskov Substitution Principle (LSP) - Subtypes must be substitutable
+- Interface Segregation Principle (ISP) - Small, focused interfaces
+- Dependency Inversion Principle (DIP) - Depend on abstractions
+- When to apply (and when NOT to over-apply)
+- Anti-pattern avoidance
+
+### 14. clean-architecture
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Clean Architecture including layered architecture, dependency rule, and DDD patterns
+
+**Invocation Examples:**
+
+- "Structure this using Clean Architecture"
+- "Create a use case for user registration"
+- "Design domain entities"
+- "Implement repository pattern"
+
+**Capabilities:**
+
+- The Dependency Rule - Dependencies point inward toward domain
+- Domain Layer - Pure business logic (Entities, Value Objects, Domain Services)
+- Application Layer - Use Cases, DTOs, Ports (interfaces)
+- Infrastructure Layer - Adapters (repositories, external services)
+- Presentation Layer - Controllers, routes, HTTP/CLI handling
+- Repository pattern and Dependency Injection
+- Testing strategy (pure unit tests for domain, mocked tests for application)
+- Anti-patterns to avoid (anemic domain model, fat controllers)
+
+### 15. naming-conventions
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Comprehensive naming standards for files, directories, classes, functions, and variables
+
+**Invocation Examples:**
+
+- "Review naming conventions in this file"
+- "Creating new files"
+- "Naming this function"
+- "Refactor variable names"
+
+**Capabilities:**
+
+- File naming: `kebab-case` with descriptive suffixes
+- Directory naming: Plural for collections, singular for modules
+- Classes & Interfaces: `PascalCase`
+- Functions & Variables: `camelCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Boolean naming: `is`, `has`, `can`, `should` prefixes
+- Interface vs Implementation naming
+- DTO and Response naming
+- Use Case naming
+
+### 16. error-handling-patterns
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Error handling patterns including exceptions, Result pattern, and validation strategies
+
+**Invocation Examples:**
+
+- "Help me with error handling"
+- "Implement validation logic"
+- "Create custom exception types"
+- "Add retry mechanism"
+
+**Capabilities:**
+
+- Use exceptions, not return codes
+- Never return null for errors
+- Provide context with exceptions
+- Exception hierarchy (domain and infrastructure exceptions)
+- Result pattern for expected failures
+- Validation patterns (input validation at boundaries, domain validation)
+- Error recovery patterns (retry logic, circuit breaker, fallback values)
+- Structured error logging
+- HTTP error handling with Hono
+
+### 17. typescript-type-safety
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** TypeScript type safety including type guards, branded types, and advanced type system features
+
+**Invocation Examples:**
+
+- "Implement type guards for this data"
+- "Working with unknown types"
+- "Create branded types"
+- "Advanced TypeScript patterns"
+
+**Capabilities:**
+
+- NEVER use `any` - Use `unknown` with type guards
+- Proper type guards (type predicates)
+- Branded types for domain modeling
+- Discriminated unions for polymorphic data
+- Conditional types
+- Mapped types (Partial, Readonly, Pick, Omit)
+- Template literal types
+- Function overloads
+- Const assertions
+- Utility types (NonNullable, Extract, Exclude, Record)
+- Type narrowing (typeof, instanceof, in operator)
+- TypeScript strict mode configuration
+
 ## Hooks
 
 Hooks are event handlers that execute on specific Claude Code events.
@@ -672,6 +973,30 @@ This marketplace provides comprehensive support for modern web development:
 - **Keywords:** git, commit, conventional-commits, pull-request, workflow, automation, skills
 - **Architecture:** Hybrid approach with autonomous skills and explicit commands
 
+### reviewer
+
+- **Version:** 1.0.0
+- **Author:** Marcio Altoé
+- **License:** MIT
+- **Category:** Development
+- **Keywords:** github, pr, code-review, coderabbit, automation, reviewer
+
+### ui-tests
+
+- **Version:** 1.0.0
+- **Author:** Marcio Altoé
+- **License:** MIT
+- **Category:** Testing
+- **Keywords:** playwright, browser-automation, testing, e2e, screenshots, web-testing
+
+### architecture-design
+
+- **Version:** 1.0.0
+- **Author:** Marcio Altoé
+- **License:** MIT
+- **Category:** Development
+- **Keywords:** architecture, design-patterns, solid-principles, clean-code, typescript, naming-conventions, best-practices
+
 ## Files Overview
 
 ### Marketplace Level
@@ -684,13 +1009,13 @@ This marketplace provides comprehensive support for modern web development:
 
 ### Plugin Level
 
-- **6** Plugin manifests (`plugin.json` in each plugin)
-- **13** Command files (`.md` files in `commands/` directories)
-- **10** Skill definitions (`.md` files in `skills/` directories)
+- **9** Plugin manifests (`plugin.json` in each plugin)
+- **19** Command files (`.md` files in `commands/` directories)
+- **17** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
-- **4** Plugin READMEs (db-tools, ui, quality, git)
+- **7** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
 
-**Total: 41 files** providing comprehensive Claude Code development support.
+**Total: 60 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 
