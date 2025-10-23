@@ -210,10 +210,11 @@ The `ai-integration-specialist` agent will set up everything you need.
 ### Example 3: Testing Suite
 
 ```
-Set up testing for my Next.js project:
-- Vitest for unit tests
+Set up testing for my project:
+- Bun test for unit tests
+- React Testing Library for component tests
 - Playwright for E2E tests
-- ESLint configuration
+- Biome configuration for linting
 - Create sample tests for user authentication flow
 ```
 
@@ -241,7 +242,7 @@ The `quality-engineer` agent will configure your testing infrastructure.
 
 ## Environment Variables
 
-After setup, you may need these in `.env.local`:
+After setup, you may need these in `.env`:
 
 ```bash
 # Database
@@ -252,9 +253,12 @@ OPENAI_API_KEY="sk-..."
 # or
 ANTHROPIC_API_KEY="sk-ant-..."
 
+# Redis (if using cache/sessions)
+REDIS_URL="redis://localhost:6379"
+
 # Other services as needed
-NEXTAUTH_SECRET="your-secret-here"
-NEXTAUTH_URL="http://localhost:3000"
+JWT_SECRET="your-secret-here"
+API_PORT="3000"
 ```
 
 ## Audio Notifications Setup
@@ -280,12 +284,12 @@ Create `~/.claude/audio_notifications.json`:
 
 ```
 Create a SaaS dashboard with:
-- User authentication with NextAuth
+- User authentication with JWT and Redis sessions
 - PostgreSQL database with Drizzle ORM
 - Subscription management table
-- Dashboard layout with shadcn/ui
+- Backend API with Hono routes and proper error handling
+- Dashboard layout with shadcn/ui (React 19 + Vite)
 - Data tables with sorting and filtering
-- API routes with proper error handling
 - E2E tests for critical flows
 ```
 
@@ -348,7 +352,7 @@ Create a chat application:
 
 ### Database connection issues?
 
-- Verify `DATABASE_URL` in `.env.local`
+- Verify `DATABASE_URL` in `.env`
 - Ensure PostgreSQL is running
 - Check database credentials
 - Test connection: `psql $DATABASE_URL`
@@ -357,7 +361,7 @@ Create a chat application:
 
 - Ensure you have `components.json` in project root
 - Run `/add-shadcn-component --help` for options
-- Check Node.js version (requires 18+)
+- Check Bun version (latest stable recommended)
 
 ### Git commands failing?
 

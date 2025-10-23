@@ -122,11 +122,12 @@ claude-code-marketplace/
 **Author:** Leon van Zyl
 **License:** MIT
 
-Drizzle ORM and Postgres database management tools for Next.js projects.
+Drizzle ORM and Postgres database management tools for Bun + Hono backend applications.
 
 **Features:**
-- Drizzle ORM integration with Next.js
-- PostgreSQL connection management
+
+- Drizzle ORM integration with Bun + Hono
+- PostgreSQL connection management with connection pooling
 - Schema generation with TypeScript types
 - Migration generation and management
 - Type-safe query builders
@@ -134,6 +135,7 @@ Drizzle ORM and Postgres database management tools for Next.js projects.
 - Database schema validation
 
 **Use Cases:**
+
 - Setting up new database projects
 - Creating and managing database schemas
 - Generating type-safe migrations
@@ -149,6 +151,7 @@ Drizzle ORM and Postgres database management tools for Next.js projects.
 shadcn/ui and Tailwind CSS component generation and design utilities.
 
 **Features:**
+
 - shadcn/ui component installation via MCP server
 - Custom React component generation
 - Tailwind CSS utility integration
@@ -158,6 +161,7 @@ shadcn/ui and Tailwind CSS component generation and design utilities.
 - Accessibility (a11y) compliance
 
 **Use Cases:**
+
 - Installing shadcn/ui components
 - Creating custom component libraries
 - Building forms with validation
@@ -170,11 +174,12 @@ shadcn/ui and Tailwind CSS component generation and design utilities.
 **Author:** Leon van Zyl
 **License:** MIT
 
-Vercel AI SDK integration helpers and patterns for Next.js applications.
+Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications.
 
 **Features:**
+
 - Vercel AI SDK setup and configuration
-- Streaming response implementation
+- Streaming response implementation with Hono
 - Multiple LLM provider support (OpenAI, Anthropic)
 - Function calling patterns
 - Chat endpoint generation
@@ -182,6 +187,7 @@ Vercel AI SDK integration helpers and patterns for Next.js applications.
 - Token management
 
 **Use Cases:**
+
 - Setting up AI-powered chat interfaces
 - Implementing streaming responses
 - Adding function calling capabilities
@@ -194,18 +200,21 @@ Vercel AI SDK integration helpers and patterns for Next.js applications.
 **Author:** Leon van Zyl
 **License:** MIT
 
-Testing, linting, and code quality tools for Next.js projects.
+Testing, linting, and code quality tools for modern web projects.
 
 **Features:**
-- Vitest configuration for unit testing
+
+- Bun test configuration for unit testing
+- React Testing Library for component tests
 - Playwright setup for E2E testing via MCP server
-- ESLint configuration with Next.js rules
+- Biome configuration for linting/formatting (TS/JS/CSS)
 - TypeScript strict mode setup
 - Test file generation with examples
 - Coverage reporting configuration
 - CI/CD integration helpers
 
 **Use Cases:**
+
 - Setting up testing infrastructure
 - Writing unit tests for components and utilities
 - Creating E2E test suites
@@ -221,6 +230,7 @@ Testing, linting, and code quality tools for Next.js projects.
 Audio notifications for Claude Code - speaks notification messages out loud.
 
 **Features:**
+
 - Text-to-speech notifications via system TTS
 - Event hook integration
 - Configurable voice and speech rate
@@ -230,6 +240,7 @@ Audio notifications for Claude Code - speaks notification messages out loud.
 - Accessibility enhancements
 
 **Use Cases:**
+
 - Getting audio feedback on long-running tasks
 - Accessibility for visually impaired users
 - Background task notifications
@@ -244,6 +255,7 @@ Audio notifications for Claude Code - speaks notification messages out loud.
 Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation.
 
 **Features:**
+
 - **Hybrid architecture:** Autonomous skills + explicit commands
 - Conventional Commits specification compliance
 - Automated commit message generation
@@ -253,6 +265,7 @@ Git workflow automation with intelligent skills and quick commands for conventio
 - Git workflow best practices
 
 **Use Cases:**
+
 - Automating git commit workflows
 - Creating conventional commit messages
 - Generating comprehensive PR descriptions
@@ -282,28 +295,28 @@ Complete list of all available commands across all plugins.
 
 ### AI Integration (3 commands)
 
-| Command                 | Description                                                        |
-| ----------------------- | ------------------------------------------------------------------ |
-| `/setup-ai-sdk`         | Initialize Vercel AI SDK with provider configuration               |
-| `/create-chat-endpoint` | Create streaming chat API endpoints with error handling            |
-| `/add-function-calling` | Implement AI function calling with type-safe tool definitions      |
+| Command                 | Description                                                   |
+| ----------------------- | ------------------------------------------------------------- |
+| `/setup-ai-sdk`         | Initialize Vercel AI SDK with provider configuration          |
+| `/create-chat-endpoint` | Create streaming chat API endpoints with error handling       |
+| `/add-function-calling` | Implement AI function calling with type-safe tool definitions |
 
 ### Testing & Quality (4 commands)
 
 | Command             | Description                                                    |
 | ------------------- | -------------------------------------------------------------- |
-| `/setup-vitest`     | Configure Vitest for unit testing with Next.js                 |
+| `/setup-vitest`     | Configure Bun test for unit testing with React Testing Library |
 | `/create-test`      | Generate test files with examples and best practices           |
 | `/setup-playwright` | Configure Playwright for E2E testing via MCP server            |
-| `/setup-eslint`     | Enhanced ESLint configuration with TypeScript and Next.js rules|
+| `/setup-eslint`     | Enhanced Biome configuration for linting/formatting            |
 
 ### Commit Commands (3 commands)
 
-| Command           | Description                                                           |
-| ----------------- | --------------------------------------------------------------------- |
-| `/commit`         | Quick commit with conventional format (explicit control)              |
-| `/commit-push-pr` | Complete workflow: stage → commit → push → create PR (explicit control)|
-| `/clean_gone`     | Clean up local branches that have been deleted on the remote          |
+| Command           | Description                                                             |
+| ----------------- | ----------------------------------------------------------------------- |
+| `/commit`         | Quick commit with conventional format (explicit control)                |
+| `/commit-push-pr` | Complete workflow: stage → commit → push → create PR (explicit control) |
+| `/clean_gone`     | Clean up local branches that have been deleted on the remote            |
 
 **Note:** The commit-commands plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
 
@@ -318,6 +331,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 **Focus:** Database design and Drizzle ORM
 
 **Capabilities:**
+
 - Schema design and optimization
 - Database normalization strategies
 - Migration planning and execution
@@ -327,6 +341,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - Database best practices enforcement
 
 **When to Use:**
+
 - Designing complex database schemas
 - Optimizing existing database structures
 - Planning major schema migrations
@@ -340,6 +355,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 **Focus:** UI/UX with shadcn/ui and Tailwind CSS
 
 **Capabilities:**
+
 - Component design and architecture
 - Responsive layout implementation
 - Accessibility (a11y) compliance
@@ -349,6 +365,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - Theme and styling management
 
 **When to Use:**
+
 - Designing complex UI components
 - Implementing responsive layouts
 - Building accessible interfaces
@@ -362,6 +379,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 **Focus:** Vercel AI SDK and LLM integration
 
 **Capabilities:**
+
 - LLM integration patterns
 - Streaming response implementation
 - Function calling setup
@@ -371,6 +389,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - AI SDK configuration best practices
 
 **When to Use:**
+
 - Implementing AI-powered features
 - Setting up streaming chat interfaces
 - Configuring function calling
@@ -384,6 +403,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 **Focus:** Testing and code quality
 
 **Capabilities:**
+
 - Unit test design (Vitest)
 - E2E test scenarios (Playwright)
 - Test coverage strategies
@@ -393,6 +413,7 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - Quality metrics and reporting
 
 **When to Use:**
+
 - Setting up comprehensive test suites
 - Designing complex test scenarios
 - Configuring CI/CD pipelines
@@ -410,12 +431,14 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Description:** Automatically detects when to commit and creates conventional commits
 
 **Invocation Examples:**
+
 - "commit these changes"
 - "save this work"
 - "I'm done with this feature, let's commit"
 - "create a commit for the auth updates"
 
 **Capabilities:**
+
 - Analyzes code changes automatically
 - Generates conventional commit messages
 - Validates branch (prevents commits to main/dev)
@@ -424,6 +447,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Provides context-aware commit messages
 
 **Workflow:**
+
 1. Analyzes staged and unstaged changes
 2. Determines appropriate commit type and scope
 3. Generates descriptive commit message
@@ -437,6 +461,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Description:** Automatically creates comprehensive PRs when work is complete
 
 **Invocation Examples:**
+
 - "create a PR"
 - "ready for review"
 - "open a pull request"
@@ -444,6 +469,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - "all tests passing, let's get this reviewed"
 
 **Capabilities:**
+
 - Automatically detects when work is ready
 - Analyzes all commits in branch
 - Creates comprehensive PR descriptions
@@ -453,6 +479,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Best practices for code review
 
 **Workflow:**
+
 1. Verifies GitHub CLI authentication
 2. Analyzes commits from dev..HEAD
 3. Categorizes changes by type
@@ -471,6 +498,7 @@ MCP (Model Context Protocol) servers provide external tool integration.
 **Usage:** Automatically available when plugin is installed
 
 **Capabilities:**
+
 - Browse shadcn/ui component catalog
 - Install components with dependencies
 - Configure components.json
@@ -484,7 +512,8 @@ MCP (Model Context Protocol) servers provide external tool integration.
 **Usage:** Automatically available when plugin is installed
 
 **Capabilities:**
-- Configure Playwright for Next.js
+
+- Configure Playwright for web applications
 - Generate test files
 - Manage browser contexts
 - Handle test fixtures
@@ -499,6 +528,7 @@ Hooks are event handlers that execute on specific Claude Code events.
 The audio-notifications plugin provides event hooks for text-to-speech notifications.
 
 **Hook Files:**
+
 - `audio_notification_hook.py` - Python implementation
 - `audio_notification_hook.sh` - Shell script implementation
 - `hooks.json` - Hook configuration
@@ -513,6 +543,7 @@ The audio-notifications plugin provides event hooks for text-to-speech notificat
 ```
 
 **Options:**
+
 - `audio_off`: Boolean to enable/disable audio (default: false)
 - `speech_command`: System TTS command:
   - macOS: `"say"` or `"say -v Victoria"`
@@ -520,6 +551,7 @@ The audio-notifications plugin provides event hooks for text-to-speech notificat
   - Windows: Configure via PowerShell speech
 
 **Events Handled:**
+
 - Task completion notifications
 - Error notifications
 - Long-running process updates
@@ -528,12 +560,15 @@ The audio-notifications plugin provides event hooks for text-to-speech notificat
 
 This marketplace provides comprehensive support for modern web development:
 
+✅ **Backend Runtime:** Bun (TypeScript runtime)
+✅ **Backend Framework:** Hono (lightweight, fast web framework)
 ✅ **Database:** PostgreSQL with Drizzle ORM (migrations, queries, schemas, relations)
-✅ **UI Framework:** React 19 with Tailwind CSS and responsive design
+✅ **Frontend Framework:** React 19 with Vite 6 and TanStack Router
+✅ **UI Styling:** Tailwind 4 with responsive design
 ✅ **UI Components:** shadcn/ui component library
 ✅ **AI Integration:** Vercel AI SDK with OpenAI & Anthropic support
-✅ **Testing:** Vitest (unit tests) + Playwright (E2E) + ESLint
-✅ **Code Quality:** TypeScript strict mode, ESLint, Prettier
+✅ **Testing:** Bun test + React Testing Library + Playwright (E2E)
+✅ **Code Quality:** Biome for linting/formatting (TS/JS/CSS), TypeScript strict mode
 ✅ **Quality of Life:** Audio notifications for task completion
 ✅ **Git Workflow:** Conventional Commits and automated PR creation
 
@@ -703,6 +738,7 @@ Instructions for Claude on how to execute this skill...
 ```
 
 **Key Differences:**
+
 - **Commands** are explicitly invoked by users (`/command-name`)
 - **Skills** are automatically invoked by Claude based on context
 - **Agents** are invoked via Task tool for complex, multi-step workflows

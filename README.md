@@ -65,10 +65,10 @@ Run `/help` to confirm plugins are loaded and see available commands.
 **Database Setup:**
 
 ```
-Set up Drizzle ORM with Postgres for my Next.js project
+Set up Drizzle ORM with Postgres for my Bun + Hono backend
 ```
 
-Claude uses the `database-architect` agent and `/setup-drizzle` command.
+Claude uses the `database-architect` skill and `/setup-drizzle` command.
 
 **UI Development:**
 
@@ -76,7 +76,7 @@ Claude uses the `database-architect` agent and `/setup-drizzle` command.
 Add a pricing table component with three tiers
 ```
 
-Claude uses the `ui-designer` agent with shadcn/ui and Tailwind CSS.
+Claude uses the `ui-designer` agent with shadcn/ui and Tailwind CSS for the frontend (React 19 + Vite).
 
 **Git Workflow (Hybrid):**
 
@@ -103,10 +103,11 @@ Claude uses the `ai-integration-specialist` agent with Vercel AI SDK.
 
 This marketplace provides comprehensive support for:
 
-- **Database:** PostgreSQL with Drizzle ORM (migrations, queries, schemas)
-- **UI:** React + Tailwind CSS + shadcn/ui components
+- **Backend:** Bun runtime + Hono framework + PostgreSQL with Drizzle ORM
+- **Frontend:** React 19 + Vite 6 + TanStack Router + Tailwind 4 + shadcn/ui
 - **AI:** Vercel AI SDK with OpenAI & Anthropic support
-- **Testing:** Vitest (unit tests) + Playwright (E2E) + ESLint
+- **Testing:** Bun test + React Testing Library + Playwright (E2E)
+- **Code Quality:** Biome for linting/formatting (TS/JS/CSS)
 - **Workflow:** Git automation with Conventional Commits and PR creation
 - **QoL:** Audio notifications for long-running tasks
 
@@ -137,7 +138,8 @@ For plugin structure and customization guide, see [STRUCTURE.md](STRUCTURE.md#cu
 ## Requirements
 
 - Claude Code CLI installed
-- Appropriate tools for specific plugins (Node.js, PostgreSQL, etc.)
+- Bun runtime for backend development
+- Appropriate tools for specific plugins (PostgreSQL, etc.)
 
 ## License
 

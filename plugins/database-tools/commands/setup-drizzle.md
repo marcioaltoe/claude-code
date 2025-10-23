@@ -1,45 +1,144 @@
 ---
-description: Set up Drizzle ORM with Postgres in a Next.js project
+description: Set up Drizzle ORM with PostgreSQL 18+ for Bun + Hono backend
 ---
 
 # Setup Drizzle ORM
 
-Initialize Drizzle ORM with Postgres configuration for a Next.js 15 project.
+Initialize Drizzle ORM with PostgreSQL 18+ configuration for Bun + Hono backend.
 
-## Instructions
+## Prerequisites
 
-1. Check if Drizzle is already installed
-2. If not, install required packages:
-   ```bash
-   pnpm add drizzle-orm postgres
-   pnpm add -D drizzle-kit @types/postgres
-   ```
-3. Create database configuration structure:
-   - `src/db/index.ts` - Database client and connection
-   - `src/db/schema/` - Directory for schema files
-   - `drizzle.config.ts` - Drizzle Kit configuration
-4. Create database client with connection pooling:
-   ```typescript
-   import { drizzle } from 'drizzle-orm/postgres-js'
-   import postgres from 'postgres'
+- PostgreSQL 18+ (required for native `uuidv7()`)
+- Bun runtime
+- Hono framework
 
-   const connectionString = process.env.DATABASE_URL!
-   const client = postgres(connectionString)
-   export const db = drizzle(client)
-   ```
-5. Create drizzle.config.ts for migrations
-6. Add DATABASE_URL to `.env.local`
-7. Create a sample schema file to verify setup
-8. Add helpful scripts to package.json:
-   - `"db:generate": "drizzle-kit generate:pg"`
-   - `"db:push": "drizzle-kit push:pg"`
-   - `"db:studio": "drizzle-kit studio"`
+## Installation
 
-## Environment Variables
+### 1. Install packages
 
-Remind user to add to `.env.local`:
-```
-DATABASE_URL="postgres://user:password@localhost:5432/dbname"
+```bash
+bun add drizzle-orm pg
+bun add -D drizzle-kit @types/pg
 ```
 
-Provide setup verification steps and next actions.
+### 2. Create `drizzle.config.ts`
+
+```typescript
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  dialect: "postgresql",
+  out: "./database/migrations/drizzle",
+  schema: "./src/infrasctructure/database/drizzle/schema/**/*.schema.ts",
+  dbCredentials: {
+    url: process.env.DATABASE_URL || "",
+  },
+  casing: "snake_case",
+  verbose: true,
+  strict: true,
+  schemaFilter: ["public"],
+  migrations: {
+    table: "drizzle_migrations",
+    schema: "public",
+  },
+});
+```
+
+### 4. Create `src/infrasctructure/database/drizzle/db-connection.ts`
+
+```typescript
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
+import { Pool, type PoolConfig } from "pg";
+
+export interface PoolOptions extends PoolConfig {}
+
+export function createPool(options: PoolOptions = {}): Pool {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL is not defined in environment variables");
+  }
+
+  const poolConfig: PoolConfig = {
+    connectionString: databaseUrl,
+    max: options.max || 20,
+    idleTimeoutMillis: options.idleTimeoutMillis || 30000,
+    connectionTimeoutMillis: options.connectionTimeoutMillis || 2000,
+    allowExitOnIdle: options.allowExitOnIdle ?? true,
+    ...options,
+  };
+
+  return new Pool(poolConfig);
+}
+
+const pool = createPool();
+export const db = drizzle(pool);
+```
+
+### 5. Add scripts to `package.json`
+
+```json
+{
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop"
+  }
+}
+```
+
+### 6. Add `.env`
+
+```bash
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+```
+
+## Verify setup
+
+```bash
+# Create extensions
+psql $DATABASE_URL -f database/migrations/manual/0000_create_extensions.sql
+
+# Generate and apply migration
+bun run db:generate
+bun run db:push
+
+# Open Drizzle Studio
+bun run db:studio
+```
+
+## Integration with Hono
+
+```typescript
+import { Hono } from "hono";
+import { db } from "@/lib/db";
+import { organizationsSchema } from "@/schema/core/organizations.schema";
+import { eq, isNull } from "drizzle-orm";
+
+const app = new Hono();
+
+app.get("/organizations", async (c) => {
+  try {
+    const orgs = await db.query.organizationsSchema.findMany({
+      where: isNull(organizationsSchema.deletedAt),
+    });
+    return c.json(orgs);
+  } catch (error) {
+    return c.json({ error: "Failed to fetch organizations" }, 500);
+  }
+});
+
+export default app;
+```
+
+## Important notes
+
+- PostgreSQL 18+ required for native `uuidv7()`
+- Use `drizzle-orm/node-postgres` with `pg` package for connection pooling
+- Use `drizzle-orm/pg-core` for schema imports (better test mocking)
+- `casing: 'snake_case'` converts camelCase → snake_case in database
+- Always include: `createdAt`, `updatedAt`, `deletedAt`
+- Always include `organization_id` on multi-tenant tables
+- Export types with `SelectSchema` and `InsertSchema` suffixes

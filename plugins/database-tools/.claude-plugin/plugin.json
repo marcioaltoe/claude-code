@@ -1,10 +1,10 @@
 {
   "name": "database-tools",
   "version": "1.0.0",
-  "description": "Drizzle ORM and Postgres database management tools for Next.js projects",
+  "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications.",
   "author": {
-    "name": "Leon van Zyl",
-    "email": "leon.vanzyl@gmail.com"
+    "name": "Marcio Altoe",
+    "email": "marcio.altoe@gmail.com"
   },
   "keywords": ["drizzle", "postgres", "orm", "migrations", "database"],
   "license": "MIT"

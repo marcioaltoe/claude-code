@@ -13,10 +13,10 @@
     {
       "name": "database-tools",
       "source": "./plugins/database-tools",
-      "description": "Drizzle ORM and Postgres database management tools for Next.js projects",
+      "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications",
       "version": "1.0.0",
       "category": "database",
-      "keywords": ["drizzle", "postgres", "orm", "migrations", "database"],
+      "keywords": ["drizzle", "postgres", "orm", "migrations", "database", "bun", "hono"],
       "author": {
         "name": "Leon van Zyl",
         "email": "leon.vanzyl@gmail.com"
@@ -39,10 +39,10 @@
     {
       "name": "ai-integration",
       "source": "./plugins/ai-integration",
-      "description": "Vercel AI SDK integration helpers and patterns for Next.js applications",
+      "description": "Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications",
       "version": "1.0.0",
       "category": "ai",
-      "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming", "openai", "anthropic"],
+      "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming", "openai", "anthropic", "bun", "hono"],
       "author": {
         "name": "Leon van Zyl",
         "email": "leon.vanzyl@gmail.com"
@@ -52,10 +52,10 @@
     {
       "name": "testing-quality",
       "source": "./plugins/testing-quality",
-      "description": "Testing, linting, and code quality tools for Next.js projects",
+      "description": "Testing, linting, and code quality tools for modern web applications",
       "version": "1.0.0",
       "category": "testing",
-      "keywords": ["testing", "vitest", "playwright", "eslint", "quality", "typescript"],
+      "keywords": ["testing", "bun-test", "playwright", "biome", "quality", "typescript", "react-testing-library"],
       "author": {
         "name": "Leon van Zyl",
         "email": "leon.vanzyl@gmail.com"

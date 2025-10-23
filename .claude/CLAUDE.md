@@ -58,15 +58,33 @@
 - DRY balance (don't abstract prematurely)
 - TDA pattern compliance (Tell, Don't Ask)
 
-## Technology Stack
+## Tech Stack
 
-- **Runtime**: Bun (prefer Bun APIs over Node.js)
-- **Language**: TypeScript (strict mode, no any types)
-- **Database**: PostgreSQL with Drizzle ORM
-- **Web Framework**: Hono for HTTP routing
-- **Validation**: Zod for schema validation
-- **Testing**: Bun built-in tests
-- **IDs**: UUIDv7 generated in the app (`Bun.randomUUIDv7()`); **NEVER** `defaultRandom()` in database.
+### Backend:
+
+- Runtime: Bun
+- Framework: Hono
+- Database: PostgreSQL com Drizzle ORM
+- Cache: Redis (via ioredis)
+- Queue: BullMQ
+
+### Frontend:
+
+- Framework: React 19 + Vite 6
+- Router: TanStack Router
+- UI: shadcn/ui + Tailwind 4
+
+### Testing:
+
+- Unit: Bun test + React Testing Library
+- E2E: Playwright
+- Coverage: Bun built-in
+
+### Code Quality:
+
+- Linting/Formatting: Biome (TS/JS/CSS)
+- Markdown: Prettier
+- TypeScript: Strict mode
 
 ## Barrel Files Strategy
 
@@ -129,7 +147,6 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 - Use environment variables for secrets
 - Implement proper session management
 - Log security events
-
 
 ## MCP Server Usage Rules
 

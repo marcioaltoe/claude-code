@@ -1,11 +1,11 @@
 {
   "name": "ai-integration",
   "version": "1.0.0",
-  "description": "Vercel AI SDK integration helpers and patterns for Next.js applications",
+  "description": "Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications",
   "author": {
     "name": "Leon van Zyl",
     "email": "leon.vanzyl@gmail.com"
   },
-  "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming", "openai", "anthropic"],
+  "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming", "openai", "anthropic", "bun", "hono"],
   "license": "MIT"
 }
