@@ -11,54 +11,86 @@
   },
   "plugins": [
     {
-      "name": "database-tools",
-      "source": "./plugins/database-tools",
+      "name": "db-tools",
+      "source": "./plugins/db-tools",
       "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications",
       "version": "1.0.0",
       "category": "database",
-      "keywords": ["drizzle", "postgres", "orm", "migrations", "database", "bun", "hono"],
+      "keywords": [
+        "drizzle",
+        "postgres",
+        "orm",
+        "migrations",
+        "database",
+        "bun",
+        "hono"
+      ],
       "author": {
-        "name": "Leon van Zyl",
-        "email": "leon.vanzyl@gmail.com"
+        "name": "Marcio Altoe",
+        "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
     },
     {
-      "name": "ui-components",
-      "source": "./plugins/ui-components",
+      "name": "ui",
+      "source": "./plugins/ui",
       "description": "shadcn/ui and Tailwind CSS component generation and design utilities",
       "version": "1.0.0",
       "category": "ui",
-      "keywords": ["shadcn", "tailwind", "ui", "components", "design", "styling"],
+      "keywords": [
+        "shadcn",
+        "tailwind",
+        "ui",
+        "components",
+        "design",
+        "styling"
+      ],
       "author": {
-        "name": "Leon van Zyl",
-        "email": "leon.vanzyl@gmail.com"
+        "name": "Marcio Altoe",
+        "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
     },
     {
-      "name": "ai-integration",
-      "source": "./plugins/ai-integration",
+      "name": "ai-sdk",
+      "source": "./plugins/ai-sdk",
       "description": "Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications",
       "version": "1.0.0",
       "category": "ai",
-      "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming", "openai", "anthropic", "bun", "hono"],
+      "keywords": [
+        "ai",
+        "vercel-ai-sdk",
+        "llm",
+        "streaming",
+        "openai",
+        "anthropic",
+        "bun",
+        "hono"
+      ],
       "author": {
-        "name": "Leon van Zyl",
-        "email": "leon.vanzyl@gmail.com"
+        "name": "Marcio Altoe",
+        "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
     },
     {
-      "name": "testing-quality",
-      "source": "./plugins/testing-quality",
+      "name": "qa",
+      "source": "./plugins/qa",
       "description": "Testing, linting, and code quality tools for modern web applications",
       "version": "1.0.0",
       "category": "testing",
-      "keywords": ["testing", "bun-test", "playwright", "biome", "quality", "typescript", "react-testing-library"],
+      "keywords": [
+        "testing",
+        "bun-test",
+        "playwright",
+        "biome",
+        "quality",
+        "typescript",
+        "react-testing-library"
+      ],
       "author": {
-        "name": "Leon van Zyl",
-        "email": "leon.vanzyl@gmail.com"
+        "name": "Marcio Altoe",
+        "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
     },
@@ -68,7 +100,13 @@
       "description": "Audio notifications for Claude Code - speaks notification messages out loud",
       "version": "1.0.0",
       "category": "qol",
-      "keywords": ["audio", "notifications", "tts", "accessibility", "text-to-speech"],
+      "keywords": [
+        "audio",
+        "notifications",
+        "tts",
+        "accessibility",
+        "text-to-speech"
+      ],
       "author": {
         "name": "Fred Lacs",
         "email": "fredlacs@gmail.com"
@@ -76,12 +114,20 @@
       "license": "MIT"
     },
     {
-      "name": "commit-commands",
-      "source": "./plugins/commit-commands",
+      "name": "git",
+      "source": "./plugins/git",
       "description": "Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation",
       "version": "1.0.0",
       "category": "workflow",
-      "keywords": ["git", "commit", "conventional-commits", "pull-request", "workflow", "automation", "skills"],
+      "keywords": [
+        "git",
+        "commit",
+        "conventional-commits",
+        "pull-request",
+        "workflow",
+        "automation",
+        "skills"
+      ],
       "author": {
         "name": "Marcio Altoe",
         "email": "marcio.altoe@gmail.com"

@@ -44,34 +44,34 @@ git clone https://github.com/marcioaltoe/claude-code.git
 ### Install All Plugins at Once
 
 ```bash
-/plugin install database-tools@claude-code
-/plugin install ui-components@claude-code
-/plugin install ai-integration@claude-code
-/plugin install testing-quality@claude-code
+/plugin install db-tools@claude-code
+/plugin install ui@claude-code
+/plugin install ai-sdk@claude-code
+/plugin install qa@claude-code
 /plugin install audio-notifications@claude-code
-/plugin install commit-commands@claude-code
+/plugin install git@claude-code
 ```
 
 ### Or Install Selectively Based on Your Needs
 
 **For Database Development:**
 ```bash
-/plugin install database-tools@claude-code
+/plugin install db-tools@claude-code
 ```
 
 **For UI Development:**
 ```bash
-/plugin install ui-components@claude-code
+/plugin install ui@claude-code
 ```
 
 **For AI Features:**
 ```bash
-/plugin install ai-integration@claude-code
+/plugin install ai-sdk@claude-code
 ```
 
 **For Testing:**
 ```bash
-/plugin install testing-quality@claude-code
+/plugin install qa@claude-code
 ```
 
 **For Audio Feedback:**
@@ -81,7 +81,7 @@ git clone https://github.com/marcioaltoe/claude-code.git
 
 **For Git Workflow Automation:**
 ```bash
-/plugin install commit-commands@claude-code
+/plugin install git@claude-code
 ```
 
 ### Verify Installation
@@ -94,37 +94,43 @@ Run `/help` to confirm the marketplace is loaded and plugins are available.
 
 ### Set up Database (Drizzle + Postgres)
 
+Simply ask Claude to set up Drizzle:
+
 ```
-/setup-drizzle
+Set up Drizzle ORM with PostgreSQL for my Bun + Hono project
 ```
 
-Follow the prompts to configure Drizzle ORM with your Postgres database.
+The `database-architect` skill will handle the setup automatically.
 
 ### Set up UI (shadcn/ui)
 
 ```
-/add-shadcn-component button
-/add-shadcn-component form
-/add-shadcn-component card
+/add-shadcn button
+/add-shadcn form
+/add-shadcn card
 ```
 
 Install the shadcn/ui components you need for your project.
 
 ### Set up AI SDK (Optional)
 
+Simply ask Claude to set up the Vercel AI SDK:
+
 ```
-/setup-ai-sdk
+Set up Vercel AI SDK for my Bun + Hono project with OpenAI/Anthropic support
 ```
 
-Configure the Vercel AI SDK if you're building AI-powered features.
+The `ai-sdk-specialist` skill will configure everything automatically.
 
 ### Set up Testing & Quality (Optional)
 
+Simply ask Claude to configure quality gates:
+
 ```
-/setup-quality-gates
+Set up complete quality gates for my project with barrel-craft, Biome, Prettier, TypeScript, and Bun test
 ```
 
-Configure complete quality gates workflow: barrel-craft, Biome, Prettier, TypeScript strict mode, and Bun test with Husky pre-commit hooks.
+The `quality-gates` skill will configure everything automatically.
 
 ## Step 4: Create Your First Feature
 
@@ -205,7 +211,7 @@ Add a chatbot to my app:
 - Error boundaries and loading states
 ```
 
-The `ai-integration-specialist` skill will set up everything you need.
+The `ai-sdk-specialist` skill will set up everything you need.
 
 ### Example 3: Quality Gates Setup
 
@@ -237,7 +243,7 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 ```
 /commit                # Quick commit when you want control
 /commit-push-pr        # Full workflow when you know exactly what to do
-/clean_gone            # Branch cleanup
+/clean                 # Branch cleanup
 ```
 
 > For complete command reference, see [STRUCTURE.md](STRUCTURE.md#command-reference).
@@ -362,7 +368,7 @@ Create a chat application:
 ### shadcn/ui components not installing?
 
 - Ensure you have `components.json` in project root
-- Run `/add-shadcn-component --help` for options
+- Run `/add-shadcn --help` for options
 - Check Bun version (latest stable recommended)
 
 ### Git commands failing?

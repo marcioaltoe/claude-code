@@ -1,0 +1,22 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "UI/UX design toolkit for React applications with shadcn/ui, Tailwind CSS, and modern frontend patterns.",
+  "author": {
+    "name": "Marcio Altoe",
+    "email": "marcio.altoe@gmail.com"
+  },
+  "keywords": [
+    "ui",
+    "ux",
+    "design",
+    "react",
+    "shadcn-ui",
+    "tailwindcss",
+    "components",
+    "accessibility",
+    "responsive-design",
+    "dark-mode"
+  ],
+  "license": "MIT"
+}

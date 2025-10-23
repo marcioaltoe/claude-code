@@ -1,0 +1,18 @@
+{
+  "name": "qa",
+  "version": "1.0.0",
+  "description": "Testing and code quality tools for Bun applications with native Bun test and Biome.",
+  "author": {
+    "name": "Marcio Altoe",
+    "email": "marcio.altoe@gmail.com"
+  },
+  "keywords": [
+    "testing",
+    "bun-test",
+    "biome",
+    "quality",
+    "bun",
+    "test-automation"
+  ],
+  "license": "MIT"
+}

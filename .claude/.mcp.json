@@ -2,7 +2,7 @@
   "mcpServers": {
     "context7": {
       "type": "stdio",
-      "command": "npx",
+      "command": "bunx",
       "args": ["-y", "@upstash/context7-mcp", "--api-key", "CONTEXT7_API_KEY"],
       "env": {}
     },
@@ -15,12 +15,12 @@
     },
     "octocode": {
       "type": "stdio",
-      "command": "npx",
+      "command": "bunx",
       "args": ["octocode-mcp@latest"]
     },
     "shadcn": {
       "command": "cmd",
-      "args": ["/c", "npx", "shadcn@latest", "mcp"]
+      "args": ["/c", "bunx", "shadcn@latest", "mcp"]
     }
   }
 }

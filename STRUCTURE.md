@@ -29,7 +29,7 @@ claude-code-marketplace/
 │   └── marketplace.json              # Main marketplace manifest
 │
 ├── plugins/
-│   ├── database-tools/
+│   ├── db-tools/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json           # Plugin manifest
 │   │   ├── commands/
@@ -40,7 +40,7 @@ claude-code-marketplace/
 │   │   └── skills/
 │   │       └── database-architect.md
 │   │
-│   ├── ui-components/
+│   ├── ui/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── commands/
@@ -53,17 +53,16 @@ claude-code-marketplace/
 │   │   │   └── gesttione-design-system.md
 │   │   └── README.md
 │   │
-│   ├── ai-integration/
+│   ├── ai-sdk/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── commands/
-│   │   │   ├── setup-ai-sdk.md
-│   │   │   ├── create-chat-endpoint.md
-│   │   │   └── add-function-calling.md
+│   │   │   ├── create-endpoint.md
+│   │   │   └── add-function.md
 │   │   └── skills/
-│   │       └── ai-integration-specialist.md
+│   │       └── ai-sdk-specialist.md
 │   │
-│   ├── testing-quality/
+│   ├── qa/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── commands/
@@ -82,7 +81,7 @@ claude-code-marketplace/
 │   │   │   └── hooks.json
 │   │   └── README.md
 │   │
-│   └── commit-commands/
+│   └── git/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── commands/
@@ -106,17 +105,17 @@ claude-code-marketplace/
 
 | Plugin              | Commands | Skills | Hooks | Category        |
 | ------------------- | -------- | ------ | ----- | --------------- |
-| database-tools      | 4        | 1      | 0     | Database        |
-| ui-components       | 3        | 3      | 0     | UI Architecture |
-| ai-integration      | 3        | 1      | 0     | AI              |
-| testing-quality     | 3        | 1      | 0     | Testing         |
+| db-tools            | 3        | 1      | 0     | Database        |
+| ui                  | 3        | 3      | 0     | UI Architecture |
+| ai-sdk              | 2        | 1      | 0     | AI              |
+| qa                  | 2        | 3      | 0     | Testing         |
 | audio-notifications | 0        | 0      | 3     | QoL             |
-| commit-commands     | 3        | 2      | 0     | Workflow        |
-| **TOTAL**           | **16**   | **8**  | **3** | -               |
+| git                 | 3        | 2      | 0     | Workflow        |
+| **TOTAL**           | **13**   | **10** | **3** | -               |
 
 ## Plugin Descriptions
 
-### 1. Database Tools (`database-tools`)
+### 1. Database Tools (`db-tools`)
 
 **Category:** Database
 **Author:** Leon van Zyl
@@ -142,7 +141,7 @@ Drizzle ORM and Postgres database management tools for Bun + Hono backend applic
 - Building complex relational queries
 - Database refactoring and evolution
 
-### 2. UI Components (`ui-components`)
+### 2. UI Components (`ui`)
 
 **Category:** UI Architecture
 **Author:** Marcio Altoe
@@ -174,7 +173,7 @@ Comprehensive UI/UX toolkit for React applications with shadcn/ui, Tailwind CSS 
 - Applying Gesttione brand identity
 - Rapid UI prototyping
 
-### 3. AI Integration (`ai-integration`)
+### 3. AI Integration (`ai-sdk`)
 
 **Category:** AI
 **Author:** Leon van Zyl
@@ -200,7 +199,7 @@ Vercel AI SDK integration helpers and patterns for Bun + Hono backend applicatio
 - Integrating multiple AI providers
 - Building AI-powered features
 
-### 4. Testing & Quality (`testing-quality`)
+### 4. Testing & Quality (`qa`)
 
 **Category:** Testing
 **Author:** Marcio Altoe
@@ -210,7 +209,8 @@ Comprehensive quality gates workflow with testing, linting, formatting, and auto
 
 **Features:**
 
-- Complete quality gates workflow (`quality-gates` skill)
+- 3 specialized skills: `test-engineer`, `quality-engineer`, `barrel-craft`
+- Complete quality gates workflow with automated checks
 - barrel-craft for automated barrel file management
 - Biome configuration for linting/formatting (TS/JS/CSS)
 - Prettier for markdown files
@@ -254,7 +254,7 @@ Audio notifications for Claude Code - speaks notification messages out loud.
 - Background task notifications
 - Multi-tasking workflow enhancement
 
-### 6. Commit Commands (`commit-commands`)
+### 6. Commit Commands (`git`)
 
 **Category:** Workflow
 **Author:** Marcio Altoe
@@ -284,48 +284,45 @@ Git workflow automation with intelligent skills and quick commands for conventio
 
 Complete list of all available commands across all plugins.
 
-### Database Tools (4 commands)
+### Database Tools (3 commands)
 
-| Command               | Description                                                                      |
-| --------------------- | -------------------------------------------------------------------------------- |
-| `/setup-drizzle`      | Initialize Drizzle ORM with Postgres connection, schema setup, and configuration |
-| `/create-schema`      | Generate database table schemas with TypeScript types and relations              |
-| `/generate-migration` | Create database migration files based on schema changes                          |
-| `/create-query`       | Generate type-safe database queries with Drizzle query builder                   |
+| Command               | Description                                                         |
+| --------------------- | ------------------------------------------------------------------- |
+| `/create-schema`      | Generate database table schemas with TypeScript types and relations |
+| `/generate-migration` | Create database migration files based on schema changes             |
+| `/create-query`       | Generate type-safe database queries with Drizzle query builder      |
 
 ### UI Components (3 commands)
 
-| Command                    | Description                                                          |
-| -------------------------- | -------------------------------------------------------------------- |
-| `/add-shadcn-component`    | Install shadcn/ui components using MCP server integration            |
-| `/create-custom-component` | Generate custom React components with TypeScript and Tailwind CSS    |
-| `/create-form`             | Create forms with validation, error handling, and shadcn/ui elements |
+| Command              | Description                                                          |
+| -------------------- | -------------------------------------------------------------------- |
+| `/add-shadcn`        | Install shadcn/ui components using MCP server integration            |
+| `/create-component`  | Generate custom React components with TypeScript and Tailwind CSS    |
+| `/create-form`       | Create forms with validation, error handling, and shadcn/ui elements |
 
-### AI Integration (3 commands)
+### AI SDK (2 commands)
 
-| Command                 | Description                                                   |
-| ----------------------- | ------------------------------------------------------------- |
-| `/setup-ai-sdk`         | Initialize Vercel AI SDK with provider configuration          |
-| `/create-chat-endpoint` | Create streaming chat API endpoints with error handling       |
-| `/add-function-calling` | Implement AI function calling with type-safe tool definitions |
+| Command            | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `/create-endpoint` | Create streaming chat API endpoints with error handling       |
+| `/add-function`    | Implement AI function calling with type-safe tool definitions |
 
-### Testing & Quality (3 commands)
+### Testing & Quality (2 commands)
 
-| Command                | Description                                                            |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `/setup-quality-gates` | Configure complete quality gates workflow with all tools               |
-| `/create-test`         | Generate test files with Bun test and React Testing Library examples  |
-| `/quality-gates`       | Run complete workflow: craft → format → lint → type-check → test      |
+| Command        | Description                                                           |
+| -------------- | --------------------------------------------------------------------- |
+| `/create-test` | Generate test files with Bun test and React Testing Library examples |
+| `/check`       | Run complete workflow: craft → format → lint → type-check → test     |
 
-### Commit Commands (3 commands)
+### Git Workflow (3 commands)
 
 | Command           | Description                                                             |
 | ----------------- | ----------------------------------------------------------------------- |
 | `/commit`         | Quick commit with conventional format (explicit control)                |
 | `/commit-push-pr` | Complete workflow: stage → commit → push → create PR (explicit control) |
-| `/clean_gone`     | Clean up local branches that have been deleted on the remote            |
+| `/clean`          | Clean up local branches that have been deleted on the remote            |
 
-**Note:** The commit-commands plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
+**Note:** The git plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
 
 ## Intelligent Skills
 
@@ -333,7 +330,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 1. database-architect
 
-**Plugin:** database-tools
+**Plugin:** db-tools
 **Type:** Autonomous skill
 **Focus:** Database design and Drizzle ORM
 
@@ -354,7 +351,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 2. ui-designer
 
-**Plugin:** ui-components
+**Plugin:** ui
 **Type:** Autonomous skill
 **Focus:** UI/UX with shadcn/ui and Tailwind CSS v4
 
@@ -375,7 +372,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 3. frontend-architect
 
-**Plugin:** ui-components
+**Plugin:** ui
 **Type:** Autonomous skill
 **Focus:** Clean Architecture and TanStack ecosystem
 
@@ -396,7 +393,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 4. gesttione-design-system
 
-**Plugin:** ui-components
+**Plugin:** ui
 **Type:** Autonomous skill
 **Focus:** Gesttione brand identity and design system
 
@@ -414,9 +411,9 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Dashboard component patterns
 - WCAG AA/AAA accessibility with brand colors
 
-### 5. ai-integration-specialist
+### 5. ai-sdk-specialist
 
-**Plugin:** ai-integration
+**Plugin:** ai-sdk
 **Type:** Autonomous skill
 **Focus:** Vercel AI SDK and LLM integration
 
@@ -435,30 +432,68 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Multi-provider support (OpenAI, Anthropic)
 - AI SDK configuration best practices
 
-### 6. quality-gates
+### 6. test-engineer
 
-**Plugin:** testing-quality
+**Plugin:** qa
 **Type:** Autonomous skill
-**Focus:** Complete quality workflow
+**Focus:** Test creation and testing best practices
+
+**Invocation Examples:**
+- "create tests for this component"
+- "write unit tests"
+- "add test coverage"
+
+**Capabilities:**
+
+- Test file generation with Bun test
+- React Testing Library patterns
+- Mock and stub creation
+- Test organization and structure
+- Coverage analysis
+- Testing best practices enforcement
+
+### 7. quality-engineer
+
+**Plugin:** qa
+**Type:** Autonomous skill
+**Focus:** Code quality and linting configuration
 
 **Invocation Examples:**
 - "set up quality gates"
-- "configure testing"
-- "run quality checks"
+- "configure linting"
+- "set up code quality tools"
 
 **Capabilities:**
 
 - Complete quality gates workflow setup
-- barrel-craft configuration for exports
-- Biome for linting/formatting (TS/JS/CSS)
+- Biome configuration for linting/formatting (TS/JS/CSS)
 - Prettier for markdown
-- TypeScript strict mode
-- Bun test with React Testing Library
+- TypeScript strict mode setup
 - Husky pre-commit hooks
+- Quality workflow automation
 
-### 7. git-commit
+### 8. barrel-craft
 
-**Plugin:** commit-commands
+**Plugin:** qa
+**Type:** Autonomous skill
+**Focus:** Barrel file management and exports
+
+**Invocation Examples:**
+- "update barrel files"
+- "organize exports"
+- "configure barrel-craft"
+
+**Capabilities:**
+
+- Automated barrel file generation
+- Export management and organization
+- barrel-craft configuration
+- Import path optimization
+- Module structure maintenance
+
+### 9. git-commit
+
+**Plugin:** git
 **Type:** Autonomous skill
 **Description:** Automatically detects when to commit and creates conventional commits
 
@@ -486,9 +521,9 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 4. Validates branch and project state
 5. Executes commit with proper format
 
-### 8. git-pr-creation
+### 10. git-pr-creation
 
-**Plugin:** commit-commands
+**Plugin:** git
 **Type:** Autonomous skill
 **Description:** Automatically creates comprehensive PRs when work is complete
 
@@ -580,7 +615,7 @@ This marketplace provides comprehensive support for modern web development:
 
 ## Plugin Details
 
-### database-tools
+### db-tools
 
 - **Version:** 1.0.0
 - **Author:** Leon van Zyl
@@ -588,7 +623,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** Database
 - **Keywords:** drizzle, postgres, orm, migrations, database
 
-### ui-components
+### ui
 
 - **Version:** 1.0.0
 - **Author:** Marcio Altoe
@@ -596,7 +631,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** UI Architecture
 - **Keywords:** react, vite, tanstack-router, shadcn, tailwind, clean-architecture, design-system, gesttione
 
-### ai-integration
+### ai-sdk
 
 - **Version:** 1.0.0
 - **Author:** Leon van Zyl
@@ -604,7 +639,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** AI
 - **Keywords:** ai, vercel-ai-sdk, llm, streaming, openai, anthropic
 
-### testing-quality
+### qa
 
 - **Version:** 1.0.0
 - **Author:** Marcio Altoe
@@ -620,7 +655,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** Quality of Life
 - **Keywords:** audio, notifications, tts, accessibility, text-to-speech
 
-### commit-commands
+### git
 
 - **Version:** 1.0.0
 - **Author:** Marcio Altoe
@@ -642,12 +677,12 @@ This marketplace provides comprehensive support for modern web development:
 ### Plugin Level
 
 - **6** Plugin manifests (`plugin.json` in each plugin)
-- **16** Command files (`.md` files in `commands/` directories)
-- **8** Skill definitions (`.md` files in `skills/` directories)
+- **13** Command files (`.md` files in `commands/` directories)
+- **10** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
-- **2** Plugin READMEs (ui-components, audio-notifications, commit-commands)
+- **4** Plugin READMEs (db-tools, ui, qa, git)
 
-**Total: 40 files** providing comprehensive Claude Code development support.
+**Total: 41 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 

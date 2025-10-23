@@ -8,7 +8,7 @@ Transform your Claude Code experience with a curated collection of plugins desig
 
 **What makes this marketplace special:**
 
-- 🎯 **17 specialized commands** for common development tasks
+- 🎯 **13 specialized commands** for common development tasks
 - ⚡ **8 intelligent skills** that work proactively
 - 🏗️ **Clean Architecture** patterns for React applications
 - 🎨 **Hybrid architecture** - choose between automation and explicit control
@@ -23,13 +23,13 @@ Transform your Claude Code experience with a curated collection of plugins desig
 
 | Plugin              | Commands | Skills | Category        |
 | ------------------- | -------- | ------ | --------------- |
-| database-tools      | 4        | 1      | Database        |
-| ui-components       | 3        | 3      | UI Architecture |
-| ai-integration      | 3        | 1      | AI              |
-| testing-quality     | 4        | 1      | Testing         |
+| db-tools            | 3        | 1      | Database        |
+| ui                  | 3        | 3      | UI Architecture |
+| ai-sdk              | 2        | 1      | AI              |
+| qa                  | 2        | 3      | Testing         |
 | audio-notifications | -        | -      | QoL             |
-| commit-commands     | 3        | 2      | Workflow        |
-| **Total**           | **17**   | **8**  | -               |
+| git                 | 3        | 2      | Workflow        |
+| **Total**           | **13**   | **10** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 
@@ -44,12 +44,12 @@ Add this marketplace to Claude Code:
 /plugin marketplace add marcioaltoe/claude-code
 
 # Install all plugins
-/plugin install database-tools@claude-code
-/plugin install ui-components@claude-code
-/plugin install ai-integration@claude-code
-/plugin install testing-quality@claude-code
+/plugin install db-tools@claude-code
+/plugin install ui@claude-code
+/plugin install ai-sdk@claude-code
+/plugin install qa@claude-code
 /plugin install audio-notifications@claude-code
-/plugin install commit-commands@claude-code
+/plugin install git@claude-code
 ```
 
 Or use the interactive installer: `/plugin` → Browse Plugins
@@ -68,7 +68,7 @@ Run `/help` to confirm plugins are loaded and see available commands.
 Set up Drizzle ORM with Postgres for my Bun + Hono backend
 ```
 
-Claude uses the `database-architect` skill and `/setup-drizzle` command.
+Claude uses the `database-architect` skill to set up Drizzle ORM.
 
 **UI Development:**
 
@@ -93,7 +93,7 @@ Claude uses `ui-designer`, `frontend-architect`, and `gesttione-design-system` s
 /commit-push-pr
 ```
 
-The `commit-commands` plugin offers both autonomous skills and explicit commands.
+The `git` plugin offers both autonomous skills and explicit commands.
 
 **AI Integration:**
 
@@ -101,7 +101,7 @@ The `commit-commands` plugin offers both autonomous skills and explicit commands
 Create a streaming chat endpoint with function calling
 ```
 
-Claude uses the `ai-integration-specialist` skill with Vercel AI SDK.
+Claude uses the `ai-sdk-specialist` skill with Vercel AI SDK.
 
 ## Tech Stack Coverage
 
@@ -156,7 +156,8 @@ MIT License - See [LICENSE](LICENSE) for details.
 ## References
 
 - [Leon van Zyl](https://github.com/leonvanzyl/claude-code)
-- [Fred Lacs](https://github.com/fredlacs/claude-code).
+- [Fred Lacs](https://github.com/fredlacs/claude-code)
+- [adrianpuiu](https://github.com/adrianpuiu/claude-skills-marketplace)
 
 ## Learn More
 
