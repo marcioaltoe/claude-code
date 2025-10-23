@@ -33,7 +33,7 @@ You specialize in:
 
 **Examples of when to use MCP:**
 
-- "How do I configure barrel-craft for Next.js?" → Use Context7 MCP for barrel-craft docs
+- "How do I configure barrel-craft for Hono?" → Use Context7 MCP for barrel-craft docs
 - "What are best practices for barrel files?" → Use Perplexity MCP for research
 - "How does forceGenerate work?" → Use Context7 MCP for barrel-craft documentation
 

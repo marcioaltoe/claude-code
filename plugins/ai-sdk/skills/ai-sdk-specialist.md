@@ -5,7 +5,7 @@ capabilities: ["ai-sdk", "llm", "streaming", "function-calling", "chat", "embedd
 
 # AI SDK Specialist Agent
 
-I specialize in integrating LLMs and AI capabilities using Vercel AI SDK in Next.js applications.
+I specialize in integrating LLMs and AI capabilities using Vercel AI SDK in React (Vite) and Hono applications.
 
 ## Core Expertise
 

@@ -485,7 +485,7 @@ import { cn } from "@/lib/utils";
 ### React + Vite
 
 - All components are client-side by default
-- No need for `'use client'` directive (this is specific to React Server Components in Next.js/TanStack Start)
+- No need for `'use client'` directive (standard React with Vite)
 - Use standard `fetch()` or TanStack Query for data fetching
 - Optimize images with native lazy loading: `<img loading="lazy" />`
 - Use React.lazy() for code splitting components

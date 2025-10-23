@@ -104,7 +104,30 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
 
-### 5. Naming Conventions
+### 5. Backend Engineer
+
+**Name**: `backend-engineer`
+
+**Purpose**: Backend engineering with Clean Architecture, DDD, and Hono framework. Provides implementation examples and patterns.
+
+**When to Use**:
+- Implementing backend APIs and services
+- Creating repositories and database access
+- Designing use cases and business logic
+- Setting up dependency injection
+- Implementing domain entities and value objects
+- Creating adapters for external services
+
+**Key Areas**:
+- **Domain Layer Examples** - Entities, Value Objects, Ports (interfaces)
+- **Application Layer Examples** - Use Cases, DTOs, Mappers
+- **Infrastructure Layer Examples** - Repositories, Adapters, DI Container
+- **Presentation Layer Examples** - Routes, Controllers, Schemas (Zod)
+- **Custom DI Container** - Symbol-based tokens, lifetimes, composition root
+- **Best Practices** - Do's and Don'ts for backend development
+- **Common Patterns** - Result type, Domain Events, Repository pattern
+
+### 6. Naming Conventions
 
 **Name**: `naming-conventions`
 
@@ -129,7 +152,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - DTO and Response naming
 - Use Case naming
 
-### 6. Error Handling Patterns
+### 7. Error Handling Patterns
 
 **Name**: `error-handling-patterns`
 
@@ -154,7 +177,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Error logging (structured logging)
 - HTTP error handling with Hono
 
-### 7. TypeScript Type Safety
+### 8. TypeScript Type Safety
 
 **Name**: `typescript-type-safety`
 
@@ -200,10 +223,11 @@ Skills automatically activate based on context:
 1. **project-standards**: Task start, before commits, workflow questions
 2. **clean-code-principles**: Writing functions, refactoring, code reviews
 3. **solid-principles**: Class/module design, architecture decisions
-4. **clean-architecture**: Structuring projects, designing use cases, layered architecture
-5. **naming-conventions**: Creating or naming code elements
-6. **error-handling-patterns**: Implementing error handling or validation
-7. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
+4. **clean-architecture**: Project structure, layered architecture, dependency rule
+5. **backend-engineer**: Backend implementation, APIs, repositories, use cases, DI
+6. **naming-conventions**: Creating or naming code elements
+7. **error-handling-patterns**: Implementing error handling or validation
+8. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
 
 ## Manual Skill Invocation
 

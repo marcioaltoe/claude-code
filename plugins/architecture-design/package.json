@@ -8,13 +8,16 @@
   },
   "keywords": [
     "architecture",
+    "clean-architecture",
+    "backend-engineering",
     "design-patterns",
     "solid-principles",
     "clean-code",
     "typescript",
     "naming-conventions",
     "best-practices",
-    "code-generation"
+    "dependency-injection",
+    "domain-driven-design"
   ],
   "license": "MIT"
 }

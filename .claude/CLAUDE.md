@@ -1,48 +1,14 @@
 # Core Development Rules
 
+**For backend implementation examples and patterns, use the `backend-engineer` skill**
+
 ## **CRITICAL - NEVER IGNORE:**
 
 - **ALWAYS** run `bun run craft` after creating/moving files to update barrel imports
 - **NEVER** use `any` type - use `unknown` with type guards instead
-- **NEVER** use `bun test` - always use `bun run test`
-- **NEVER** commit without running tests and type-check first
+- **NEVER** commit without running quality gates: format, lint, type-check and tests
 - **NEVER** commit directly to `main` or `dev` branches
 - **ALWAYS** create feature branches from `dev`
-
-## SOLID Principles (Mandatory)
-
-- **Single Responsibility**: One reason to change
-- **Open/Closed**: Open for extension, closed for modification
-- **Liskov Substitution**: Subtypes must be substitutable
-- **Interface Segregation**: No fat interfaces
-- **Dependency Inversion**: Depend on abstractions
-
-## Clean Code Standards
-
-**Naming:**
-
-- Intention-revealing names
-- Pronounceable and searchable
-- Class names: nouns, method names: verbs
-
-**Functions:**
-
-- Small (< 20 lines preferred)
-- Single purpose
-- No side effects
-- Descriptive names over comments
-
-**Error Handling:**
-
-- Use exceptions, not return codes
-- Provide context with exceptions
-- Don't return null, use Optional or throw exceptions
-
-**Comments:**
-
-- Explain WHY, not WHAT
-- Avoid redundant comments
-- Update comments when code changes
 
 ## Naming Conventions (Mandatory)
 
@@ -50,13 +16,6 @@
 - `PascalCase` for class names
 - `camelCase` for function and variable names
 - `SCREAMING_SNAKE_CASE` for constants
-
-## Code Quality Standards (Mandatory)
-
-- **KISS principle enforcement (avoid over-engineering)**
-- **YAGNI validation (build only what's needed)**
-- DRY balance (don't abstract prematurely)
-- TDA pattern compliance (Tell, Don't Ask)
 
 ## Tech Stack
 
@@ -86,6 +45,100 @@
 - Markdown: Prettier
 - TypeScript: Strict mode
 
+## Backend Architecture (MANDATORY)
+
+**Clean Architecture is REQUIRED for ALL backend code.**
+
+### Layers (dependency flow: outward → inward)
+
+1. **Domain Layer** (innermost, no dependencies)
+   - Entities: Core business objects with identity
+   - Value Objects: Immutable objects without identity
+   - Aggregates: Consistency boundaries for entities
+   - Domain Events: Business-significant occurrences
+   - Ports: Interface contracts (repositories, services) - NO "I" prefix
+
+2. **Application Layer** (depends on Domain only)
+   - Use Cases: Application-specific business rules
+   - DTOs: Data transfer between layers
+
+3. **Infrastructure Layer** (depends on Application + Domain)
+   - Repositories: Database implementations (implements domain/ports/repositories)
+   - Adapters: External service implementations (Cache, Logger, Queue, APIs)
+   - Config: Environment and configuration
+   - Database: Connection and migrations
+   - HTTP: Hono app setup, middleware, OpenAPI docs
+
+4. **Presentation Layer** (depends on Application)
+   - Routes: Hono route registration
+   - Controllers: Route handlers (business logic delegation)
+   - Schemas: Zod validation schemas for requests/responses
+
+### SOLID Principles (Mandatory)
+
+- **Single Responsibility**: One reason to change
+- **Open/Closed**: Extend via abstractions, not modifications
+- **Liskov Substitution**: Subtypes must be substitutable
+- **Interface Segregation**: Small, focused interfaces
+- **Dependency Inversion**: Depend on abstractions, not implementations
+
+### Critical Rules
+
+- **NEVER** import infrastructure in domain layer
+- **ALWAYS** inject dependencies via constructors
+- **ALWAYS** define interfaces in `domain/ports/` (NO "I" prefix)
+- **NEVER** expose domain entities directly in API responses
+- Use DTOs/ViewModels for presentation layer
+
+## Dependency Injection Container
+
+**Use custom DI Container (NO external libraries like InversifyJS or TSyringe)**
+
+- **Symbol-based tokens**: Type-safe DI with `Symbol('Name') as Token<Type>`
+- **Lifetimes**: singleton (core, repos), scoped (use cases), transient (rare)
+- **Registration by layer**: Separate register functions per layer
+- **Composition root**: `infrastructure/container/main.ts`
+
+_For implementation details, see `backend-engineer` skill_
+
+### Directory Structure
+
+```
+src/
+├── domain/
+│   ├── entities/           (User, Order)
+│   ├── value-objects/      (Email, Money, UUIDv7)
+│   ├── aggregates/         (consistency boundaries)
+│   ├── services/           (domain logic)
+│   └── ports/              (interface contracts)
+│       ├── repositories/   (UserRepository, OrderRepository)
+│       └── *.service.ts    (CacheService, LoggerService)
+├── application/
+│   ├── use-cases/          (CreateUser, PlaceOrder)
+│   └── dtos/               (CreateUserDto, OrderDto)
+├── infrastructure/
+│   ├── repositories/       (UserRepositoryImpl, OrderRepositoryImpl)
+│   ├── adapters/           (CacheServiceImpl, LoggerServiceImpl, QueueAdapter)
+│   ├── config/             (env.config.ts, env.schema.ts)
+│   ├── database/           (drizzle connection, migrations)
+│   ├── container/          (DI container)
+│   │   ├── container.ts    (Container implementation)
+│   │   ├── tokens.ts       (Symbol tokens)
+│   │   ├── main.ts         (Composition root)
+│   │   └── registers/
+│   │       ├── register.infrastructure.ts
+│   │       ├── register.repositories.ts
+│   │       ├── register.use-cases.ts
+│   │       └── register.controllers.ts
+│   └── http/
+│       ├── middleware/     (auth, validation, error handling)
+│       └── openapi/        (OpenAPI documentation)
+└── presentation/
+    ├── routes/             (user.routes.ts, order.routes.ts)
+    ├── controllers/        (UserController, OrderController)
+    └── schemas/            (user.schema.ts, order.schema.ts - Zod)
+```
+
 ## Barrel Files Strategy
 
 **Use barrel files for clean imports:**
@@ -101,56 +154,41 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 **IMPORTANT**: Run `bun run craft` after creating/moving files to update barrel files.
 
-## Git Workflow
+## Git Standards
 
-**Branching:**
+- Create feature branches from `dev`, never from `main`
+- Never commit directly to `main` or `dev` branches
+- Always run tests/type-check before committing (use `/quality:check`)
+- Use `/git:commit` for conventional commits
 
-- Create feature branches from `dev`
-- Use descriptive names: `feature/user-authentication`
-- Never commit directly to `main` or `dev`
-
-**Commit Standards:**
-
-- Write clear, descriptive commit messages
-- Include test changes in commits
-- Keep commits atomic and focused
-- Run tests before committing
-
-## Error Handling Strategy
-
-**Principles:**
-
-- Validate input at system boundaries
-- Handle exceptions at appropriate layers
-- Provide meaningful error messages
-- Implement recovery mechanisms where possible
-
-**Patterns:**
+## Error Handling Patterns
 
 - Use Result/Either types for expected failures
-- Throw exceptions for unexpected/unrecoverable errors
 - Log errors with correlation IDs for tracing
 - Implement circuit breakers for external services
 
-## Security Requirements
+## Security Stack
 
-**Input Validation:**
-
-- Validate all input at system boundaries
-- Use Zod schemas for validation
-- Sanitize user input
-- Implement rate limiting
-
-**Data Protection:**
-
-- Hash passwords with bcrypt
-- Use environment variables for secrets
-- Implement proper session management
-- Log security events
+- Validation: Zod schemas at system boundaries
+- Passwords: bcrypt hashing
+- Secrets: Environment variables only
+- Rate limiting on public endpoints
 
 ## MCP Server Usage Rules
 
 **MANDATORY - ALWAYS FOLLOW:**
+
+### Private Repository Access & Code Intelligence
+
+- **ALWAYS** use **Octocode MCP** for:
+  - Accessing private GitHub repositories (backend services, microservices)
+  - Exploring repository structure and architectural patterns
+  - Searching code across organizational repositories
+  - Finding implementation examples in internal codebases
+  - Analyzing commit history and PR evolution
+  - Retrieving file contents from private repos
+  - Framework-specific code discovery (e.g., Hono middleware patterns, React patterns)
+  - Package dependency research (npm/PyPI metadata)
 
 ### Documentation Lookup
 
@@ -161,9 +199,9 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
   - Import statements, API usage, configuration guidance
   - Version-specific implementation requirements
   - Need curated, version-specific framework patterns
-  - Framework compliance verification (React, Vue, Angular, Next.js, etc.)
+  - Framework compliance verification (React, Hono, TanStack Router, etc.)
 
-### Web Research & Documentation (UPDATED PRIORITY)
+### Web Research & Documentation
 
 - **ALWAYS** use **Perplexity MCP** for:
 
