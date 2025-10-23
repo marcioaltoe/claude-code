@@ -47,7 +47,7 @@ Add this marketplace to Claude Code:
 /plugin install db-tools@claude-craftkit
 /plugin install ui@claude-craftkit
 /plugin install ai-sdk@claude-craftkit
-/plugin install qa@claude-craftkit
+/plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
 ```

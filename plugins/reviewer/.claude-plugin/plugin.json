@@ -1,5 +1,5 @@
 {
-  "name": "pr-reviewer",
+  "name": "reviewer",
   "version": "1.0.0",
   "description": "Claude Code Skill for exporting and fixing CodeRabbit AI review comments from GitHub Pull Requests. Auto-downloads PR reviews, organizes them by severity, and provides commands to systematically resolve issues.",
   "author": {
@@ -10,7 +10,7 @@
   "keywords": [
     "claude-skill",
     "claude-code",
-    "pr-reviewer",
+    "reviewer",
     "pull-request",
     "code-review",
     "coderabbit",

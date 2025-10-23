@@ -348,7 +348,7 @@ async function detectDevServers(customPorts = []) {
   const http = require('http');
 
   // Common dev server ports
-  const commonPorts = [3000, 3001, 3002, 5173, 8080, 8000, 4200, 5000, 9000, 1234];
+  const commonPorts = [5173, 5174, 3000, 3001, 3002, 8080, 8000, 4200, 5000, 9000, 1234];
   const allPorts = [...new Set([...commonPorts, ...customPorts])];
 
   const detectedServers = [];

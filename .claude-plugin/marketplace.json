@@ -74,8 +74,8 @@
       "license": "MIT"
     },
     {
-      "name": "qa",
-      "source": "./plugins/qa",
+      "name": "quality",
+      "source": "./plugins/quality",
       "description": "Testing, linting, and code quality tools for modern web applications",
       "version": "1.0.0",
       "category": "testing",
@@ -135,8 +135,8 @@
       "license": "MIT"
     },
     {
-      "name": "pr-reviewer",
-      "source": "./plugins/pr-reviewer",
+      "name": "reviewer",
+      "source": "./plugins/reviewer",
       "description": "CodeRabbit AI review management - download, organize, and fix PR review comments systematically",
       "version": "1.0.0",
       "category": "development",
@@ -146,7 +146,7 @@
         "code-review",
         "coderabbit",
         "automation",
-        "pr-reviewer"
+        "reviewer"
       ],
       "author": {
         "name": "Marcio Altoé",
@@ -155,8 +155,8 @@
       "license": "MIT"
     },
     {
-      "name": "web-tests",
-      "source": "./plugins/web-tests",
+      "name": "ui-tests",
+      "source": "./plugins/ui-tests",
       "description": "Browser automation and web testing with Playwright - auto-detects dev servers, creates test scripts, captures screenshots",
       "version": "1.0.0",
       "category": "testing",

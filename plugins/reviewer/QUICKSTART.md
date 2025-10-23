@@ -13,7 +13,7 @@ Get started with the Pull Request skill in under 5 minutes!
 ### 1. Configure GitHub Token
 
 ```bash
-cd plugins/pr-reviewer/skills/pull-request-skill
+cd plugins/reviewer/skills/pull-request-skill
 
 # Copy example and edit
 cp .env.example .env

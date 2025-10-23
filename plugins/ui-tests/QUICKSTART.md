@@ -9,10 +9,10 @@ Get started with automated web testing in 5 minutes.
 ```bash
 # Add marketplace and install
 /plugin marketplace add marcioaltoe/claude-craftkit
-/plugin install web-tests@web-tests
+/plugin install ui-tests@ui-tests
 
 # Navigate to skill and setup (one-time)
-cd ~/.claude/plugins/marketplaces/web-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
 npm run setup
 ```
 
@@ -22,7 +22,7 @@ npm run setup
 # Clone to Claude plugins
 cd ~/.claude/plugins
 git clone https://github.com/marcioaltoe/claude-craftkit.git
-cd claude-craftkit/plugins/web-tests/skills/web-tests
+cd claude-craftkit/plugins/ui-tests/skills/web-tests
 
 # Install dependencies
 npm run setup
@@ -153,7 +153,7 @@ echo ".web-tests/" >> .gitignore
 
 **"Playwright not installed"**
 ```bash
-cd ~/.claude/plugins/marketplaces/web-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
 npm run setup
 ```
 

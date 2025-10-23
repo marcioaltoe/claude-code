@@ -5,7 +5,7 @@ Complete technical documentation of the web-tests plugin structure and implement
 ## Directory Structure
 
 ```
-plugins/web-tests/
+plugins/ui-tests/
 ├── .claude-plugin/              # Plugin metadata
 │   ├── plugin.json             # Main plugin configuration
 │   └── marketplace.json        # Marketplace listing
@@ -176,7 +176,7 @@ description: Command description
 ```
 ┌─────────────────────────────────────────────────┐
 │ Skill Directory (Global)                        │
-│ ~/.claude/plugins/web-tests/                    │
+│ ~/.claude/plugins/ui-tests/                    │
 │ ├── run.js         ← Executor                   │
 │ └── lib/helpers.js ← Utilities                  │
 └────────────┬────────────────────────────────────┘
@@ -202,7 +202,7 @@ description: Command description
 
 2. **Claude executes internally**:
    ```bash
-   CWD=$(pwd) cd ~/.claude/plugins/web-tests/skills/web-tests && \
+   CWD=$(pwd) cd ~/.claude/plugins/ui-tests/skills/web-tests && \
    node run.js .web-tests/scripts/test-login.js
    ```
 
@@ -238,7 +238,7 @@ Scripts need to access:
 
 ```javascript
 // run.js changes to skill directory
-process.chdir(__dirname); // ~/.claude/plugins/web-tests/skills/web-tests/
+process.chdir(__dirname); // ~/.claude/plugins/ui-tests/skills/web-tests/
 
 // This allows:
 const { chromium } = require('playwright');        // ✅ Found in skill node_modules
@@ -254,7 +254,7 @@ const workingDir = process.env.CWD || process.cwd(); // User's repo
 
 ```json
 {
-  "name": "web-tests",
+  "name": "ui-tests",
   "version": "1.0.0",
   "description": "Web testing and browser automation with Playwright",
   "author": {
@@ -275,7 +275,7 @@ const workingDir = process.env.CWD || process.cwd(); // User's repo
 
 ```json
 {
-  "name": "web-tests",
+  "name": "ui-tests",
   "version": "1.0.0",
   "main": "run.js",
   "scripts": {
@@ -356,7 +356,7 @@ const browser = await chromium.launch({
 
 ```bash
 # 1. Install dependencies
-cd ~/.claude/plugins/web-tests/skills/web-tests
+cd ~/.claude/plugins/ui-tests/skills/web-tests
 npm run setup
 
 # 2. Test basic execution
@@ -365,7 +365,7 @@ echo "console.log('test')" | node run.js
 # 3. Test with CWD
 cd /tmp
 mkdir test-project && cd test-project
-CWD=$(pwd) node ~/.claude/plugins/web-tests/skills/web-tests/run.js "
+CWD=$(pwd) node ~/.claude/plugins/ui-tests/skills/web-tests/run.js "
 const browser = await chromium.launch({ headless: false });
 const page = await browser.newPage();
 await page.goto('https://example.com');
@@ -392,7 +392,7 @@ test-project/
 
 **"Playwright not found"**
 ```bash
-cd ~/.claude/plugins/web-tests/skills/web-tests
+cd ~/.claude/plugins/ui-tests/skills/web-tests
 npm run setup
 ```
 

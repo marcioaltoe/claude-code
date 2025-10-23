@@ -18,19 +18,19 @@ Before starting work on fixing issues, use the `read-pr-issues.sh` script to rev
 
 ```bash
 # Read all issues for a PR (from your working directory's .reviews/)
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type issue --all
+~/.claude/plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type issue --all
 
 # Read a specific range of issues
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type issue --from <from> --to 10
+~/.claude/plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type issue --from <from> --to 10
 
 # Read critical issues only
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type critical --all
+~/.claude/plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type critical --all
 
 # Read major issues only
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type major --all
+~/.claude/plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type major --all
 
 # Read trivial issues only
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type trivial --all
+~/.claude/plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr <pr> --type trivial --all
 ```
 
 **Note:** The exact path may vary. Claude Code will find the skill automatically.
@@ -51,7 +51,7 @@ This script displays issues in a clean, readable format with:
 - **YOU MUST** follow project standards and rules from `.cursor/rules` or `.claude/CLAUDE.md`, and ensure all parameters are addressed;
 - If, in the end, you don't have all issues addressed, your work will be **INVALIDATED**;
 - After making all the changes, you need to update the progress in the `summary.md` file and all the related issue files.
-- **MUST DO:** After resolving every issue run `~/.claude/plugins/pr-reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-<pr> --from <from> --to <end>` so the script calls `gh` to close the review threads and refreshes the summary.
+- **MUST DO:** After resolving every issue run `~/.claude/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-<pr> --from <from> --to <end>` so the script calls `gh` to close the review threads and refreshes the summary.
 </critical>
 
 ## Workflow
@@ -90,10 +90,10 @@ After fixing issues, mark them as resolved:
 
 ```bash
 # Resolve issues 1-10
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
+~/.claude/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
 
 # Resolve all unresolved issues
-~/.claude/plugins/pr-reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --all
+~/.claude/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --all
 ```
 
 This will:

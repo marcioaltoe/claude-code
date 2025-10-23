@@ -22,10 +22,10 @@ When you run `/download --pr 123`, Claude Code will:
 
 ```bash
 # Execute from skill location, save to current working directory
-CWD=$(pwd) node ~/.claude/plugins/pr-reviewer/skills/pull-request-skill/run.js download <pr>
+CWD=$(pwd) node ~/.claude/plugins/reviewer/skills/pull-request-skill/run.js download <pr>
 
 # Or without PR number (auto-detect latest)
-CWD=$(pwd) node ~/.claude/plugins/pr-reviewer/skills/pull-request-skill/run.js download
+CWD=$(pwd) node ~/.claude/plugins/reviewer/skills/pull-request-skill/run.js download
 ```
 
 **Note:** The exact path may vary depending on where Claude Code installs plugins. Claude will handle finding the correct path automatically.
@@ -37,7 +37,7 @@ CWD=$(pwd) node ~/.claude/plugins/pr-reviewer/skills/pull-request-skill/run.js d
    The skill needs a `.env` file in its installation directory with your GitHub token:
 
    ```bash
-   # Location: ~/.claude/plugins/pr-reviewer/skills/pull-request-skill/.env
+   # Location: ~/.claude/plugins/reviewer/skills/pull-request-skill/.env
    GITHUB_TOKEN=ghp_your_personal_access_token_here
    OUTPUT_DIR=./.reviews
    LOG_LEVEL=info
@@ -52,7 +52,7 @@ CWD=$(pwd) node ~/.claude/plugins/pr-reviewer/skills/pull-request-skill/run.js d
    Dependencies will be auto-installed on first run. To install manually:
 
    ```bash
-   cd ~/.claude/plugins/pr-reviewer/skills/pull-request-skill
+   cd ~/.claude/plugins/reviewer/skills/pull-request-skill
    bun install
    ```
 
@@ -120,7 +120,7 @@ OUTPUT_DIR=./my-reviews /download --pr 123
 
 **"GITHUB_TOKEN is not set"**
 - Create `.env` file in the skill's installation directory
-- Path: `~/.claude/plugins/pr-reviewer/skills/pull-request-skill/.env`
+- Path: `~/.claude/plugins/reviewer/skills/pull-request-skill/.env`
 
 **"No CodeRabbit AI comments found"**
 - CodeRabbit hasn't reviewed the PR yet

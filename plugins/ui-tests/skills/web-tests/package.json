@@ -1,5 +1,5 @@
 {
-  "name": "web-tests",
+  "name": "ui-tests",
   "version": "1.0.0",
   "description": "Web testing and browser automation with Playwright for Claude Code",
   "author": "Claude Craftkit",
@@ -9,7 +9,7 @@
     "install-all-browsers": "npx playwright install chromium firefox webkit"
   },
   "keywords": [
-    "web-tests",
+    "ui-tests",
     "playwright",
     "automation",
     "browser-testing",

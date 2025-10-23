@@ -21,7 +21,7 @@ Copy this plugin to your Claude Code plugins directory or install from marketpla
 ### 2. Initial Setup
 
 ```bash
-cd plugins/pr-reviewer/skills/pull-request-skill
+cd plugins/reviewer/skills/pull-request-skill
 
 # Create .env file
 cp .env.example .env
@@ -36,7 +36,7 @@ cp .env.example .env
 Dependencies are auto-installed on first run. To install manually:
 
 ```bash
-cd plugins/pr-reviewer/skills/pull-request-skill
+cd plugins/reviewer/skills/pull-request-skill
 bun install
 ```
 
@@ -52,7 +52,7 @@ Download CodeRabbit AI review comments for a Pull Request:
 
 ```bash
 # Download specific PR
-cd plugins/pr-reviewer/skills/pull-request-skill
+cd plugins/reviewer/skills/pull-request-skill
 node run.js download 123
 
 # Download latest open PR (auto-detect)
@@ -65,13 +65,13 @@ Systematically fix issues from a downloaded PR review:
 
 ```bash
 # First, review what needs to be fixed
-./plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr 123 --type critical --all
+./plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr 123 --type critical --all
 
 # Fix issues using Claude Code
 # Use /fix command with appropriate parameters
 
 # After fixing, resolve the issues
-./plugins/pr-reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 5
+./plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 5
 ```
 
 #### `/status` - Check Status
@@ -91,7 +91,7 @@ find ai-docs/reviews-pr-123/issues -name "*_unresolved.md" | wc -l
 1. **Download reviews**:
 
    ```bash
-   cd plugins/pr-reviewer/skills/pull-request-skill
+   cd plugins/reviewer/skills/pull-request-skill
    node run.js download 123
    ```
 
@@ -102,7 +102,7 @@ find ai-docs/reviews-pr-123/issues -name "*_unresolved.md" | wc -l
    cat .reviews/reviews-pr-123/summary.md
 
    # Read critical issues
-   ./plugins/pr-reviewer/skills/pull-request-skill/read-pr-issues.sh --pr 123 --type critical --all
+   ./plugins/reviewer/skills/pull-request-skill/read-pr-issues.sh --pr 123 --type critical --all
    ```
 
 3. **Fix issues systematically**:
@@ -114,7 +114,7 @@ find ai-docs/reviews-pr-123/issues -name "*_unresolved.md" | wc -l
 4. **Resolve threads**:
 
    ```bash
-   ./plugins/pr-reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
+   ./plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
    ```
 
 5. **Commit changes**:
@@ -193,7 +193,7 @@ Resolve issues and update GitHub threads:
 Create `.env` file with your token:
 
 ```bash
-cd plugins/pr-reviewer/skills/pull-request-skill
+cd plugins/reviewer/skills/pull-request-skill
 echo "GITHUB_TOKEN=ghp_your_token" > .env
 ```
 

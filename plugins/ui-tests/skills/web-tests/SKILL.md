@@ -10,7 +10,7 @@ tags: [testing, automation, browser, e2e, web-testing, playwright]
 This skill is installed globally but saves outputs to the user's working directory. Always pass `CWD` environment variable when executing commands to ensure outputs go to the correct location.
 
 Common installation paths:
-- Plugin system: `~/.claude/plugins/marketplaces/web-tests/skills/web-tests`
+- Plugin system: `~/.claude/plugins/marketplaces/ui-tests/skills/web-tests`
 - Manual global: `~/.claude/skills/web-tests`
 - Project-specific: `<project>/.claude/skills/web-tests`
 

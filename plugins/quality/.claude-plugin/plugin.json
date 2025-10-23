@@ -1,5 +1,5 @@
 {
-  "name": "qa",
+  "name": "quality",
   "version": "1.0.0",
   "description": "Testing and code quality tools for Bun applications with native Bun test and Biome.",
   "author": {

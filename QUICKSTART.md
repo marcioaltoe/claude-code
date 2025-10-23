@@ -47,7 +47,7 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 /plugin install db-tools@claude-craftkit
 /plugin install ui@claude-craftkit
 /plugin install ai-sdk@claude-craftkit
-/plugin install qa@claude-craftkit
+/plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
 ```
@@ -71,7 +71,7 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 
 **For Testing:**
 ```bash
-/plugin install qa@claude-craftkit
+/plugin install quality@claude-craftkit
 ```
 
 **For Audio Feedback:**

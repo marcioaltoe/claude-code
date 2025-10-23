@@ -62,7 +62,7 @@ claude-craftkit/
 │   │   └── skills/
 │   │       └── ai-sdk-specialist.md
 │   │
-│   ├── qa/
+│   ├── quality/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── commands/
@@ -199,7 +199,7 @@ Vercel AI SDK integration helpers and patterns for Bun + Hono backend applicatio
 - Integrating multiple AI providers
 - Building AI-powered features
 
-### 4. Testing & Quality (`qa`)
+### 4. Testing & Quality (`quality`)
 
 **Category:** Testing
 **Author:** Marcio Altoé
@@ -439,7 +439,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 6. test-engineer
 
-**Plugin:** qa
+**Plugin:** quality
 **Type:** Autonomous skill
 **Focus:** Test creation and testing best practices
 
@@ -460,7 +460,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 7. quality-engineer
 
-**Plugin:** qa
+**Plugin:** quality
 **Type:** Autonomous skill
 **Focus:** Code quality and linting configuration
 
@@ -481,7 +481,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 ### 8. barrel-craft
 
-**Plugin:** qa
+**Plugin:** quality
 **Type:** Autonomous skill
 **Focus:** Barrel file management and exports
 
@@ -647,7 +647,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** AI
 - **Keywords:** ai, vercel-ai-sdk, llm, streaming, openai, anthropic
 
-### qa
+### quality
 
 - **Version:** 1.0.0
 - **Author:** Marcio Altoé
@@ -688,7 +688,7 @@ This marketplace provides comprehensive support for modern web development:
 - **13** Command files (`.md` files in `commands/` directories)
 - **10** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
-- **4** Plugin READMEs (db-tools, ui, qa, git)
+- **4** Plugin READMEs (db-tools, ui, quality, git)
 
 **Total: 41 files** providing comprehensive Claude Code development support.
 

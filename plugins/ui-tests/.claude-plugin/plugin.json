@@ -1,5 +1,5 @@
 {
-  "name": "web-tests",
+  "name": "ui-tests",
   "version": "1.0.0",
   "description": "Claude Code Skill for web testing and browser automation with Playwright. Auto-detects dev servers, saves test scripts and screenshots to your working directory.",
   "author": {
@@ -10,7 +10,7 @@
   "keywords": [
     "claude-skill",
     "claude-code",
-    "web-tests",
+    "ui-tests",
     "browser-automation",
     "testing",
     "e2e",

@@ -20,10 +20,10 @@ A [Claude Code Plugin](https://docs.claude.com/en/docs/claude-code/plugins) that
 ```bash
 # Install the plugin
 /plugin marketplace add marcioaltoe/claude-craftkit
-/plugin install web-tests@web-tests
+/plugin install ui-tests@ui-tests
 
 # Setup dependencies (first time only)
-cd ~/.claude/plugins/marketplaces/web-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
 npm run setup
 ```
 
@@ -33,7 +33,7 @@ npm run setup
 # Clone to Claude plugins directory
 cd ~/.claude/plugins
 git clone https://github.com/marcioaltoe/claude-craftkit.git
-cd claude-craftkit/plugins/web-tests/skills/web-tests
+cd claude-craftkit/plugins/ui-tests/skills/web-tests
 
 # Install dependencies
 npm run setup
@@ -164,12 +164,12 @@ Claude will:
 
 This plugin uses a **global tool pattern**:
 
-1. **Skill Installed Once**: Lives in `~/.claude/plugins/web-tests/`
+1. **Skill Installed Once**: Lives in `~/.claude/plugins/ui-tests/`
 2. **CWD Pattern**: Uses `CWD` environment variable to save outputs to user's repo
 3. **Execution Flow**:
    ```bash
    # Command executed by Claude
-   CWD=$(pwd) cd ~/.claude/plugins/web-tests/skills/web-tests && \
+   CWD=$(pwd) cd ~/.claude/plugins/ui-tests/skills/web-tests && \
    node run.js .web-tests/scripts/test.js
    ```
 4. **Output Resolution**: `helpers.takeScreenshot()` uses `process.env.CWD` to save to user's directory
@@ -204,7 +204,7 @@ Claude will create custom Playwright code tailored to your request.
 
 ## Tips
 
-- **Auto-detection** - Checks ports 3000, 3001, 5173, 8080, etc.
+- **Auto-detection** - Checks ports 5173, 5174, 3000, 3001, 8080, etc.
 - **Visible browser** - Default behavior for easier debugging
 - **Reusable scripts** - Test scripts saved in `.web-tests/scripts/`
 - **Git-friendly** - Add `.web-tests/` to `.gitignore` if needed
@@ -213,7 +213,7 @@ Claude will create custom Playwright code tailored to your request.
 
 **Playwright not installed:**
 ```bash
-cd ~/.claude/plugins/marketplaces/web-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
 npm run setup
 ```
 
