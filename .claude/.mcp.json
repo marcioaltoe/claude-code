@@ -17,10 +17,6 @@
       "type": "stdio",
       "command": "bunx",
       "args": ["octocode-mcp@latest"]
-    },
-    "shadcn": {
-      "command": "cmd",
-      "args": ["/c", "bunx", "shadcn@latest", "mcp"]
     }
   }
 }
