@@ -1,0 +1,26 @@
+{
+  "name": "web-tests",
+  "version": "1.0.0",
+  "description": "Web testing and browser automation with Playwright for Claude Code",
+  "author": "Claude Craftkit",
+  "main": "run.js",
+  "scripts": {
+    "setup": "npm install && npx playwright install chromium",
+    "install-all-browsers": "npx playwright install chromium firefox webkit"
+  },
+  "keywords": [
+    "web-tests",
+    "playwright",
+    "automation",
+    "browser-testing",
+    "web-automation",
+    "claude-skill"
+  ],
+  "dependencies": {
+    "playwright": "^1.48.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT"
+}

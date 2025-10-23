@@ -1,0 +1,55 @@
+{
+  "name": "web-tests",
+  "owner": {
+    "name": "Claude Craftkit",
+    "email": "contact@example.com"
+  },
+  "metadata": {
+    "description": "Web testing and browser automation skill for Claude Code - auto-detects dev servers, saves test scripts and screenshots to your working directory",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "web-tests",
+      "source": "./",
+      "description": "Claude Code Skill for web testing and browser automation with Playwright. Auto-detects running dev servers, creates custom test scripts, captures screenshots across viewports, and checks for broken links. Works as a global tool - install once, use in any project. All outputs saved to your working directory's .web-tests/ folder.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Craftkit"
+      },
+      "homepage": "https://github.com/marcioaltoe/claude-craftkit",
+      "repository": "https://github.com/marcioaltoe/claude-craftkit",
+      "license": "MIT",
+      "keywords": [
+        "claude-skill",
+        "claude-code",
+        "web-tests",
+        "playwright",
+        "browser-automation",
+        "testing",
+        "e2e",
+        "screenshots",
+        "web-testing"
+      ],
+      "category": "testing",
+      "tags": ["web", "browser", "automation", "testing", "e2e", "playwright"],
+      "features": [
+        "Auto-detects running dev servers on common ports",
+        "Visible browser by default for easy debugging",
+        "Saves test scripts and screenshots to .web-tests/",
+        "Slash commands: /test, /screenshot, /check",
+        "Zero per-repo setup - install once, use everywhere",
+        "Custom Playwright automation for any task",
+        "Screenshots across multiple viewports",
+        "Check for broken links and console errors",
+        "Works as global tool with CWD pattern"
+      ],
+      "requirements": {
+        "node": ">=14.0.0"
+      },
+      "dependencies": {
+        "playwright": "^1.48.0"
+      }
+    }
+  ]
+}

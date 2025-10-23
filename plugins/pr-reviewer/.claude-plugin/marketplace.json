@@ -17,8 +17,8 @@
       "author": {
         "name": "marcio"
       },
-      "homepage": "https://github.com/yourusername/pr-reviewer-skill",
-      "repository": "https://github.com/yourusername/pr-reviewer-skill",
+      "homepage": "https://github.com/marcioaltoe/pr-reviewer-skill",
+      "repository": "https://github.com/marcioaltoe/pr-reviewer-skill",
       "license": "MIT",
       "keywords": [
         "claude-skill",
@@ -32,7 +32,14 @@
         "automation"
       ],
       "category": "development",
-      "tags": ["github", "pr", "code-review", "coderabbit", "automation", "pr-reviewer"]
+      "tags": [
+        "github",
+        "pr",
+        "code-review",
+        "coderabbit",
+        "automation",
+        "pr-reviewer"
+      ]
     }
   ]
 }

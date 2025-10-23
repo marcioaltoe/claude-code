@@ -1,0 +1,20 @@
+{
+  "name": "web-tests",
+  "version": "1.0.0",
+  "description": "Claude Code Skill for web testing and browser automation with Playwright. Auto-detects dev servers, saves test scripts and screenshots to your working directory.",
+  "author": {
+    "name": "Claude Craftkit"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/marcioaltoe/claude-craftkit",
+  "keywords": [
+    "claude-skill",
+    "claude-code",
+    "web-tests",
+    "browser-automation",
+    "testing",
+    "e2e",
+    "playwright",
+    "automation"
+  ]
+}
