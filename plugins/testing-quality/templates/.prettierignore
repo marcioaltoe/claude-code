@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Coverage
+coverage/
+
+# Misc
+*.lock
+.DS_Store
+
+# Barrel files (managed by barrel-craft)
+**/index.ts
+**/index.tsx

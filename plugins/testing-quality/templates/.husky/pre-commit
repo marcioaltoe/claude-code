@@ -1,0 +1,22 @@
+set -euo pipefail
+
+# Branch Protection - Prevent direct commits to main/dev
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$current_branch" == "main" || "$current_branch" == "dev" ]]; then
+  echo "❌ Direct commits to '$current_branch' are not allowed!"
+  echo "Please create a feature branch from 'dev' and submit a PR:"
+  echo "  git new-feat your-feature-name"
+  echo "  git new-fix your-fix-name" 
+  echo "  # Create PR: feat/fix branch → dev → main"
+  exit 1
+fi
+
+echo "→ Pre-commit: quality gates (format, lint-staged)"
+
+# Format
+bun run format
+
+# Lint
+bun run lint-staged
+
+echo "✓ Pre-commit: todas as verificações passaram"

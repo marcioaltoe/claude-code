@@ -1,0 +1,16 @@
+{
+  "description": "TypeScript and code quality validation hook for Write/Edit operations on .ts/.tsx files",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/typescript-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

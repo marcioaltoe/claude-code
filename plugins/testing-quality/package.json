@@ -1,0 +1,11 @@
+{
+  "name": "testing-quality",
+  "version": "1.0.0",
+  "description": "Testing and code quality tools for Bun applications with native Bun test, Playwright, and Biome.",
+  "author": {
+    "name": "Marcio Altoe",
+    "email": "marcio.altoe@gmail.com"
+  },
+  "keywords": ["testing", "bun-test", "playwright", "biome", "quality", "bun", "test-automation"],
+  "license": "MIT"
+}

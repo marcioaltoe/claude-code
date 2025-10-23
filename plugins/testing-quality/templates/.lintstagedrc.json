@@ -1,0 +1,5 @@
+{
+  "package.json": ["prettier-package-json --write --log-level error"],
+  "*.{ts,tsx,js,json,jsx,css}": ["biome check --write --unsafe"],
+  "*.md": ["prettier --write --log-level error"]
+}
