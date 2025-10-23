@@ -1,1 +1,1 @@
-# claude-code-plugins
+# claude-code-marketplace
