@@ -1,0 +1,57 @@
+{
+  "name": "nextjs-saas-marketplace",
+  "owner": {
+    "name": "Marcio Altoe",
+    "email": "marcio.altoe@gmail.com",
+    "url": "https://github.com/marcioaltoe"
+  },
+  "metadata": {
+    "description": "Comprehensive plugin marketplace for Next.js 15 SaaS developers with React 19, Tailwind, shadcn/ui, Postgres, Drizzle ORM, AI SDK, BetterAuth, and Polar",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "database-tools",
+      "source": "./plugins/database-tools",
+      "description": "Drizzle ORM and Postgres database management tools",
+      "version": "1.0.0",
+      "category": "database",
+      "keywords": ["drizzle", "postgres", "orm", "migrations"]
+    },
+    {
+      "name": "ui-components",
+      "source": "./plugins/ui-components",
+      "description": "shadcn/ui and Tailwind CSS component generation and utilities",
+      "version": "1.0.0",
+      "category": "ui",
+      "keywords": ["shadcn", "tailwind", "ui", "components", "design"]
+    },
+    {
+      "name": "ai-integration",
+      "source": "./plugins/ai-integration",
+      "description": "Vercel AI SDK integration helpers and patterns",
+      "version": "1.0.0",
+      "category": "ai",
+      "keywords": ["ai", "vercel-ai-sdk", "llm", "streaming"]
+    },
+    {
+      "name": "testing-quality",
+      "source": "./plugins/testing-quality",
+      "description": "Testing, linting, and code quality tools for Next.js",
+      "version": "1.0.0",
+      "category": "testing",
+      "keywords": ["testing", "playwright", "biomejs", "quality"]
+    },
+    {
+      "name": "audio-notifications",
+      "description": "Audio notifications for Claude Code - speaks notification messages out loud",
+      "version": "1.0.0",
+      "author": {
+        "name": "Fred Lacs",
+        "email": "fredlacs@gmail.com"
+      },
+      "source": "./plugins/audio-notifications",
+      "category": "qol"
+    }
+  ]
+}
