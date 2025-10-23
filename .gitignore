@@ -1,0 +1,13 @@
+# Mac OS X specific files
+.DS_Store
+
+# Logs
+**/logs
+**/*.log
+
+# Environment variables
+.env
+.env.local
+
+# Python cache
+__pycache__

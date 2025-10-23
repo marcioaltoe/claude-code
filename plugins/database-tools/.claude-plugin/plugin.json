@@ -1,0 +1,11 @@
+{
+  "name": "database-tools",
+  "version": "1.0.0",
+  "description": "Drizzle ORM and Postgres database management tools for Next.js projects",
+  "author": {
+    "name": "Leon van Zyl",
+    "email": "leon.vanzyl@gmail.com"
+  },
+  "keywords": ["drizzle", "postgres", "orm", "migrations", "database"],
+  "license": "MIT"
+}
