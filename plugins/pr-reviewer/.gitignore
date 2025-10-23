@@ -1,0 +1,32 @@
+# Environment files
+.env
+.env.local
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# Logs
+*.log
+pr-review-combined.log
+pr-review-error.log
+
+# Output directories
+.reviews/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+.temp-*
+
+# Backup files
+*.bak

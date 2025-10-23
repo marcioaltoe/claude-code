@@ -1,0 +1,19 @@
+# Environment files
+.env
+.env.local
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# Logs
+*.log
+pr-review-combined.log
+pr-review-error.log
+
+# Temporary files
+.temp-execution-*.js
+*.tmp
+
+# Backup files
+*.bak

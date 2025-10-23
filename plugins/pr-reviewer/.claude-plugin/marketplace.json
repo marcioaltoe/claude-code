@@ -1,0 +1,38 @@
+{
+  "name": "pr-reviewer",
+  "owner": {
+    "name": "marcio",
+    "email": "your-email@example.com"
+  },
+  "metadata": {
+    "description": "PR Reviewer - CodeRabbit AI review management skill for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "pr-reviewer",
+      "source": "./",
+      "description": "Claude Code Skill for exporting and fixing CodeRabbit AI review comments from GitHub Pull Requests. Downloads PR reviews, organizes by severity (critical/major/trivial), and provides systematic issue resolution workflow.",
+      "version": "1.0.0",
+      "author": {
+        "name": "marcio"
+      },
+      "homepage": "https://github.com/yourusername/pr-reviewer-skill",
+      "repository": "https://github.com/yourusername/pr-reviewer-skill",
+      "license": "MIT",
+      "keywords": [
+        "claude-skill",
+        "claude-code",
+        "pr-reviewer",
+        "pull-request",
+        "code-review",
+        "coderabbit",
+        "github",
+        "pr-review",
+        "automation"
+      ],
+      "category": "development",
+      "tags": ["github", "pr", "code-review", "coderabbit", "automation", "pr-reviewer"]
+    }
+  ]
+}
