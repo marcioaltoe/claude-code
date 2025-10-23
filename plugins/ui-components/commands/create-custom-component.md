@@ -14,11 +14,12 @@ Generate a custom React component with Tailwind CSS and TypeScript.
    - Props needed
    - Styling requirements
 2. Create component file in appropriate location:
-   - `components/` for shared components
-   - Feature-specific directories for feature components
+   - `src/components/` for shared components
+   - `src/features/` for feature-specific components
+   - `src/routes/` for route-specific components (TanStack Router)
 3. Generate component with:
    - TypeScript interface for props
-   - Proper React patterns (Server Component default, 'use client' if needed)
+   - Proper React patterns (hooks, composition, etc.)
    - Tailwind CSS classes
    - Accessibility attributes (ARIA labels, roles, etc.)
    - Responsive design
@@ -27,6 +28,8 @@ Generate a custom React component with Tailwind CSS and TypeScript.
 6. Provide usage example
 
 ## Component Template
+
+### Basic Component
 
 ```typescript
 import { cn } from "@/lib/utils";
@@ -59,5 +62,52 @@ export function MyComponent({
   );
 }
 ```
+
+### Interactive Component (with State)
+
+```typescript
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+interface InteractiveComponentProps {
+  initialCount?: number;
+  className?: string;
+}
+
+export function InteractiveComponent({
+  initialCount = 0,
+  className,
+}: InteractiveComponentProps) {
+  const [count, setCount] = useState(initialCount);
+
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      <button
+        onClick={() => setCount(count - 1)}
+        className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 transition-colors"
+        aria-label="Decrease count"
+      >
+        -
+      </button>
+      <span className="text-lg font-semibold" aria-live="polite">
+        {count}
+      </span>
+      <button
+        onClick={() => setCount(count + 1)}
+        className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 transition-colors"
+        aria-label="Increase count"
+      >
+        +
+      </button>
+    </div>
+  );
+}
+```
+
+## Framework-Specific Guidelines
+
+- **React + Vite**: All components are client-side by default. Use React hooks (useState, useEffect, etc.) freely without any special directives.
+- **TanStack Router**: Components integrate seamlessly with route loaders, route context, and navigation hooks.
+- **Component Organization**: Follow Clean Architecture - separate UI components (`components/`), feature logic (`features/`), and routes (`routes/`).
 
 Ensure proper typing, styling, and accessibility.

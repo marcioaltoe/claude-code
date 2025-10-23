@@ -9,10 +9,10 @@ Transform your Claude Code experience with a curated collection of plugins desig
 **What makes this marketplace special:**
 
 - 🎯 **17 specialized commands** for common development tasks
-- 🤖 **4 intelligent agents** for complex workflows
-- ⚡ **2 autonomous skills** that work proactively
-- 🔌 **2 MCP server integrations** (shadcn, playwright)
+- ⚡ **8 intelligent skills** that work proactively
+- 🏗️ **Clean Architecture** patterns for React applications
 - 🎨 **Hybrid architecture** - choose between automation and explicit control
+- 🎨 **Design system** support (Gesttione branding included)
 
 ## Quick Links
 
@@ -21,15 +21,15 @@ Transform your Claude Code experience with a curated collection of plugins desig
 
 ## Plugin Summary
 
-| Plugin              | Commands | Agents | Skills | MCP Servers | Category |
-| ------------------- | -------- | ------ | ------ | ----------- | -------- |
-| database-tools      | 4        | 1      | -      | -           | Database |
-| ui-components       | 3        | 1      | -      | shadcn      | UI       |
-| ai-integration      | 3        | 1      | -      | -           | AI       |
-| testing-quality     | 4        | 1      | -      | playwright  | Testing  |
-| audio-notifications | -        | -      | -      | -           | QoL      |
-| commit-commands     | 3        | -      | 2      | -           | Workflow |
-| **Total**           | **17**   | **4**  | **2**  | **2**       | -        |
+| Plugin              | Commands | Skills | Category        |
+| ------------------- | -------- | ------ | --------------- |
+| database-tools      | 4        | 1      | Database        |
+| ui-components       | 3        | 3      | UI Architecture |
+| ai-integration      | 3        | 1      | AI              |
+| testing-quality     | 4        | 1      | Testing         |
+| audio-notifications | -        | -      | QoL             |
+| commit-commands     | 3        | 2      | Workflow        |
+| **Total**           | **17**   | **8**  | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 
@@ -73,10 +73,14 @@ Claude uses the `database-architect` skill and `/setup-drizzle` command.
 **UI Development:**
 
 ```
-Add a pricing table component with three tiers
+Build a user dashboard with Clean Architecture:
+- React 19 + Vite + TanStack Router
+- shadcn/ui components with Gesttione brand colors
+- Responsive layout with dark mode
+- State management with TanStack Query
 ```
 
-Claude uses the `ui-designer` agent with shadcn/ui and Tailwind CSS for the frontend (React 19 + Vite).
+Claude uses `ui-designer`, `frontend-architect`, and `gesttione-design-system` skills.
 
 **Git Workflow (Hybrid):**
 
@@ -97,17 +101,21 @@ The `commit-commands` plugin offers both autonomous skills and explicit commands
 Create a streaming chat endpoint with function calling
 ```
 
-Claude uses the `ai-integration-specialist` agent with Vercel AI SDK.
+Claude uses the `ai-integration-specialist` skill with Vercel AI SDK.
 
 ## Tech Stack Coverage
 
 This marketplace provides comprehensive support for:
 
 - **Backend:** Bun runtime + Hono framework + PostgreSQL with Drizzle ORM
-- **Frontend:** React 19 + Vite 6 + TanStack Router + Tailwind 4 + shadcn/ui
+- **Frontend:** React 19 + Vite 6 + TanStack Router (file-based routing)
+- **UI:** shadcn/ui + Tailwind CSS v4 + Design tokens + Dark mode
+- **State:** TanStack Query + Zustand + TanStack Store
+- **Forms:** TanStack Form + Zod validation
+- **Architecture:** Clean Architecture (domain/application/infrastructure/presentation)
 - **AI:** Vercel AI SDK with OpenAI & Anthropic support
-- **Testing:** Bun test + React Testing Library + Playwright (E2E)
-- **Code Quality:** Biome for linting/formatting (TS/JS/CSS)
+- **Testing:** Bun built-in test + React Testing Library + Happy DOM
+- **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
 - **Workflow:** Git automation with Conventional Commits and PR creation
 - **QoL:** Audio notifications for long-running tasks
 

@@ -19,6 +19,7 @@ Runs the following sequence in order:
 ## When to Use
 
 Run quality gates:
+
 - ✅ Before committing code
 - ✅ After implementing a feature
 - ✅ After fixing bugs
@@ -29,21 +30,25 @@ Run quality gates:
 ## Instructions
 
 1. **Check current status**:
+
    ```bash
    git status
    ```
 
 2. **Run quality gates**:
+
    ```bash
    bun run quality
    ```
 
 3. **Review output**:
+
    - Each step will show its results
    - Process stops on first failure
    - Fix any issues reported
 
 4. **Fix issues if needed**:
+
    ```bash
    # Fix formatting issues
    bun run format
@@ -62,6 +67,7 @@ Run quality gates:
    ```
 
 5. **Re-run quality gates**:
+
    ```bash
    bun run quality
    ```
@@ -100,6 +106,7 @@ Run quality gates:
 ### ❌ Failure Examples
 
 **Format Errors:**
+
 ```
 [2/5] Formatting code...
 ❌ Formatting issues found in:
@@ -110,6 +117,7 @@ Fix with: bun run format
 ```
 
 **Lint Errors:**
+
 ```
 [3/5] Linting code...
 ❌ Lint errors found:
@@ -120,6 +128,7 @@ Fix with: bun run lint:fix
 ```
 
 **Type Errors:**
+
 ```
 [4/5] Type checking...
 ❌ TypeScript errors found:
@@ -130,6 +139,7 @@ Fix these errors manually, then run type-check again
 ```
 
 **Test Failures:**
+
 ```
 [5/5] Running tests...
 ❌ Tests failed:
@@ -148,11 +158,13 @@ Fix the failing tests and run again
 ### Issue: Barrel files conflict
 
 **Problem:**
+
 ```
 Barrel file generation failed - conflicting index.ts found
 ```
 
 **Solution:**
+
 ```bash
 # Review and clean old barrel files
 bun run craft:clean --dry-run
@@ -167,11 +179,13 @@ bun run craft
 ### Issue: Format and lint conflicts
 
 **Problem:**
+
 ```
 Format and lint producing different results
 ```
 
 **Solution:**
+
 ```bash
 # Run format first (always)
 bun run format
@@ -186,11 +200,13 @@ bun run quality
 ### Issue: Type errors after refactoring
 
 **Problem:**
+
 ```
 Multiple type errors after code changes
 ```
 
 **Solution:**
+
 ```bash
 # Run type check with details
 bun run type-check
@@ -203,11 +219,13 @@ bun run type-check
 ### Issue: Tests timing out
 
 **Problem:**
+
 ```
 Tests failing with timeout errors
 ```
 
 **Solution:**
+
 ```bash
 # Run tests with increased timeout
 bun test --timeout 30000
@@ -251,6 +269,7 @@ git commit -m "feat: new feature"
 ```
 
 **Note:** Pre-commit runs a lighter version:
+
 - ✅ Format
 - ✅ Lint-staged (only staged files)
 
@@ -279,16 +298,19 @@ jobs:
 ## Best Practices
 
 1. **Run before every commit**:
+
    - Catches issues early
    - Prevents broken commits
    - Maintains code quality
 
 2. **Fix issues immediately**:
+
    - Don't accumulate technical debt
    - Small fixes are easier
    - Keeps codebase clean
 
 3. **Use in development workflow**:
+
    ```bash
    # During development
    bun run format  # Format as you go
@@ -301,6 +323,7 @@ jobs:
    ```
 
 4. **Run after merges**:
+
    ```bash
    git merge dev
    bun run quality  # Ensure no conflicts
@@ -372,6 +395,7 @@ bunx biome check .
 ## Summary
 
 Quality gates ensure:
+
 - ✅ Clean, organized imports (barrel files)
 - ✅ Consistent code formatting
 - ✅ No linting errors

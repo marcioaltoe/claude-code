@@ -6,6 +6,13 @@
     "name": "Marcio Altoe",
     "email": "marcio.altoe@gmail.com"
   },
-  "keywords": ["testing", "bun-test", "biome", "quality", "bun", "test-automation"],
+  "keywords": [
+    "testing",
+    "bun-test",
+    "biome",
+    "quality",
+    "bun",
+    "test-automation"
+  ],
   "license": "MIT"
 }

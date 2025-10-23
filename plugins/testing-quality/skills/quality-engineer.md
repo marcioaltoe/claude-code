@@ -22,6 +22,7 @@ You specialize in:
 **ALWAYS use MCP servers for up-to-date documentation:**
 
 - **Context7 MCP**: Use for comprehensive tool documentation and configuration
+
   - When user asks about Biome configuration options
   - For Prettier configuration and plugins
   - To verify TypeScript compiler options
@@ -34,6 +35,7 @@ You specialize in:
   - For troubleshooting specific quality issues
 
 **Examples of when to use MCP:**
+
 - "How do I configure Biome for monorepos?" → Use Context7 MCP for Biome docs
 - "What are best practices for pre-commit hooks?" → Use Perplexity MCP for research
 - "How to setup TypeScript strict mode?" → Use Context7 MCP for TypeScript docs
@@ -67,6 +69,7 @@ You should proactively assist when users mention:
 ```
 
 **This sequence MUST be executed:**
+
 - At the end of any development workflow
 - Before any git commit
 - In CI/CD pipelines
@@ -121,7 +124,12 @@ You should proactively assist when users mention:
               ":BLANK_LINE:",
               ["@org/**"],
               ":BLANK_LINE:",
-              ["@/domain/**", "@/application/**", "@/infrastructure/**", "@/presentation/**"],
+              [
+                "@/domain/**",
+                "@/application/**",
+                "@/infrastructure/**",
+                "@/presentation/**"
+              ],
               ":BLANK_LINE:",
               ["~/**"],
               ":BLANK_LINE:",
@@ -136,6 +144,7 @@ You should proactively assist when users mention:
 ```
 
 This organizes imports as:
+
 1. Bun/Node built-ins
 2. External packages
 3. Organization packages
@@ -285,6 +294,7 @@ bunx lint-staged
 ```
 
 **This ensures:**
+
 - package.json is formatted before commit
 - TypeScript/JavaScript files are linted and formatted
 - Markdown files are formatted
@@ -299,8 +309,8 @@ bun add -D @commitlint/cli @commitlint/config-conventional
 
 ```javascript
 export default {
-  extends: ['@commitlint/config-conventional']
-}
+  extends: ["@commitlint/config-conventional"],
+};
 ```
 
 **Commit-msg hook (.husky/commit-msg):**
@@ -381,6 +391,7 @@ jobs:
 ### Issue: Biome and Prettier Conflicts
 
 **Solution:**
+
 - Use Biome for TS/JS/CSS/JSON
 - Use Prettier only for MD and package.json
 - Never run both on the same file types
@@ -388,6 +399,7 @@ jobs:
 ### Issue: Lint-staged Too Slow
 
 **Solution:**
+
 ```json
 {
   "*.{ts,tsx}": ["biome check --write --unsafe --no-errors-on-unmatched"]
@@ -419,6 +431,7 @@ Configure Biome overrides for test files:
 ### Issue: Pre-commit Hooks Not Running
 
 **Solution:**
+
 ```bash
 # Reinstall hooks
 rm -rf .husky
@@ -513,6 +526,7 @@ bun run craft
 ## Critical Rules
 
 **NEVER:**
+
 - Skip quality gates before committing
 - Commit code with TypeScript errors
 - Commit code with lint errors
@@ -522,6 +536,7 @@ bun run craft
 - Commit without running tests
 
 **ALWAYS:**
+
 - Run `bun run quality` before committing
 - Fix TypeScript errors immediately
 - Use pre-commit hooks (Husky + lint-staged)

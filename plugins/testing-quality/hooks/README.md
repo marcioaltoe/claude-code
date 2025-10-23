@@ -9,14 +9,17 @@ This directory contains hooks that integrate with Claude Code to provide real-ti
 Validates TypeScript files when they are created or modified through Claude Code's Write or Edit tools.
 
 **What it checks:**
+
 - ✅ TypeScript type errors (`tsc --noEmit`)
 - ✅ Biome lint/format errors (`biome check`)
 
 **When it runs:**
+
 - After Write tool creates a `.ts` or `.tsx` file
 - After Edit tool modifies a `.ts` or `.tsx` file
 
 **Behavior:**
+
 - ✅ **Passes**: Allows the operation to complete
 - ❌ **Fails**: Blocks the operation and shows detailed errors with suggestions
 
@@ -109,6 +112,7 @@ export SKIP_TYPESCRIPT_CHECK=1
 ### Customize Hook Behavior
 
 Edit `typescript-check.sh` to adjust:
+
 - Which tools to run (tsc, biome)
 - Error message formatting
 - Suggested fix commands
@@ -118,6 +122,7 @@ Edit `typescript-check.sh` to adjust:
 ### Hook Not Running
 
 **Check:**
+
 1. Plugin is properly loaded
 2. `typescript-check.sh` is executable: `chmod +x hooks/typescript-check.sh`
 3. `hooks.json` is valid JSON
@@ -142,11 +147,13 @@ If hook is too slow:
 ## Log File
 
 Hook execution is logged to:
+
 ```
 ~/.claude/hooks/typescript-check.log
 ```
 
 View logs:
+
 ```bash
 tail -f ~/.claude/hooks/typescript-check.log
 ```
@@ -161,15 +168,16 @@ tail -f ~/.claude/hooks/typescript-check.log
 
 ## Comparison with Pre-commit Hooks
 
-| Feature | Claude Code Hook | Git Pre-commit Hook |
-|---------|------------------|---------------------|
-| **Trigger** | On file Write/Edit | On git commit |
-| **Scope** | Single file | Staged files |
-| **Speed** | Per-file validation | Batch validation |
-| **Blocking** | Blocks file creation | Blocks commit |
-| **Best for** | Real-time feedback | Final check before commit |
+| Feature      | Claude Code Hook     | Git Pre-commit Hook       |
+| ------------ | -------------------- | ------------------------- |
+| **Trigger**  | On file Write/Edit   | On git commit             |
+| **Scope**    | Single file          | Staged files              |
+| **Speed**    | Per-file validation  | Batch validation          |
+| **Blocking** | Blocks file creation | Blocks commit             |
+| **Best for** | Real-time feedback   | Final check before commit |
 
 **Recommendation**: Use **both**:
+
 - Claude Code hooks for immediate feedback during development
 - Pre-commit hooks for final validation before committing
 

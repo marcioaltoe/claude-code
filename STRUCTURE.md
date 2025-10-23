@@ -37,19 +37,21 @@ claude-code-marketplace/
 │   │   │   ├── create-schema.md
 │   │   │   ├── generate-migration.md
 │   │   │   └── create-query.md
-│   │   └── agents/
+│   │   └── skills/
 │   │       └── database-architect.md
 │   │
 │   ├── ui-components/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
-│   │   ├── .mcp.json                 # shadcn MCP server
 │   │   ├── commands/
 │   │   │   ├── add-shadcn-component.md
 │   │   │   ├── create-custom-component.md
 │   │   │   └── create-form.md
-│   │   └── agents/
-│   │       └── ui-designer.md
+│   │   ├── skills/
+│   │   │   ├── ui-designer.md
+│   │   │   ├── frontend-architect.md
+│   │   │   └── gesttione-design-system.md
+│   │   └── README.md
 │   │
 │   ├── ai-integration/
 │   │   ├── .claude-plugin/
@@ -58,20 +60,18 @@ claude-code-marketplace/
 │   │   │   ├── setup-ai-sdk.md
 │   │   │   ├── create-chat-endpoint.md
 │   │   │   └── add-function-calling.md
-│   │   └── agents/
+│   │   └── skills/
 │   │       └── ai-integration-specialist.md
 │   │
 │   ├── testing-quality/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
-│   │   ├── .mcp.json                 # Playwright MCP server
 │   │   ├── commands/
-│   │   │   ├── setup-vitest.md
+│   │   │   ├── setup-quality-gates.md
 │   │   │   ├── create-test.md
-│   │   │   ├── setup-playwright.md
-│   │   │   └── setup-eslint.md
-│   │   └── agents/
-│   │       └── quality-engineer.md
+│   │   │   └── quality-gates.md
+│   │   └── skills/
+│   │       └── quality-gates.md
 │   │
 │   ├── audio-notifications/
 │   │   ├── .claude-plugin/
@@ -104,15 +104,15 @@ claude-code-marketplace/
 
 ### Summary Table
 
-| Plugin              | Commands | Agents | Skills | MCP Servers    | Hooks |
-| ------------------- | -------- | ------ | ------ | -------------- | ----- |
-| database-tools      | 4        | 1      | 0      | 0              | 0     |
-| ui-components       | 3        | 1      | 0      | 1 (shadcn)     | 0     |
-| ai-integration      | 3        | 1      | 0      | 0              | 0     |
-| testing-quality     | 4        | 1      | 0      | 1 (playwright) | 0     |
-| audio-notifications | 0        | 0      | 0      | 0              | 3     |
-| commit-commands     | 3        | 0      | 2      | 0              | 0     |
-| **TOTAL**           | **17**   | **4**  | **2**  | **2**          | **3** |
+| Plugin              | Commands | Skills | Hooks | Category        |
+| ------------------- | -------- | ------ | ----- | --------------- |
+| database-tools      | 4        | 1      | 0     | Database        |
+| ui-components       | 3        | 3      | 0     | UI Architecture |
+| ai-integration      | 3        | 1      | 0     | AI              |
+| testing-quality     | 3        | 1      | 0     | Testing         |
+| audio-notifications | 0        | 0      | 3     | QoL             |
+| commit-commands     | 3        | 2      | 0     | Workflow        |
+| **TOTAL**           | **16**   | **8**  | **3** | -               |
 
 ## Plugin Descriptions
 
@@ -144,28 +144,34 @@ Drizzle ORM and Postgres database management tools for Bun + Hono backend applic
 
 ### 2. UI Components (`ui-components`)
 
-**Category:** UI
-**Author:** Leon van Zyl
+**Category:** UI Architecture
+**Author:** Marcio Altoe
 **License:** MIT
 
-shadcn/ui and Tailwind CSS component generation and design utilities.
+Comprehensive UI/UX toolkit for React applications with shadcn/ui, Tailwind CSS v4, and Clean Architecture patterns.
 
 **Features:**
 
-- shadcn/ui component installation via MCP server
-- Custom React component generation
-- Tailwind CSS utility integration
-- Form components with validation
-- Design system integration
-- Responsive design helpers
-- Accessibility (a11y) compliance
+- 3 specialized skills: `ui-designer`, `frontend-architect`, `gesttione-design-system`
+- React 19 + Vite 6 + TanStack Router integration
+- shadcn/ui component installation and customization
+- Clean Architecture implementation (domain/application/infrastructure/presentation)
+- TanStack ecosystem (Router, Query, Form, Table, Store)
+- Design tokens and dark mode support
+- Gesttione Design System with brand colors and metrics
+- Form components with TanStack Form + Zod validation
+- Responsive design with mobile-first approach
+- WCAG 2.1 AA accessibility compliance
 
 **Use Cases:**
 
+- Setting up React project structure with Clean Architecture
 - Installing shadcn/ui components
 - Creating custom component libraries
 - Building forms with validation
 - Implementing design systems
+- Configuring TanStack Router and Query
+- Applying Gesttione brand identity
 - Rapid UI prototyping
 
 ### 3. AI Integration (`ai-integration`)
@@ -197,29 +203,31 @@ Vercel AI SDK integration helpers and patterns for Bun + Hono backend applicatio
 ### 4. Testing & Quality (`testing-quality`)
 
 **Category:** Testing
-**Author:** Leon van Zyl
+**Author:** Marcio Altoe
 **License:** MIT
 
-Testing, linting, and code quality tools for modern web projects.
+Comprehensive quality gates workflow with testing, linting, formatting, and automation.
 
 **Features:**
 
-- Bun test configuration for unit testing
-- React Testing Library for component tests
-- Playwright setup for E2E testing via MCP server
+- Complete quality gates workflow (`quality-gates` skill)
+- barrel-craft for automated barrel file management
 - Biome configuration for linting/formatting (TS/JS/CSS)
+- Prettier for markdown files
 - TypeScript strict mode setup
+- Bun built-in test with React Testing Library + Happy DOM
+- Husky pre-commit hooks
 - Test file generation with examples
-- Coverage reporting configuration
 - CI/CD integration helpers
 
 **Use Cases:**
 
-- Setting up testing infrastructure
+- Setting up complete quality gates workflow
+- Automating code quality checks
 - Writing unit tests for components and utilities
-- Creating E2E test suites
-- Enforcing code quality standards
-- Configuring CI/CD pipelines
+- Enforcing code standards
+- Configuring pre-commit hooks
+- Managing barrel files automatically
 
 ### 5. Audio Notifications (`audio-notifications`)
 
@@ -301,14 +309,13 @@ Complete list of all available commands across all plugins.
 | `/create-chat-endpoint` | Create streaming chat API endpoints with error handling       |
 | `/add-function-calling` | Implement AI function calling with type-safe tool definitions |
 
-### Testing & Quality (4 commands)
+### Testing & Quality (3 commands)
 
-| Command             | Description                                                    |
-| ------------------- | -------------------------------------------------------------- |
-| `/setup-vitest`     | Configure Bun test for unit testing with React Testing Library |
-| `/create-test`      | Generate test files with examples and best practices           |
-| `/setup-playwright` | Configure Playwright for E2E testing via MCP server            |
-| `/setup-eslint`     | Enhanced Biome configuration for linting/formatting            |
+| Command                | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `/setup-quality-gates` | Configure complete quality gates workflow with all tools               |
+| `/create-test`         | Generate test files with Bun test and React Testing Library examples  |
+| `/quality-gates`       | Run complete workflow: craft → format → lint → type-check → test      |
 
 ### Commit Commands (3 commands)
 
@@ -320,15 +327,20 @@ Complete list of all available commands across all plugins.
 
 **Note:** The commit-commands plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
 
-## Specialized Agents
+## Intelligent Skills
 
-Agents are invoked via the Task tool for complex, multi-step workflows.
+Skills are autonomous capabilities that Claude invokes automatically based on context.
 
 ### 1. database-architect
 
 **Plugin:** database-tools
-**Model:** Configurable
+**Type:** Autonomous skill
 **Focus:** Database design and Drizzle ORM
+
+**Invocation Examples:**
+- "set up database with Drizzle"
+- "create a users table"
+- "design a schema for blog posts"
 
 **Capabilities:**
 
@@ -340,43 +352,78 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - Type-safe query generation
 - Database best practices enforcement
 
-**When to Use:**
-
-- Designing complex database schemas
-- Optimizing existing database structures
-- Planning major schema migrations
-- Implementing relational patterns
-- Database performance tuning
-
 ### 2. ui-designer
 
 **Plugin:** ui-components
-**Model:** Configurable
-**Focus:** UI/UX with shadcn/ui and Tailwind CSS
+**Type:** Autonomous skill
+**Focus:** UI/UX with shadcn/ui and Tailwind CSS v4
+
+**Invocation Examples:**
+- "create a pricing card component"
+- "design a responsive navigation"
+- "build a form with validation"
 
 **Capabilities:**
 
-- Component design and architecture
+- Component design and architecture (React 19 + Vite)
 - Responsive layout implementation
-- Accessibility (a11y) compliance
+- Accessibility (WCAG 2.1 AA) compliance
 - Design system integration
-- Tailwind utility optimization
+- Tailwind v4 utility optimization
 - Component composition patterns
-- Theme and styling management
+- Theme and dark mode management
 
-**When to Use:**
+### 3. frontend-architect
 
-- Designing complex UI components
-- Implementing responsive layouts
-- Building accessible interfaces
-- Creating design system components
-- Refactoring UI architecture
+**Plugin:** ui-components
+**Type:** Autonomous skill
+**Focus:** Clean Architecture and TanStack ecosystem
 
-### 3. ai-integration-specialist
+**Invocation Examples:**
+- "set up React project with Clean Architecture"
+- "organize feature modules"
+- "configure TanStack Router"
+
+**Capabilities:**
+
+- Clean Architecture implementation
+- React 19 patterns and best practices
+- TanStack ecosystem integration (Router, Query, Form, Table, Store)
+- State management strategy (Zustand, TanStack Query)
+- Code organization and feature modules
+- Type-safe routing and navigation
+- Performance patterns
+
+### 4. gesttione-design-system
+
+**Plugin:** ui-components
+**Type:** Autonomous skill
+**Focus:** Gesttione brand identity and design system
+
+**Invocation Examples:**
+- "use Gesttione brand colors"
+- "create revenue metric card"
+- "apply Gesttione design system"
+
+**Capabilities:**
+
+- Gesttione brand color system (6 core colors)
+- Metric color semantics (revenue, CMV, purchases, costs, etc.)
+- Surface color generation with color-mix()
+- Typography system (Geist, Lora, Geist Mono)
+- Dashboard component patterns
+- WCAG AA/AAA accessibility with brand colors
+
+### 5. ai-integration-specialist
 
 **Plugin:** ai-integration
-**Model:** Configurable
+**Type:** Autonomous skill
 **Focus:** Vercel AI SDK and LLM integration
+
+**Invocation Examples:**
+- "create a chat endpoint"
+- "add AI streaming"
+- "implement function calling"
 
 **Capabilities:**
 
@@ -388,43 +435,28 @@ Agents are invoked via the Task tool for complex, multi-step workflows.
 - Multi-provider support (OpenAI, Anthropic)
 - AI SDK configuration best practices
 
-**When to Use:**
-
-- Implementing AI-powered features
-- Setting up streaming chat interfaces
-- Configuring function calling
-- Integrating multiple LLM providers
-- Optimizing AI API usage
-
-### 4. quality-engineer
+### 6. quality-gates
 
 **Plugin:** testing-quality
-**Model:** Configurable
-**Focus:** Testing and code quality
+**Type:** Autonomous skill
+**Focus:** Complete quality workflow
+
+**Invocation Examples:**
+- "set up quality gates"
+- "configure testing"
+- "run quality checks"
 
 **Capabilities:**
 
-- Unit test design (Vitest)
-- E2E test scenarios (Playwright)
-- Test coverage strategies
-- Linting and formatting (ESLint)
-- CI/CD integration
-- Test-driven development patterns
-- Quality metrics and reporting
+- Complete quality gates workflow setup
+- barrel-craft configuration for exports
+- Biome for linting/formatting (TS/JS/CSS)
+- Prettier for markdown
+- TypeScript strict mode
+- Bun test with React Testing Library
+- Husky pre-commit hooks
 
-**When to Use:**
-
-- Setting up comprehensive test suites
-- Designing complex test scenarios
-- Configuring CI/CD pipelines
-- Implementing quality gates
-- Test strategy planning
-
-## Intelligent Skills
-
-Skills are autonomous capabilities that Claude invokes automatically based on context.
-
-### 1. git-commit
+### 7. git-commit
 
 **Plugin:** commit-commands
 **Type:** Autonomous skill
@@ -454,7 +486,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 4. Validates branch and project state
 5. Executes commit with proper format
 
-### 2. git-pr-creation
+### 8. git-pr-creation
 
 **Plugin:** commit-commands
 **Type:** Autonomous skill
@@ -486,38 +518,6 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 4. Generates PR title (conventional format)
 5. Creates detailed PR body with examples
 6. Executes gh pr create command
-
-## MCP Servers
-
-MCP (Model Context Protocol) servers provide external tool integration.
-
-### shadcn (ui-components plugin)
-
-**Purpose:** shadcn/ui component integration
-**Configuration:** `.mcp.json` in ui-components plugin
-**Usage:** Automatically available when plugin is installed
-
-**Capabilities:**
-
-- Browse shadcn/ui component catalog
-- Install components with dependencies
-- Configure components.json
-- Handle version compatibility
-- Manage Tailwind configuration
-
-### playwright (testing-quality plugin)
-
-**Purpose:** Playwright E2E testing integration
-**Configuration:** `.mcp.json` in testing-quality plugin
-**Usage:** Automatically available when plugin is installed
-
-**Capabilities:**
-
-- Configure Playwright for web applications
-- Generate test files
-- Manage browser contexts
-- Handle test fixtures
-- Configure CI/CD integration
 
 ## Hooks
 
@@ -563,12 +563,18 @@ This marketplace provides comprehensive support for modern web development:
 ✅ **Backend Runtime:** Bun (TypeScript runtime)
 ✅ **Backend Framework:** Hono (lightweight, fast web framework)
 ✅ **Database:** PostgreSQL with Drizzle ORM (migrations, queries, schemas, relations)
-✅ **Frontend Framework:** React 19 with Vite 6 and TanStack Router
-✅ **UI Styling:** Tailwind 4 with responsive design
+✅ **Frontend Framework:** React 19 with Vite 6
+✅ **Routing:** TanStack Router (file-based, type-safe)
+✅ **UI Styling:** Tailwind CSS v4 with design tokens and dark mode
 ✅ **UI Components:** shadcn/ui component library
+✅ **State Management:** TanStack Query + Zustand + TanStack Store
+✅ **Forms:** TanStack Form + Zod validation
+✅ **Architecture:** Clean Architecture (domain/application/infrastructure/presentation)
+✅ **Design System:** Gesttione brand colors and metrics
 ✅ **AI Integration:** Vercel AI SDK with OpenAI & Anthropic support
-✅ **Testing:** Bun test + React Testing Library + Playwright (E2E)
-✅ **Code Quality:** Biome for linting/formatting (TS/JS/CSS), TypeScript strict mode
+✅ **Testing:** Bun built-in test + React Testing Library + Happy DOM
+✅ **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
+✅ **Pre-commit Hooks:** Husky with quality gates
 ✅ **Quality of Life:** Audio notifications for task completion
 ✅ **Git Workflow:** Conventional Commits and automated PR creation
 
@@ -585,10 +591,10 @@ This marketplace provides comprehensive support for modern web development:
 ### ui-components
 
 - **Version:** 1.0.0
-- **Author:** Leon van Zyl
+- **Author:** Marcio Altoe
 - **License:** MIT
-- **Category:** UI
-- **Keywords:** shadcn, tailwind, ui, components, design, styling
+- **Category:** UI Architecture
+- **Keywords:** react, vite, tanstack-router, shadcn, tailwind, clean-architecture, design-system, gesttione
 
 ### ai-integration
 
@@ -601,10 +607,10 @@ This marketplace provides comprehensive support for modern web development:
 ### testing-quality
 
 - **Version:** 1.0.0
-- **Author:** Leon van Zyl
+- **Author:** Marcio Altoe
 - **License:** MIT
 - **Category:** Testing
-- **Keywords:** testing, vitest, playwright, eslint, quality, typescript
+- **Keywords:** bun-test, quality-gates, biome, prettier, barrel-craft, husky, testing, typescript
 
 ### audio-notifications
 
@@ -636,14 +642,12 @@ This marketplace provides comprehensive support for modern web development:
 ### Plugin Level
 
 - **6** Plugin manifests (`plugin.json` in each plugin)
-- **17** Command files (`.md` files in `commands/` directories)
-- **4** Agent definitions (`.md` files in `agents/` directories)
-- **2** Skill definitions (`.md` files in `skills/` directory)
-- **2** MCP server configurations (`.mcp.json` files)
+- **16** Command files (`.md` files in `commands/` directories)
+- **8** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
-- **2** Plugin READMEs (audio-notifications, commit-commands)
+- **2** Plugin READMEs (ui-components, audio-notifications, commit-commands)
 
-**Total: 41 files** providing comprehensive Claude Code development support.
+**Total: 40 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 
@@ -666,12 +670,6 @@ Approximate sizes:
 2. Update command logic and instructions
 3. Reinstall plugin: `/plugin uninstall` then `/plugin install`
 
-### Modifying Agents
-
-1. Edit `.md` files in `plugins/[plugin-name]/agents/`
-2. Update agent capabilities and instructions
-3. Reinstall plugin
-
 ### Modifying Skills
 
 1. Edit `.md` files in `plugins/[plugin-name]/skills/`
@@ -685,7 +683,7 @@ Approximate sizes:
 
 1. Create directory: `plugins/your-plugin-name/`
 2. Add `.claude-plugin/plugin.json` with metadata
-3. Add `commands/`, `agents/`, and/or `skills/` directories
+3. Add `commands/` and/or `skills/` directories
 4. Update `.claude-plugin/marketplace.json`
 5. Install: `/plugin install your-plugin-name@claude-code-marketplace`
 
@@ -697,13 +695,10 @@ plugins/your-plugin-name/
 │   └── plugin.json           # Required: Plugin metadata
 ├── commands/                 # Optional: Slash commands (explicit control)
 │   └── your-command.md
-├── agents/                   # Optional: Specialized agents (complex workflows)
-│   └── your-agent.md
 ├── skills/                   # Optional: Autonomous skills (intelligent invocation)
 │   └── your-skill.md
 ├── hooks/                    # Optional: Event hooks
 │   └── hooks.json
-├── .mcp.json                 # Optional: MCP server config
 └── README.md                 # Optional: Plugin documentation
 ```
 
@@ -739,9 +734,8 @@ Instructions for Claude on how to execute this skill...
 
 **Key Differences:**
 
-- **Commands** are explicitly invoked by users (`/command-name`)
-- **Skills** are automatically invoked by Claude based on context
-- **Agents** are invoked via Task tool for complex, multi-step workflows
+- **Commands** are explicitly invoked by users (`/command-name`) for direct control
+- **Skills** are automatically invoked by Claude based on context and user intent
 
 ## Version Information
 

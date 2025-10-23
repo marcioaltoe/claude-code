@@ -118,14 +118,13 @@ Install the shadcn/ui components you need for your project.
 
 Configure the Vercel AI SDK if you're building AI-powered features.
 
-### Set up Testing (Optional)
+### Set up Testing & Quality (Optional)
 
 ```
-/setup-vitest
-/setup-playwright
+/setup-quality-gates
 ```
 
-Configure testing frameworks for your project.
+Configure complete quality gates workflow: barrel-craft, Biome, Prettier, TypeScript strict mode, and Bun test with Husky pre-commit hooks.
 
 ## Step 4: Create Your First Feature
 
@@ -190,8 +189,9 @@ Create a complete CRUD feature for blog posts:
 ```
 
 Claude will automatically:
-- Use `database-architect` agent to design the schema
-- Use `ui-designer` agent to create components
+- Use `database-architect` skill to design the schema
+- Use `ui-designer` skill for React components with shadcn/ui and Tailwind CSS
+- Use `frontend-architect` skill for Clean Architecture structure
 - Generate all necessary code with proper typing
 - Implement validation and error handling
 
@@ -205,20 +205,22 @@ Add a chatbot to my app:
 - Error boundaries and loading states
 ```
 
-The `ai-integration-specialist` agent will set up everything you need.
+The `ai-integration-specialist` skill will set up everything you need.
 
-### Example 3: Testing Suite
+### Example 3: Quality Gates Setup
 
 ```
-Set up testing for my project:
-- Bun test for unit tests
-- React Testing Library for component tests
-- Playwright for E2E tests
-- Biome configuration for linting
+Set up complete quality gates for my project:
+- barrel-craft for automated exports
+- Biome for linting/formatting (TS/JS/CSS)
+- Prettier for markdown
+- TypeScript strict mode
+- Bun test with React Testing Library
+- Husky pre-commit hooks
 - Create sample tests for user authentication flow
 ```
 
-The `quality-engineer` agent will configure your testing infrastructure.
+The `quality-gates` skill will configure your testing infrastructure and quality workflow.
 
 ### Example 4: Git Workflow (Hybrid Approach)
 

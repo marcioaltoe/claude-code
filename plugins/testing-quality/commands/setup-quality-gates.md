@@ -225,7 +225,12 @@ Edit `barrel-craft.json`:
 ```json
 {
   "targets": ["src", "lib"],
-  "forceGenerate": ["src/domain", "src/application", "src/infrastructure", "src/presentation"]
+  "forceGenerate": [
+    "src/domain",
+    "src/application",
+    "src/infrastructure",
+    "src/presentation"
+  ]
 }
 ```
 
