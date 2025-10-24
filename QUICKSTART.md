@@ -219,7 +219,29 @@ Claude will automatically:
 - Generate all necessary code with proper typing
 - Implement validation and error handling
 
-### Example 2: AI Chat Feature
+### Example 2: Backend API with Clean Architecture
+
+```
+Create a user authentication API with Clean Architecture:
+- Domain entities (User, Email value object)
+- Use cases (RegisterUser, LoginUser, GetUserProfile)
+- Repository pattern with Drizzle ORM
+- Custom DI Container with Symbol-based tokens
+- Hono routes with Zod validation
+- JWT authentication middleware
+- Error handling with custom exceptions
+```
+
+Claude will automatically:
+- Use architecture-design plugin's `backend-engineer` skill for Clean Architecture implementation
+- Create Domain Layer (entities, value objects, ports)
+- Create Application Layer (use cases, DTOs)
+- Create Infrastructure Layer (repositories, adapters, DI container)
+- Create Presentation Layer (routes, controllers, Zod schemas)
+- Implement custom DI Container with proper lifetimes (singleton, scoped, transient)
+- Generate all code following SOLID principles and Clean Architecture patterns
+
+### Example 3: AI Chat Feature
 
 ```
 Add a chatbot to my app:
@@ -231,7 +253,7 @@ Add a chatbot to my app:
 
 The `ai-sdk-specialist` skill will set up everything you need.
 
-### Example 3: Quality Gates Setup
+### Example 4: Quality Gates Setup
 
 ```
 Set up complete quality gates for my project:
@@ -246,7 +268,7 @@ Set up complete quality gates for my project:
 
 The `quality-gates` skill will configure your testing infrastructure and quality workflow.
 
-### Example 4: Git Workflow (Hybrid Approach)
+### Example 5: Git Workflow (Hybrid Approach)
 
 **Autonomous (Skills):**
 ```

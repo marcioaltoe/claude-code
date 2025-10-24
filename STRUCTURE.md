@@ -144,8 +144,8 @@ claude-craftkit/
 | git                 | 3        | 2      | 0     | Workflow        |
 | reviewer            | 3        | 0      | 0     | Development     |
 | ui-tests            | 3        | 0      | 0     | Testing         |
-| architecture-design | 0        | 7      | 0     | Development     |
-| **TOTAL**           | **19**   | **17** | **3** | -               |
+| architecture-design | 0        | 9      | 0     | Development     |
+| **TOTAL**           | **19**   | **19** | **3** | -               |
 
 ## Plugin Descriptions
 
@@ -372,10 +372,12 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 
 **Features:**
 
-- 7 specialized skills covering all architecture aspects
+- 9 specialized skills covering all architecture aspects
 - SOLID principles enforcement
 - Clean Code standards (KISS, YAGNI, DRY, TDA)
 - Clean Architecture patterns (domain/application/infrastructure/presentation)
+- Backend engineering with Hono, DDD, and custom DI Container
+- Frontend engineering with React 19, TanStack ecosystem, and monorepo patterns
 - TypeScript type safety best practices
 - Comprehensive naming conventions
 - Error handling patterns and strategies
@@ -384,7 +386,11 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 **Use Cases:**
 
 - Enforcing SOLID principles in class design
-- Implementing Clean Architecture patterns
+- Implementing Clean Architecture patterns (backend and frontend)
+- Backend development with Hono + Bun + Drizzle ORM
+- Frontend development with React 19 + TanStack Router + TanStack Store
+- Monorepo setup with Turborepo and Bun/pnpm workspaces
+- Custom DI Container implementation with Symbol-based tokens
 - Applying Clean Code standards
 - TypeScript type safety guidance
 - Naming conventions enforcement
@@ -839,6 +845,60 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Type narrowing (typeof, instanceof, in operator)
 - TypeScript strict mode configuration
 
+### 18. backend-engineer
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Backend engineering with Clean Architecture, DDD, and Hono framework
+
+**Invocation Examples:**
+
+- "Create a backend API"
+- "Implement repository pattern"
+- "Add use case"
+- "Backend structure"
+- "Setup dependency injection"
+
+**Capabilities:**
+
+- Domain Layer examples (Entities, Value Objects, Ports)
+- Application Layer examples (Use Cases, DTOs, Mappers)
+- Infrastructure Layer examples (Repositories, Adapters, DI Container)
+- Presentation Layer examples (Routes, Controllers, Schemas with Zod)
+- Custom DI Container with Symbol-based tokens
+- Lifetime management (singleton, scoped, transient)
+- Composition root pattern
+- Best practices for backend development
+- Common patterns (Result type, Domain Events, Repository pattern)
+- Clean Architecture with Hono + Bun + Drizzle ORM
+
+### 19. frontend-engineer
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Frontend engineering with Clean Architecture, React 19, and TanStack ecosystem
+
+**Invocation Examples:**
+
+- "Create a frontend feature"
+- "Implement gateway pattern"
+- "Setup monorepo structure"
+- "State management with TanStack Store"
+- "React component architecture"
+
+**Capabilities:**
+
+- Monorepo structure (apps/ + packages/ with Turborepo)
+- Feature-based Clean Architecture (domain, application, infrastructure, presentation)
+- Gateway/Port pattern for HTTP, storage, events
+- Thin Use Cases that delegate to gateways
+- State Management (TanStack Store for local state + TanStack Query for server state)
+- HTTP Service with Axios interceptors and error handling
+- TanStack Router file-based routing with type safety
+- Testing strategy (unit tests with mock gateways, component tests, E2E tests)
+- Best practices for frontend development
+- React 19 + Vite 6 + TanStack ecosystem integration
+
 ## Hooks
 
 Hooks are event handlers that execute on specific Claude Code events.
@@ -987,11 +1047,11 @@ This marketplace provides comprehensive support for modern web development:
 
 - **9** Plugin manifests (`plugin.json` in each plugin)
 - **19** Command files (`.md` files in `commands/` directories)
-- **17** Skill definitions (`.md` files in `skills/` directories)
+- **19** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
 - **7** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
 
-**Total: 60 files** providing comprehensive Claude Code development support.
+**Total: 62 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 

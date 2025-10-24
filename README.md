@@ -32,8 +32,8 @@ Transform your Claude Code experience with a curated collection of plugins desig
 | git                 | 3        | 2      | Workflow        |
 | reviewer            | 3        | -      | Development     |
 | ui-tests            | 3        | -      | Testing         |
-| architecture-design | -        | 7      | Development     |
-| **Total**           | **19**   | **17** | -               |
+| architecture-design | -        | 9      | Development     |
+| **Total**           | **19**   | **19** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 

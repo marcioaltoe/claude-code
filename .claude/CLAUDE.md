@@ -1,6 +1,8 @@
 # Core Development Rules
 
-**For backend implementation examples and patterns, use the `backend-engineer` skill**
+**For backend implementation examples and patterns, use the `backend-engineer` skill from architecture-design plugin**
+
+**For frontend implementation examples and patterns, use the `frontend-engineer` skill from architecture-design plugin**
 
 ## **CRITICAL - NEVER IGNORE:**
 
@@ -12,6 +14,9 @@
 
 ## Naming Conventions (Mandatory)
 
+**For complete naming standards, use the `naming-conventions` skill from architecture-design plugin**
+
+**Quick Reference:**
 - `kebab-case` for file and folder names
 - `PascalCase` for class names
 - `camelCase` for function and variable names
@@ -49,13 +54,15 @@
 
 **Clean Architecture is REQUIRED for ALL backend code.**
 
-### Layers (dependency flow: outward → inward)
+**For complete architecture guidance, use these skills from architecture-design plugin:**
+- `clean-architecture` - Layered architecture, dependency rule, DDD patterns
+- `backend-engineer` - Implementation examples, DI Container, best practices
+- `solid-principles` - SOLID principles application
+
+### Quick Reference - Layers (dependency flow: outward → inward)
 
 1. **Domain Layer** (innermost, no dependencies)
-   - Entities: Core business objects with identity
-   - Value Objects: Immutable objects without identity
-   - Aggregates: Consistency boundaries for entities
-   - Domain Events: Business-significant occurrences
+   - Entities, Value Objects, Aggregates, Domain Events
    - Ports: Interface contracts (repositories, services) - NO "I" prefix
 
 2. **Application Layer** (depends on Domain only)
@@ -65,22 +72,12 @@
 3. **Infrastructure Layer** (depends on Application + Domain)
    - Repositories: Database implementations (implements domain/ports/repositories)
    - Adapters: External service implementations (Cache, Logger, Queue, APIs)
-   - Config: Environment and configuration
-   - Database: Connection and migrations
-   - HTTP: Hono app setup, middleware, OpenAPI docs
+   - Config, Database, HTTP, Container (DI)
 
 4. **Presentation Layer** (depends on Application)
    - Routes: Hono route registration
    - Controllers: Route handlers (business logic delegation)
    - Schemas: Zod validation schemas for requests/responses
-
-### SOLID Principles (Mandatory)
-
-- **Single Responsibility**: One reason to change
-- **Open/Closed**: Extend via abstractions, not modifications
-- **Liskov Substitution**: Subtypes must be substitutable
-- **Interface Segregation**: Small, focused interfaces
-- **Dependency Inversion**: Depend on abstractions, not implementations
 
 ### Critical Rules
 
@@ -94,50 +91,13 @@
 
 **Use custom DI Container (NO external libraries like InversifyJS or TSyringe)**
 
+**For complete DI implementation, see `backend-engineer` skill from architecture-design plugin**
+
+**Quick Reference:**
 - **Symbol-based tokens**: Type-safe DI with `Symbol('Name') as Token<Type>`
 - **Lifetimes**: singleton (core, repos), scoped (use cases), transient (rare)
 - **Registration by layer**: Separate register functions per layer
 - **Composition root**: `infrastructure/container/main.ts`
-
-_For implementation details, see `backend-engineer` skill_
-
-### Directory Structure
-
-```
-src/
-├── domain/
-│   ├── entities/           (User, Order)
-│   ├── value-objects/      (Email, Money, UUIDv7)
-│   ├── aggregates/         (consistency boundaries)
-│   ├── services/           (domain logic)
-│   └── ports/              (interface contracts)
-│       ├── repositories/   (UserRepository, OrderRepository)
-│       └── *.service.ts    (CacheService, LoggerService)
-├── application/
-│   ├── use-cases/          (CreateUser, PlaceOrder)
-│   └── dtos/               (CreateUserDto, OrderDto)
-├── infrastructure/
-│   ├── repositories/       (UserRepositoryImpl, OrderRepositoryImpl)
-│   ├── adapters/           (CacheServiceImpl, LoggerServiceImpl, QueueAdapter)
-│   ├── config/             (env.config.ts, env.schema.ts)
-│   ├── database/           (drizzle connection, migrations)
-│   ├── container/          (DI container)
-│   │   ├── container.ts    (Container implementation)
-│   │   ├── tokens.ts       (Symbol tokens)
-│   │   ├── main.ts         (Composition root)
-│   │   └── registers/
-│   │       ├── register.infrastructure.ts
-│   │       ├── register.repositories.ts
-│   │       ├── register.use-cases.ts
-│   │       └── register.controllers.ts
-│   └── http/
-│       ├── middleware/     (auth, validation, error handling)
-│       └── openapi/        (OpenAPI documentation)
-└── presentation/
-    ├── routes/             (user.routes.ts, order.routes.ts)
-    ├── controllers/        (UserController, OrderController)
-    └── schemas/            (user.schema.ts, order.schema.ts - Zod)
-```
 
 ## Barrel Files Strategy
 
@@ -163,6 +123,9 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 ## Error Handling Patterns
 
+**For complete error handling guidance, use `error-handling-patterns` skill from architecture-design plugin**
+
+**Quick Reference:**
 - Use Result/Either types for expected failures
 - Log errors with correlation IDs for tracing
 - Implement circuit breakers for external services
