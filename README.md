@@ -153,12 +153,11 @@ For plugin structure and customization guide, see [STRUCTURE.md](STRUCTURE.md#cu
 - Bun runtime for backend development
 - Appropriate tools for specific plugins (PostgreSQL, etc.)
 
-## License
-
-MIT License - See [LICENSE](LICENSE) for details.
-
 ## References
 
+- [Rodrigo Branas](https://branas.io/)
+- [Pedro Nauck](https://compozy.com/)
+- [Tech Leads Club](https://www.techleads.club)
 - [Leon van Zyl](https://github.com/leonvanzyl/claude-code)
 - [Fred Lacs](https://github.com/fredlacs/claude-code)
 - [adrianpuiu](https://github.com/adrianpuiu/claude-skills-marketplace)
@@ -169,8 +168,11 @@ MIT License - See [LICENSE](LICENSE) for details.
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/overview)
 - [Plugin System Documentation](https://docs.claude.com/en/docs/claude-code/plugins)
 - [Agent SDK Documentation](https://docs.claude.com/en/api/agent-sdk/overview)
-- [Anthropics Skills Paper](https://www.anthropic.com/news/create-files)
-- [Anthropics Skills Documentation](https://github.com/anthropics/skills)
+- [Anthropics Skills Documentation](https://docs.claude.com/en/docs/claude-code/skills)
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
