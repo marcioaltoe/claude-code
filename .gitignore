@@ -11,3 +11,7 @@
 
 # Python cache
 __pycache__
+
+# Bun lock files
+bun.lockb
+bun.lock*
