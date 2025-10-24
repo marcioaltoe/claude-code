@@ -1,16 +1,15 @@
 # Frontend Engineer Skill
 
-**Purpose**: Expert frontend engineering with Clean Architecture, React 19, TanStack ecosystem, and monorepo patterns. Provides implementation examples for building testable, maintainable, scalable frontend applications.
+**Purpose**: Expert frontend engineering with simplified pragmatic architecture, React 19, TanStack ecosystem, and Zustand state management. Provides implementation examples for building testable, maintainable, scalable frontend applications.
 
 **When to Use**:
 
 - Implementing frontend features and components
-- Setting up project structure or monorepo
-- Creating use cases and gateways
-- Designing state management strategies
+- Setting up project structure
+- Creating pages and state management
+- Designing gateway injection patterns
 - Setting up HTTP communication and routing
-- Implementing domain entities and value objects
-- Organizing feature modules with Clean Architecture
+- Organizing feature modules
 - Performance optimization and code splitting
 
 ---
@@ -21,13 +20,14 @@
 
 - **Context7 MCP**: Use for comprehensive library documentation, API reference, import statements, and version-specific patterns
 
-  - When user asks about TanStack Router, Query, Form, Table, Store APIs
+  - When user asks about TanStack Router, Query, Form, Table APIs
   - For React 19 features and patterns
   - For Vite configuration and build setup
+  - For Zustand API and patterns
   - To verify correct import paths, hooks usage, and API patterns
 
 - **Perplexity MCP**: Use for architectural research, design patterns, and best practices
-  - When researching Clean Architecture implementations in React
+  - When researching pragmatic frontend architectures
   - For state management strategies and trade-offs
   - For performance optimization techniques
   - For folder structure and code organization patterns
@@ -37,7 +37,8 @@
 
 - "How to setup TanStack Router file-based routing?" → Use Context7 MCP for TanStack Router docs
 - "What are React 19 use() hook patterns?" → Use Context7 MCP for React docs
-- "Best practices for Clean Architecture in React?" → Use Perplexity MCP for research
+- "How to use Zustand with TypeScript?" → Use Context7 MCP for Zustand docs
+- "Best practices for feature-based architecture in React?" → Use Perplexity MCP for research
 - "How to configure Vite with React 19?" → Use Context7 MCP for Vite docs
 
 ---
@@ -49,762 +50,503 @@
 **Quick Reference:**
 
 ### Core:
+
 - **Runtime**: Bun (NOT npm or pnpm or yarn)
 - **Framework**: React 19 + Vite 6 + TypeScript (strict mode)
 
 ### TanStack Ecosystem:
+
 - **Router**: TanStack Router 1.x (file-based, type-safe)
 - **Data Fetching**: TanStack Query 5.x
-- **State Management**: TanStack Store 0.8.x + TanStack Query (server state)
 - **Forms**: TanStack Form 1.x
 
+### State Management:
+
+- **Global State**: Zustand (NOT TanStack Store)
+- **Server State**: TanStack Query
+- **Form State**: TanStack Form
+- **URL State**: TanStack Router
+
 ### UI:
+
 - **Components**: shadcn/ui (Radix UI primitives)
 - **Styling**: Tailwind CSS 4.x
 - **Icons**: Lucide React
 
 ### Testing:
+
 - **Unit**: Bun test + React Testing Library
 - **E2E**: Playwright
 
-### Monorepo:
-- **Manager**: Bun/pnpm Workspaces + Turborepo
-- **Structure**: apps/ + packages/
-
 → See `project-standards` skill for complete tech stack
 → See `ui-designer` skill for UI/UX specific technologies
-→ See `docs/frontend-architecture-comparison.md` for monorepo analysis
+→ See `docs/plans/2025-10-24-simplified-frontend-architecture-design.md` for architecture details
 
 ---
 
 ## Architecture Overview
 
-Frontend follows **Clean Architecture** with a **feature-based** structure.
+Frontend follows a **simplified, pragmatic, feature-based architecture**.
 
-### Recommended: Monorepo Structure
+**Core Principles:**
+
+1. **Feature-based organization** - Code grouped by business functionality
+2. **Pages as use cases** - Pages orchestrate business logic
+3. **Externalized state** - Zustand stores are framework-agnostic, 100% testable
+4. **Gateway injection** - Gateways injected via Context API for isolated testing
+5. **YAGNI rigorously** - No unnecessary layers or abstractions
+
+**Design Philosophy**: Simplicity and pragmatism over architectural purity. Remove Clean Architecture complexity (domain/application/infrastructure layers) in favor of direct, maintainable code.
+
+### Recommended Structure
 
 ```
-/(project-root)
-├── apps/
-│   ├── web/              # Frontend principal
-│   │   └── src/
-│   │       ├── app/              # App setup
-│   │       │   ├── config/      # Environment config
-│   │       │   ├── providers/   # React context providers
-│   │       │   ├── router.tsx   # Router configuration
-│   │       │   └── runtime.tsx  # Runtime setup
-│   │       ├── core/
-│   │       │   ├── domain/
-│   │       │   │   ├── entities/      # Shared domain entities
-│   │       │   │   └── value-objects/ # Shared value objects
-│   │       │   └── application/
-│   │       │       ├── ports/         # Core interfaces
-│   │       │       └── use-cases/     # Shared use cases
-│   │       ├── infrastructure/        # Core implementations
-│   │       │   ├── http/              # HTTP service (Axios wrapper)
-│   │       │   ├── storage/           # Cookie/localStorage services
-│   │       │   ├── events/            # Event emitter
-│   │       │   └── query/             # TanStack Query setup
-│   │       ├── features/              # Feature modules (Clean Architecture)
-│   │       │   └── auth/
-│   │       │       ├── domain/
-│   │       │       │   ├── entities/
-│   │       │       │   └── value-objects/
-│   │       │       ├── application/
-│   │       │       │   ├── ports/           # AuthGateway
-│   │       │       │   └── use-cases/       # LoginUseCase (thin)
-│   │       │       ├── infrastructure/
-│   │       │       │   ├── gateways/        # AuthHttpGateway
-│   │       │       │   └── schemas/         # Zod schemas
-│   │       │       └── presentation/
-│   │       │           ├── components/
-│   │       │           ├── hooks/
-│   │       │           ├── pages/
-│   │       │           └── stores/          # TanStack Store
-│   │       ├── routes/                # TanStack Router routes
-│   │       │   ├── __root.tsx        # Root layout
-│   │       │   ├── index.tsx         # Home page
-│   │       │   └── [feature]/        # Feature routes
-│   │       └── shared/                # Shared utilities
-│   │           ├── components/
-│   │           │   ├── ui/           # shadcn/ui components
-│   │           │   ├── modules/      # Feature-agnostic modules
-│   │           │   └── typography/   # Typography components
-│   │           ├── config/           # App-wide configuration
-│   │           ├── contexts/         # React contexts
-│   │           ├── hooks/            # Shared custom hooks
-│   │           ├── lib/              # Utilities and helpers
-│   │           └── stores/           # Global stores (TanStack Store)
+apps/web/src/
+├── app/                              # Application setup
+│   ├── config/
+│   │   ├── env.ts                   # Environment variables
+│   │   └── index.ts
+│   ├── providers/
+│   │   ├── gateway-provider.tsx     # Gateway injection (Context API)
+│   │   ├── query-provider.tsx       # TanStack Query setup
+│   │   ├── theme-provider.tsx       # Theme provider (shadcn/ui)
+│   │   └── index.ts
+│   ├── router.tsx                   # TanStack Router configuration
+│   └── main.tsx                     # Application entry point
+│
+├── features/                         # Feature modules (self-contained)
+│   ├── auth/
+│   │   ├── components/              # Pure UI components
+│   │   │   ├── login-form.tsx
+│   │   │   └── index.ts
+│   │   ├── pages/                   # Use cases - orchestrate logic
+│   │   │   ├── login-page.tsx
+│   │   │   └── index.ts
+│   │   ├── stores/                  # Zustand stores - testable entities
+│   │   │   ├── auth-store.ts
+│   │   │   └── index.ts
+│   │   ├── gateways/                # External resource abstractions
+│   │   │   ├── auth-gateway.ts      # Interface + HTTP implementation
+│   │   │   ├── auth-gateway.fake.ts # Fake for unit tests
+│   │   │   └── index.ts
+│   │   ├── hooks/                   # Custom hooks (optional)
+│   │   │   └── index.ts
+│   │   ├── types/                   # TypeScript types
+│   │   │   ├── user.ts
+│   │   │   └── index.ts
+│   │   └── index.ts                 # Barrel file - public API
 │   │
-│   ├── admin/            # Outro app
-│   └── mobile/           # App mobile
+│   ├── dashboard/
+│   └── profile/
 │
-├── packages/
-│   ├── ui/               # Shared UI components (@repo/ui)
-│   ├── utils/            # Shared utilities (@repo/utils)
-│   ├── domain/           # Shared domain logic (@repo/domain)
-│   ├── config/           # Shared configs (@repo/config)
-│   └── types/            # Shared types (@repo/types)
+├── shared/                           # Shared code across features
+│   ├── services/                    # Global services
+│   │   ├── http-api.ts             # HTTP client base (Axios wrapper)
+│   │   ├── storage.ts              # LocalStorage/Cookie abstraction
+│   │   └── index.ts
+│   ├── components/
+│   │   ├── ui/                     # shadcn/ui components
+│   │   └── layout/                 # Shared layouts
+│   ├── hooks/                      # Global utility hooks
+│   ├── lib/                        # Utilities and helpers
+│   │   ├── validators.ts           # Zod schemas (common)
+│   │   ├── formatters.ts
+│   │   └── index.ts
+│   └── types/                      # Global types
 │
-├── package.json
-├── turbo.json
-└── tsconfig.json
+├── routes/                          # TanStack Router routes
+│   ├── __root.tsx
+│   ├── index.tsx
+│   └── auth/
+│       └── login.tsx
+│
+└── index.css
 ```
 
 **Benefits**:
 
-- ✅ Code sharing entre apps (UI, utils, domain)
-- ✅ Consistent configs e tooling
-- ✅ Turborepo caching (faster builds)
-- ✅ TypeScript project references (type safety)
-- ✅ Single source of truth
-- ✅ Scalable for multiple teams
-
-**Use When**:
-
-- Multiple related frontend apps
-- Need to share UI components
-- Multiple teams working on different apps
+- ✅ Feature isolation - delete folder, remove feature
+- ✅ No unnecessary layers - direct, maintainable code
+- ✅ Testable business logic - Zustand stores are pure JS/TS
+- ✅ Isolated page testing - inject fake gateways
+- ✅ Clear separation - pages (orchestration), components (UI), stores (state)
 
 ---
 
-### Alternative: Standalone App Structure
+## Layer Responsibilities (MANDATORY)
 
-For single apps without monorepo needs, use the same structure but without `apps/` and `packages/`:
+### 1. Shared Services Layer
 
-```
-src/
-├── app/              # App setup
-├── core/             # Shared infrastructure
-├── infrastructure/   # Core implementations
-├── features/         # Feature modules
-├── routes/           # TanStack Router
-└── shared/           # Shared code
-```
+**Purpose**: Reusable infrastructure used across features.
 
-**Use When**:
-
-- Single frontend app
-- No code sharing needed
-- Small team
-
----
-
-## Clean Architecture Layers (MANDATORY)
-
-**ALWAYS follow this layer structure:**
-
-### 1. Domain Layer (`core/domain` and `features/*/domain`)
-
-Pure business logic with NO external dependencies:
-
-**Example - Entity**:
+**Example - HTTP Client**:
 
 ```typescript
-// core/domain/entities/user.entity.ts
+// shared/services/http-api.ts
+import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 
-export interface User {
-  readonly id: string;
-  readonly email: string;
-  readonly name: string;
-  readonly role: UserRole;
-}
+export class HttpApi {
+  private client: AxiosInstance;
 
-export type UserRole = "admin" | "user" | "guest";
-```
-
-**Example - Value Object**:
-
-```typescript
-// core/domain/value-objects/email.vo.ts
-
-export class Email {
-  private constructor(private readonly value: string) {}
-
-  static create(value: string): Email {
-    if (!this.isValid(value)) {
-      throw new Error("Invalid email format");
-    }
-    return new Email(value);
-  }
-
-  private static isValid(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  toString(): string {
-    return this.value;
-  }
-
-  equals(other: Email): boolean {
-    return this.value === other.value;
-  }
-}
-```
-
----
-
-### 2. Application Layer (`core/application` and `features/*/application`)
-
-Use cases and ports (interfaces) - NO implementation details:
-
-**Example - Port (Gateway Interface)**:
-
-```typescript
-// features/auth/application/ports/auth.gateway.ts
-
-import type { Session, UserProfile } from "@/features/auth/domain/entities";
-
-export interface LoginInput {
-  email: string;
-  password: string;
-}
-
-export interface SignupInput {
-  name: string;
-  email: string;
-  password: string;
-}
-
-/**
- * Auth Gateway - Port for authentication operations
- * NO "I" prefix (AuthGateway, not IAuthGateway)
- */
-export interface AuthGateway {
-  login(input: LoginInput): Promise<Session>;
-  signup(input: SignupInput): Promise<boolean>;
-  logout(): Promise<void>;
-  fetchUserProfile(): Promise<UserProfile>;
-  validateToken(): Promise<boolean>;
-}
-```
-
-**Example - Use Case (Thin Wrapper)**:
-
-```typescript
-// features/auth/application/use-cases/login.use-case.ts
-
-import type {
-  AuthGateway,
-  LoginInput,
-} from "@/features/auth/application/ports";
-import type { Session } from "@/features/auth/domain/entities";
-
-export class LoginUseCase {
-  constructor(private readonly authGateway: AuthGateway) {}
-
-  async execute(input: LoginInput): Promise<Session> {
-    // Thin wrapper - just delegate to gateway
-    return this.authGateway.login(input);
-  }
-}
-```
-
----
-
-### 3. Infrastructure Layer (`features/*/infrastructure` and `infrastructure/`)
-
-Adapters, gateways, and external service implementations:
-
-**Example - Core HTTP Service**:
-
-```typescript
-// infrastructure/http/http.service.ts
-
-import type { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import axios from "axios";
-import { toast } from "sonner";
-
-import { authEventEmitter } from "@/infrastructure/events";
-import { cookieService } from "@/infrastructure/storage";
-import { env } from "@/app/config";
-import type {
-  HttpError,
-  HttpGateway,
-  HttpRequestData,
-  HttpResponse,
-} from "@/core/application/ports";
-
-const PUBLIC_ROUTES = ["/auth/login", "/auth/register"] as const;
-
-export class HttpService implements HttpGateway {
-  private readonly client: AxiosInstance;
-
-  constructor(baseURL?: string) {
+  constructor(baseURL: string) {
     this.client = axios.create({
-      baseURL: baseURL || env.VITE_API_BASE_URL,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      baseURL,
+      timeout: 10000,
+      headers: { "Content-Type": "application/json" },
     });
 
-    this.setupAuthInterceptor();
-    this.setupErrorInterceptor();
-  }
+    // Auto-inject auth token
+    this.client.interceptors.request.use((config) => {
+      const token = localStorage.getItem("auth_token");
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
 
-  updateBaseUrl(newBaseUrl: string): void {
-    this.client.defaults.baseURL = newBaseUrl;
-  }
-
-  private setupAuthInterceptor(): void {
-    this.client.interceptors.request.use(
-      (config) => {
-        const token = cookieService.getAuthToken();
-        const isPublicRoute = PUBLIC_ROUTES.some((route) =>
-          config.url?.includes(route)
-        );
-
-        if (token && !isPublicRoute) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-
-        return config;
-      },
-      (error) => Promise.reject(error)
-    );
-  }
-
-  private setupErrorInterceptor(): void {
+    // Handle 401 globally
     this.client.interceptors.response.use(
       (response) => response,
-      (error: AxiosError) => {
-        // Handle canceled requests
-        if (axios.isCancel(error)) {
-          return Promise.reject({
-            message: "Request canceled",
-            code: "REQUEST_CANCELED",
-          } as HttpError);
+      (error) => {
+        if (error.response?.status === 401) {
+          localStorage.removeItem("auth_token");
+          window.location.href = "/auth/login";
         }
-
-        const { response } = error;
-
-        if (!response) {
-          toast.error("Erro de conexão. Verifique sua internet.");
-          return Promise.reject({
-            message: "Erro de conexão com o servidor",
-            code: "NETWORK_ERROR",
-          } as HttpError);
-        }
-
-        const status = response.status;
-        const data = response.data as Record<string, unknown>;
-        let errorMessage = "Ocorreu um erro inesperado";
-
-        switch (status) {
-          case 400:
-            errorMessage = (data.message as string) || "Requisição inválida";
-            break;
-          case 401:
-            // Emit token expiration event
-            authEventEmitter.emit("token-expired", {
-              currentPath: window.location.pathname,
-            });
-            cookieService.removeAuthToken();
-            return Promise.reject({
-              message: "Token expired",
-              code: "TOKEN_EXPIRED",
-              status: 401,
-            } as HttpError);
-          case 403:
-            errorMessage = "Você não tem permissão para acessar este recurso";
-            break;
-          case 404:
-            errorMessage = "Recurso não encontrado";
-            break;
-          case 422:
-            errorMessage = (data.message as string) || "Dados inválidos";
-            break;
-          case 500:
-            errorMessage = "Erro interno do servidor";
-            break;
-          default:
-            errorMessage =
-              (data.message as string) ||
-              `Erro ${status}: ${response.statusText}`;
-        }
-
-        toast.error(errorMessage);
-
-        return Promise.reject({
-          message: errorMessage,
-          code: (data.code as string) || `ERROR_${status}`,
-          status,
-          details: data,
-        } as HttpError);
+        return Promise.reject(error);
       }
     );
   }
 
-  get<T = unknown>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<HttpResponse<T>> {
-    return this.client.get(url, config);
-  }
-
-  post<T = unknown>(
-    url: string,
-    data?: HttpRequestData,
-    config?: AxiosRequestConfig
-  ): Promise<HttpResponse<T>> {
-    return this.client.post(url, data, config);
-  }
-
-  put<T = unknown>(
-    url: string,
-    data?: HttpRequestData,
-    config?: AxiosRequestConfig
-  ): Promise<HttpResponse<T>> {
-    return this.client.put(url, data, config);
-  }
-
-  patch<T = unknown>(
-    url: string,
-    data?: HttpRequestData,
-    config?: AxiosRequestConfig
-  ): Promise<HttpResponse<T>> {
-    return this.client.patch(url, data, config);
-  }
-
-  delete<T = unknown>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<HttpResponse<T>> {
-    return this.client.delete(url, config);
-  }
-}
-
-// Export singleton instance
-export const httpService = new HttpService();
-```
-
-**Example - Feature Gateway Implementation**:
-
-```typescript
-// features/auth/infrastructure/gateways/auth-http.gateway.ts
-
-import { httpService } from "@/infrastructure/http";
-import { cookieService } from "@/infrastructure/storage";
-import { env } from "@/app/config";
-import type {
-  AuthGateway,
-  LoginInput,
-  SignupInput,
-} from "@/features/auth/application/ports";
-import type { Session, UserProfile } from "@/features/auth/domain/entities";
-
-const API_ENDPOINT = `${env.VITE_API_BASE_URL}/auth`;
-
-export class AuthHttpGateway implements AuthGateway {
-  async login(input: LoginInput): Promise<Session> {
-    const response = await httpService.post<LoginResponse>(
-      `${API_ENDPOINT}/login`,
-      input as unknown as Record<string, unknown>
-    );
-
-    if (!response.data || !response.data.token) {
-      throw new Error("Token de autenticação não encontrado na resposta");
-    }
-
-    const session: Session = {
-      user: response.data.user,
-      organizations: response.data.organizations,
-      permissions: response.data.permissions,
-      token: response.data.token,
-    };
-
-    // Store token in cookies
-    cookieService.setAuthToken(response.data.token);
-
-    return session;
-  }
-
-  async signup(input: SignupInput): Promise<boolean> {
-    const response = await httpService.post<unknown>(
-      `${API_ENDPOINT}/register`,
-      input as unknown as Record<string, unknown>
-    );
-
-    return !!response.data;
-  }
-
-  async logout(): Promise<void> {
-    try {
-      await httpService.post("/auth/logout");
-    } finally {
-      cookieService.removeAuthToken();
-    }
-  }
-
-  async fetchUserProfile(): Promise<UserProfile> {
-    const response = await httpService.get<UserProfile>(
-      `${API_ENDPOINT}/profile`,
-      {
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-        },
-      }
-    );
-
-    if (!response.data) {
-      throw new Error("Perfil do usuário não encontrado ou inválido");
-    }
-
+  async get<T>(url: string, config?: AxiosRequestConfig) {
+    const response = await this.client.get<T>(url, config);
     return response.data;
   }
 
-  async validateToken(): Promise<boolean> {
-    const token = cookieService.getAuthToken();
-    if (!token) return false;
+  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
+    const response = await this.client.post<T>(url, data, config);
+    return response.data;
+  }
 
-    try {
-      const response = await httpService.get<{ success?: boolean }>(
-        `${API_ENDPOINT}/validate`
-      );
+  async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
+    const response = await this.client.put<T>(url, data, config);
+    return response.data;
+  }
 
-      if (!response.data || !response.data.success) {
-        cookieService.removeAuthToken();
-        return false;
-      }
-
-      return true;
-    } catch {
-      cookieService.removeAuthToken();
-      return false;
-    }
+  async delete<T>(url: string, config?: AxiosRequestConfig) {
+    const response = await this.client.delete<T>(url, config);
+    return response.data;
   }
 }
-```
 
-**Example - Event Emitter**:
-
-```typescript
-// infrastructure/events/auth-events.ts
-
-import mitt from "mitt";
-
-type AuthEvents = {
-  "token-expired": { currentPath: string };
-  "user-logged-out": void;
-};
-
-export const authEventEmitter = mitt<AuthEvents>();
+// Singleton instance
+export const httpApi = new HttpApi(import.meta.env.VITE_API_URL);
 ```
 
 ---
 
-### 4. Presentation Layer (`features/*/presentation`)
+### 2. Gateway Layer
 
-UI components, hooks, and stores:
+**Purpose**: Abstract external resource access. Enable testing with fakes.
 
-**Example - TanStack Store with Factory**:
+**Example - Auth Gateway**:
 
 ```typescript
-// shared/lib/store-factory.ts
+// features/auth/gateways/auth-gateway.ts
+import { httpApi } from "@/shared/services/http-api";
+import type { User } from "../types/user";
 
-import { Store } from "@tanstack/store";
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
 
-export function createStore<T extends Record<string, unknown>>(
-  initialState: T,
-  name: string
-) {
-  const store = new Store<T>(initialState, {
-    debugLabel: name,
-  });
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
 
-  // Selectors - for reading specific state slices
-  const selectors = {
-    getAll: () => store.state,
-    get: <K extends keyof T>(key: K) => store.state[key],
-  };
+// Gateway interface (contract)
+export interface AuthGateway {
+  login(request: LoginRequest): Promise<LoginResponse>;
+  logout(): Promise<void>;
+  getCurrentUser(): Promise<User>;
+}
 
-  // Updaters - for modifying state
-  const updaters = {
-    update: <K extends keyof T>(key: K, value: T[K]) => {
-      store.setState((prev) => ({ ...prev, [key]: value }));
-    },
-    updateAll: (newState: Partial<T>) => {
-      store.setState((prev) => ({ ...prev, ...newState }));
-    },
-    reset: () => {
-      store.setState(initialState);
-    },
-  };
+// Real implementation (HTTP)
+export class AuthHttpGateway implements AuthGateway {
+  async login(request: LoginRequest): Promise<LoginResponse> {
+    return httpApi.post<LoginResponse>("/auth/login", request);
+  }
 
-  return { store, selectors, updaters };
+  async logout(): Promise<void> {
+    await httpApi.post("/auth/logout");
+  }
+
+  async getCurrentUser(): Promise<User> {
+    return httpApi.get<User>("/auth/me");
+  }
+}
+
+// Fake implementation for unit tests
+export class AuthFakeGateway implements AuthGateway {
+  private shouldFail = false;
+
+  setShouldFail(value: boolean) {
+    this.shouldFail = value;
+  }
+
+  async login(request: LoginRequest): Promise<LoginResponse> {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    if (this.shouldFail) {
+      throw new Error("Invalid credentials");
+    }
+
+    if (
+      request.email === "test@example.com" &&
+      request.password === "password123"
+    ) {
+      return {
+        user: {
+          id: "1",
+          name: "Test User",
+          email: "test@example.com",
+          role: "user",
+        },
+        token: "fake-token-123",
+      };
+    }
+
+    throw new Error("Invalid credentials");
+  }
+
+  async logout(): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+
+  async getCurrentUser(): Promise<User> {
+    if (this.shouldFail) throw new Error("Unauthorized");
+    return {
+      id: "1",
+      name: "Test User",
+      email: "test@example.com",
+      role: "user",
+    };
+  }
 }
 ```
 
-**Example - Feature Store**:
+---
+
+### 3. Gateway Injection (Context API)
+
+**Purpose**: Provide gateways to components. Allow override in tests.
+
+**Example**:
 
 ```typescript
-// features/auth/presentation/stores/auth-session.store.ts
+// app/providers/gateway-provider.tsx
+import { createContext, useContext, type ReactNode } from "react";
+import {
+  AuthGateway,
+  AuthHttpGateway,
+} from "@/features/auth/gateways/auth-gateway";
 
-import { createStore } from "@/shared/lib/store-factory";
-import type { Session } from "@/features/auth/domain/entities";
+interface Gateways {
+  authGateway: AuthGateway;
+  // Add more gateways as needed
+}
 
-export interface AuthSessionState {
-  session: Session | null;
+const GatewayContext = createContext<Gateways | null>(null);
+
+interface GatewayProviderProps {
+  children: ReactNode;
+  gateways?: Partial<Gateways>; // Allow override for tests
+}
+
+export function GatewayProvider({ children, gateways }: GatewayProviderProps) {
+  const defaultGateways: Gateways = {
+    authGateway: new AuthHttpGateway(),
+  };
+
+  const value = { ...defaultGateways, ...gateways };
+
+  return (
+    <GatewayContext.Provider value={value}>{children}</GatewayContext.Provider>
+  );
+}
+
+export function useGateways() {
+  const context = useContext(GatewayContext);
+  if (!context) {
+    throw new Error("useGateways must be used within GatewayProvider");
+  }
+  return context;
+}
+```
+
+---
+
+### 4. Store Layer (Zustand)
+
+**Purpose**: Testable business logic, framework-agnostic state management.
+
+**Example**:
+
+```typescript
+// features/auth/stores/auth-store.ts
+import { create } from "zustand";
+import type { User } from "../types/user";
+
+interface AuthState {
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+
+  setUser: (user: User | null) => void;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  reset: () => void;
 }
 
-const initialState: AuthSessionState = {
-  session: null,
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
-};
 
-const { store, selectors, updaters } = createStore(
-  initialState,
-  "auth-session"
-);
-
-export const authSessionStore = store;
-export const authSessionSelectors = selectors;
-export const authUpdaters = updaters;
-
-// Actions - convenience methods
-export const authSessionActions = {
-  setSession: (session: Session | null) => {
-    updaters.updateAll({
-      session,
-      isAuthenticated: !!session,
-      error: null,
-    });
-  },
-
-  setLoading: (isLoading: boolean) => {
-    updaters.update("isLoading", isLoading);
-  },
-
-  setError: (error: string | null) => {
-    updaters.update("error", error);
-  },
-
-  clearSession: () => {
-    updaters.reset();
-  },
-};
+  setUser: (user) => set({ user, isAuthenticated: user !== null }),
+  setLoading: (isLoading) => set({ isLoading }),
+  setError: (error) => set({ error }),
+  reset: () =>
+    set({ user: null, isAuthenticated: false, isLoading: false, error: null }),
+}));
 ```
 
-**Example - Custom Hook**:
+**Why Zustand:**
+
+- ✅ Minimal boilerplate
+- ✅ Excellent TypeScript support
+- ✅ Framework-agnostic (100% testable without React)
+- ✅ Large community and ecosystem
+- ✅ Superior DX compared to alternatives
+
+---
+
+### 5. Page Layer (Use Cases)
+
+**Purpose**: Orchestrate business logic by coordinating gateways, stores, and UI components.
+
+**Example**:
 
 ```typescript
-// features/auth/presentation/hooks/use-login.ts
-
+// features/auth/pages/login-page.tsx
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
+import { useGateways } from "@/app/providers/gateway-provider";
+import { useAuthStore } from "../stores/auth-store";
+import { LoginForm } from "../components/login-form";
 
-import { LoginUseCase } from "@/features/auth/application/use-cases";
-import { AuthHttpGateway } from "@/features/auth/infrastructure/gateways";
-import { authSessionActions } from "@/features/auth/presentation/stores";
-import type { LoginInput } from "@/features/auth/application/ports";
-
-export function useLogin() {
-  const [isLoading, setIsLoading] = useState(false);
+export function LoginPage() {
   const navigate = useNavigate();
+  const { authGateway } = useGateways(); // Injected gateway
+  const { setUser, setLoading, setError, isLoading, error } = useAuthStore();
 
-  const loginUseCase = new LoginUseCase(new AuthHttpGateway());
+  const [formError, setFormError] = useState<string | null>(null);
 
-  const login = async (input: LoginInput) => {
-    setIsLoading(true);
-    authSessionActions.setLoading(true);
+  const handleLogin = async (email: string, password: string) => {
+    setLoading(true);
+    setError(null);
+    setFormError(null);
 
     try {
-      const session = await loginUseCase.execute(input);
+      const { user, token } = await authGateway.login({ email, password });
 
-      authSessionActions.setSession(session);
-      toast.success("Login realizado com sucesso!");
+      localStorage.setItem("auth_token", token);
+      setUser(user);
 
-      await navigate({ to: "/dashboard" });
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Erro ao fazer login";
-
-      authSessionActions.setError(errorMessage);
-      toast.error(errorMessage);
+      navigate({ to: "/dashboard" });
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Login failed";
+      setError(errorMessage);
+      setFormError(errorMessage);
     } finally {
-      setIsLoading(false);
-      authSessionActions.setLoading(false);
+      setLoading(false);
     }
   };
 
-  return { login, isLoading };
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <LoginForm
+        onSubmit={handleLogin}
+        isLoading={isLoading}
+        error={formError}
+      />
+    </div>
+  );
 }
 ```
 
-**Example - Component**:
+---
+
+### 6. Component Layer
+
+**Purpose**: Pure UI components that receive props and emit events.
+
+**Example**:
 
 ```typescript
-// features/auth/presentation/components/login-form.tsx
-
-import { useForm } from "@tanstack/react-form";
-import { zodValidator } from "@tanstack/zod-form-adapter";
-import { z } from "zod";
-
+// features/auth/components/login-form.tsx
+import { useState } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
-import { useLogin } from "@/features/auth/presentation/hooks";
 
-const loginSchema = z.object({
-  email: z.string().email("Email inválido"),
-  password: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
-});
+interface LoginFormProps {
+  onSubmit: (email: string, password: string) => void;
+  isLoading?: boolean;
+  error?: string | null;
+}
 
-export function LoginForm() {
-  const { login, isLoading } = useLogin();
+export function LoginForm({
+  onSubmit,
+  isLoading = false,
+  error,
+}: LoginFormProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const form = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    validatorAdapter: zodValidator(),
-    validators: {
-      onChange: loginSchema,
-    },
-    onSubmit: async ({ value }) => {
-      await login(value);
-    },
-  });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(email, password);
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-    >
-      <form.Field name="email">
-        {(field) => (
-          <Input
-            type="email"
-            placeholder="Email"
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-            onBlur={field.handleBlur}
-          />
-        )}
-      </form.Field>
+    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
+      <div>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
+          aria-label="Email"
+        />
+      </div>
 
-      <form.Field name="password">
-        {(field) => (
-          <Input
-            type="password"
-            placeholder="Senha"
-            value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
-            onBlur={field.handleBlur}
-          />
-        )}
-      </form.Field>
+      <div>
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoading}
+          aria-label="Password"
+        />
+      </div>
 
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? "Entrando..." : "Entrar"}
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <Button type="submit" disabled={isLoading} className="w-full">
+        {isLoading ? "Loading..." : "Login"}
       </Button>
     </form>
   );
@@ -817,58 +559,45 @@ export function LoginForm() {
 
 **Use the RIGHT tool for each state type:**
 
-### 1. Server State → TanStack Query
-
-For data from backend APIs with caching, revalidation, and synchronization:
-
-```typescript
-// features/users/presentation/hooks/use-users-query.ts
-
-import { useQuery } from "@tanstack/react-query";
-import { GetUsersUseCase } from "@/features/users/application/use-cases";
-import { UserHttpGateway } from "@/features/users/infrastructure/gateways";
-
-export function useUsersQuery() {
-  const gateway = new UserHttpGateway();
-  const useCase = new GetUsersUseCase(gateway);
-
-  return useQuery({
-    queryKey: ["users"],
-    queryFn: () => useCase.execute(),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-}
-```
-
-### 2. Global Client State → TanStack Store
+### 1. Global Client State → Zustand
 
 For application-wide client state (auth, theme, preferences):
 
 ```typescript
-// shared/stores/theme.store.ts
-
-import { createStore } from "@/shared/lib/store-factory";
+// shared/stores/theme-store.ts
+import { create } from "zustand";
 
 export type Theme = "light" | "dark" | "system";
 
-export interface ThemeState {
+interface ThemeState {
   theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
-const initialState: ThemeState = {
+export const useThemeStore = create<ThemeState>((set) => ({
   theme: "system",
-};
+  setTheme: (theme) => set({ theme }),
+}));
+```
 
-const { store, selectors, updaters } = createStore(initialState, "theme");
+### 2. Server State → TanStack Query
 
-export const themeStore = store;
-export const themeSelectors = selectors;
+For data from backend APIs with caching, revalidation, and synchronization:
 
-export const themeActions = {
-  setTheme: (theme: Theme) => {
-    updaters.update("theme", theme);
-  },
-};
+```typescript
+// features/users/hooks/use-users-query.ts
+import { useQuery } from "@tanstack/react-query";
+import { useGateways } from "@/app/providers/gateway-provider";
+
+export function useUsersQuery() {
+  const { userGateway } = useGateways();
+
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: () => userGateway.getUsers(),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
 ```
 
 ### 3. Form State → TanStack Form
@@ -881,22 +610,16 @@ import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 
 const userSchema = z.object({
-  name: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
-  email: z.string().email("Email inválido"),
+  name: z.string().min(2),
+  email: z.string().email(),
 });
 
 export function UserForm() {
   const form = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-    },
-    onSubmit: async ({ value }) => {
-      console.log(value);
-    },
-    validators: {
-      onChange: userSchema,
-    },
+    defaultValues: { name: "", email: "" },
+    validatorAdapter: zodValidator(),
+    validators: { onChange: userSchema },
+    onSubmit: async ({ value }) => console.log(value),
   });
 
   // ... render form
@@ -909,7 +632,6 @@ For URL parameters and search params:
 
 ```typescript
 // routes/users/$userId.tsx
-
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
@@ -928,8 +650,7 @@ function UserDetail() {
 
   return (
     <div>
-      <h1>User {userId}</h1>
-      <p>Active tab: {tab}</p>
+      User {userId} - Tab: {tab}
     </div>
   );
 }
@@ -950,6 +671,245 @@ export function Counter() {
     </div>
   );
 }
+```
+
+---
+
+## Testing Strategy (MANDATORY)
+
+### Test Pyramid
+
+```
+        ┌─────────────┐
+       ╱   E2E Tests   ╲       Few - Critical flows
+      ╱   (Playwright)  ╲
+     ╱─────────────────────╲
+    ╱  Integration Tests   ╲  Some - Pages with fakes
+   ╱   (Pages + Stores)     ╲
+  ╱─────────────────────────╲
+ ╱       Unit Tests          ╲ Many - Stores, utils
+╱   (Stores, Utils, Comps)   ╲
+─────────────────────────────
+```
+
+### Store Tests (Unit - High Priority)
+
+Zustand stores are 100% testable without React:
+
+```typescript
+// features/auth/stores/auth-store.test.ts
+import { describe, it, expect, beforeEach } from "bun:test";
+import { useAuthStore } from "./auth-store";
+
+describe("AuthStore", () => {
+  beforeEach(() => {
+    useAuthStore.getState().reset();
+  });
+
+  it("should start with empty state", () => {
+    const state = useAuthStore.getState();
+    expect(state.user).toBeNull();
+    expect(state.isAuthenticated).toBe(false);
+  });
+
+  it("should update user and isAuthenticated when setting user", () => {
+    const user = {
+      id: "1",
+      name: "Test",
+      email: "test@example.com",
+      role: "user",
+    };
+
+    useAuthStore.getState().setUser(user);
+
+    expect(useAuthStore.getState().user).toEqual(user);
+    expect(useAuthStore.getState().isAuthenticated).toBe(true);
+  });
+});
+```
+
+### Page Tests (Integration with Fake Gateways)
+
+Test orchestration logic with injected fakes:
+
+```typescript
+// features/auth/pages/login-page.test.tsx
+import { describe, it, expect, beforeEach } from "bun:test";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { GatewayProvider } from "@/app/providers/gateway-provider";
+import { AuthFakeGateway } from "../gateways/auth-gateway";
+import { LoginPage } from "./login-page";
+import { useAuthStore } from "../stores/auth-store";
+
+describe("LoginPage", () => {
+  let fakeAuthGateway: AuthFakeGateway;
+
+  beforeEach(() => {
+    fakeAuthGateway = new AuthFakeGateway();
+    useAuthStore.getState().reset();
+  });
+
+  it("should login successfully and update store", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <GatewayProvider gateways={{ authGateway: fakeAuthGateway }}>
+        <LoginPage />
+      </GatewayProvider>
+    );
+
+    await user.type(screen.getByLabelText(/email/i), "test@example.com");
+    await user.type(screen.getByLabelText(/password/i), "password123");
+    await user.click(screen.getByRole("button", { name: /login/i }));
+
+    await waitFor(() => {
+      expect(useAuthStore.getState().isAuthenticated).toBe(true);
+    });
+  });
+
+  it("should show error when login fails", async () => {
+    const user = userEvent.setup();
+    fakeAuthGateway.setShouldFail(true);
+
+    render(
+      <GatewayProvider gateways={{ authGateway: fakeAuthGateway }}>
+        <LoginPage />
+      </GatewayProvider>
+    );
+
+    await user.type(screen.getByLabelText(/email/i), "wrong@example.com");
+    await user.type(screen.getByLabelText(/password/i), "wrong");
+    await user.click(screen.getByRole("button", { name: /login/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+### Component Tests (Unit - Pure UI)
+
+```typescript
+// features/auth/components/login-form.test.tsx
+import { describe, it, expect, mock } from "bun:test";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { LoginForm } from "./login-form";
+
+describe("LoginForm", () => {
+  it("should render email and password fields", () => {
+    render(<LoginForm onSubmit={mock()} />);
+
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+  });
+
+  it("should call onSubmit with correct values", async () => {
+    const user = userEvent.setup();
+    const onSubmit = mock();
+
+    render(<LoginForm onSubmit={onSubmit} />);
+
+    await user.type(screen.getByLabelText(/email/i), "test@example.com");
+    await user.type(screen.getByLabelText(/password/i), "password123");
+    await user.click(screen.getByRole("button", { name: /login/i }));
+
+    expect(onSubmit).toHaveBeenCalledWith("test@example.com", "password123");
+  });
+});
+```
+
+### E2E Tests (Playwright - Critical Flows)
+
+```typescript
+// e2e/auth/login.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.describe("Login Flow", () => {
+  test("should login and redirect to dashboard", async ({ page }) => {
+    await page.goto("/auth/login");
+
+    await page.fill('input[name="email"]', "test@example.com");
+    await page.fill('input[name="password"]', "password123");
+    await page.click('button:has-text("Login")');
+
+    await expect(page).toHaveURL("/dashboard");
+    await expect(page.locator("text=Welcome, Test User")).toBeVisible();
+  });
+});
+```
+
+---
+
+## Naming Conventions (MANDATORY)
+
+### Files and Folders
+
+- **Files**: `kebab-case` with suffixes
+- **Folders**: `kebab-case`
+
+```
+features/auth/
+├── components/
+│   ├── login-form.tsx              # Component: kebab-case
+│   └── index.ts
+├── pages/
+│   ├── login-page.tsx              # Suffix: -page.tsx
+│   └── index.ts
+├── stores/
+│   ├── auth-store.ts               # Suffix: -store.ts
+│   └── index.ts
+├── gateways/
+│   ├── auth-gateway.ts             # Suffix: -gateway.ts
+│   ├── auth-gateway.fake.ts        # Suffix: -gateway.fake.ts
+│   └── index.ts
+```
+
+### Code Elements
+
+**Components**:
+
+```typescript
+// ✅ Good
+export function LoginForm({ onSubmit }: LoginFormProps) {}
+
+// ❌ Avoid
+export const loginForm = () => {}; // No arrow function exports
+export function Form() {} // Too generic
+```
+
+**Pages**:
+
+```typescript
+// ✅ Good - "Page" suffix
+export function LoginPage() {}
+
+// ❌ Avoid
+export function Login() {} // Confuses with component
+```
+
+**Stores**:
+
+```typescript
+// ✅ Good - "use" + name + "Store"
+export const useAuthStore = create<AuthState>(...);
+
+// ❌ Avoid
+export const authStore = create(...); // Missing "use" prefix
+```
+
+**Gateways**:
+
+```typescript
+// ✅ Good - No "I" prefix
+export interface AuthGateway {}
+export class AuthHttpGateway implements AuthGateway {}
+export class AuthFakeGateway implements AuthGateway {}
+
+// ❌ Avoid
+export interface IAuthGateway {} // No "I" prefix
 ```
 
 ---
@@ -993,117 +953,20 @@ export function Navigation() {
 
   return (
     <div>
-      {/* Type-safe Link */}
       <Link to="/users/$userId" params={{ userId: "123" }}>
         View User
       </Link>
 
-      {/* Programmatic navigation */}
       <button
         onClick={() => {
-          navigate({
-            to: "/users/$userId",
-            params: { userId: "456" },
-            search: { tab: "settings" },
-          });
+          navigate({ to: "/users/$userId", params: { userId: "456" } });
         }}
       >
-        Go to User Settings
+        Go to User
       </button>
     </div>
   );
 }
-```
-
-### Loaders and Prefetching
-
-```typescript
-// routes/users/$userId.tsx
-import { createFileRoute } from "@tanstack/react-router";
-import { queryClient } from "@/infrastructure/query";
-import { getUserQueryOptions } from "@/features/users/presentation/hooks/use-user";
-
-export const Route = createFileRoute("/users/$userId")({
-  loader: async ({ params }) => {
-    await queryClient.ensureQueryData(getUserQueryOptions(params.userId));
-  },
-  component: UserDetail,
-});
-```
-
----
-
-## Performance Patterns
-
-### 1. Code Splitting with TanStack Router
-
-```typescript
-// routes/dashboard.tsx
-import { createFileRoute } from "@tanstack/react-router";
-import { lazy } from "react";
-
-const DashboardPage = lazy(
-  () => import("@/features/dashboard/presentation/pages/dashboard-page")
-);
-
-export const Route = createFileRoute("/dashboard")({
-  component: DashboardPage,
-});
-```
-
-### 2. Optimistic Updates with TanStack Query
-
-```typescript
-export function useUpdateUser() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (user: User) => updateUser(user),
-    onMutate: async (updatedUser) => {
-      // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ["users", updatedUser.id] });
-
-      // Snapshot previous value
-      const previousUser = queryClient.getQueryData(["users", updatedUser.id]);
-
-      // Optimistically update
-      queryClient.setQueryData(["users", updatedUser.id], updatedUser);
-
-      return { previousUser };
-    },
-    onError: (err, updatedUser, context) => {
-      // Rollback on error
-      queryClient.setQueryData(
-        ["users", updatedUser.id],
-        context?.previousUser
-      );
-    },
-    onSettled: (updatedUser) => {
-      // Refetch after mutation
-      queryClient.invalidateQueries({ queryKey: ["users", updatedUser?.id] });
-    },
-  });
-}
-```
-
-### 3. Efficient Rendering with React.memo
-
-```typescript
-import { memo } from "react";
-
-interface UserCardProps {
-  user: User;
-  onSelect: (id: string) => void;
-}
-
-export const UserCard = memo(({ user, onSelect }: UserCardProps) => {
-  return (
-    <div onClick={() => onSelect(user.id)}>
-      <h3>{user.name}</h3>
-      <p>{user.email}</p>
-    </div>
-  );
-});
 ```
 
 ---
@@ -1128,7 +991,7 @@ export function UserDashboard() {
 ### 2. Extract Logic into Hooks (< 20 lines in component)
 
 ```typescript
-// ✅ Good - Extract into custom hook
+// ✅ Good
 export function UserList() {
   const { users, loading, error } = useUsers();
 
@@ -1152,153 +1015,31 @@ export function UserAvatar() {}
 
 ---
 
-## Testing Strategy by Layer
-
-### Domain Layer Tests
-
-```typescript
-// features/auth/domain/__tests__/email.vo.test.ts
-
-import { describe, it, expect } from "bun:test";
-import { Email } from "../value-objects/email.vo";
-
-describe("Email Value Object", () => {
-  it("creates valid email", () => {
-    const email = Email.create("user@example.com");
-    expect(email.toString()).toBe("user@example.com");
-  });
-
-  it("throws error for invalid email", () => {
-    expect(() => Email.create("invalid")).toThrow("Invalid email format");
-  });
-});
-```
-
-### Application Layer Tests (Use Cases)
-
-```typescript
-// features/auth/application/__tests__/login.use-case.test.ts
-
-import { describe, it, expect, mock } from "bun:test";
-import { LoginUseCase } from "../use-cases/login.use-case";
-import type { AuthGateway } from "../ports/auth.gateway";
-
-describe("LoginUseCase", () => {
-  it("successfully logs in user", async () => {
-    const mockGateway: AuthGateway = {
-      login: mock(() =>
-        Promise.resolve({ id: "1", email: "user@example.com", token: "abc" })
-      ),
-      logout: mock(),
-      signup: mock(),
-      fetchUserProfile: mock(),
-      validateToken: mock(),
-    };
-
-    const useCase = new LoginUseCase(mockGateway);
-    const result = await useCase.execute({
-      email: "user@example.com",
-      password: "password123",
-    });
-
-    expect(result.id).toBe("1");
-    expect(mockGateway.login).toHaveBeenCalled();
-  });
-});
-```
-
-### Presentation Layer Tests (Components)
-
-```typescript
-// features/auth/presentation/components/__tests__/login-form.test.tsx
-
-import { describe, it, expect } from "bun:test";
-import { render, screen } from "@testing-library/react";
-import { LoginForm } from "../login-form";
-
-describe("LoginForm", () => {
-  it("renders email and password fields", () => {
-    render(<LoginForm />);
-
-    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Senha")).toBeInTheDocument();
-  });
-});
-```
-
----
-
-## Common Patterns
-
-### 1. Result Pattern for Expected Failures
-
-```typescript
-// shared/lib/result.ts
-
-export type Result<T, E = Error> =
-  | { success: true; value: T }
-  | { success: false; error: E };
-
-export function success<T>(value: T): Result<T> {
-  return { success: true, value };
-}
-
-export function failure<E = Error>(error: E): Result<never, E> {
-  return { success: false, error };
-}
-```
-
-**Usage**:
-
-```typescript
-async function findUser(id: string): Promise<Result<User, NotFoundError>> {
-  try {
-    const response = await httpService.get<User>(`/users/${id}`);
-    return success(response.data);
-  } catch (error) {
-    if (error.status === 404) {
-      return failure(new NotFoundError("User not found"));
-    }
-    throw error;
-  }
-}
-```
-
----
-
 ## Critical Rules
 
 **NEVER:**
 
-- Mix layers (e.g., UI logic in domain layer)
-- Import from higher layers to lower layers
-- Use concrete implementations in use cases (use ports/interfaces)
-- Create god components (>150 lines)
-- Keep complex logic in components (>20 lines)
-- Use npm or pnpm commands (ALWAYS use Bun)
+- Use Clean Architecture layers (domain/application/infrastructure/presentation) - **REMOVED**
+- Import stores in components (pass data via props)
+- Call HTTP directly from components (use gateways)
+- Use `any` type (use `unknown` with type guards)
 - Skip TypeScript types
-- Hardcode configuration values
-- Put business logic in presentation layer
-- Use `any` type
-- Bypass gateways (call httpService directly from components)
+- Use npm, pnpm, yarn (use Bun)
+- Create components > 150 lines
+- Keep logic > 20 lines in components
 
 **ALWAYS:**
 
-- Follow Clean Architecture layer separation
-- Use dependency inversion with ports/interfaces
-- Keep domain layer pure (no external dependencies)
-- Extract component logic into custom hooks
-- Use the right state management tool for each state type
-- Implement type-safe routing with TanStack Router
-- Write tests for each layer
-- Use Bun for all package management
-- Collocate tests in `__tests__/` folders
+- Organize by features (feature-based structure)
+- Pages orchestrate logic (use gateways + stores)
+- Externalize state to Zustand stores
+- Inject gateways via Context API
+- Write tests for stores (unit) and pages (integration with fakes)
 - Use functional components with TypeScript
 - One component per file
-- Keep components under 150 lines
-- Keep use cases thin (delegate to gateways)
-- Validate at boundaries (Zod schemas)
-- Use event emitters for cross-feature communication
+- Extract logic into custom hooks
+- Use Bun for all package management
+- Run `bun run craft` after creating/moving files
 
 ---
 
@@ -1306,30 +1047,15 @@ async function findUser(id: string): Promise<Result<User, NotFoundError>> {
 
 When helping users, provide:
 
-1. **Complete Folder Structure**: Organized by Clean Architecture layers
-2. **Port Definitions**: TypeScript interfaces for dependency inversion
-3. **Use Case Implementation**: Thin wrappers that delegate to gateways
-4. **Gateway Implementations**: Infrastructure layer HTTP/storage adapters
-5. **Presentation Hooks**: Custom hooks encapsulating use case execution
-6. **Component Examples**: Type-safe, tested React components
+1. **Feature Folder Structure**: Organized with pages/, components/, stores/, gateways/
+2. **Gateway Definitions**: Interface + HTTP implementation + Fake implementation
+3. **Gateway Provider**: Context API setup for dependency injection
+4. **Zustand Stores**: Framework-agnostic state management with actions
+5. **Pages**: Orchestration logic using gateways and stores
+6. **Components**: Pure UI components with props
 7. **Router Configuration**: TanStack Router setup with type safety
-8. **State Management Setup**: TanStack Store factories and TanStack Query
-9. **Test Examples**: Tests for each layer with proper mocking
-10. **Configuration Files**: Vite, TypeScript, Turborepo, and TanStack configurations
-
----
-
-## Comparison: Frontend vs Backend
-
-| Aspect         | Frontend                             | Backend                              |
-| -------------- | ------------------------------------ | ------------------------------------ |
-| **Use Cases**  | Thin wrappers (delegate to gateways) | Business logic + orchestration       |
-| **State**      | TanStack Store (local state)         | Database (persistent state)          |
-| **Ports**      | Gateways for HTTP, storage, events   | Repositories, external services      |
-| **DI**         | Manual instantiation in hooks        | DI Container with Symbol tokens      |
-| **Validation** | Zod at forms + API responses         | Zod at API boundaries                |
-| **Errors**     | Toast notifications + state          | Exceptions + HTTP status codes       |
-| **Testing**    | Mock gateways, component tests       | Mock repositories, integration tests |
+8. **Test Examples**: Store tests, page tests with fakes, component tests, E2E
+9. **Configuration Files**: Vite, TypeScript, TanStack configurations
 
 ---
 
@@ -1337,14 +1063,19 @@ When helping users, provide:
 
 Frontend architecture focuses on:
 
-1. **Simplicity**: Thin use cases, clear separation of concerns
-2. **Testability**: Mock gateways, isolated components
-3. **Maintainability**: Feature-based structure, consistent patterns
+1. **Simplicity**: No unnecessary layers, direct code, pragmatic patterns
+2. **Testability**: Zustand stores (pure), pages with fake gateways, isolated components
+3. **Maintainability**: Feature-based structure, clear responsibilities, consistent patterns
 4. **Type Safety**: Strong typing, Zod validation, TanStack Router
 5. **Performance**: Code splitting, lazy loading, optimistic updates
 6. **User Experience**: Error handling, loading states, toast notifications
-7. **Scalability**: Monorepo for multiple apps, shared packages
 
-**Remember**: Good architecture makes change easy. Build systems that are testable, maintainable, and scalable from day one. Always respect layer boundaries and use dependency inversion to keep code decoupled.
+**Remember**: Good architecture makes change easy. Build systems that are simple, testable, and maintainable. Avoid over-engineering. Focus on delivering value.
 
-Keep it simple. Don't over-engineer. Focus on testability and maintainability.
+---
+
+**Reference**:
+
+- Architecture design: `docs/plans/2025-10-24-simplified-frontend-architecture-design.md`
+- Project standards: `project-standards` skill
+- UI/UX: `ui-designer` skill

@@ -17,6 +17,7 @@
 **For complete naming standards, use the `naming-conventions` skill from architecture-design plugin**
 
 **Quick Reference:**
+
 - `kebab-case` for file and folder names
 - `PascalCase` for class names
 - `camelCase` for function and variable names
@@ -37,6 +38,28 @@
 - Framework: React 19 + Vite 6
 - Router: TanStack Router
 - UI: shadcn/ui + Tailwind 4
+- State Management: Zustand (global client state) + TanStack Query (server state)
+
+**Architecture:** Simplified feature-based organization
+
+- Pages orchestrate business logic (use cases)
+- Components are pure UI (no stores/gateways)
+- Stores (Zustand) are framework-agnostic, 100% testable
+- Gateways injected via Context API for isolated testing
+
+**Structure per feature:**
+
+```
+features/[name]/
+├── components/   # Pure UI
+├── pages/        # Use cases (orchestration)
+├── stores/       # Zustand (state + actions)
+├── gateways/     # Interface + HTTP + Fake
+├── hooks/        # Custom hooks (optional)
+└── types/        # TypeScript types
+```
+
+**NO Clean Architecture layers (domain/application/infrastructure/presentation)**
 
 ### Testing:
 
@@ -55,6 +78,7 @@
 **Clean Architecture is REQUIRED for ALL backend code.**
 
 **For complete architecture guidance, use these skills from architecture-design plugin:**
+
 - `clean-architecture` - Layered architecture, dependency rule, DDD patterns
 - `backend-engineer` - Implementation examples, DI Container, best practices
 - `solid-principles` - SOLID principles application
@@ -62,14 +86,17 @@
 ### Quick Reference - Layers (dependency flow: outward → inward)
 
 1. **Domain Layer** (innermost, no dependencies)
+
    - Entities, Value Objects, Aggregates, Domain Events
    - Ports: Interface contracts (repositories, services) - NO "I" prefix
 
 2. **Application Layer** (depends on Domain only)
+
    - Use Cases: Application-specific business rules
    - DTOs: Data transfer between layers
 
 3. **Infrastructure Layer** (depends on Application + Domain)
+
    - Repositories: Database implementations (implements domain/ports/repositories)
    - Adapters: External service implementations (Cache, Logger, Queue, APIs)
    - Config, Database, HTTP, Container (DI)
@@ -94,6 +121,7 @@
 **For complete DI implementation, see `backend-engineer` skill from architecture-design plugin**
 
 **Quick Reference:**
+
 - **Symbol-based tokens**: Type-safe DI with `Symbol('Name') as Token<Type>`
 - **Lifetimes**: singleton (core, repos), scoped (use cases), transient (rare)
 - **Registration by layer**: Separate register functions per layer
@@ -126,6 +154,7 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 **For complete error handling guidance, use `error-handling-patterns` skill from architecture-design plugin**
 
 **Quick Reference:**
+
 - Use Result/Either types for expected failures
 - Log errors with correlation IDs for tracing
 - Implement circuit breakers for external services

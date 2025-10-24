@@ -211,35 +211,43 @@ Checklist:
 - [ ] **Feature-Based Organization**
 
   - `features/` directory with isolated modules
-  - Each feature has: domain, application, infrastructure, presentation
+  - Each feature has: components/, pages/, stores/, gateways/, hooks/, types/
+  - NO domain/application/infrastructure/presentation layers (simplified architecture)
 
-- [ ] **Domain Layer** (if using Clean Architecture)
+- [ ] **Components Layer**
 
-  - Entities defined
-  - Value Objects for validation
+  - Pure UI components (< 150 lines each)
+  - Receive props, emit events
+  - NO business logic
+  - NO direct store or gateway access
 
-- [ ] **Application Layer**
+- [ ] **Pages Layer** (Use Cases)
 
-  - Use Cases (thin wrappers)
-  - Ports (Gateway interfaces) - NO "I" prefix
+  - Orchestrate business logic
+  - Use gateways (injected via Context API)
+  - Use/update stores (Zustand)
+  - < 20 lines of logic in component (extract to hooks)
 
-- [ ] **Infrastructure Layer**
+- [ ] **Stores Layer** (Zustand)
 
-  - Gateways implement ports (HTTP, storage, events)
-  - Zod schemas for API validation
+  - Framework-agnostic (100% testable without React)
+  - "use" + name + "Store" naming convention
+  - Actions for state mutations
+  - NO direct gateway calls (pages do this)
 
-- [ ] **Presentation Layer**
+- [ ] **Gateways Layer**
 
-  - Components (< 150 lines each)
-  - Hooks (< 20 lines logic in components)
-  - Stores (TanStack Store)
-  - Pages/Routes (TanStack Router)
+  - Interface + HTTP implementation + Fake implementation
+  - Implement external resource access (API, localStorage)
+  - Use shared httpApi service (NO direct axios)
+  - NO "I" prefix on interfaces
 
 - [ ] **Shared Resources**
+  - `shared/services/` - httpApi, storage
   - `shared/components/ui/` - shadcn/ui components
   - `shared/hooks/` - Reusable hooks
-  - `shared/lib/` - Utilities
-  - `shared/stores/` - Global stores
+  - `shared/lib/` - Utilities and validators
+  - `shared/stores/` - Global Zustand stores
 
 **Actions**:
 
@@ -312,20 +320,29 @@ Checklist:
 
 - [ ] **Gateway Pattern**
 
-  - Gateways in `features/*/infrastructure/gateways/`
-  - Implement application layer ports
-  - Use httpService (NOT direct axios calls)
+  - Gateways in `features/*/gateways/`
+  - Interface + HTTP implementation + Fake implementation
+  - Injected via Context API (GatewayProvider)
+  - Use shared httpApi service (NOT direct axios calls)
 
 - [ ] **State Management**
 
+  - **Zustand** for global client state (NOT TanStack Store)
   - TanStack Query for server state
-  - TanStack Store for global client state
   - TanStack Form for form state
   - TanStack Router for URL state
   - useState/useReducer for local component state
 
+- [ ] **Pages as Use Cases**
+
+  - Pages orchestrate logic (gateways + stores)
+  - Use gateways via `useGateways()` hook
+  - Update stores directly
+  - < 20 lines of logic (extract to custom hooks)
+
 - [ ] **Component Organization**
   - Components < 150 lines
+  - Pure UI - NO store or gateway imports
   - Logic extracted to hooks
   - One component per file
   - Functional components with TypeScript
@@ -368,7 +385,7 @@ Required:
 - [ ] Framework: **React 19** + **Vite 6**
 - [ ] Router: **TanStack Router 1.x** (file-based, type-safe)
 - [ ] Data Fetching: **TanStack Query 5.x**
-- [ ] State Management: **TanStack Store 0.8.x**
+- [ ] State Management: **Zustand** (NOT TanStack Store)
 - [ ] Forms: **TanStack Form 1.x**
 - [ ] UI Components: **shadcn/ui** (Radix UI primitives)
 - [ ] Styling: **Tailwind CSS 4.x**
