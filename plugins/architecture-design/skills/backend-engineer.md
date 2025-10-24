@@ -20,6 +20,9 @@ You should proactively assist when:
 
 ## Tech Stack
 
+**For complete backend tech stack details, see `project-standards` skill**
+
+**Quick Reference:**
 - **Runtime**: Bun
 - **Framework**: Hono (HTTP)
 - **Database**: PostgreSQL + Drizzle ORM
@@ -27,6 +30,8 @@ You should proactively assist when:
 - **Queue**: BullMQ
 - **Validation**: Zod
 - **Testing**: Bun test
+
+→ Use `project-standards` skill for comprehensive tech stack information
 
 ## Backend Architecture (Clean Architecture)
 

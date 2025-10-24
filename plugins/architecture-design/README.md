@@ -322,33 +322,15 @@ All skills work together to ensure:
 
 ## Tech Stack
 
-### Backend
+**For complete tech stack details, see `project-standards` skill**
 
-- **Runtime**: Bun
-- **Framework**: Hono
-- **Database**: PostgreSQL with Drizzle ORM
-- **Cache**: Redis (via ioredis)
-- **Queue**: BullMQ
+**Quick Reference:**
+- **Backend**: Bun, Hono, PostgreSQL + Drizzle ORM, Redis, BullMQ
+- **Frontend**: React 19, Vite 6, TanStack Router, shadcn/ui, Tailwind CSS 4
+- **Testing**: Bun test, React Testing Library, Playwright
+- **Code Quality**: Biome (TS/JS/CSS), Prettier (Markdown), TypeScript strict mode
 
-### Frontend
-
-- **Framework**: React 19
-- **Build Tool**: Vite 6
-- **Router**: TanStack Router
-- **UI**: shadcn/ui + Tailwind CSS 4
-
-### Testing
-
-- **Unit**: Bun test
-- **Component**: React Testing Library
-- **E2E**: Playwright
-- **Coverage**: Bun built-in
-
-### Code Quality
-
-- **Linting/Formatting**: Biome (TypeScript/JavaScript/CSS)
-- **Markdown**: Prettier
-- **TypeScript**: Strict mode
+→ Use `project-standards` skill for detailed tech stack information
 
 ## Critical Rules Summary
 

@@ -44,46 +44,36 @@
 
 ## Tech Stack (MANDATORY)
 
-**ALWAYS use these technologies:**
+**For complete frontend tech stack details, see `project-standards` skill and `ui-designer` skill**
+
+**Quick Reference:**
 
 ### Core:
-
 - **Runtime**: Bun (NOT npm or pnpm or yarn)
-- **Framework**: React 19
-- **Build Tool**: Vite 6 with HMR + TanStack Router Plugin
-- **Language**: TypeScript (strict mode)
+- **Framework**: React 19 + Vite 6 + TypeScript (strict mode)
 
-### Routing & Data:
-
+### TanStack Ecosystem:
 - **Router**: TanStack Router 1.x (file-based, type-safe)
 - **Data Fetching**: TanStack Query 5.x
-- **State Management**: TanStack Store 0.8.x (local state) + TanStack Query (server state)
+- **State Management**: TanStack Store 0.8.x + TanStack Query (server state)
 - **Forms**: TanStack Form 1.x
 
-### UI & Styling:
-
-- **UI Components**: shadcn/ui (Radix UI primitives)
+### UI:
+- **Components**: shadcn/ui (Radix UI primitives)
 - **Styling**: Tailwind CSS 4.x
 - **Icons**: Lucide React
 
-### Validation & HTTP:
-
-- **Validation**: Zod 4.x
-- **HTTP Client**: Axios 1.x
-
 ### Testing:
+- **Unit**: Bun test + React Testing Library
+- **E2E**: Playwright
 
-- **Unit Tests**: Bun test
-- **Component Tests**: React Testing Library + Happy DOM
-- **E2E Tests**: Playwright
-
-### Monorepo (Recommended):
-
-- **Package Manager**: Bun Workspaces (ou pnpm Workspaces)
-- **Build Orchestration**: Turborepo
+### Monorepo:
+- **Manager**: Bun/pnpm Workspaces + Turborepo
 - **Structure**: apps/ + packages/
 
-> **📚 Para análise detalhada de monorepo vs standalone, consulte**: `docs/frontend-architecture-comparison.md`
+→ See `project-standards` skill for complete tech stack
+→ See `ui-designer` skill for UI/UX specific technologies
+→ See `docs/frontend-architecture-comparison.md` for monorepo analysis
 
 ---
 

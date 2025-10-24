@@ -190,6 +190,26 @@ const id = Bun.randomUUIDv7();
 
 **MANDATORY - ALWAYS FOLLOW:**
 
+### Octocode MCP - For Private Repositories
+
+Use when you need:
+
+- Accessing private GitHub repositories (backend services, microservices)
+- Exploring repository structure and architectural patterns
+- Searching code across organizational repositories
+- Finding implementation examples in internal codebases
+- Analyzing commit history and PR evolution
+- Retrieving file contents from private repos
+- Framework-specific code discovery (e.g., Hono middleware patterns, React patterns)
+- Package dependency research (npm/PyPI metadata)
+
+**Examples:**
+
+- "Find authentication implementation in our backend repo"
+- "Search for Hono middleware examples in our services"
+- "Show me how we implement Clean Architecture in existing projects"
+- "Find React component patterns in our frontend repos"
+
 ### Context7 MCP - For Documentation
 
 Use when you need:
