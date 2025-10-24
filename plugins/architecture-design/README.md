@@ -153,7 +153,50 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 
 > **📚 For detailed monorepo analysis**: See `docs/frontend-architecture-comparison.md`
 
-### 7. Naming Conventions
+### 7. Architecture Auditor
+
+**Name**: `architecture-auditor`
+
+**Purpose**: Comprehensive architecture audit and analysis specialist for evaluating codebase quality, architectural patterns, and technical debt assessment.
+
+**When to Use**:
+- User asks to audit, review, or analyze architecture
+- Evaluating adherence to architectural patterns
+- Assessing technical debt
+- Checking if codebase follows best practices
+- Comparing current architecture against standards
+- Requesting improvement recommendations
+- Identifying architectural violations
+
+**Key Areas**:
+- **Discovery & Mapping** - Identify codebase type, structure, tech stack
+- **Layer Analysis** - Evaluate Clean Architecture layer organization (domain, application, infrastructure, presentation)
+- **Pattern Compliance** - Verify dependency inversion, repository pattern, gateway pattern, state management
+- **Tech Stack Compliance** - Check correct usage of Bun, React 19, Hono, TanStack ecosystem, etc.
+- **Code Quality Assessment** - Evaluate KISS, YAGNI, DRY, TDA, type safety, testing
+- **Critical Rules Compliance** - Verify adherence to project standards (no `any`, barrel files, git workflow)
+- **Comprehensive Reporting** - Generate detailed audit reports with evidence, recommendations, and action plans
+- **Skill Delegation** - Invokes `frontend-engineer`, `backend-engineer`, and other specialized skills for detailed analysis
+
+**Audit Process** (6 Phases):
+1. Discovery & Mapping
+2. Layer Analysis
+3. Pattern Compliance
+4. Tech Stack Compliance
+5. Code Quality Assessment
+6. Critical Rules Compliance
+
+**Deliverables**:
+- Comprehensive audit report with executive summary
+- Evidence-based findings (file:line references, code snippets)
+- Prioritized recommendations (High/Medium/Low impact)
+- Technical debt assessment with estimated effort
+- Action plan (Immediate/Short-term/Long-term)
+- Positive findings acknowledgment
+
+**Integration**: Invokes `frontend-engineer`, `backend-engineer`, `clean-architecture`, `naming-conventions`, `error-handling-patterns`, `typescript-type-safety`, `clean-code-principles`, and `solid-principles` for specialized analysis.
+
+### 8. Naming Conventions
 
 **Name**: `naming-conventions`
 
@@ -252,9 +295,10 @@ Skills automatically activate based on context:
 4. **clean-architecture**: Project structure, layered architecture, dependency rule
 5. **backend-engineer**: Backend implementation, APIs, repositories, use cases, DI
 6. **frontend-engineer**: Frontend implementation, React components, monorepo structure, state management
-7. **naming-conventions**: Creating or naming code elements
-8. **error-handling-patterns**: Implementing error handling or validation
-9. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
+7. **architecture-auditor**: Architecture review, codebase audit, technical debt assessment
+8. **naming-conventions**: Creating or naming code elements
+9. **error-handling-patterns**: Implementing error handling or validation
+10. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
 
 ## Manual Skill Invocation
 
@@ -268,6 +312,10 @@ You can explicitly request skills:
 "How should I structure my monorepo?" (frontend)
 "Implement a gateway for this API" (frontend)
 "Set up TanStack Store for auth state" (frontend)
+"Audit the frontend architecture" (architecture-auditor)
+"Review the backend and check if it follows Clean Architecture" (architecture-auditor)
+"Analyze this codebase for technical debt" (architecture-auditor)
+"Check if our architecture follows best practices" (architecture-auditor)
 "Review naming conventions in this file"
 "Help me with error handling"
 "Implement type guards for this data"
@@ -308,6 +356,17 @@ clean-architecture (Feature-Based Architecture)
 frontend-engineer (Frontend Implementation)
     ↓
 clean-code-principles (Code Quality)
+```
+
+### Architecture Audit Path
+```
+architecture-auditor (Audit Coordinator)
+    ↓ invokes
+backend-engineer / frontend-engineer (Implementation Standards)
+    ↓ references
+clean-architecture + naming-conventions + error-handling-patterns
+    ↓ validates
+clean-code-principles + solid-principles + typescript-type-safety
 ```
 
 All skills work together to ensure:
@@ -465,11 +524,12 @@ architecture-design/
 ├── package.json
 ├── README.md (this file)
 └── skills/
+    ├── architecture-auditor.md          (Architecture Audit & Analysis - NEW!)
     ├── backend-engineer.md              (Backend Implementation)
     ├── clean-architecture.md            (Layered Architecture)
     ├── clean-code-principles.md         (KISS, YAGNI, DRY, TDA)
     ├── error-handling-patterns.md       (Exceptions & Result Pattern)
-    ├── frontend-engineer.md             (Frontend Implementation - NEW!)
+    ├── frontend-engineer.md             (Frontend Implementation)
     ├── naming-conventions.md            (Naming Standards)
     ├── project-standards.md             (Project Rules)
     ├── solid-principles.md              (SOLID Principles)

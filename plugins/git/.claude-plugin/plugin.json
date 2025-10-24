@@ -1,7 +1,7 @@
 {
   "name": "git",
   "version": "1.0.0",
-  "description": "Git workflow commands with conventional commit support - commit, push, and PR creation",
+  "description": "Agent-based git workflow automation with Haiku for fast, efficient commit, push, and PR operations using conventional commit standards",
   "author": {
     "name": "Marcio Altoé",
     "email": "marcio.altoe@gmail.com"
@@ -12,7 +12,10 @@
     "conventional-commits",
     "pull-request",
     "workflow",
-    "automation"
+    "automation",
+    "agents",
+    "haiku",
+    "dispatcher"
   ],
   "license": "MIT"
 }

@@ -1,27 +1,32 @@
 ---
-allowed-tools: Bash(git checkout:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(git diff:*), Bash(git branch:*), Bash(git log:*)
 description: Quick workflow - commit, push, and create PR to dev
 ---
 
-## Task
+Complete git workflow: stage → commit → push → PR to dev branch.
 
-Complete git workflow: stage → commit → push → PR to dev branch
+Execute in TWO steps:
 
-## Context
+## Step 1: Commit and Push
 
-- Status: !`git status`
-- Diff: !`git diff HEAD`
-- Branch: !`git branch --show-current`
-- Commits: !`git log dev..HEAD --oneline`
+Use the Task tool to invoke the git-commit-agent:
 
-## Execution
+```
+subagent_type: general-purpose
+description: Commit and push changes
+prompt: Use the git-commit-agent from plugins/git/agents/git-commit-agent.md to:
+1. Create a conventional commit
+2. Push to origin with: git push -u origin $(git branch --show-current)
+Report the commit message and push status.
+```
 
-**Execute in single message:**
+## Step 2: Create PR
 
-1. Create feature branch if on main/dev: `git checkout -b feature/descriptive-name`
-2. Stage: `git add .` or specific files
-3. Commit: `<type>(<scope>): <subject>` (conventional format)
-4. Push: `git push -u origin <branch-name>`
-5. PR: `gh pr create --base dev --title "title" --body "summary"`
+After Step 1 completes, use the Task tool to invoke the git-pr-creation-agent:
 
-**Execute directly - no explanations.**
+```
+subagent_type: general-purpose
+description: Create pull request
+prompt: Use the git-pr-creation-agent from plugins/git/agents/git-pr-creation-agent.md to create a comprehensive PR to the dev branch. Return the PR URL.
+```
+
+The agents will handle the entire workflow automatically.

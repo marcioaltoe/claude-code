@@ -166,9 +166,12 @@ For plugin structure and customization guide, see [STRUCTURE.md](STRUCTURE.md#cu
 ## Learn More
 
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/overview)
+- [Slash Commands Documentation](https://docs.claude.com/en/docs/claude-code/slash-commands)
 - [Plugin System Documentation](https://docs.claude.com/en/docs/claude-code/plugins)
-- [Agent SDK Documentation](https://docs.claude.com/en/api/agent-sdk/overview)
+- [Subagents Documentation](https://docs.claude.com/en/docs/claude-code/sub-agents)
 - [Anthropics Skills Documentation](https://docs.claude.com/en/docs/claude-code/skills)
+- [Hooks Documentation](https://docs.claude.com/en/docs/claude-code/hooks)
+- [Claude Code Setting Documentation](https://docs.claude.com/en/docs/claude-code/settings)
 
 ## License
 
