@@ -8,21 +8,19 @@
 
 ## Overview
 
-This plugin provides comprehensive UI/UX design and frontend architecture assistance for React-based applications. It includes specialized skills for component design and application architecture, commands for common tasks, and best practices for building scalable, accessible, responsive user interfaces with shadcn/ui, Tailwind CSS, and the TanStack ecosystem.
+This plugin provides comprehensive UI/UX design assistance for React-based applications. It includes a specialized skill for component design, commands for common tasks, and best practices for building scalable, accessible, responsive user interfaces with shadcn/ui and Tailwind CSS.
+
+> **Note**: For frontend architecture patterns (Clean Architecture, TanStack ecosystem, feature organization, etc.), see the **architecture-design** plugin's **frontend-engineer** skill.
 
 ## Features
 
-- 🏗️ **Frontend Architect**: Expert in Clean Architecture, TanStack ecosystem, and scalable app design
 - 🎨 **UI Designer**: Specialized skill for React component design and styling
 - 🧩 **shadcn/ui Integration**: Seamless component installation and customization
 - 🎯 **Tailwind CSS v4**: Advanced patterns and design systems
 - ♿ **Accessibility First**: WCAG 2.1 AA compliant components
 - 📱 **Responsive Design**: Mobile-first, fluid layouts
 - 🌙 **Dark Mode**: Built-in theme support
-- ⚡ **Performance**: Optimized rendering and code splitting strategies
 - 🎭 **Animation**: Smooth transitions with Tailwind and Framer Motion
-- 🔄 **State Management**: Strategic approach with TanStack Query, Zustand, and TanStack Store
-- 🛣️ **Type-Safe Routing**: File-based routing with TanStack Router
 
 ## Tech Stack
 
@@ -41,46 +39,6 @@ This plugin provides comprehensive UI/UX design and frontend architecture assist
 - **Testing**: Bun built-in test + React Testing Library + Happy DOM
 
 ## Skills
-
-### 🏗️ frontend-architect
-
-Expert frontend architect specializing in React 19, Clean Architecture, TanStack ecosystem, and scalable application design.
-
-**Use when:**
-
-- Setting up project structure or folder organization
-- Implementing Clean Architecture or layered architecture
-- Configuring TanStack Router, Query, Form, or Table
-- Designing state management strategies
-- Feature module organization
-- Dependency injection or ports/adapters patterns
-- Code splitting and lazy loading
-- Application architecture decisions
-- Routing configuration and type safety
-- Performance optimization strategies
-- Testing strategies for different layers
-
-**Examples:**
-
-```
-"setup React project structure"
-"organize feature modules with Clean Architecture"
-"implement Clean Architecture layers"
-"setup TanStack Router with type safety"
-"design state management strategy"
-"structure application with domain/application/infrastructure"
-```
-
-**Core expertise:**
-
-- Clean Architecture implementation
-- React 19 patterns and best practices
-- TanStack ecosystem (Router, Query, Form, Table, Store)
-- State management strategy (Zustand, TanStack Query, TanStack Store)
-- Code organization and feature modules
-- Dependency inversion and ports/interfaces
-- Type-safe routing and navigation
-- Performance patterns and optimizations
 
 ### 🎨 ui-designer
 

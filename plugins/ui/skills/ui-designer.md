@@ -61,7 +61,7 @@ You should proactively assist when users mention:
 
 **NOTE**:
 
-- For architectural decisions, folder structure, Clean Architecture, state management strategy, or routing setup, defer to the `frontend-architect` skill.
+- For architectural decisions, folder structure, Clean Architecture, state management strategy, or routing setup, defer to the **architecture-design** plugin's `frontend-engineer` skill.
 - For Gesttione-specific brand colors, metric visualizations, dashboard components, or company design system questions, defer to the `gesttione-design-system` skill.
 
 ## Tech Stack

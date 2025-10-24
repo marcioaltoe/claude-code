@@ -49,7 +49,6 @@ claude-craftkit/
 │   │   │   └── create-form.md
 │   │   ├── skills/
 │   │   │   ├── ui-designer.md
-│   │   │   ├── frontend-architect.md
 │   │   │   └── gesttione-design-system.md
 │   │   └── README.md
 │   │
@@ -186,11 +185,10 @@ Comprehensive UI/UX toolkit for React applications with shadcn/ui, Tailwind CSS 
 
 **Features:**
 
-- 3 specialized skills: `ui-designer`, `frontend-architect`, `gesttione-design-system`
+- 2 specialized skills: `ui-designer`, `gesttione-design-system` (architecture moved to architecture-design plugin)
 - React 19 + Vite 6 + TanStack Router integration
 - shadcn/ui component installation and customization
-- Clean Architecture implementation (domain/application/infrastructure/presentation)
-- TanStack ecosystem (Router, Query, Form, Table, Store)
+- TanStack ecosystem integration (Router, Query, Form, Table, Store)
 - Design tokens and dark mode support
 - Gesttione Design System with brand colors and metrics
 - Form components with TanStack Form + Zod validation
@@ -501,29 +499,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Component composition patterns
 - Theme and dark mode management
 
-### 3. frontend-architect
-
-**Plugin:** ui
-**Type:** Autonomous skill
-**Focus:** Clean Architecture and TanStack ecosystem
-
-**Invocation Examples:**
-
-- "set up React project with Clean Architecture"
-- "organize feature modules"
-- "configure TanStack Router"
-
-**Capabilities:**
-
-- Clean Architecture implementation
-- React 19 patterns and best practices
-- TanStack ecosystem integration (Router, Query, Form, Table, Store)
-- State management strategy (Zustand, TanStack Query)
-- Code organization and feature modules
-- Type-safe routing and navigation
-- Performance patterns
-
-### 4. gesttione-design-system
+### 3. gesttione-design-system
 
 **Plugin:** ui
 **Type:** Autonomous skill

@@ -10,6 +10,7 @@
     "architecture",
     "clean-architecture",
     "backend-engineering",
+    "frontend-engineering",
     "design-patterns",
     "solid-principles",
     "clean-code",
@@ -17,7 +18,11 @@
     "naming-conventions",
     "best-practices",
     "dependency-injection",
-    "domain-driven-design"
+    "domain-driven-design",
+    "monorepo",
+    "turborepo",
+    "react",
+    "tanstack"
   ],
   "license": "MIT"
 }

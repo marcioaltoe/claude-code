@@ -84,7 +84,7 @@ Build a user dashboard with Clean Architecture:
 - State management with TanStack Query
 ```
 
-Claude uses `ui-designer`, `frontend-architect`, and `gesttione-design-system` skills.
+Claude uses `ui-designer`, `gesttione-design-system`, and architecture-design plugin's `frontend-engineer` skills.
 
 **Git Workflow (Hybrid):**
 

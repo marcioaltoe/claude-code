@@ -127,7 +127,33 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - **Best Practices** - Do's and Don'ts for backend development
 - **Common Patterns** - Result type, Domain Events, Repository pattern
 
-### 6. Naming Conventions
+### 6. Frontend Engineer
+
+**Name**: `frontend-engineer`
+
+**Purpose**: Frontend engineering with Clean Architecture, React 19, and TanStack ecosystem. Provides implementation examples and patterns for testable, maintainable applications.
+
+**When to Use**:
+- Implementing frontend features and components
+- Creating use cases and gateways
+- Designing state management with TanStack Store
+- Setting up HTTP communication
+- Implementing domain entities
+- Organizing monorepo or standalone app structure
+
+**Key Areas**:
+- **Monorepo Structure** - apps/ + packages/ with Turborepo and Bun/pnpm workspaces
+- **Feature-Based Clean Architecture** - domain, application, infrastructure, presentation
+- **Gateway/Port Pattern** - Interfaces for HTTP, storage, events
+- **Thin Use Cases** - Delegate to gateways
+- **State Management** - TanStack Store (local state) + TanStack Query (server state)
+- **HTTP Service** - Axios wrapper with interceptors and error handling
+- **Testing Strategy** - Unit tests (mock gateways), component tests, E2E tests
+- **Best Practices** - Do's and Don'ts for frontend development
+
+> **📚 For detailed monorepo analysis**: See `docs/frontend-architecture-comparison.md`
+
+### 7. Naming Conventions
 
 **Name**: `naming-conventions`
 
@@ -152,7 +178,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - DTO and Response naming
 - Use Case naming
 
-### 7. Error Handling Patterns
+### 8. Error Handling Patterns
 
 **Name**: `error-handling-patterns`
 
@@ -177,7 +203,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Error logging (structured logging)
 - HTTP error handling with Hono
 
-### 8. TypeScript Type Safety
+### 9. TypeScript Type Safety
 
 **Name**: `typescript-type-safety`
 
@@ -225,9 +251,10 @@ Skills automatically activate based on context:
 3. **solid-principles**: Class/module design, architecture decisions
 4. **clean-architecture**: Project structure, layered architecture, dependency rule
 5. **backend-engineer**: Backend implementation, APIs, repositories, use cases, DI
-6. **naming-conventions**: Creating or naming code elements
-7. **error-handling-patterns**: Implementing error handling or validation
-8. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
+6. **frontend-engineer**: Frontend implementation, React components, monorepo structure, state management
+7. **naming-conventions**: Creating or naming code elements
+8. **error-handling-patterns**: Implementing error handling or validation
+9. **typescript-type-safety**: Working with types, type guards, advanced TypeScript
 
 ## Manual Skill Invocation
 
@@ -236,7 +263,11 @@ You can explicitly request skills:
 ```
 "Apply SOLID principles to this class"
 "Structure this using Clean Architecture"
-"Create a use case for user registration"
+"Create a use case for user registration" (backend)
+"Create a frontend feature with Clean Architecture" (frontend)
+"How should I structure my monorepo?" (frontend)
+"Implement a gateway for this API" (frontend)
+"Set up TanStack Store for auth state" (frontend)
 "Review naming conventions in this file"
 "Help me with error handling"
 "Implement type guards for this data"
@@ -246,6 +277,7 @@ You can explicitly request skills:
 
 ## Skill Relationships
 
+### Foundation (All Projects)
 ```
 project-standards (Critical Rules & Tech Stack)
     ↓
@@ -254,10 +286,26 @@ typescript-type-safety (Type System)
 error-handling-patterns (Error Handling)
     ↓
 naming-conventions (Naming)
-    ↓
+```
+
+### Backend Path
+```
 solid-principles (SOLID Principles)
     ↓
 clean-architecture (Layered Architecture)
+    ↓
+backend-engineer (Backend Implementation)
+    ↓
+clean-code-principles (Code Quality)
+```
+
+### Frontend Path
+```
+solid-principles (SOLID Principles - lighter)
+    ↓
+clean-architecture (Feature-Based Architecture)
+    ↓
+frontend-engineer (Frontend Implementation)
     ↓
 clean-code-principles (Code Quality)
 ```
@@ -268,9 +316,9 @@ All skills work together to ensure:
 2. Types are safe
 3. Errors are handled properly
 4. Names are clear
-5. SOLID principles are applied
-6. Architecture is layered and clean
-7. Code is clean and maintainable
+5. SOLID principles are applied appropriately
+6. Architecture is layered and clean (backend) or feature-based (frontend)
+7. Code is clean, testable, and maintainable
 
 ## Tech Stack
 
@@ -430,16 +478,20 @@ This plugin works seamlessly with:
 architecture-design/
 ├── .claude-plugin/
 │   └── plugin.json
+├── docs/
+│   └── frontend-architecture-comparison.md   (Analysis & Recommendations)
 ├── package.json
 ├── README.md (this file)
 └── skills/
-    ├── clean-architecture.md         (NEW!)
-    ├── clean-code-principles.md
-    ├── error-handling-patterns.md
-    ├── naming-conventions.md
-    ├── project-standards.md
-    ├── solid-principles.md
-    └── typescript-type-safety.md
+    ├── backend-engineer.md              (Backend Implementation)
+    ├── clean-architecture.md            (Layered Architecture)
+    ├── clean-code-principles.md         (KISS, YAGNI, DRY, TDA)
+    ├── error-handling-patterns.md       (Exceptions & Result Pattern)
+    ├── frontend-engineer.md             (Frontend Implementation - NEW!)
+    ├── naming-conventions.md            (Naming Standards)
+    ├── project-standards.md             (Project Rules)
+    ├── solid-principles.md              (SOLID Principles)
+    └── typescript-type-safety.md        (Type Safety)
 ```
 
 ## Version

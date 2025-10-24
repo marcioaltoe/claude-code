@@ -215,7 +215,7 @@ Create a complete CRUD feature for blog posts:
 Claude will automatically:
 - Use `database-architect` skill to design the schema
 - Use `ui-designer` skill for React components with shadcn/ui and Tailwind CSS
-- Use `frontend-architect` skill for Clean Architecture structure
+- Use architecture-design plugin's `frontend-engineer` skill for Clean Architecture structure
 - Generate all necessary code with proper typing
 - Implement validation and error handling
 
