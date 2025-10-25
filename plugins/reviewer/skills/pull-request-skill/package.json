@@ -23,6 +23,7 @@
     "@octokit/plugin-throttling": "^11.0.2",
     "@octokit/rest": "^22.0.0",
     "@octokit/types": "^15.0.1",
+    "@types/node": "^24.9.1",
     "dotenv": "^17.2.3",
     "winston": "^3.18.3",
     "zod": "^4.1.12"

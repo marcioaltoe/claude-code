@@ -478,7 +478,10 @@ async function main() {
 // ---------- Helpers ----------
 async function getRepoInfo(): Promise<{ owner: string; repo: string }> {
   try {
-    const remoteUrl = execSync('git config --get remote.origin.url', { encoding: 'utf8' }).trim()
+    const remoteUrl = execSync('git config --get remote.origin.url', {
+      encoding: 'utf8',
+      cwd: WORKING_DIR  // ← Correção aplicada
+    }).trim()
     const match = remoteUrl.match(/github\.com[/:]([^/]+)\/([^/.]+)/)
     if (match) return { owner: match[1], repo: match[2] }
     throw new Error('Could not parse repository information from git remote')
