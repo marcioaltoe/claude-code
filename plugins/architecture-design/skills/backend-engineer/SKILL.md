@@ -672,30 +672,7 @@ export default app;
 
 ## Common Patterns
 
-### Result Type (Railway Oriented Programming)
-
-```typescript
-// domain/shared/result.ts
-export class Result<T> {
-  private constructor(
-    public readonly isSuccess: boolean,
-    public readonly value?: T,
-    public readonly error?: string
-  ) {}
-
-  static ok<T>(value: T): Result<T> {
-    return new Result(true, value);
-  }
-
-  static fail<T>(error: string): Result<T> {
-    return new Result(false, undefined, error);
-  }
-
-  get isFailure(): boolean {
-    return !this.isSuccess;
-  }
-}
-```
+**For complete error handling patterns (Result/Either types, Exception Hierarchy, Retry Logic, Circuit Breaker, Validation Strategies), see `error-handling-patterns` skill**
 
 ### Domain Events
 

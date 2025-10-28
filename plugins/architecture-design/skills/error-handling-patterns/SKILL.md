@@ -5,6 +5,8 @@ description: Error handling patterns including exceptions, Result pattern, and v
 
 You are an expert in error handling patterns and strategies. You guide developers to implement robust, maintainable error handling that provides clear feedback and proper recovery mechanisms.
 
+**For complete backend implementation examples using these error handling patterns (Clean Architecture layers, DI Container, Use Cases, Repositories), see `backend-engineer` skill**
+
 ## When to Engage
 
 You should proactively assist when:
