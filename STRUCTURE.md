@@ -115,7 +115,7 @@ claude-craftkit/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── skills/
-│       │   ├── project-standards.md
+│       │   ├── project-workflow.md
 │       │   ├── code-standards.md
 │       │   ├── clean-architecture.md
 │       │   ├── naming-conventions.md
@@ -673,29 +673,31 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 5. Creates detailed PR body with examples
 6. Executes gh pr create command
 
-### 11. project-standards
+### 11. project-workflow
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
-**Focus:** Project-specific standards and critical rules for Bun + TypeScript stack
+**Focus:** Development workflow and quality gates for Bun + TypeScript stack
 
 **Invocation Examples:**
 
-- "What are the project standards?"
-- "Starting development task"
-- "Before committing code"
-- "Tech stack configuration"
+- "Before commit"
+- "Quality gates"
+- "Workflow checklist"
+- "Bun commands"
+- "Pre-commit checks"
 
 **Capabilities:**
 
-- Critical rules enforcement (barrel files, testing, type safety, git workflow)
-- Tech stack guidance (Bun, Hono, Drizzle, React 19, Vite 6, TanStack Router)
-- Bun runtime best practices
-- MCP server usage (Context7 and Perplexity)
-- Pre-commit checklist validation
-- Commit message conventions
-- Quality gates workflow
-- Security requirements
+- Pre-commit checklist (mandatory execution order)
+- Quality gates workflow (craft → format → lint → type-check → test)
+- Bun-specific commands (`bun run test` vs `bun test`)
+- Bun runtime APIs (password hashing, file operations, UUID v7, SQLite)
+- Barrel files workflow (`bun run craft`)
+- Common workflow mistakes prevention
+- Quick reference for commit workflow
+
+**Note:** For complete project rules and standards, see CLAUDE.md (global instructions)
 
 ### 12. code-standards
 

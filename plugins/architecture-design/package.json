@@ -20,6 +20,8 @@
     "best-practices",
     "dependency-injection",
     "domain-driven-design",
+    "workflow",
+    "quality-gates",
     "monorepo",
     "turborepo",
     "react",

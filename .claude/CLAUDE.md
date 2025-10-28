@@ -321,6 +321,8 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 - Always run tests/type-check before committing (use `/quality:check`)
 - Use `/git:commit` for conventional commits
 
+**For complete workflow process (pre-commit checklist, quality gates execution order, Bun-specific commands), see `project-workflow` skill from architecture-design plugin**
+
 ## Error Handling Patterns
 
 **For complete error handling guidance, use `error-handling-patterns` skill from architecture-design plugin**
