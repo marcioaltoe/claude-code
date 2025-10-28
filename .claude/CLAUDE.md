@@ -15,8 +15,7 @@
 
 **Code Quality (MANDATORY - ALL CODE - Backend AND Frontend):**
 
-- **ALWAYS** use `clean-code-principles` skill when **implementing ANY feature, fixing bugs, refactoring, or writing functions/classes**
-- **ALWAYS** use `solid-principles` skill when **designing ANY classes, modules, or abstractions**
+- **ALWAYS** use `code-standards` skill when **implementing ANY feature, fixing bugs, refactoring, writing functions/classes, or designing classes/modules**
 - **ALWAYS** use `naming-conventions` skill when **creating ANY files, folders, classes, functions, or variables**
 - **ALWAYS** use `typescript-type-safety` skill when **writing ANY TypeScript code**
 
@@ -182,8 +181,7 @@ tests/
 
 **IMPORTANT**: Also apply Code Quality skills (see "Code Quality & Clean Code" section):
 
-- `clean-code-principles` - KISS, YAGNI, DRY, TDA for simple, maintainable code
-- `solid-principles` - SRP, OCP, LSP, ISP, DIP for class/module design
+- `code-standards` - SOLID principles (SRP, OCP, LSP, ISP, DIP) + Clean Code patterns (KISS, YAGNI, DRY, TDA)
 
 ### Quick Reference - When to Use Each Skill
 
@@ -283,8 +281,7 @@ src/
 
 - **Use `clean-architecture` skill when creating files** - Proper file location and layer organization
 - **Use `backend-engineer` skill when implementing backend code** - Hono APIs, routes, services
-- **Use `clean-code-principles` skill when writing backend code** - KISS, YAGNI, DRY, TDA
-- **Use `solid-principles` skill when designing classes** - SOLID principles application
+- **Use `code-standards` skill when writing backend code** - SOLID principles + Clean Code patterns
 - Inject dependencies via constructors (constructor injection)
 - Define interfaces in `domain/ports/` (NO "I" prefix)
 - Use DTOs/ViewModels for presentation layer (never expose entities)
@@ -338,17 +335,18 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 **For ALL code generation (backend AND frontend), use these skills from architecture-design plugin:**
 
-- `clean-code-principles` - KISS, YAGNI, DRY, TDA patterns for simple, maintainable code
-- `solid-principles` - SRP, OCP, LSP, ISP, DIP for proper class/module design
+- `code-standards` - SOLID principles (SRP, OCP, LSP, ISP, DIP) + Clean Code patterns (KISS, YAGNI, DRY, TDA)
 - `naming-conventions` - File, folder, class, function, and variable naming standards
 - `typescript-type-safety` - Type guards, branded types, avoiding `any` type
 
 ### Quick Reference - When to Use Each Skill
 
-1. **`clean-code-principles` skill** (from architecture-design plugin)
+1. **`code-standards` skill** (from architecture-design plugin)
 
    - **ALWAYS use when implementing ANY feature** - New features, bug fixes, refactoring
    - **ALWAYS use when writing functions or classes** - Ensure KISS, YAGNI, DRY, TDA
+   - **ALWAYS use when designing ANY classes or modules** - SOLID principles application
+   - **ALWAYS use when implementing domain logic** - Business rules in ANY layer
    - Writing new functions or classes
    - Refactoring existing code
    - Code reviews and quality checks
@@ -357,12 +355,6 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
    - Applying Rule of Three before abstraction (DRY)
    - Implementing Tell, Don't Ask pattern (TDA)
    - Ensuring functions are < 20 lines
-   - Using meaningful names over comments
-
-2. **`solid-principles` skill** (from architecture-design plugin)
-
-   - **ALWAYS use when designing ANY classes or modules** - Not just backend!
-   - **ALWAYS use when implementing domain logic** - Business rules in ANY layer
    - Applying Single Responsibility Principle (one reason to change)
    - Ensuring Open/Closed Principle (open for extension, closed for modification)
    - Following Liskov Substitution Principle (subtypes are substitutable)
@@ -370,15 +362,14 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
    - Applying Dependency Inversion (depend on abstractions)
    - Designing repository patterns
    - Creating extensible architectures
-   - Reviewing architecture decisions
 
-3. **`naming-conventions` skill** (from architecture-design plugin)
+2. **`naming-conventions` skill** (from architecture-design plugin)
 
    - **ALWAYS use when creating ANY files, folders, classes, functions, or variables**
    - `kebab-case` for files/folders, `PascalCase` for classes, `camelCase` for functions/variables, `SCREAMING_SNAKE_CASE` for constants
    - NO "I" prefix for interfaces (e.g., `UserRepository`, not `IUserRepository`)
 
-4. **`typescript-type-safety` skill** (from architecture-design plugin)
+3. **`typescript-type-safety` skill** (from architecture-design plugin)
    - **ALWAYS use when writing ANY TypeScript code** - Frontend AND backend
    - Never use `any` type (use `unknown` with type guards)
    - Implementing type guards for runtime safety
@@ -404,8 +395,7 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 **ALWAYS:**
 
-- **Use `clean-code-principles` skill when writing ANY code** - Features, bugs, refactoring
-- **Use `solid-principles` skill when designing classes/modules** - Frontend AND backend
+- **Use `code-standards` skill when writing ANY code** - SOLID + Clean Code patterns
 - **Use `naming-conventions` skill when creating files/classes/functions** - Consistent naming
 - **Use `typescript-type-safety` skill when writing TypeScript** - Strict type safety
 - Apply KISS (Keep It Simple, Stupid)

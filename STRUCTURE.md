@@ -116,12 +116,13 @@ claude-craftkit/
 │       │   └── plugin.json
 │       ├── skills/
 │       │   ├── project-standards.md
-│       │   ├── clean-code-principles.md
-│       │   ├── solid-principles.md
+│       │   ├── code-standards.md
 │       │   ├── clean-architecture.md
 │       │   ├── naming-conventions.md
 │       │   ├── error-handling-patterns.md
-│       │   └── typescript-type-safety.md
+│       │   ├── typescript-type-safety.md
+│       │   ├── backend-engineer.md
+│       │   └── frontend-engineer.md
 │       └── README.md
 │
 ├── README.md                         # Main documentation
@@ -137,15 +138,15 @@ claude-craftkit/
 | Plugin              | Commands | Skills | Hooks | Category        |
 | ------------------- | -------- | ------ | ----- | --------------- |
 | db-tools            | 3        | 1      | 0     | Database        |
-| ui                  | 3        | 3      | 0     | UI Architecture |
+| ui                  | 3        | 2      | 0     | UI Architecture |
 | ai-sdk              | 2        | 1      | 0     | AI              |
 | quality             | 2        | 3      | 0     | Testing         |
 | audio-notifications | 0        | 0      | 3     | QoL             |
 | git                 | 3        | 2      | 0     | Workflow        |
 | reviewer            | 3        | 0      | 0     | Development     |
 | ui-tests            | 3        | 0      | 0     | Testing         |
-| architecture-design | 0        | 9      | 0     | Development     |
-| **TOTAL**           | **19**   | **19** | **3** | -               |
+| architecture-design | 0        | 8      | 0     | Development     |
+| **TOTAL**           | **19**   | **17** | **3** | -               |
 
 ## Plugin Descriptions
 
@@ -372,9 +373,8 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 
 **Features:**
 
-- 9 specialized skills covering all architecture aspects
-- SOLID principles enforcement
-- Clean Code standards (KISS, YAGNI, DRY, TDA)
+- 8 specialized skills covering all architecture aspects
+- SOLID principles + Clean Code standards (KISS, YAGNI, DRY, TDA) consolidated in `code-standards` skill
 - Clean Architecture patterns (domain/application/infrastructure/presentation)
 - Backend engineering with Hono, DDD, and custom DI Container
 - Frontend engineering with React 19, TanStack ecosystem, and monorepo patterns
@@ -697,53 +697,47 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Quality gates workflow
 - Security requirements
 
-### 12. clean-code-principles
+### 12. code-standards
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
-**Focus:** Clean Code principles including KISS, YAGNI, DRY, and TDA patterns
-
-**Invocation Examples:**
-
-- "Keep this code simple"
-- "Refactor this function"
-- "Code review needed"
-- "Avoid over-engineering"
-
-**Capabilities:**
-
-- KISS (Keep It Simple, Stupid) - Simplicity over complexity
-- YAGNI (You Aren't Gonna Need It) - Build only what's needed
-- DRY (Don't Repeat Yourself) - Apply after Rule of Three
-- TDA (Tell, Don't Ask) - Encapsulation and command methods
-- Function design best practices
-- Code organization patterns
-- Anti-pattern detection
-
-### 13. solid-principles
-
-**Plugin:** architecture-design
-**Type:** Autonomous skill
-**Focus:** SOLID principles and clean architecture patterns
+**Focus:** Code design standards including SOLID principles (SRP, OCP, LSP, ISP, DIP) and Clean Code patterns (KISS, YAGNI, DRY, TDA)
 
 **Invocation Examples:**
 
 - "Apply SOLID principles to this class"
+- "Keep this code simple"
+- "Refactor this function"
 - "Designing new module"
 - "Architecture review needed"
-- "Multiple implementations needed"
+- "Code review needed"
+- "Avoid over-engineering"
+- "Is this too complex?"
 
 **Capabilities:**
 
-- Single Responsibility Principle (SRP) - One reason to change
+**SOLID Principles (OOP Design):**
+- Single Responsibility Principle (SRP) - One reason to change per class/module
 - Open/Closed Principle (OCP) - Open for extension, closed for modification
-- Liskov Substitution Principle (LSP) - Subtypes must be substitutable
-- Interface Segregation Principle (ISP) - Small, focused interfaces
-- Dependency Inversion Principle (DIP) - Depend on abstractions
-- When to apply (and when NOT to over-apply)
-- Anti-pattern avoidance
+- Liskov Substitution Principle (LSP) - Subtypes must be substitutable for base types
+- Interface Segregation Principle (ISP) - Small, focused interfaces over large ones
+- Dependency Inversion Principle (DIP) - Depend on abstractions, not concretions
 
-### 14. clean-architecture
+**Clean Code Principles (Simplicity & Pragmatism):**
+- KISS (Keep It Simple, Stupid) - Simplicity over complexity
+- YAGNI (You Aren't Gonna Need It) - Build only what's needed right now
+- DRY (Don't Repeat Yourself) - Apply abstraction after Rule of Three (3 occurrences)
+- TDA (Tell, Don't Ask) - Tell objects what to do, don't ask for data and make decisions
+
+**Function Design & Code Organization:**
+- Keep functions < 20 lines
+- Meaningful names over comments
+- Single level of abstraction per function
+- Early returns to reduce nesting
+- Anti-pattern detection (God classes, premature optimization, clever code, magic numbers)
+- When to apply principles (and when NOT to over-apply)
+
+### 13. clean-architecture
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -767,7 +761,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
 
-### 15. naming-conventions
+### 14. naming-conventions
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -792,7 +786,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - DTO and Response naming
 - Use Case naming
 
-### 16. error-handling-patterns
+### 15. error-handling-patterns
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -817,7 +811,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Structured error logging
 - HTTP error handling with Hono
 
-### 17. typescript-type-safety
+### 16. typescript-type-safety
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -845,7 +839,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Type narrowing (typeof, instanceof, in operator)
 - TypeScript strict mode configuration
 
-### 18. backend-engineer
+### 17. backend-engineer
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -872,7 +866,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Common patterns (Result type, Domain Events, Repository pattern)
 - Clean Architecture with Hono + Bun + Drizzle ORM
 
-### 19. frontend-engineer
+### 18. frontend-engineer
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -1031,7 +1025,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Author:** Marcio Altoé
 - **License:** MIT
 - **Category:** Development
-- **Keywords:** architecture, design-patterns, solid-principles, clean-code, typescript, naming-conventions, best-practices
+- **Keywords:** architecture, design-patterns, code-standards, solid-principles, clean-code, typescript, naming-conventions, best-practices
 
 ## Files Overview
 
@@ -1047,11 +1041,11 @@ This marketplace provides comprehensive support for modern web development:
 
 - **9** Plugin manifests (`plugin.json` in each plugin)
 - **19** Command files (`.md` files in `commands/` directories)
-- **19** Skill definitions (`.md` files in `skills/` directories)
+- **17** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
 - **7** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
 
-**Total: 62 files** providing comprehensive Claude Code development support.
+**Total: 60 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 

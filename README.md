@@ -25,15 +25,15 @@ Transform your Claude Code experience with a curated collection of plugins desig
 | Plugin              | Commands | Skills | Category        |
 | ------------------- | -------- | ------ | --------------- |
 | db-tools            | 3        | 1      | Database        |
-| ui                  | 3        | 3      | UI Architecture |
+| ui                  | 3        | 2      | UI Architecture |
 | ai-sdk              | 2        | 1      | AI              |
 | quality             | 2        | 3      | Testing         |
 | audio-notifications | -        | -      | QoL             |
 | git                 | 3        | 2      | Workflow        |
 | reviewer            | 3        | -      | Development     |
 | ui-tests            | 3        | -      | Testing         |
-| architecture-design | -        | 9      | Development     |
-| **Total**           | **19**   | **19** | -               |
+| architecture-design | -        | 8      | Development     |
+| **Total**           | **19**   | **17** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 
