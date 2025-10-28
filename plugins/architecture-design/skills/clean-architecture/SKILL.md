@@ -24,16 +24,16 @@ You should proactively assist when:
 
 ```
 ┌─────────────────────────────────────────┐
-│         Infrastructure Layer             │  ← External concerns
-│  (DB, HTTP, Queue, Cache, External APIs) │     (Frameworks, Tools)
+│         Infrastructure Layer            │  ← External concerns
+│  (DB, HTTP, Queue, Cache, External APIs)│     (Frameworks, Tools)
 └────────────────┬────────────────────────┘
                  │ depends on ↓
 ┌────────────────▼────────────────────────┐
-│         Application Layer                │  ← Use Cases
-│  (Use Cases, DTOs, Application Services) │     (Business Rules)
+│         Application Layer               │  ← Use Cases
+│  (Use Cases, DTOs, Application Services)│     (Business Rules)
 └────────────────┬────────────────────────┘
                  │ depends on ↓
-┌────────────────▼────────────────────────┐
+┌────────────────▼─────────────────────────┐
 │           Domain Layer                   │  ← Core Business
 │  (Entities, Value Objects, Domain Rules) │     (Pure, Framework-free)
 └──────────────────────────────────────────┘
@@ -102,82 +102,14 @@ src/domain/
     └── invalid-order.exception.ts
 ```
 
-**Entity Example:**
+**Key Concepts:**
 
-```typescript
-// ✅ Good - Pure domain entity
-export class User {
-  private _isActive: boolean = true;
-  private _createdAt: Date;
+- **Entities** have identity and lifecycle (User, Order)
+- **Value Objects** are immutable and compared by value (Email, Money)
+- **Ports** are interface contracts (NO "I" prefix) that define boundaries
+- **Domain behavior** lives in entities, not in services
 
-  constructor(
-    private readonly _id: UserId,
-    private _email: Email,
-    private _name: string,
-    private _hashedPassword: string
-  ) {
-    this._createdAt = new Date();
-  }
-
-  // Domain behavior
-  deactivate(): void {
-    if (!this._isActive) {
-      throw new UserAlreadyInactiveError(this._id);
-    }
-    this._isActive = false;
-  }
-
-  changeEmail(newEmail: Email): void {
-    if (this._email.equals(newEmail)) {
-      return;
-    }
-    this._email = newEmail;
-  }
-
-  // Getters (no setters - controlled behavior)
-  get id(): UserId {
-    return this._id;
-  }
-
-  get email(): Email {
-    return this._email;
-  }
-
-  get isActive(): boolean {
-    return this._isActive;
-  }
-}
-```
-
-**Value Object Example:**
-
-```typescript
-// ✅ Good - Immutable value object
-export class Email {
-  private constructor(private readonly value: string) {}
-
-  static create(value: string): Email {
-    if (!value) {
-      throw new InvalidEmailError("Email is required");
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      throw new InvalidEmailError(`Invalid email format: ${value}`);
-    }
-
-    return new Email(value.toLowerCase());
-  }
-
-  equals(other: Email): boolean {
-    return this.value === other.value;
-  }
-
-  toString(): string {
-    return this.value;
-  }
-}
-```
+**For complete implementation examples of Entities, Value Objects, and Repositories with Drizzle ORM, see `backend-engineer` skill**
 
 ### 2. Application Layer (Use Cases)
 
@@ -211,108 +143,29 @@ src/application/
     └── user.mapper.ts
 ```
 
-**Use Case Example:**
+**Use Case Responsibilities:**
 
-```typescript
-// ✅ Good - Use case orchestrates domain logic
-export class CreateUserUseCase {
-  constructor(
-    private readonly userRepository: UserRepository, // Port from domain/ports/repositories/
-    private readonly passwordHasher: PasswordHasher, // Port from domain/ports/
-    private readonly emailService: EmailService // Port from domain/ports/
-  ) {}
-
-  async execute(dto: CreateUserDto): Promise<UserResponseDto> {
-    // 1. Validate (or let DTO schema handle this)
-    await this.ensureEmailNotTaken(dto.email);
-
-    // 2. Create domain objects
-    const email = Email.create(dto.email);
-    const userId = UserId.generate();
-    const hashedPassword = await this.passwordHasher.hash(dto.password);
-
-    const user = new User(userId, email, dto.name, hashedPassword);
-
-    // 3. Persist (through port/interface)
-    await this.userRepository.save(user);
-
-    // 4. Side effects
-    await this.emailService.sendWelcomeEmail(email);
-
-    // 5. Return DTO
-    return UserMapper.toDto(user);
-  }
-
-  private async ensureEmailNotTaken(email: string): Promise<void> {
-    const existingUser = await this.userRepository.findByEmail(email);
-    if (existingUser) {
-      throw new UserAlreadyExistsError(email);
-    }
-  }
-}
-```
+1. **Validate** business rules
+2. **Orchestrate** domain objects (entities, value objects)
+3. **Persist** through repositories (ports)
+4. **Coordinate** side effects (events, notifications)
+5. **Return** DTOs (never expose domain entities)
 
 **Port (Interface) Example:**
 
 ```typescript
-// ✅ Good - Port in Domain layer (domain/ports/repositories/user.repository.ts)
+// ✅ Port in Domain layer (domain/ports/repositories/user.repository.ts)
 // NO "I" prefix
 export interface UserRepository {
   save(user: User): Promise<void>;
   findById(id: UserId): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
-  update(user: User): Promise<void>;
-  delete(id: UserId): Promise<void>;
 }
 
-// Implementation in Infrastructure layer (infrastructure/repositories/user.repository.impl.ts)
+// Implementation in Infrastructure layer
 ```
 
-**DTO Example:**
-
-```typescript
-// ✅ Good - DTO with Zod validation
-import { z } from "zod";
-
-export const CreateUserSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  name: z.string().min(2).max(100),
-});
-
-export type CreateUserDto = z.infer<typeof CreateUserSchema>;
-
-export interface UserResponseDto {
-  id: string;
-  email: string;
-  name: string;
-  isActive: boolean;
-  createdAt: string;
-}
-```
-
-**Mapper Example:**
-
-```typescript
-// ✅ Good - Mapper converts between layers
-export class UserMapper {
-  static toDto(user: User): UserResponseDto {
-    return {
-      id: user.id.toString(),
-      email: user.email.toString(),
-      name: user.name,
-      isActive: user.isActive,
-      createdAt: user.createdAt.toISOString(),
-    };
-  }
-
-  static toDomain(dto: CreateUserDto, hashedPassword: string): User {
-    const userId = UserId.generate();
-    const email = Email.create(dto.email);
-    return new User(userId, email, dto.name, hashedPassword);
-  }
-}
-```
+**For complete Use Case examples with DTOs, Mappers, and orchestration patterns, see `backend-engineer` skill**
 
 ### 3. Infrastructure Layer (Adapters)
 
@@ -362,101 +215,29 @@ src/infrastructure/
     └── env.schema.ts
 ```
 
-**Repository Implementation Example:**
+**Infrastructure Layer Responsibilities:**
+
+- **Repositories**: Implement ports from `domain/ports/repositories/` using Drizzle ORM
+- **Adapters**: Implement external service ports (Cache, Logger, Queue, Email)
+- **Database**: Drizzle schemas, migrations, connection management
+- **NO business logic**: Only technical implementation details
+
+**Repository Pattern:**
 
 ```typescript
-// ✅ Good - Repository implements port from domain/ports/repositories/
-// File: infrastructure/repositories/user.repository.impl.ts
-import { eq } from "drizzle-orm";
-import type { UserRepository } from "@/domain/ports/repositories/user.repository";
-import type { User } from "@/domain/entities/user.entity";
-import { db } from "../database/drizzle/connection";
-import { users } from "../database/drizzle/schema/users.schema";
+// Port in domain/ports/repositories/user.repository.ts
+export interface UserRepository {
+  save(user: User): Promise<void>;
+  findById(id: UserId): Promise<User | undefined>;
+}
 
+// Implementation in infrastructure/repositories/user.repository.impl.ts
 export class UserRepositoryImpl implements UserRepository {
-  async save(user: User): Promise<void> {
-    await db.insert(users).values({
-      id: user.id.toString(),
-      email: user.email.toString(),
-      name: user.name,
-      hashedPassword: user.hashedPassword,
-      isActive: user.isActive,
-      createdAt: user.createdAt,
-    });
-  }
-
-  async findById(id: UserId): Promise<User | undefined> {
-    const row = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, id.toString()))
-      .limit(1);
-
-    if (!row[0]) return undefined;
-
-    return this.toDomain(row[0]);
-  }
-
-  async findByEmail(email: string): Promise<User | undefined> {
-    const row = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1);
-
-    if (!row[0]) return undefined;
-
-    return this.toDomain(row[0]);
-  }
-
-  private toDomain(row: typeof users.$inferSelect): User {
-    const userId = UserId.fromString(row.id);
-    const email = Email.create(row.email);
-    // Reconstruct domain entity from database row
-    return new User(userId, email, row.name, row.hashedPassword);
-  }
+  // Drizzle ORM implementation
 }
 ```
 
-**Adapter Implementation Example (External Service):**
-
-```typescript
-// ✅ Good - Adapter implements port from domain/ports/
-// File: infrastructure/adapters/cache.service.impl.ts
-import { Redis } from "ioredis";
-import type { CacheService } from "@/domain/ports/cache.service";
-
-export class CacheServiceImpl implements CacheService {
-  private redis: Redis;
-
-  constructor() {
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT),
-    });
-  }
-
-  async set(key: string, value: string, expirationInSeconds?: number): Promise<void> {
-    if (expirationInSeconds) {
-      await this.redis.set(key, value, "EX", expirationInSeconds);
-    } else {
-      await this.redis.set(key, value);
-    }
-  }
-
-  async get(key: string): Promise<string | null> {
-    return await this.redis.get(key);
-  }
-
-  async del(key: string): Promise<void> {
-    await this.redis.del(key);
-  }
-
-  async flushAll(): Promise<void> {
-    await this.redis.flushall();
-  }
-}
-```
+**For complete Repository and Adapter implementations with Drizzle ORM, Redis, and other infrastructure examples, see `backend-engineer` skill**
 
 ### 4. Presentation Layer (Controllers/Routes)
 
@@ -490,350 +271,67 @@ src/presentation/
     └── order.schema.ts
 ```
 
-**Schema Example (Zod):**
+**Presentation Layer Responsibilities:**
+
+- **Thin layer**: Validation + Delegation to Use Cases
+- **NO business logic**: Controllers should be lightweight
+- **Request validation**: Use Zod schemas at entry point
+- **Response formatting**: Return DTOs (never domain entities)
+
+**Controller Pattern:**
 
 ```typescript
-// ✅ Good - Validation schema
-// File: presentation/schemas/user.schema.ts
-import { z } from "zod";
-
-export const createUserSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  name: z.string().min(2).max(100),
-});
-
-export const userResponseSchema = z.object({
-  id: z.string().uuid(),
-  email: z.string().email(),
-  name: z.string(),
-  isActive: z.boolean(),
-  createdAt: z.string().datetime(),
-});
-```
-
-**Controller Example:**
-
-```typescript
-// ✅ Good - Thin controller delegates to use case
-// File: presentation/controllers/user.controller.ts
-import type { Context } from "hono";
-import { CreateUserUseCase } from "@/application/use-cases/create-user.use-case";
-
+// ✅ Thin controller delegates to use case
 export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   async create(c: Context) {
-    const dto = c.req.valid("json"); // Validated by route middleware
+    const dto = c.req.valid("json"); // Validated by middleware
     const user = await this.createUserUseCase.execute(dto);
     return c.json(user, 201);
   }
-
-  async getById(c: Context) {
-    const { id } = c.req.param();
-    const user = await this.getUserUseCase.execute(id);
-    return c.json(user);
-  }
 }
 ```
 
-**Routes Example:**
+**For complete Hono route examples with Zod validation, controllers, and middleware patterns, see `backend-engineer` skill**
 
-```typescript
-// ✅ Good - Route registration with validation
-// File: presentation/routes/user.routes.ts
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { UserController } from "../controllers/user.controller";
-import { createUserSchema } from "../schemas/user.schema";
-
-export function registerUserRoutes(app: Hono, controller: UserController) {
-  app.post("/users", zValidator("json", createUserSchema), (c) => controller.create(c));
-  app.get("/users/:id", (c) => controller.getById(c));
-}
-```
-
-## Dependency Injection Container
+## Dependency Injection
 
 **Use custom DI Container (NO external libraries like InversifyJS or TSyringe)**
 
-### Why Custom Container?
+### Why Dependency Injection?
 
-- Type-safe without decorators
-- Simple, focused implementation
-- No external dependencies
-- Full control over lifetimes
-- Easy to test and debug
+- Enables testability (inject mocks)
+- Follows Dependency Inversion Principle
+- Centralized dependency management
+- Supports different lifetimes (singleton, scoped, transient)
 
-### Container Implementation
+### DI Principles in Clean Architecture
+
+**Constructor Injection:**
 
 ```typescript
-// ✅ Custom Container - infrastructure/container/container.ts
-export type Lifetime = 'singleton' | 'scoped' | 'transient'
-export type Token<T> = symbol & { readonly __type?: T }
+// ✅ Use cases depend on abstractions (ports), not implementations
+export class CreateUserUseCase {
+  constructor(
+    private readonly userRepository: UserRepository,      // Port from domain/ports/
+    private readonly passwordHasher: PasswordHasher,      // Port from domain/ports/
+    private readonly emailService: EmailService           // Port from domain/ports/
+  ) {}
 
-export interface Provider<T> {
-  lifetime: Lifetime
-  useValue?: T
-  useFactory?: (c: Container) => T
-}
-
-export class Container {
-  private readonly registry: Map<Token<unknown>, Provider<unknown>>
-  private readonly singletons: Map<Token<unknown>, unknown>
-  private readonly scopedCache: Map<Token<unknown>, unknown>
-
-  static createRoot(): Container {
-    return new Container(new Map(), new Map(), new Map())
-  }
-
-  createScope(): Container {
-    return new Container(this.registry, this.singletons, new Map())
-  }
-
-  register<T>(token: Token<T>, provider: Provider<T>): void {
-    if (this.registry.has(token as Token<unknown>)) {
-      throw new Error(`Provider already registered for token: ${token.description}`)
-    }
-    this.registry.set(token as Token<unknown>, provider as Provider<unknown>)
-  }
-
-  resolve<T>(token: Token<T>): T {
-    const provider = this.registry.get(token as Token<unknown>)
-    if (!provider) {
-      throw new Error(`No provider registered for token: ${token.description}`)
-    }
-
-    // useValue
-    if ('useValue' in provider && provider.useValue !== undefined) {
-      return provider.useValue as T
-    }
-
-    // singleton cache
-    if (provider.lifetime === 'singleton') {
-      if (this.singletons.has(token as Token<unknown>)) {
-        return this.singletons.get(token as Token<unknown>) as T
-      }
-      const instance = (provider as Provider<T>).useFactory!(this)
-      this.singletons.set(token as Token<unknown>, instance)
-      return instance
-    }
-
-    // scoped cache
-    if (provider.lifetime === 'scoped') {
-      if (this.scopedCache.has(token as Token<unknown>)) {
-        return this.scopedCache.get(token as Token<unknown>) as T
-      }
-      const instance = (provider as Provider<T>).useFactory!(this)
-      this.scopedCache.set(token as Token<unknown>, instance)
-      return instance
-    }
-
-    // transient
-    return (provider as Provider<T>).useFactory!(this)
+  async execute(dto: CreateUserDto): Promise<UserResponseDto> {
+    // Orchestrate domain logic using injected dependencies
   }
 }
 ```
 
-### Tokens (Symbol-based)
+**Lifetimes:**
 
-```typescript
-// ✅ Type-safe tokens - infrastructure/container/tokens.ts
-import type { UserRepository } from "@/domain/ports/repositories/user.repository";
-import type { CacheService } from "@/domain/ports/cache.service";
-import type { CreateUserUseCase } from "@/application/use-cases/create-user.use-case";
-import type { UserController } from "@/presentation/controllers/user.controller";
+- **singleton**: Core infrastructure (config, database, logger, repositories)
+- **scoped**: Per-request instances (use cases, controllers)
+- **transient**: New instance every time (rarely used)
 
-export const TOKENS = {
-  // Core Infrastructure
-  Logger: Symbol('Logger') as Token<Logger>,
-  Config: Symbol('Config') as Token<EnvConfig>,
-  DatabaseConnection: Symbol('DatabaseConnection') as Token<DatabaseConnection>,
-
-  // Repositories (from domain/ports/repositories/)
-  UserRepository: Symbol('UserRepository') as Token<UserRepository>,
-  OrderRepository: Symbol('OrderRepository') as Token<OrderRepository>,
-
-  // Services (from domain/ports/)
-  CacheService: Symbol('CacheService') as Token<CacheService>,
-  LoggerService: Symbol('LoggerService') as Token<LoggerService>,
-
-  // Use Cases
-  CreateUserUseCase: Symbol('CreateUserUseCase') as Token<CreateUserUseCase>,
-  UpdateUserUseCase: Symbol('UpdateUserUseCase') as Token<UpdateUserUseCase>,
-
-  // Controllers
-  UserController: Symbol('UserController') as Token<UserController>,
-} as const
-```
-
-### Lifetimes
-
-**singleton**: Single instance for entire application
-
-- Core infrastructure (config, database, logger)
-- Repositories (stateless, thread-safe)
-- Adapters (cache, queue clients)
-
-**scoped**: Single instance per request/operation
-
-- Use Cases (request-specific logic)
-- Controllers (if needed)
-
-**transient**: New instance every time
-
-- Rarely used
-- Only when state must not be shared
-
-### Registration by Layer
-
-```typescript
-// ✅ Infrastructure - infrastructure/container/registers/register.infrastructure.ts
-export function registerInfrastructure(container: Container): void {
-  container.register(TOKENS.Logger, {
-    lifetime: 'singleton',
-    useValue: logger, // Direct value
-  })
-
-  container.register(TOKENS.DatabaseConnection, {
-    lifetime: 'singleton',
-    useValue: dbConnection,
-  })
-
-  container.register(TOKENS.Config, {
-    lifetime: 'singleton',
-    useValue: Config.getInstance().env,
-  })
-}
-
-// ✅ Repositories - infrastructure/container/registers/register.repositories.ts
-export function registerRepositories(container: Container): void {
-  container.register(TOKENS.UserRepository, {
-    lifetime: 'singleton',
-    useFactory: () => new UserRepositoryImpl(
-      container.resolve(TOKENS.DatabaseConnection)
-    )
-  })
-
-  container.register(TOKENS.OrderRepository, {
-    lifetime: 'singleton',
-    useFactory: () => new OrderRepositoryImpl(
-      container.resolve(TOKENS.DatabaseConnection)
-    )
-  })
-}
-
-// ✅ Use Cases - infrastructure/container/registers/register.use-cases.ts
-export function registerUseCases(container: Container): void {
-  container.register(TOKENS.CreateUserUseCase, {
-    lifetime: 'scoped', // Per-request
-    useFactory: (scope) => new CreateUserUseCase(
-      scope.resolve(TOKENS.UserRepository),
-      scope.resolve(TOKENS.CacheService),
-      scope.resolve(TOKENS.Logger)
-    )
-  })
-
-  container.register(TOKENS.UpdateUserUseCase, {
-    lifetime: 'scoped',
-    useFactory: (scope) => new UpdateUserUseCase(
-      scope.resolve(TOKENS.UserRepository)
-    )
-  })
-}
-
-// ✅ Controllers - infrastructure/container/registers/register.controllers.ts
-export function registerControllers(container: Container): void {
-  container.register(TOKENS.UserController, {
-    lifetime: 'singleton',
-    useFactory: (scope) => new UserController(
-      scope.resolve(TOKENS.CreateUserUseCase),
-      scope.resolve(TOKENS.UpdateUserUseCase)
-    )
-  })
-}
-```
-
-### Composition Root
-
-```typescript
-// ✅ Main composition root - infrastructure/container/main.ts
-export function createRootContainer(): Container {
-  const c = Container.createRoot()
-
-  // Register in order (dependencies first)
-  registerInfrastructure(c)    // 1. Core services
-  registerRepositories(c)       // 2. Repositories
-  registerUseCases(c)           // 3. Use cases
-  registerControllers(c)        // 4. Controllers
-
-  return c
-}
-
-// Singleton root container
-let rootContainer: Container | null = null
-
-export function getAppContainer(): Container {
-  if (!rootContainer) {
-    rootContainer = createRootContainer()
-  }
-  return rootContainer
-}
-
-// Create scoped container per HTTP request
-export function createRequestScope(root: Container): Container {
-  return root.createScope()
-}
-
-// Test helper
-export function resetAppContainerForTests(): void {
-  rootContainer = null
-}
-```
-
-### Usage in Hono Routes
-
-```typescript
-// ✅ Using container in routes
-import { Hono } from "hono";
-import { getAppContainer, createRequestScope } from "@/infrastructure/container/main";
-import { TOKENS } from "@/infrastructure/container/tokens";
-
-const app = new Hono();
-
-// Middleware to create scoped container per request
-app.use('*', async (c, next) => {
-  const rootContainer = getAppContainer()
-  const requestScope = createRequestScope(rootContainer)
-  c.set('container', requestScope) // Store in context
-  await next()
-})
-
-// Use in routes
-app.post("/users", async (c) => {
-  const container = c.get('container') as Container
-  const useCase = container.resolve(TOKENS.CreateUserUseCase)
-
-  const dto = await c.req.json()
-  const result = await useCase.execute(dto)
-
-  return c.json(result, 201)
-})
-```
-
-### Directory Structure
-
-```
-src/infrastructure/container/
-├── container.ts                    # Container implementation
-├── tokens.ts                       # Symbol-based tokens
-├── main.ts                         # Composition root
-└── registers/
-    ├── register.infrastructure.ts  # Core services
-    ├── register.repositories.ts    # Repositories
-    ├── register.use-cases.ts       # Use cases (scoped)
-    └── register.controllers.ts     # Controllers
-```
+**For complete DI Container implementation with Symbol-based tokens, registration patterns, and Hono integration, see `backend-engineer` skill**
 
 ## Testing Strategy
 

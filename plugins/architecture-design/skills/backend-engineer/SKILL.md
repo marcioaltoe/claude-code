@@ -18,6 +18,8 @@ You should proactively assist when:
 - Creating adapters for external services
 - User asks about backend, API, or Clean Architecture
 
+**For Clean Architecture principles, dependency rules, and architectural patterns, see `clean-architecture` skill**
+
 ## Tech Stack
 
 **For complete backend tech stack details, see `project-standards` skill**
@@ -34,6 +36,8 @@ You should proactively assist when:
 → Use `project-standards` skill for comprehensive tech stack information
 
 ## Backend Architecture (Clean Architecture)
+
+**This section provides practical implementation examples. For architectural principles, dependency rules, and testing strategies, see `clean-architecture` skill**
 
 ### Layers (dependency flow: outward → inward)
 
