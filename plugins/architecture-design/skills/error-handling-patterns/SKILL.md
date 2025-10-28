@@ -1,6 +1,6 @@
 ---
 name: error-handling-patterns
-description: Error handling patterns including exceptions, Result pattern, and validation strategies. Use when handling errors, validating input, or implementing error recovery. Examples - "handle errors", "Result pattern", "throw exception", "validate input", "error recovery".
+description: Error handling patterns including exceptions, Result pattern, validation strategies, retry logic, and circuit breakers. **ALWAYS use when implementing error handling in backend code, APIs, use cases, or validation logic.** Use proactively for robust error handling, recovery mechanisms, and failure scenarios. Examples - "handle errors", "Result pattern", "throw exception", "validate input", "error recovery", "retry logic", "circuit breaker", "exception hierarchy".
 ---
 
 You are an expert in error handling patterns and strategies. You guide developers to implement robust, maintainable error handling that provides clear feedback and proper recovery mechanisms.
