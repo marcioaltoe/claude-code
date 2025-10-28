@@ -1,9 +1,6 @@
 ---
-name: Web Testing & Browser Automation
-description: Complete browser automation with Playwright. Auto-detects dev servers, saves test scripts and screenshots to your working directory. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flows, check links, automate any browser task.
-version: 1.0.0
-author: Claude Craftkit
-tags: [testing, automation, browser, e2e, web-testing, playwright]
+name: web-tests
+description: Complete browser automation with Playwright. **ALWAYS use when user needs browser testing, E2E testing, screenshots, form testing, or responsive design validation.** Auto-detects dev servers, saves test scripts to working directory. Examples - "test this page", "take screenshots of responsive design", "test login flow", "check for broken links", "validate form submission".
 ---
 
 **IMPORTANT - Path Resolution:**

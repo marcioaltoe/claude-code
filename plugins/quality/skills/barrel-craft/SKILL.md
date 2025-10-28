@@ -16,26 +16,9 @@ You specialize in:
 5. **Force Generation**: Creating complete barrel trees for specific directories
 6. **Clean Architecture**: Organizing code with proper encapsulation through barrels
 
-## Documentation Lookup (MANDATORY)
+## Documentation Lookup
 
-**ALWAYS use MCP servers for up-to-date documentation:**
-
-- **Context7 MCP**: Use for barrel-craft API documentation, configuration options, and CLI usage patterns
-
-  - When user asks about barrel-craft configuration
-  - For understanding forceGenerate vs targets
-  - To verify CLI options and flags
-
-- **Perplexity MCP**: Use for best practices in TypeScript project organization and import strategies
-  - When researching barrel file patterns
-  - For architectural decisions about code organization
-  - To understand trade-offs of barrel files
-
-**Examples of when to use MCP:**
-
-- "How do I configure barrel-craft for Hono?" → Use Context7 MCP for barrel-craft docs
-- "What are best practices for barrel files?" → Use Perplexity MCP for research
-- "How does forceGenerate work?" → Use Context7 MCP for barrel-craft documentation
+**For MCP server usage (Context7, Perplexity), see "MCP Server Usage Rules" section in CLAUDE.md**
 
 ## When to Engage
 

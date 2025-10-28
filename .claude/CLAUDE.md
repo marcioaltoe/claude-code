@@ -464,3 +464,21 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
   - Complex reasoning validation (30 QPS limit)
   - Conversational synthesis when EXA insufficient
   - Latest trends and emerging technologies
+
+### Using MCP Servers in Skills
+
+**All skills should use MCP servers for up-to-date documentation lookup:**
+
+**Context7 MCP Examples:**
+
+- "How do I configure Biome for monorepos?" → Use Context7 MCP for Biome docs
+- "What are Playwright's latest features?" → Use Context7 MCP for Playwright docs
+- "How to use React 19 useActionState?" → Use Context7 MCP for React docs
+- "What are TanStack Router file-based routing patterns?" → Use Context7 MCP for TanStack Router docs
+
+**Perplexity MCP Examples:**
+
+- "Best practices for E2E testing" → Use Perplexity MCP for research and patterns
+- "What are best practices for pre-commit hooks?" → Use Perplexity MCP for research
+- "How to structure React applications?" → Use Perplexity MCP for architectural guidance
+- "Performance optimization techniques for React 19" → Use Perplexity MCP for latest patterns

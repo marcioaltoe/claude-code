@@ -17,6 +17,8 @@ description: Expert frontend engineering with simplified pragmatic architecture,
 - Organizing feature modules
 - Performance optimization and code splitting
 
+**NOTE**: For UI component design, Tailwind styling, shadcn/ui setup, responsive layouts, and accessibility implementation, defer to the `ui-designer` skill. This skill focuses on architecture, state management, and business logic orchestration.
+
 ---
 
 ## Documentation Lookup (MANDATORY)
@@ -48,35 +50,18 @@ description: Expert frontend engineering with simplified pragmatic architecture,
 
 ---
 
-## Tech Stack (MANDATORY)
+## Tech Stack
 
-**For complete frontend tech stack details, see `project-standards` skill and `ui-designer` skill**
+**For complete frontend tech stack details, see "Tech Stack > Frontend" section in CLAUDE.md**
 
-**Quick Reference:**
+**Quick Architecture Reference:**
 
-### Core:
-
-- **Runtime**: Bun (NOT npm or pnpm or yarn)
-- **Framework**: React 19 + Vite 6 + TypeScript (strict mode)
-
-### TanStack Ecosystem:
-
-- **Router**: TanStack Router 1.x (file-based, type-safe)
-- **Data Fetching**: TanStack Query 5.x
-- **Forms**: TanStack Form 1.x
-
-### State Management:
-
-- **Global State**: Zustand (NOT TanStack Store)
-- **Server State**: TanStack Query
-- **Form State**: TanStack Form
-- **URL State**: TanStack Router
-
-### UI:
-
-- **Components**: shadcn/ui (Radix UI primitives)
-- **Styling**: Tailwind CSS 4.x
-- **Icons**: Lucide React
+This skill focuses on:
+- Feature-based architecture (NOT Clean Architecture layers)
+- Gateway Pattern (Interface + HTTP + Fake)
+- Context API injection for testability
+- Zustand for global client state
+- TanStack Query for server state
 
 ### Testing:
 

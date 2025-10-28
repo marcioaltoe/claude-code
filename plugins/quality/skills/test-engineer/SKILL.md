@@ -17,27 +17,9 @@ You specialize in:
 6. **Test Debugging**: Identifying and fixing test failures
 7. **Mocking**: Creating effective mocks for dependencies and external services
 
-## Documentation Lookup (MANDATORY)
+## Documentation Lookup
 
-**ALWAYS use MCP servers for up-to-date documentation:**
-
-- **Context7 MCP**: Use for comprehensive library documentation, API reference, import statements, and version-specific patterns
-
-  - When user asks about Bun test APIs, Playwright features, Biome configuration
-  - For framework-specific testing patterns and best practices
-  - To verify correct import paths and API usage
-
-- **Perplexity MCP**: Use for technical research, benchmarks, testing strategies, and emerging best practices
-  - When researching testing approaches or patterns
-  - For performance optimization techniques
-  - For troubleshooting specific error messages or issues
-
-**Examples of when to use MCP:**
-
-- "How do I mock modules in Bun test?" → Use Context7 MCP to fetch Bun documentation
-- "What are Playwright's latest features?" → Use Context7 MCP for Playwright docs
-- "Best practices for E2E testing" → Use Perplexity MCP for research and patterns
-- "How to configure Biome for monorepos?" → Use Context7 MCP for Biome docs
+**For MCP server usage (Context7, Perplexity), see "MCP Server Usage Rules" section in CLAUDE.md**
 
 ## When to Engage
 
@@ -351,7 +333,9 @@ test.describe("User Authentication Flow", () => {
 
 ## Biome Code Quality
 
-**For code quality setup, provide:**
+**For complete code quality setup, configuration, and quality gates workflow, see `quality-engineer` skill**
+
+**For basic code quality setup, provide:**
 
 1. **Biome Configuration**: Reference the template at `plugins/qa/templates/biome.json`
 2. **Scripts**: Add to package.json:

@@ -18,29 +18,9 @@ You specialize in:
 7. **Animation**: Smooth animations with Tailwind, Framer Motion, and CSS transitions
 8. **Performance**: Optimized styling strategies and code splitting
 
-## Documentation Lookup (MANDATORY)
+## Documentation Lookup
 
-**ALWAYS use MCP servers for up-to-date documentation:**
-
-- **Context7 MCP**: Use for comprehensive library documentation, API reference, import statements, and version-specific patterns
-
-  - When user asks about shadcn/ui components, Tailwind utilities, React APIs
-  - For framework-specific patterns and best practices (React, Vite, TanStack Router)
-  - To verify correct import paths, component props, and API usage
-  - For accessibility guidelines and ARIA attributes
-
-- **Perplexity MCP**: Use for design research, UI/UX best practices, and emerging patterns
-  - When researching design trends or patterns
-  - For component composition strategies
-  - For performance optimization techniques
-  - For troubleshooting styling issues
-
-**Examples of when to use MCP:**
-
-- "How do I customize shadcn/ui Button variants?" → Use Context7 MCP for shadcn/ui docs
-- "What are Tailwind v4 new features?" → Use Context7 MCP for Tailwind docs
-- "Best practices for responsive navigation?" → Use Perplexity MCP for research
-- "How to use React 19 useActionState?" → Use Context7 MCP for React docs
+**For MCP server usage (Context7, Perplexity), see "MCP Server Usage Rules" section in CLAUDE.md**
 
 ## When to Engage
 
@@ -66,17 +46,15 @@ You should proactively assist when users mention:
 
 ## Tech Stack
 
-**ALWAYS use these technologies:**
+**For complete frontend tech stack details, see "Tech Stack > Frontend" section in CLAUDE.md**
 
-- **Runtime**: Bun (NOT npm or pnpm or yarn)
-- **Framework**: React 19+ with Vite 6
-- **UI Library**: shadcn/ui (Radix UI primitives)
+**UI/Design Focus:**
+
+- **UI Library**: shadcn/ui (Radix UI primitives with built-in accessibility)
 - **Styling**: Tailwind CSS v4 with custom design tokens
 - **Icons**: Lucide React (shadcn/ui default)
 - **Animation**: Tailwind transitions, Framer Motion (when needed)
-- **Forms**: TanStack Form + Zod
-- **Accessibility**: Radix UI primitives (built-in a11y)
-- **Routing**: TanStack Router (type-safe, file-based)
+- **Forms**: TanStack Form + Zod validation
 
 ## Design Philosophy & Best Practices
 

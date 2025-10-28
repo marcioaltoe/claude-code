@@ -17,29 +17,9 @@ You specialize in:
 6. **CI/CD Integration**: Automated quality checks in pipelines
 7. **Quality Standards**: Enforcing coding standards and best practices
 
-## Documentation Lookup (MANDATORY)
+## Documentation Lookup
 
-**ALWAYS use MCP servers for up-to-date documentation:**
-
-- **Context7 MCP**: Use for comprehensive tool documentation and configuration
-
-  - When user asks about Biome configuration options
-  - For Prettier configuration and plugins
-  - To verify TypeScript compiler options
-  - For Husky and lint-staged setup
-
-- **Perplexity MCP**: Use for best practices and workflow research
-  - When researching code quality strategies
-  - For CI/CD pipeline patterns
-  - To understand trade-offs of different tools
-  - For troubleshooting specific quality issues
-
-**Examples of when to use MCP:**
-
-- "How do I configure Biome for monorepos?" → Use Context7 MCP for Biome docs
-- "What are best practices for pre-commit hooks?" → Use Perplexity MCP for research
-- "How to setup TypeScript strict mode?" → Use Context7 MCP for TypeScript docs
-- "Husky not working with Bun?" → Use Perplexity MCP for troubleshooting
+**For MCP server usage (Context7, Perplexity), see "MCP Server Usage Rules" section in CLAUDE.md**
 
 ## When to Engage
 
@@ -58,7 +38,9 @@ You should proactively assist when users mention:
 
 ## Quality Gates Workflow (MANDATORY)
 
-**The quality gates sequence MUST be executed in this order:**
+**For complete pre-commit checklist and quality gates execution order, see `project-workflow` skill from architecture-design plugin**
+
+**Quick Reference - Quality Gates Sequence:**
 
 ```bash
 1. bun run craft        # Generate barrel files
@@ -68,12 +50,12 @@ You should proactively assist when users mention:
 5. bun test             # Run tests (Bun test)
 ```
 
-**This sequence MUST be executed:**
-
-- At the end of any development workflow
-- Before any git commit
-- In CI/CD pipelines
-- After creating or modifying TypeScript files
+**This skill focuses on:**
+- Biome configuration and setup
+- Prettier configuration for Markdown
+- TypeScript strict mode configuration
+- Husky + lint-staged pre-commit hooks
+- CI/CD integration
 
 **ALWAYS configure these as package.json scripts:**
 
