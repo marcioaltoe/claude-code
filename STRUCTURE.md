@@ -526,6 +526,30 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Dashboard component patterns
 - WCAG AA/AAA accessibility with brand colors
 
+### 4. architecture-auditor
+
+**Plugin:** architecture-design
+**Type:** Autonomous skill
+**Focus:** Architecture audit and compliance verification
+
+**Invocation Examples:**
+
+- "audit frontend against CLAUDE.md"
+- "what doesn't match our architecture"
+- "find inconsistencies with backend patterns"
+- "check if features follow clean architecture"
+
+**Capabilities:**
+
+- Comprehensive codebase analysis
+- Architecture pattern evaluation
+- Technical debt assessment
+- Documentation compliance verification (CLAUDE.md, specs, ADRs)
+- Frontend and backend architecture review
+- Design pattern validation
+- Dependency rule enforcement
+- Layer separation verification
+
 ### 5. ai-sdk-specialist
 
 **Plugin:** ai-sdk
@@ -894,6 +918,56 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Testing strategy (unit tests with mock gateways, component tests, E2E tests)
 - Best practices for frontend development
 - React 19 + Vite 6 + TanStack ecosystem integration
+
+### 19. pull-request-skill
+
+**Plugin:** reviewer
+**Type:** Autonomous skill
+**Focus:** Pull Request review management for CodeRabbit AI
+
+**Invocation Examples:**
+
+- "download PR reviews"
+- "fix CodeRabbit issues for PR 123"
+- "check review status"
+- "organize review comments by severity"
+
+**Capabilities:**
+
+- Download CodeRabbit AI review comments from GitHub PRs
+- Organize issues by severity (critical, major, trivial)
+- Track issue resolution status
+- Systematically guide through review feedback
+- Generate review summaries and reports
+- Prioritize fixes by impact
+- Monitor progress on review resolution
+
+### 20. web-tests
+
+**Plugin:** ui-tests
+**Type:** Autonomous skill
+**Focus:** Browser automation with Playwright
+
+**Invocation Examples:**
+
+- "test this page"
+- "take screenshots of responsive design"
+- "test login flow"
+- "check for broken links"
+- "validate form submission"
+
+**Capabilities:**
+
+- Complete browser automation with Playwright
+- Auto-detects running dev servers
+- E2E testing for web applications
+- Responsive design validation (mobile, tablet, desktop)
+- Form testing and validation
+- Screenshot capture across viewports
+- Login flow testing
+- Broken link detection
+- Custom test script generation
+- Saves tests to working directory for reusability
 
 ## Hooks
 
