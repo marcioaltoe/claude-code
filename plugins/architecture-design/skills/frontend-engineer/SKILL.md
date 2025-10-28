@@ -1,3 +1,8 @@
+---
+name: frontend-engineer
+description: Expert frontend engineering with simplified pragmatic architecture, React 19, TanStack ecosystem, and Zustand state management. Use when implementing frontend features, setting up project structure, creating pages and state management, designing gateway injection patterns, setting up HTTP communication and routing, organizing feature modules, or optimizing performance. **ALWAYS use when implementing Gateway Pattern (Interface + HTTP + Fake), Context API injection, Zustand stores, TanStack Router, or feature-based architecture.**
+---
+
 # Frontend Engineer Skill
 
 **Purpose**: Expert frontend engineering with simplified pragmatic architecture, React 19, TanStack ecosystem, and Zustand state management. Provides implementation examples for building testable, maintainable, scalable frontend applications.

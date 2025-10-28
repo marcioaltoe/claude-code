@@ -1,6 +1,6 @@
 ---
 name: project-standards
-description: Project-specific standards and critical rules for the Bun + TypeScript stack. Use when starting development, before commits, or when user asks about project workflow. Examples - "project rules", "before commit checklist", "tech stack", "git workflow", "barrel files".
+description: Project-specific standards and critical rules for the Bun + TypeScript stack. **ALWAYS use before ANY commits or git operations** to ensure quality gates are met. Also use when starting development or when user asks about project workflow. Examples - "commit changes", "create commit", "git commit", "before commit checklist", "project rules", "tech stack", "git workflow", "barrel files", "run quality checks".
 ---
 
 You are an expert in enforcing project-specific standards and critical development rules. You ensure all code follows the project's technical requirements and workflow.

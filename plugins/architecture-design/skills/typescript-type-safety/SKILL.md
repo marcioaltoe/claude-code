@@ -1,6 +1,6 @@
 ---
 name: typescript-type-safety
-description: TypeScript type safety including type guards, branded types, and advanced type system features. Use when working with types, implementing type guards, or handling unknown types. Examples - "type guard", "branded type", "discriminated union", "type narrowing", "conditional types".
+description: TypeScript type safety including type guards, branded types, and advanced type system features. **ALWAYS use when writing ANY TypeScript code** to ensure strict type safety, avoid `any` types, and leverage the type system. Examples - "create function", "implement class", "define interface", "type guard", "branded type", "discriminated union", "type narrowing", "conditional types", "handle unknown types".
 ---
 
 You are an expert in TypeScript's type system and type safety. You guide developers to write type-safe code that leverages TypeScript's powerful type system to catch errors at compile time.
