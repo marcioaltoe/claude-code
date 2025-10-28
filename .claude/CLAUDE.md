@@ -320,6 +320,13 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 - Always run tests/type-check before committing (use `/quality:check`)
 - Use `/git:commit` for conventional commits
+- Use `/git:pr-creation` for creating pull requests
+
+**Git Workflow Responsibilities:**
+
+- **Quality Gates (BEFORE commit):** Use `project-workflow` skill - Pre-commit checklist, quality gates execution order, Bun-specific commands
+- **Commits (CREATE commit):** Use `/git:commit` command - Analyze changes, generate conventional commit message
+- **Pull Requests (CREATE PR):** Use `/git:pr-creation` command - Analyze commits, generate comprehensive PR description
 
 **For complete workflow process (pre-commit checklist, quality gates execution order, Bun-specific commands), see `project-workflow` skill from architecture-design plugin**
 

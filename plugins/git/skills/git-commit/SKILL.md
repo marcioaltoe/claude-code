@@ -65,15 +65,7 @@ You MUST follow the Conventional Commits specification:
 - Breaking changes: `BREAKING CHANGE: description`
 - Issue references: `Closes #123`, `Fixes #456`
 
-## Pre-Commit Validation
-
-Before committing, verify:
-
-1. ✅ Run project tests if available
-2. ✅ Run type checking if using TypeScript
-3. ✅ Not committing to `main` or `dev` directly (check current branch)
-4. ✅ Build succeeds if project has build step
-5. ✅ Changes follow project coding standards
+**For pre-commit checklist, quality gates, and Bun-specific commands, see `project-workflow` skill from architecture-design plugin**
 
 ## Workflow
 
@@ -83,23 +75,17 @@ Before committing, verify:
    - Run `git diff` to understand specific changes
    - Check current branch with `git branch --show-current`
 
-2. **Validate Branch:**
+2. **Check Branch:**
 
-   - STOP if on `main` or `dev` - remind user to create feature branch
-   - Expected pattern: `feature/descriptive-name`
+   - Warn if on `main` or `dev` - suggest feature branch
+   - Note: Quality gates should be handled by `project-workflow` skill
 
-3. **Run Quality Checks (if applicable):**
-
-   - Execute project tests
-   - Execute type checking
-   - Verify build succeeds
-
-4. **Stage Files:**
+3. **Stage Files:**
 
    - If files aren't staged, ask user which files to stage
    - Use `git add <files>` or `git add .` based on user preference
 
-5. **Generate Commit Message:**
+4. **Generate Commit Message:**
 
    - Analyze the diff thoroughly
    - Identify the primary type and scope
@@ -107,13 +93,13 @@ Before committing, verify:
    - Add body if changes are complex or non-obvious
    - Include footer for breaking changes or issue references
 
-6. **Present & Confirm:**
+5. **Present & Confirm:**
 
    - Show the generated commit message to the user
    - Explain your reasoning for the type, scope, and description
    - Ask for confirmation or modifications
 
-7. **Execute Commit:**
+6. **Execute Commit:**
    - Run `git commit -m "<message>"` for simple commits
    - Use `git commit` with multi-line message for commits with body/footer
    - Confirm successful commit
@@ -153,11 +139,10 @@ chore: update dependencies to latest stable versions
 
 ## Error Handling
 
-- If tests fail, STOP and inform the user which tests failed
-- If type errors exist, STOP and show the errors
 - If on wrong branch, guide user to create proper feature branch
 - If changes are too large or unfocused, suggest breaking into multiple commits
 - If you cannot determine appropriate commit type, ask user for clarification
+- For quality gates issues (tests, type errors), refer to `project-workflow` skill
 
 ## Edge Cases
 
