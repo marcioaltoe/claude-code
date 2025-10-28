@@ -6,6 +6,7 @@
 
 ## **CRITICAL - NEVER IGNORE:**
 
+- **NEVER** commit, create branches, or create pull requests automatically - ALWAYS wait for explicit user request
 - **ALWAYS** run `bun run craft` after creating/moving files to update barrel imports
 - **NEVER** use `any` type - use `unknown` with type guards instead
 - **NEVER** commit without running quality gates: format, lint, type-check and tests
