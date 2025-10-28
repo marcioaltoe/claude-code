@@ -1,8 +1,24 @@
 # Core Development Rules
 
-**For backend implementation examples and patterns, use the `backend-engineer` skill from architecture-design plugin**
+## **CRITICAL SKILLS USAGE:**
 
-**For frontend implementation examples and patterns, use the `frontend-engineer` skill from architecture-design plugin**
+**Backend Development (MANDATORY):**
+
+- **ALWAYS** use `clean-architecture` skill when **creating files or deciding file locations**
+- **ALWAYS** use `backend-engineer` skill when **implementing ANY backend code** (Hono APIs, routes, services)
+
+**Frontend Development (MANDATORY):**
+
+- **ALWAYS** use `frontend-engineer` skill when **implementing frontend features** (Gateway Pattern, Zustand, TanStack Router)
+- **ALWAYS** use `ui-designer` skill when **creating UI components** (shadcn/ui, Tailwind, responsive design)
+- **ALWAYS** use `gesttione-design-system` skill for **Gesttione brand colors and metrics**
+
+**Code Quality (MANDATORY - ALL CODE - Backend AND Frontend):**
+
+- **ALWAYS** use `clean-code-principles` skill when **implementing ANY feature, fixing bugs, refactoring, or writing functions/classes**
+- **ALWAYS** use `solid-principles` skill when **designing ANY classes, modules, or abstractions**
+- **ALWAYS** use `naming-conventions` skill when **creating ANY files, folders, classes, functions, or variables**
+- **ALWAYS** use `typescript-type-safety` skill when **writing ANY TypeScript code**
 
 ## **CRITICAL - NEVER IGNORE:**
 
@@ -12,17 +28,8 @@
 - **NEVER** commit without running quality gates: format, lint, type-check and tests
 - **NEVER** commit directly to `main` or `dev` branches
 - **ALWAYS** create feature branches from `dev`
-
-## Naming Conventions (Mandatory)
-
-**For complete naming standards, use the `naming-conventions` skill from architecture-design plugin**
-
-**Quick Reference:**
-
-- `kebab-case` for file and folder names
-- `PascalCase` for class names
-- `camelCase` for function and variable names
-- `SCREAMING_SNAKE_CASE` for constants
+- **ALWAYS** create unit test files in `__tests__/` folder inside the same directory as the file being tested
+- **ALWAYS** create integration and E2E tests in `tests/` folder at project root
 
 ## Tech Stack
 
@@ -65,8 +72,63 @@ features/[name]/
 ### Testing:
 
 - Unit: Bun test + React Testing Library
+- Integration: Bun test (API routes, database, external services)
 - E2E: Playwright
 - Coverage: Bun built-in
+
+**MANDATORY Test Structure:**
+
+```
+# Unit tests - Co-located with source code
+src/domain/entities/
+├── user.entity.ts
+└── __tests__/
+    └── user.entity.test.ts
+
+features/auth/stores/
+├── auth.store.ts
+└── __tests__/
+    └── auth.store.test.ts
+
+src/application/use-cases/
+├── create-user.use-case.ts
+└── __tests__/
+    └── create-user.use-case.test.ts
+
+# Integration & E2E tests - Root-level tests/ folder
+tests/
+├── integration/
+│   ├── api/
+│   │   └── auth.integration.test.ts
+│   ├── database/
+│   │   └── user-repository.integration.test.ts
+│   └── services/
+│       └── email-service.integration.test.ts
+│
+└── e2e/
+    ├── auth/
+    │   └── login.e2e.test.ts
+    └── users/
+        └── user-registration.e2e.test.ts
+```
+
+**Critical Testing Rules:**
+
+**Unit Tests (co-located):**
+
+- **ALWAYS** create unit test files in `__tests__/` folder inside the same directory as the file being tested
+- **ALWAYS** use `.test.ts` or `.test.tsx` extension for unit test files
+- **ALWAYS** name test file same as source file: `user.entity.ts` → `__tests__/user.entity.test.ts`
+- **NEVER** place unit tests in root-level `tests/` directory
+- **ALWAYS** co-locate unit tests with code for easier navigation and maintenance
+
+**Integration & E2E Tests (root-level):**
+
+- **ALWAYS** create integration tests in `tests/integration/` at project root
+- **ALWAYS** create E2E tests in `tests/e2e/` at project root
+- **ALWAYS** use `.integration.test.ts` extension for integration tests
+- **ALWAYS** use `.e2e.test.ts` extension for E2E tests
+- **ALWAYS** organize by feature/domain in subdirectories
 
 ### Code Quality:
 
@@ -74,30 +136,128 @@ features/[name]/
 - Markdown: Prettier
 - TypeScript: Strict mode
 
+## UI/Design System (MANDATORY)
+
+### Quick Reference - When to Use Each Skill
+
+1. **`ui-designer` skill** (from ui plugin)
+
+   - Creating or designing UI components
+   - Implementing responsive layouts with Tailwind CSS
+   - Setting up shadcn/ui components
+   - Building forms with TanStack Form + Zod validation
+   - Implementing dark mode and theme support
+   - Ensuring WCAG 2.1 AA accessibility compliance
+   - Component composition and design patterns
+   - Adding animations and transitions
+
+2. **`gesttione-design-system` skill** (from ui plugin)
+   - Applying Gesttione brand colors and identity
+   - Creating metric visualizations (revenue, CMV, purchases, costs, customers, etc.)
+   - Building dashboard components with metric cards
+   - Using Gesttione typography system (Geist, Lora, Geist Mono)
+   - Implementing Gesttione-specific design tokens
+   - Brand-compliant UI components
+   - Business metric displays and status badges
+
+### Critical UI Rules
+
+- **ALWAYS** use design tokens (CSS variables) for colors, NEVER hardcoded hex values
+- **ALWAYS** ensure WCAG AA contrast ratios (4.5:1 for text, 3:1 for UI components)
+- **ALWAYS** implement dark mode support with proper token mapping
+- **ALWAYS** start with mobile-first responsive design
+- **ALWAYS** use shadcn/ui components when available
+- **NEVER** use inline styles (use Tailwind classes)
+- **NEVER** skip accessibility attributes (ARIA, semantic HTML, keyboard navigation)
+- For Gesttione projects, **ALWAYS** use `gesttione-design-system` skill for brand colors and metrics
+
 ## Backend Architecture (MANDATORY)
 
 **Clean Architecture is REQUIRED for ALL backend code.**
 
-**For complete architecture guidance, use these skills from architecture-design plugin:**
+**For ALL backend implementation work, use these skills from architecture-design plugin:**
 
-- `clean-architecture` - Layered architecture, dependency rule, DDD patterns
-- `backend-engineer` - Implementation examples, DI Container, best practices
-- `solid-principles` - SOLID principles application
+- `clean-architecture` - Layered architecture, dependency rule, DDD patterns, file location decisions
+- `backend-engineer` - Hono APIs, HTTP routes, service layer, DI Container, implementation examples
 
-### Quick Reference - Layers (dependency flow: outward → inward)
+**IMPORTANT**: Also apply Code Quality skills (see "Code Quality & Clean Code" section):
+
+- `clean-code-principles` - KISS, YAGNI, DRY, TDA for simple, maintainable code
+- `solid-principles` - SRP, OCP, LSP, ISP, DIP for class/module design
+
+### Quick Reference - When to Use Each Skill
+
+1. **`clean-architecture` skill** (from architecture-design plugin)
+
+   - **ALWAYS use when creating files** - Deciding file locations and layer organization
+   - **ALWAYS use when organizing layers** - Domain/Application/Infrastructure/Presentation
+   - Creating entities, value objects, aggregates, domain events
+   - Defining repository patterns and ports (interface contracts)
+   - Implementing use cases and application services
+   - Understanding dependency flow and dependency rule
+   - Domain-driven design (DDD) patterns
+   - Ensuring proper layer separation
+
+2. **`backend-engineer` skill** (from architecture-design plugin)
+
+   - **ALWAYS use when implementing ANY backend code** - Hono APIs, HTTP routes, services
+   - Creating Hono route handlers and controllers
+   - Implementing HTTP endpoints and API design
+   - Setting up dependency injection container
+   - Configuring DI lifetimes (singleton, scoped, transient)
+   - Repository implementations (database layer)
+   - Infrastructure adapter implementations (Cache, Logger, Queue)
+   - Service layer implementation patterns
+   - Backend-specific best practices and examples
+
+### Quick Reference - Clean Architecture Structure
+
+**Structure per module/feature:**
+
+```
+src/
+├── domain/                 # Layer 1 (innermost, no dependencies)
+│   ├── entities/          # Business entities
+│   ├── value-objects/     # Immutable value objects
+│   ├── aggregates/        # Aggregate roots
+│   ├── events/            # Domain events
+│   └── ports/             # Interface contracts (NO "I" prefix)
+│       ├── repositories/  # Repository interfaces
+│       └── services/      # Service interfaces
+│
+├── application/           # Layer 2 (depends on Domain only)
+│   ├── use-cases/         # Application business rules
+│   └── dtos/              # Data transfer objects
+│
+├── infrastructure/        # Layer 3 (depends on Application + Domain)
+│   ├── repositories/      # Repository implementations
+│   ├── adapters/          # External service adapters
+│   │   ├── cache/         # Redis, etc.
+│   │   ├── logger/        # Winston, etc.
+│   │   └── queue/         # BullMQ, etc.
+│   ├── database/          # Drizzle schemas, migrations
+│   ├── http/              # HTTP clients
+│   └── container/         # DI Container
+│
+└── presentation/          # Layer 4 (depends on Application)
+    ├── routes/            # Hono route registration
+    ├── controllers/       # Route handlers
+    └── schemas/           # Zod validation schemas
+```
+
+**Dependency flow:** Domain ← Application ← Infrastructure/Presentation
+
+### Quick Reference - Layers
 
 1. **Domain Layer** (innermost, no dependencies)
-
    - Entities, Value Objects, Aggregates, Domain Events
    - Ports: Interface contracts (repositories, services) - NO "I" prefix
 
 2. **Application Layer** (depends on Domain only)
-
    - Use Cases: Application-specific business rules
    - DTOs: Data transfer between layers
 
 3. **Infrastructure Layer** (depends on Application + Domain)
-
    - Repositories: Database implementations (implements domain/ports/repositories)
    - Adapters: External service implementations (Cache, Logger, Queue, APIs)
    - Config, Database, HTTP, Container (DI)
@@ -107,13 +267,31 @@ features/[name]/
    - Controllers: Route handlers (business logic delegation)
    - Schemas: Zod validation schemas for requests/responses
 
-### Critical Rules
+### Critical Backend Rules
 
-- **NEVER** import infrastructure in domain layer
-- **ALWAYS** inject dependencies via constructors
-- **ALWAYS** define interfaces in `domain/ports/` (NO "I" prefix)
-- **NEVER** expose domain entities directly in API responses
-- Use DTOs/ViewModels for presentation layer
+**NEVER:**
+
+- Import infrastructure in domain layer (violates dependency rule)
+- Expose domain entities directly in API responses (use DTOs/ViewModels)
+- Use external DI libraries (use custom DI Container only)
+- Prefix interfaces with "I" (use semantic names without prefix)
+- Skip dependency injection (ALWAYS inject via constructors)
+- Create circular dependencies between layers
+- Put business logic in controllers (delegate to use cases)
+
+**ALWAYS:**
+
+- **Use `clean-architecture` skill when creating files** - Proper file location and layer organization
+- **Use `backend-engineer` skill when implementing backend code** - Hono APIs, routes, services
+- **Use `clean-code-principles` skill when writing backend code** - KISS, YAGNI, DRY, TDA
+- **Use `solid-principles` skill when designing classes** - SOLID principles application
+- Inject dependencies via constructors (constructor injection)
+- Define interfaces in `domain/ports/` (NO "I" prefix)
+- Use DTOs/ViewModels for presentation layer (never expose entities)
+- Follow dependency rule: Domain ← Application ← Infrastructure/Presentation
+- Implement repository pattern for data access
+- Use type-safe DI tokens with Symbol
+- Separate registration functions by layer (registerDomain, registerApplication, etc.)
 
 ## Dependency Injection Container
 
@@ -141,12 +319,8 @@ import { Email, Password } from "@/domain/value-object";
 import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 ```
 
-**IMPORTANT**: Run `bun run craft` after creating/moving files to update barrel files.
-
 ## Git Standards
 
-- Create feature branches from `dev`, never from `main`
-- Never commit directly to `main` or `dev` branches
 - Always run tests/type-check before committing (use `/quality:check`)
 - Use `/git:commit` for conventional commits
 
@@ -159,6 +333,92 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 - Use Result/Either types for expected failures
 - Log errors with correlation IDs for tracing
 - Implement circuit breakers for external services
+
+## Code Quality & Clean Code (MANDATORY - ALL CODE)
+
+**For ALL code generation (backend AND frontend), use these skills from architecture-design plugin:**
+
+- `clean-code-principles` - KISS, YAGNI, DRY, TDA patterns for simple, maintainable code
+- `solid-principles` - SRP, OCP, LSP, ISP, DIP for proper class/module design
+- `naming-conventions` - File, folder, class, function, and variable naming standards
+- `typescript-type-safety` - Type guards, branded types, avoiding `any` type
+
+### Quick Reference - When to Use Each Skill
+
+1. **`clean-code-principles` skill** (from architecture-design plugin)
+
+   - **ALWAYS use when implementing ANY feature** - New features, bug fixes, refactoring
+   - **ALWAYS use when writing functions or classes** - Ensure KISS, YAGNI, DRY, TDA
+   - Writing new functions or classes
+   - Refactoring existing code
+   - Code reviews and quality checks
+   - Preventing over-engineering
+   - Keeping code simple and maintainable
+   - Applying Rule of Three before abstraction (DRY)
+   - Implementing Tell, Don't Ask pattern (TDA)
+   - Ensuring functions are < 20 lines
+   - Using meaningful names over comments
+
+2. **`solid-principles` skill** (from architecture-design plugin)
+
+   - **ALWAYS use when designing ANY classes or modules** - Not just backend!
+   - **ALWAYS use when implementing domain logic** - Business rules in ANY layer
+   - Applying Single Responsibility Principle (one reason to change)
+   - Ensuring Open/Closed Principle (open for extension, closed for modification)
+   - Following Liskov Substitution Principle (subtypes are substitutable)
+   - Implementing Interface Segregation (small, focused interfaces)
+   - Applying Dependency Inversion (depend on abstractions)
+   - Designing repository patterns
+   - Creating extensible architectures
+   - Reviewing architecture decisions
+
+3. **`naming-conventions` skill** (from architecture-design plugin)
+
+   - **ALWAYS use when creating ANY files, folders, classes, functions, or variables**
+   - `kebab-case` for files/folders, `PascalCase` for classes, `camelCase` for functions/variables, `SCREAMING_SNAKE_CASE` for constants
+   - NO "I" prefix for interfaces (e.g., `UserRepository`, not `IUserRepository`)
+
+4. **`typescript-type-safety` skill** (from architecture-design plugin)
+   - **ALWAYS use when writing ANY TypeScript code** - Frontend AND backend
+   - Never use `any` type (use `unknown` with type guards)
+   - Implementing type guards for runtime safety
+   - Using branded types for domain primitives
+   - Leveraging discriminated unions
+   - Applying conditional types
+   - Ensuring strict type safety
+   - Handling unknown types safely
+
+### Critical Code Quality Rules
+
+**NEVER:**
+
+- Write functions > 20 lines (extract into smaller functions)
+- Create abstractions before Rule of Three (wait for 3 occurrences)
+- Write clever, complex code (prefer clear, boring code)
+- Use magic numbers (use named constants)
+- Over-engineer simple solutions (apply KISS)
+- Build features not in current requirements (apply YAGNI)
+- Skip meaningful naming (code should be self-documenting)
+- Create God classes (one responsibility per class)
+- Use "I" prefix for interfaces (use semantic names)
+
+**ALWAYS:**
+
+- **Use `clean-code-principles` skill when writing ANY code** - Features, bugs, refactoring
+- **Use `solid-principles` skill when designing classes/modules** - Frontend AND backend
+- **Use `naming-conventions` skill when creating files/classes/functions** - Consistent naming
+- **Use `typescript-type-safety` skill when writing TypeScript** - Strict type safety
+- Apply KISS (Keep It Simple, Stupid)
+- Apply YAGNI (You Aren't Gonna Need It)
+- Apply DRY after Rule of Three (3 occurrences)
+- Apply TDA (Tell, Don't Ask)
+- Keep functions < 20 lines
+- Use meaningful names over comments
+- Write self-documenting code
+- Prefer early returns to reduce nesting
+- Use single level of abstraction per function
+- Extract complex logic into separate methods
+- Follow SOLID principles for classes and modules
 
 ## Security Stack
 
