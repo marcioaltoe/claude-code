@@ -13,11 +13,13 @@ These gates act as compile-time checks for architectural decisions. Every design
 ### Rules
 
 **Project Structure:**
+
 - ✅ Maximum 3 projects for initial implementation
 - ✅ Additional projects require documented justification in design
 - ❌ No future-proofing or speculative architecture
 
 **Abstraction:**
+
 - ✅ Follow Rule of Three before creating abstractions
 - ✅ Start with direct implementation
 - ❌ No premature optimization or over-engineering
@@ -32,6 +34,7 @@ These gates act as compile-time checks for architectural decisions. Every design
 ### When to Violate
 
 Document in design's "Complexity Tracking" section:
+
 - **Violation:** e.g., "4th project for mobile app"
 - **Why Needed:** e.g., "iOS + Android require separate codebases"
 - **Simpler Alternative Rejected Because:** e.g., "React Native doesn't meet performance requirements"
@@ -45,20 +48,19 @@ Document in design's "Complexity Tracking" section:
 ### Rules
 
 **TypeScript Usage:**
+
 - ✅ Strict mode enabled in tsconfig.json
 - ✅ No `any` types (use `unknown` with type guards)
 - ✅ Branded types for domain primitives
 - ✅ Discriminated unions for state
 
 **Type Guards:**
+
 ```typescript
 // ✅ Good: Type guard for unknown
 function isUser(data: unknown): data is User {
   return (
-    typeof data === 'object' &&
-    data !== null &&
-    'id' in data &&
-    'email' in data
+    typeof data === "object" && data !== null && "id" in data && "email" in data
   );
 }
 
@@ -69,13 +71,14 @@ function processData(data: any) {
 ```
 
 **Branded Types:**
+
 ```typescript
 // ✅ Good: Branded type for domain primitive
-type UserId = string & { readonly __brand: 'UserId' };
-type Email = string & { readonly __brand: 'Email' };
+type UserId = string & { readonly __brand: "UserId" };
+type Email = string & { readonly __brand: "Email" };
 
 // ❌ Bad: Primitive obsession
-function getUser(id: string, email: string) { }
+function getUser(id: string, email: string) {}
 ```
 
 ### Validation Questions
@@ -88,6 +91,7 @@ function getUser(id: string, email: string) { }
 ### When to Violate
 
 Rare exceptions only (e.g., third-party library without types):
+
 - Document in design
 - Create type definitions as soon as possible
 - Isolate `any` usage with type guards at boundaries
@@ -101,6 +105,7 @@ Rare exceptions only (e.g., third-party library without types):
 ### Rules
 
 **Function Size:**
+
 - ✅ Functions < 20 lines
 - ✅ Extract complex logic into separate functions
 - ✅ Single level of abstraction per function
@@ -108,47 +113,51 @@ Rare exceptions only (e.g., third-party library without types):
 **SOLID Principles:**
 
 **Single Responsibility (SRP):**
+
 ```typescript
 // ✅ Good: One responsibility
 class UserRepository {
-  save(user: User): Promise<void> { }
-  findById(id: UserId): Promise<User | null> { }
+  save(user: User): Promise<void> {}
+  findById(id: UserId): Promise<User | null> {}
 }
 
 // ❌ Bad: Multiple responsibilities
 class UserService {
-  save(user: User): Promise<void> { }
-  sendEmail(user: User): Promise<void> { }
-  logActivity(user: User): void { }
+  save(user: User): Promise<void> {}
+  sendEmail(user: User): Promise<void> {}
+  logActivity(user: User): void {}
 }
 ```
 
 **Open/Closed (OCP):**
+
 ```typescript
 // ✅ Good: Open for extension
 interface PaymentProcessor {
   process(amount: number): Promise<void>;
 }
 
-class CreditCardProcessor implements PaymentProcessor { }
-class PayPalProcessor implements PaymentProcessor { }
+class CreditCardProcessor implements PaymentProcessor {}
+class PayPalProcessor implements PaymentProcessor {}
 
 // ❌ Bad: Modification required for new types
 function processPayment(type: string, amount: number) {
-  if (type === 'credit-card') { }
-  else if (type === 'paypal') { }
+  if (type === "credit-card") {
+  } else if (type === "paypal") {
+  }
 }
 ```
 
 **Liskov Substitution (LSP):**
+
 ```typescript
 // ✅ Good: Subtypes are substitutable
 class Bird {
-  eat(): void { }
+  eat(): void {}
 }
 
 class Sparrow extends Bird {
-  fly(): void { }
+  fly(): void {}
 }
 
 class Penguin extends Bird {
@@ -157,11 +166,14 @@ class Penguin extends Bird {
 
 // ❌ Bad: Violates LSP
 class BirdBase {
-  fly(): void { throw new Error('Not implemented'); }
+  fly(): void {
+    throw new Error("Not implemented");
+  }
 }
 ```
 
 **Interface Segregation (ISP):**
+
 ```typescript
 // ✅ Good: Small, focused interfaces
 interface Readable {
@@ -182,6 +194,7 @@ interface FileOperations {
 ```
 
 **Dependency Inversion (DIP):**
+
 ```typescript
 // ✅ Good: Depend on abstractions
 interface UserRepository {
@@ -189,18 +202,19 @@ interface UserRepository {
 }
 
 class CreateUserUseCase {
-  constructor(private userRepo: UserRepository) { }
+  constructor(private userRepo: UserRepository) {}
 }
 
 // ❌ Bad: Depend on concretions
 class CreateUserUseCase {
-  constructor(private userRepo: PostgresUserRepository) { }
+  constructor(private userRepo: PostgresUserRepository) {}
 }
 ```
 
 **Clean Code Patterns:**
 
 **KISS (Keep It Simple):**
+
 ```typescript
 // ✅ Good: Simple and clear
 function isAdult(age: number): boolean {
@@ -214,13 +228,11 @@ function isAdult(age: number): boolean {
 ```
 
 **YAGNI (You Aren't Gonna Need It):**
+
 ```typescript
 // ✅ Good: Only implement current requirements
 class User {
-  constructor(
-    public id: UserId,
-    public email: Email,
-  ) { }
+  constructor(public id: UserId, public email: Email) {}
 }
 
 // ❌ Bad: Speculative features
@@ -229,30 +241,32 @@ class User {
     public id: UserId,
     public email: Email,
     public futureFeature?: SomeType, // Not in requirements
-    public mightNeedLater?: AnotherType, // Speculative
-  ) { }
+    public mightNeedLater?: AnotherType // Speculative
+  ) {}
 }
 ```
 
 **DRY (Don't Repeat Yourself) - After Rule of Three:**
+
 ```typescript
 // First occurrence - write directly
 function validateUser1(user: User) {
-  if (!user.email.includes('@')) throw new Error('Invalid email');
+  if (!user.email.includes("@")) throw new Error("Invalid email");
 }
 
 // Second occurrence - still OK
 function validateUser2(user: User) {
-  if (!user.email.includes('@')) throw new Error('Invalid email');
+  if (!user.email.includes("@")) throw new Error("Invalid email");
 }
 
 // Third occurrence - NOW extract
 function validateEmail(email: Email): void {
-  if (!email.includes('@')) throw new Error('Invalid email');
+  if (!email.includes("@")) throw new Error("Invalid email");
 }
 ```
 
 **TDA (Tell, Don't Ask):**
+
 ```typescript
 // ✅ Good: Tell object what to do
 class ShoppingCart {
@@ -265,8 +279,7 @@ class ShoppingCart {
 cart.addItem(item); // Tell
 
 // ❌ Bad: Ask object for data and act on it
-const total = cart.getItems()
-  .reduce((sum, item) => sum + item.price, 0); // Ask
+const total = cart.getItems().reduce((sum, item) => sum + item.price, 0); // Ask
 cart.setTotal(total);
 ```
 
@@ -287,6 +300,7 @@ cart.setTotal(total);
 ### Rules
 
 **TDD Cycle (Red-Green-Refactor):**
+
 1. ✅ Write failing test (Red)
 2. ✅ Run test to confirm it fails
 3. ✅ Write minimal code to pass (Green)
@@ -295,12 +309,14 @@ cart.setTotal(total);
 6. ✅ Commit
 
 **Test Order:**
+
 1. Contract tests (API contracts)
 2. Integration tests (use cases with real dependencies)
 3. E2E tests (user journeys)
 4. Unit tests (domain logic)
 
 **Test Quality:**
+
 - ✅ Use real dependencies (database, services)
 - ✅ Each test is independent
 - ✅ Test names describe behavior
@@ -308,8 +324,8 @@ cart.setTotal(total);
 
 ```typescript
 // ✅ Good: Test with real database
-describe('UserRepository', () => {
-  it('should save user and retrieve by id', async () => {
+describe("UserRepository", () => {
+  it("should save user and retrieve by id", async () => {
     const repo = new DrizzleUserRepository(db);
     const user = createTestUser();
 
@@ -321,8 +337,8 @@ describe('UserRepository', () => {
 });
 
 // ❌ Bad: Over-mocked test
-describe('UserRepository', () => {
-  it('should save user', async () => {
+describe("UserRepository", () => {
+  it("should save user", async () => {
     const mockDb = jest.fn().mockResolvedValue(true);
     // Test tells nothing about real behavior
   });
@@ -367,6 +383,7 @@ describe('UserRepository', () => {
 ### Rules
 
 **Domain Layer (src/domain/):**
+
 - ✅ Entities, Value Objects, Aggregates
 - ✅ Ports (interfaces) for repositories and services
 - ❌ NO imports from other layers
@@ -374,12 +391,14 @@ describe('UserRepository', () => {
 - ❌ NO "I" prefix on interfaces (e.g., `UserRepository`, not `IUserRepository`)
 
 **Application Layer (src/application/):**
+
 - ✅ Use Cases (application logic)
 - ✅ DTOs (data transfer objects)
 - ✅ Can import from domain
 - ❌ NO imports from infrastructure or presentation
 
 **Infrastructure Layer (src/infrastructure/):**
+
 - ✅ Repository implementations
 - ✅ Database (Drizzle schemas, migrations)
 - ✅ Adapters (Cache, Logger, Queue, HTTP clients)
@@ -387,6 +406,7 @@ describe('UserRepository', () => {
 - ✅ Can import from domain and application
 
 **Presentation Layer (src/presentation/):**
+
 - ✅ Routes (Hono route registration)
 - ✅ Controllers (route handlers, delegate to use cases)
 - ✅ Schemas (Zod validation)
@@ -396,12 +416,15 @@ describe('UserRepository', () => {
 ### Dependency Injection
 
 **Use Symbol-based tokens:**
+
 ```typescript
 // ✅ Good: Type-safe DI tokens
 type Token<T> = symbol & { __type: T };
 
-const USER_REPOSITORY = Symbol('UserRepository') as Token<UserRepository>;
-const CREATE_USER_USE_CASE = Symbol('CreateUserUseCase') as Token<CreateUserUseCase>;
+const USER_REPOSITORY = Symbol("UserRepository") as Token<UserRepository>;
+const CREATE_USER_USE_CASE = Symbol(
+  "CreateUserUseCase"
+) as Token<CreateUserUseCase>;
 
 // Register
 container.register(USER_REPOSITORY, () => new DrizzleUserRepository(db));
@@ -411,13 +434,14 @@ const userRepo = container.resolve(USER_REPOSITORY);
 ```
 
 **Constructor Injection:**
+
 ```typescript
 // ✅ Good: Dependencies injected
 class CreateUserUseCase {
   constructor(
     private userRepository: UserRepository,
-    private emailService: EmailService,
-  ) { }
+    private emailService: EmailService
+  ) {}
 }
 
 // ❌ Bad: Direct instantiation
@@ -460,18 +484,21 @@ features/{feature-name}/
 ### Rules
 
 **Components (Pure UI):**
+
 - ✅ Only props and local state
 - ✅ No direct store access
 - ✅ No direct gateway access
 - ❌ NO business logic
 
 **Pages (Orchestration):**
+
 - ✅ Use stores via hooks
 - ✅ Inject gateways via Context
 - ✅ Coordinate business logic
 - ❌ NO direct HTTP calls
 
 **Stores (Zustand):**
+
 - ✅ Framework-agnostic (100% testable)
 - ✅ State + actions in one place
 - ✅ Can use gateways (injected)
@@ -493,7 +520,7 @@ export const createUserStore = (userGateway: UserGateway) => {
 export const useUserStore = create<UserStore>((set) => ({
   // Direct fetch - not testable
   fetchUsers: async () => {
-    const res = await fetch('/api/users');
+    const res = await fetch("/api/users");
     const users = await res.json();
     set({ users });
   },
@@ -501,6 +528,7 @@ export const useUserStore = create<UserStore>((set) => ({
 ```
 
 **Gateways (Interface + HTTP + Fake):**
+
 - ✅ Always define interface first
 - ✅ HTTP implementation uses interface
 - ✅ Fake implementation for tests
@@ -516,14 +544,14 @@ export interface UserGateway {
 // gateway.http.ts
 export class HttpUserGateway implements UserGateway {
   async getAll(): Promise<User[]> {
-    const res = await fetch('/api/users');
+    const res = await fetch("/api/users");
     return res.json();
   }
 }
 
 // gateway.fake.ts
 export class FakeUserGateway implements UserGateway {
-  constructor(private users: User[] = []) { }
+  constructor(private users: User[] = []) {}
 
   async getAll(): Promise<User[]> {
     return this.users;
@@ -548,22 +576,27 @@ export class FakeUserGateway implements UserGateway {
 ### Rules
 
 **Files and Folders:**
+
 - ✅ `kebab-case` for files and folders
 - ✅ `{name}.{type}.{ext}` pattern (e.g., `user.entity.ts`, `user.repository.ts`)
 
 **Classes:**
+
 - ✅ `PascalCase`
 - ✅ Suffix with type (`UserEntity`, `CreateUserUseCase`, `UserRepository`)
 
 **Functions and Variables:**
+
 - ✅ `camelCase`
 - ✅ Descriptive names (no abbreviations)
 - ✅ Boolean prefix: `is`, `has`, `should`, `can`
 
 **Constants:**
+
 - ✅ `SCREAMING_SNAKE_CASE`
 
 **Interfaces:**
+
 - ✅ Semantic names (NO "I" prefix)
 - ✅ `UserRepository`, NOT `IUserRepository`
 - ✅ `EmailService`, NOT `IEmailService`
@@ -572,9 +605,9 @@ export class FakeUserGateway implements UserGateway {
 
 ```typescript
 // ✅ Good naming
-class UserEntity { }
-class CreateUserUseCase { }
-interface UserRepository { }
+class UserEntity {}
+class CreateUserUseCase {}
+interface UserRepository {}
 
 const isActive = true;
 const hasPermission = false;
@@ -584,9 +617,9 @@ const MAX_RETRIES = 3;
 const DEFAULT_TIMEOUT = 5000;
 
 // ❌ Bad naming
-class user { }
-class CreateUserUC { }
-interface IUserRepo { }
+class user {}
+class CreateUserUC {}
+interface IUserRepo {}
 
 const active = true; // Not clear it's boolean
 const perm = false; // Abbreviated
@@ -606,17 +639,23 @@ const perm = false; // Abbreviated
 ## Enforcing Gates
 
 ### During Design Phase
+
 Execute `/product-engineering:design` which validates:
+
 - All gates against proposed architecture
 - Document exceptions in "Complexity Tracking"
 
 ### During Planning Phase
+
 Execute `/product-engineering:plan` which ensures:
+
 - Tasks align with gate principles
 - Test-first ordering enforced
 
 ### During Validation Phase
+
 Execute `/product-engineering:validate` which verifies:
+
 - Implementation passes all gates
 - No gate violations without documentation
 
@@ -625,6 +664,7 @@ Execute `/product-engineering:validate` which verifies:
 ## Amendment Process
 
 Gates can evolve based on learning:
+
 1. Document rationale for change
 2. Update this file
 3. Ensure backwards compatibility
@@ -633,5 +673,6 @@ Gates can evolve based on learning:
 ---
 
 **Remember:** These gates exist to prevent complexity, not to create it. If a gate blocks you, either:
+
 1. Simplify your design to pass the gate, OR
 2. Document a justified exception in your design's "Complexity Tracking" section

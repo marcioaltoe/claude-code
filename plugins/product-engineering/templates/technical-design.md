@@ -1,7 +1,7 @@
 ---
 id: DESIGN-{auto-number}
 spec: SPEC-{number}
-created: {YYYY-MM-DD}
+created: { YYYY-MM-DD }
 status: draft
 phase: design
 ---
@@ -10,17 +10,18 @@ phase: design
 
 > **Purpose:** Define HOW to build with architectural decisions
 >
-> **Input:** Spec document `SPEC-{number}`
-> **Branch:** `{###-feature-name}`
+> **Input:** Spec document `SPEC-{number}` > **Branch:** `{###-feature-name}`
 
 ## 🏗️ Architecture Overview
 
 **Selected Approach:** {Clean Architecture / Hexagonal / Transactional Script / Other}
 
 **Rationale:**
+
 <!-- Por que essa arquitetura? O que torna ela adequada para este problema? -->
 
 **Key Architectural Decisions:**
+
 1.
 2.
 3.
@@ -29,27 +30,26 @@ phase: design
 
 ## 🛠️ Tech Stack
 
-| Layer/Component | Technology | Rationale |
-|-----------------|------------|-----------|
-| **Runtime** | Bun | {why chosen over Node.js/Deno} |
-| **Backend Framework** | Hono | {why chosen} |
-| **Database** | PostgreSQL | {why chosen} |
-| **ORM** | Drizzle | {why chosen} |
-| **Cache** | Redis (ioredis) | {why needed, why Redis} |
-| **Queue** | BullMQ | {why needed, why BullMQ} |
-| **Frontend Framework** | React 19 + Vite 6 | {why chosen} |
-| **Router** | TanStack Router | {why chosen} |
-| **State Management** | Zustand + TanStack Query | {why chosen} |
-| **UI Components** | shadcn/ui + Tailwind 4 | {why chosen} |
-| **Testing** | Bun test + Playwright | {why chosen} |
+| Layer/Component        | Technology               | Rationale                      |
+| ---------------------- | ------------------------ | ------------------------------ |
+| **Runtime**            | Bun                      | {why chosen over Node.js/Deno} |
+| **Backend Framework**  | Hono                     | {why chosen}                   |
+| **Database**           | PostgreSQL               | {why chosen}                   |
+| **ORM**                | Drizzle                  | {why chosen}                   |
+| **Cache**              | Redis (ioredis)          | {why needed, why Redis}        |
+| **Queue**              | BullMQ                   | {why needed, why BullMQ}       |
+| **Frontend Framework** | React 19 + Vite 6        | {why chosen}                   |
+| **Router**             | TanStack Router          | {why chosen}                   |
+| **State Management**   | Zustand + TanStack Query | {why chosen}                   |
+| **UI Components**      | shadcn/ui + Tailwind 4   | {why chosen}                   |
+| **Testing**            | Bun test + Playwright    | {why chosen}                   |
 
 **Research References:**
-<!-- MCP Context7/Perplexity/Octocode links and insights -->
--
--
--
 
----
+## <!-- MCP Context7/Perplexity/Octocode links and insights -->
+
+-
+- ***
 
 ## 🗂️ System Structure
 
@@ -134,6 +134,7 @@ features/{feature-name}/
 ### Entities
 
 **Entity: {Name}**
+
 - **Attributes:**
   - `id`: {Type} - {Description}
   - `{field}`: {Type} - {Description}
@@ -143,6 +144,7 @@ features/{feature-name}/
   - {Business rule that must always hold}
 
 **Entity: {Name}**
+
 - **Attributes:**
   - `id`: {Type} - {Description}
   - `{field}`: {Type} - {Description}
@@ -152,6 +154,7 @@ features/{feature-name}/
 ### Value Objects
 
 **Value Object: {Name}**
+
 - **Properties:**
   - `{field}`: {Type}
 - **Validation Rules:**
@@ -161,6 +164,7 @@ features/{feature-name}/
 ### Aggregates
 
 **Aggregate: {Name}**
+
 - **Root Entity:** {Entity Name}
 - **Contains:** {List of entities/VOs}
 - **Invariants:**
@@ -170,11 +174,11 @@ features/{feature-name}/
 
 ```typescript
 // Example schema
-export const users = pgTable('users', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  email: varchar('email', { length: 255 }).notNull().unique(),
-  passwordHash: varchar('password_hash', { length: 255 }).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // Add more tables as needed
@@ -186,13 +190,13 @@ export const users = pgTable('users', {
 
 ### REST Endpoints
 
-| Method | Path | Description | Request Body | Response | Auth |
-|--------|------|-------------|--------------|----------|------|
-| POST | `/api/v1/{resource}` | {Description} | {Schema ref} | {Schema ref} | JWT |
-| GET | `/api/v1/{resource}` | {Description} | - | {Schema ref} | JWT |
-| GET | `/api/v1/{resource}/:id` | {Description} | - | {Schema ref} | JWT |
-| PUT | `/api/v1/{resource}/:id` | {Description} | {Schema ref} | {Schema ref} | JWT |
-| DELETE | `/api/v1/{resource}/:id` | {Description} | - | `204 No Content` | JWT |
+| Method | Path                     | Description   | Request Body | Response         | Auth |
+| ------ | ------------------------ | ------------- | ------------ | ---------------- | ---- |
+| POST   | `/api/v1/{resource}`     | {Description} | {Schema ref} | {Schema ref}     | JWT  |
+| GET    | `/api/v1/{resource}`     | {Description} | -            | {Schema ref}     | JWT  |
+| GET    | `/api/v1/{resource}/:id` | {Description} | -            | {Schema ref}     | JWT  |
+| PUT    | `/api/v1/{resource}/:id` | {Description} | {Schema ref} | {Schema ref}     | JWT  |
+| DELETE | `/api/v1/{resource}/:id` | {Description} | -            | `204 No Content` | JWT  |
 
 ### Request/Response Schemas (Zod)
 
@@ -244,6 +248,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -258,6 +263,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -273,6 +279,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -287,6 +294,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -303,6 +311,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -318,6 +327,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -333,6 +343,7 @@ export const userResponseSchema = z.object({
 **Status:** {PASS / FAIL}
 
 **If FAIL, Justification:**
+
 <!-- Document in "Complexity Tracking" section below -->
 
 ---
@@ -341,10 +352,10 @@ export const userResponseSchema = z.object({
 
 <!-- ONLY fill if any Architecture Gate has violations that must be justified -->
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|--------------------------------------|
-| {e.g., 4th project} | {current need} | {why 3 projects insufficient} |
-| {e.g., Repository pattern} | {specific problem} | {why direct DB access insufficient} |
+| Violation                  | Why Needed         | Simpler Alternative Rejected Because |
+| -------------------------- | ------------------ | ------------------------------------ |
+| {e.g., 4th project}        | {current need}     | {why 3 projects insufficient}        |
+| {e.g., Repository pattern} | {specific problem} | {why direct DB access insufficient}  |
 
 ---
 
@@ -356,6 +367,7 @@ export const userResponseSchema = z.object({
 - [ADR-0002: {Decision Title}](../adr/ADR-0002-{decision-name}.md)
 
 **Summary of Key Decisions:**
+
 1. **{Decision}**: {Brief rationale}
 2. **{Decision}**: {Brief rationale}
 
@@ -381,15 +393,19 @@ export const userResponseSchema = z.object({
 ## 🔐 Security Considerations
 
 **Authentication:**
+
 - {How users authenticate}
 
 **Authorization:**
+
 - {How permissions are checked}
 
 **Data Protection:**
+
 - {How sensitive data is protected}
 
 **Rate Limiting:**
+
 - {Rate limiting strategy}
 
 ---
@@ -397,12 +413,15 @@ export const userResponseSchema = z.object({
 ## 📈 Performance Considerations
 
 **Caching Strategy:**
+
 - {What to cache, TTL, invalidation}
 
 **Database Optimization:**
+
 - {Indexes, query patterns}
 
 **Scaling Strategy:**
+
 - {Horizontal/vertical, load balancing}
 
 ---

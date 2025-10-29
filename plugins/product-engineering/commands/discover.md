@@ -11,25 +11,30 @@ Transform a rough idea into a validated discovery document through systematic re
 ## 📋 Process
 
 ### Step 1: Load Required Skills
-- Load `idea-refinement` skill from `skills/idea-refinement/SKILL.md`
+
+- Load `idea-refinement` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/idea-refinement/SKILL.md`
 
 ### Step 2: Invoke Discovery Agent
-- Invoke `discovery-facilitator` agent from `agents/discovery-facilitator.md`
+
+- Invoke `discovery-facilitator` agent from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/agents/discovery-facilitator.md`
 - Agent will use `idea-refinement` skill to guide the process
 
 ### Step 3: Execute Discovery Workflow
 
 **Phase 1: Initial Understanding**
+
 - Clarify the rough idea
 - Identify problem, users, and value proposition
 - Ask targeted questions to fill gaps
 
 **Phase 2: Market Research (Heavy MCP Usage)**
+
 - **Perplexity:** Competitor analysis, market trends, user expectations
 - **Context7:** Documentation for similar solutions and frameworks
 - **Octocode:** Reference implementations from GitHub
 
 Research queries:
+
 ```
 Perplexity: "What are the top {domain} solutions in 2025?"
 Perplexity: "What are common pain points with {competitor}?"
@@ -39,23 +44,27 @@ Octocode: Search for reference implementations with keywords
 ```
 
 **Phase 3: Problem Validation**
+
 - Confirm this is a real problem worth solving
 - Validate with market data from research
 - Identify target users and pain points
 
 **Phase 4: Solution Exploration**
+
 - Generate 2-3 alternative approaches
 - Evaluate pros/cons for each
 - Use MCP to validate feasibility
 
 **Phase 5: Recommendation**
+
 - Recommend ONE approach with clear rationale
 - Identify risks and mitigation strategies
 - Define success criteria
 - Make Go/No-Go decision
 
 **Phase 6: Generate Discovery Document**
-- Use template: `templates/discovery.md`
+
+- Use template: `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/templates/discovery.md`
 - Auto-number: Scan `docs/discovery/` for next number (DISC-###)
 - Fill all sections with research findings
 - Include MCP references
@@ -64,6 +73,7 @@ Octocode: Search for reference implementations with keywords
 ### Step 4: Present Discovery Document
 
 Show the user:
+
 - Location of discovery document
 - Summary of key findings
 - Recommendation and rationale
@@ -102,11 +112,13 @@ Execute `/product-engineering:specify` to transform this discovery into a specif
 ## 🔗 Integration
 
 **MCP Servers Used:**
+
 - Perplexity (market research, trends, validation)
 - Context7 (framework documentation)
 - Octocode (reference implementations)
 
 **Next Phase:**
+
 - If approved: `/product-engineering:specify`
 - If rejected: Document learnings and archive
 

@@ -1,7 +1,7 @@
 ---
 id: PLAN-{auto-number}
 design: DESIGN-{number}
-created: {YYYY-MM-DD}
+created: { YYYY-MM-DD }
 status: draft
 phase: planning
 ---
@@ -28,6 +28,7 @@ phase: planning
 ## 🛠️ Tech Stack
 
 **Backend:**
+
 - Runtime: {Bun}
 - Framework: {Hono}
 - Database: {PostgreSQL + Drizzle}
@@ -35,12 +36,14 @@ phase: planning
 - Queue: {BullMQ}
 
 **Frontend:**
+
 - Framework: {React 19 + Vite 6}
 - Router: {TanStack Router}
 - State: {Zustand + TanStack Query}
 - UI: {shadcn/ui + Tailwind 4}
 
 **Testing:**
+
 - {Bun test + React Testing Library + Playwright}
 
 ---
@@ -54,23 +57,27 @@ phase: planning
 ### Tasks
 
 - [ ] **T001** Setup project structure per Clean Architecture
+
   - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/`, `src/presentation/`
   - **Story:** -
   - **Estimate:** 10 min
 
 - [ ] **T002** Initialize Drizzle schema and migrations
+
   - **Files:** `src/infrastructure/database/schema.ts`, `drizzle.config.ts`
   - **Story:** -
   - **Depends:** T001
   - **Estimate:** 15 min
 
 - [ ] **T003** [P] Configure DI Container with Symbol tokens
+
   - **Files:** `src/infrastructure/container/main.ts`, `src/infrastructure/container/tokens.ts`
   - **Story:** -
   - **Depends:** T001
   - **Estimate:** 15 min
 
 - [ ] **T004** [P] Setup Zod validation schemas structure
+
   - **Files:** `src/presentation/schemas/`
   - **Story:** -
   - **Depends:** T001
@@ -97,6 +104,7 @@ phase: planning
 ### Tests (Write FIRST, Ensure FAIL) 🔴
 
 - [ ] **T006** [P] [US1] Write contract test for `POST /api/{resource}`
+
   - **Files:** `tests/integration/api/{resource}.integration.test.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -115,6 +123,7 @@ phase: planning
 ### Implementation (TDD: Make tests PASS) 🟢
 
 - [ ] **T008** [P] [US1] Create `{Entity1}` entity
+
   - **Files:** `src/domain/entities/{entity1}.entity.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -122,6 +131,7 @@ phase: planning
   - **Estimate:** 15 min
 
 - [ ] **T009** [P] [US1] Create `{Entity2}` value object
+
   - **Files:** `src/domain/value-objects/{vo}.vo.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -129,6 +139,7 @@ phase: planning
   - **Estimate:** 10 min
 
 - [ ] **T010** [US1] Create `{Repository}` port (interface)
+
   - **Files:** `src/domain/ports/repositories/{entity}.repository.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -137,6 +148,7 @@ phase: planning
   - **Note:** NO "I" prefix (e.g., `UserRepository`, not `IUserRepository`)
 
 - [ ] **T011** [US1] Implement `{Repository}` with Drizzle
+
   - **Files:** `src/infrastructure/repositories/{entity}.repository.impl.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -144,6 +156,7 @@ phase: planning
   - **Estimate:** 20 min
 
 - [ ] **T012** [US1] Create `{UseCase}`
+
   - **Files:** `src/application/use-cases/{action}-{entity}.use-case.ts`
   - **Story:** US-1
   - **Requirements:** FR-001, FR-002
@@ -151,6 +164,7 @@ phase: planning
   - **Estimate:** 15 min
 
 - [ ] **T013** [US1] Create Zod schema for request/response
+
   - **Files:** `src/presentation/schemas/{resource}.schema.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -158,6 +172,7 @@ phase: planning
   - **Estimate:** 10 min
 
 - [ ] **T014** [US1] Create `{Controller}`
+
   - **Files:** `src/presentation/controllers/{resource}.controller.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -166,6 +181,7 @@ phase: planning
   - **Note:** Delegate to use case, no business logic here
 
 - [ ] **T015** [US1] Create Hono routes
+
   - **Files:** `src/presentation/routes/{resource}.routes.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
@@ -182,16 +198,19 @@ phase: planning
 ### Verification ✅
 
 - [ ] **T017** [US1] Run contract tests - all green?
+
   - **Story:** US-1
   - **Depends:** T006, T011, T012, T014, T015
   - **Estimate:** 5 min
 
 - [ ] **T018** [US1] Run E2E tests - all green?
+
   - **Story:** US-1
   - **Depends:** T007, T015
   - **Estimate:** 5 min
 
 - [ ] **T019** [US1] Type check - no errors?
+
   - **Command:** `bun run type-check`
   - **Story:** US-1
   - **Depends:** All US1 tasks
@@ -250,26 +269,32 @@ phase: planning
 **Purpose:** Ensure implementation meets all architecture and quality gates
 
 - [ ] **T0XX** Run full test suite (unit + integration + E2E)
+
   - **Command:** `bun test`
   - **Expected:** All tests pass
 
 - [ ] **T0XX** Type check entire codebase
+
   - **Command:** `bun run type-check`
   - **Expected:** No errors, no `any` types
 
 - [ ] **T0XX** Lint codebase
+
   - **Command:** `bun run lint`
   - **Expected:** No errors
 
 - [ ] **T0XX** Format codebase
+
   - **Command:** `bun run format`
   - **Expected:** All files formatted
 
 - [ ] **T0XX** Verify functions < 20 lines
+
   - **Manual:** Review largest functions
   - **Expected:** All < 20 lines
 
 - [ ] **T0XX** Run quality check
+
   - **Command:** `/quality:check`
   - **Expected:** All checks pass
 
@@ -281,12 +306,13 @@ phase: planning
 
 ## 🔗 Task Rastreabilidade
 
-| Task | User Story | Requirements | Files |
-|------|------------|--------------|-------|
-| T008 | US-1 | FR-001 | src/domain/entities/{entity1}.entity.ts |
-| T010 | US-1 | FR-001 | src/domain/ports/repositories/{entity}.repository.ts |
-| T011 | US-1 | FR-001 | src/infrastructure/repositories/{entity}.repository.impl.ts |
-| T012 | US-1 | FR-001, FR-002 | src/application/use-cases/{action}-{entity}.use-case.ts |
+| Task | User Story | Requirements   | Files                                                       |
+| ---- | ---------- | -------------- | ----------------------------------------------------------- |
+| T008 | US-1       | FR-001         | src/domain/entities/{entity1}.entity.ts                     |
+| T010 | US-1       | FR-001         | src/domain/ports/repositories/{entity}.repository.ts        |
+| T011 | US-1       | FR-001         | src/infrastructure/repositories/{entity}.repository.impl.ts |
+| T012 | US-1       | FR-001, FR-002 | src/application/use-cases/{action}-{entity}.use-case.ts     |
+
 <!-- Add all tasks... -->
 
 ---

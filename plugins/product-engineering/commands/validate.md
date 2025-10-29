@@ -11,27 +11,32 @@ Verify implementation matches spec, passes all architecture gates, and meets qua
 ## 📋 Process
 
 ### Step 1: Read Source Documents
+
 - Spec: `docs/specs/SPEC-{###}-{name}.md`
 - Design: `docs/design/DESIGN-{###}-{name}.md`
 - Plan: `docs/plans/PLAN-{###}-{name}.md`
 
 ### Step 2: Invoke Validation Agent
-- Invoke `implementation-validator` agent from `agents/implementation-validator.md`
+
+- Invoke `implementation-validator` agent from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/agents/implementation-validator.md`
 - Agent will systematically verify implementation
 
 ### Step 3: Requirements Coverage Check
 
 **For each User Story:**
+
 - Verify acceptance criteria implemented
 - Check independent testability
 - Validate edge cases handled
 
 **For each Functional Requirement:**
+
 - Map to implementation code
 - Verify behavior matches spec
 - Check test coverage
 
 **For each Non-Functional Requirement:**
+
 - Performance: Measure actual metrics vs targets
 - Security: Verify auth, encryption, HTTPS
 - Scalability: Check horizontal scaling support
@@ -40,9 +45,10 @@ Verify implementation matches spec, passes all architecture gates, and meets qua
 
 ### Step 4: Architecture Gates Validation
 
-**Run ALL 7 gates from `gates/architecture-gates.md`:**
+**Run ALL 7 gates from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/gates/architecture-gates.md`:**
 
 **Gate 1: Simplicity**
+
 ```bash
 # Count projects
 find src -maxdepth 1 -type d | wc -l  # Should be ≤3
@@ -52,6 +58,7 @@ grep -r "TODO.*future" src/  # Should be minimal
 ```
 
 **Gate 2: Type Safety**
+
 ```bash
 # Check for any types
 grep -r ": any" src/  # Should be 0
@@ -61,6 +68,7 @@ bun run type-check  # Should pass
 ```
 
 **Gate 3: Clean Code**
+
 ```bash
 # Check function sizes (use tool or manual review)
 # All functions should be < 20 lines
@@ -69,6 +77,7 @@ bun run type-check  # Should pass
 ```
 
 **Gate 4: Test-First**
+
 ```bash
 # Verify tests exist and pass
 bun test  # All green
@@ -78,6 +87,7 @@ bun test --coverage  # Should meet NFR targets
 ```
 
 **Gate 5: Clean Architecture (Backend)**
+
 ```bash
 # Check dependency flow
 # Domain should have no imports from other layers
@@ -88,6 +98,7 @@ grep -r "interface I[A-Z]" src/  # Should be 0
 ```
 
 **Gate 6: Feature-Based Architecture (Frontend)**
+
 ```bash
 # Check components are pure (no store imports)
 grep -r "useStore\|createStore" features/*/components/  # Should be 0
@@ -97,6 +108,7 @@ ls features/*/gateways/*.gateway.ts  # Should have all 3
 ```
 
 **Gate 7: Naming Conventions**
+
 ```bash
 # Check file naming (kebab-case)
 find src -name "*[A-Z]*" -type f  # Should only be in directories
@@ -108,6 +120,7 @@ find src -name "*[A-Z]*" -type f  # Should only be in directories
 ### Step 5: Quality Gates Check
 
 **Run quality checks:**
+
 ```bash
 # Full quality check
 /quality:check
@@ -122,6 +135,7 @@ bun run format --check  # Properly formatted?
 ### Step 6: Gap Analysis
 
 **Identify:**
+
 - **Implemented:** What requirements are covered?
 - **Missing:** What requirements are not implemented?
 - **Partial:** What requirements are partially implemented?
@@ -130,12 +144,14 @@ bun run format --check  # Properly formatted?
 ### Step 7: Deviation Analysis
 
 **Check for:**
+
 - Design deviations (implementation differs from design)
 - Architecture violations (doesn't follow chosen pattern)
 - Tech stack deviations (different libraries/frameworks)
 - Performance issues (doesn't meet NFRs)
 
 **For each deviation:**
+
 - Document what changed
 - Explain why
 - Assess impact
@@ -146,7 +162,8 @@ bun run format --check  # Properly formatted?
 **Create report with:**
 
 **Summary:**
-- Overall status (✅ Pass | ⚠️  Partial | ❌ Fail)
+
+- Overall status (✅ Pass | ⚠️ Partial | ❌ Fail)
 - Requirements coverage (X% implemented)
 - Architecture gates (X/7 passed)
 - Quality gates (X/4 passed)
@@ -155,7 +172,7 @@ bun run format --check  # Properly formatted?
 | Requirement | Status | Test Coverage | Notes |
 |-------------|--------|---------------|-------|
 | FR-001 | ✅ Implemented | 100% | - |
-| FR-002 | ⚠️  Partial | 60% | Missing edge case X |
+| FR-002 | ⚠️ Partial | 60% | Missing edge case X |
 | NFR-P-001 | ❌ Not Met | - | Response time 300ms (target: 200ms) |
 
 **Architecture Gates:**
@@ -163,7 +180,7 @@ bun run format --check  # Properly formatted?
 |------|--------|--------|
 | Simplicity | ✅ Pass | - |
 | Type Safety | ❌ Fail | 3 `any` types found in src/... |
-| Clean Code | ⚠️  Partial | 5 functions > 20 lines |
+| Clean Code | ⚠️ Partial | 5 functions > 20 lines |
 
 **Quality Gates:**
 | Check | Status | Details |
@@ -174,14 +191,17 @@ bun run format --check  # Properly formatted?
 | Format | ✅ Pass | - |
 
 **Gaps:**
+
 - Missing: FR-003 (password reset flow)
 - Partial: NFR-P-001 (performance below target)
 
 **Deviations:**
+
 - Design: Used repository pattern instead of direct DB access (justified: better testability)
 - Tech: Added Redis caching (not in design) - needed for performance
 
 **Recommendations:**
+
 1. Fix 3 `any` types → branded types
 2. Refactor 5 large functions → extract to helpers
 3. Implement missing FR-003
@@ -191,6 +211,7 @@ bun run format --check  # Properly formatted?
 ### Step 9: Present Report
 
 **Show user:**
+
 - Overall validation status
 - Coverage percentages
 - Failed gates and why
@@ -208,6 +229,7 @@ Ready for code review and PR?"
 "Validation identified {N} issues. Review recommendations.
 
 Should we:
+
 1. Fix critical issues now
 2. Create follow-up tasks
 3. Update design docs to reflect changes"
@@ -217,6 +239,7 @@ Should we:
 ## 📤 Output
 
 **Validation Report** (inline or as file)
+
 - Requirements coverage analysis
 - Architecture gates results
 - Quality gates results
@@ -229,16 +252,19 @@ Should we:
 ## 🔗 Integration
 
 **Input:**
+
 - Spec document `SPEC-{###}`
 - Design document `DESIGN-{###}`
 - Implementation code (actual files)
 
 **Tools Used:**
+
 - Bash commands for automated checks
 - `/quality:check` for quality gates
 - Manual review for SOLID/Clean Code
 
 **Next Phase:**
+
 - If passed: Code review → PR → Merge
 - If failed: Fix issues → Re-validate
 

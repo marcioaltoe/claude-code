@@ -11,21 +11,25 @@ Define HOW to build with architectural decisions, tech stack, and detailed desig
 ## 📋 Process
 
 ### Step 1: Load Required Skills
-- Load `architecture-decision` skill from `skills/architecture-decision/SKILL.md`
-- Load `technical-design` skill from `skills/technical-design/SKILL.md`
+
+- Load `architecture-decision` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/architecture-decision/SKILL.md`
+- Load `technical-design` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/technical-design/SKILL.md`
 
 ### Step 2: Read Spec Document
+
 - Locate spec: `docs/specs/SPEC-{###}-{name}.md`
 - Extract: user stories, requirements (FR + NFR), success criteria
 - Understand scope and constraints
 
 ### Step 3: Invoke Solutions Architect Agent
-- Invoke `solutions-architect` agent from `agents/solutions-architect.md`
+
+- Invoke `solutions-architect` agent from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/agents/solutions-architect.md`
 - Agent will propose 2-3 architectural approaches
 
 ### Step 4: Architecture Evaluation (MCP Heavy)
 
 **Research Using MCP:**
+
 ```
 Context7: Framework docs (Hono, Drizzle, React 19, TanStack)
 Perplexity: "Best practices for {architecture pattern} in {year}"
@@ -34,6 +38,7 @@ Octocode: Reference implementations with similar requirements
 ```
 
 **Propose 2-3 Architectures:**
+
 1. Clean Architecture (layered, strict boundaries)
 2. Hexagonal Architecture (ports & adapters)
 3. Transactional Script (simple, direct)
@@ -43,6 +48,7 @@ For each: describe, pros, cons, recommendation
 ### Step 5: Tech Stack Decision
 
 **Backend Stack:**
+
 - Runtime: Bun (vs Node.js/Deno - research trade-offs)
 - Framework: Hono (vs Express/Fastify - research)
 - Database: PostgreSQL + Drizzle (vs others)
@@ -50,12 +56,14 @@ For each: describe, pros, cons, recommendation
 - Queue: BullMQ (if needed - justify)
 
 **Frontend Stack:**
+
 - Framework: React 19 + Vite 6
 - Router: TanStack Router
 - State: Zustand + TanStack Query
 - UI: shadcn/ui + Tailwind 4
 
 **Each decision needs:**
+
 - Rationale (why this choice?)
 - MCP research references
 - Trade-offs considered
@@ -63,6 +71,7 @@ For each: describe, pros, cons, recommendation
 ### Step 6: System Structure Design
 
 **Backend (if Clean Architecture):**
+
 ```
 src/domain/       # Entities, VOs, Ports (no dependencies)
 src/application/  # Use Cases, DTOs
@@ -71,6 +80,7 @@ src/presentation/ # Routes, Controllers, Schemas
 ```
 
 **Frontend (Feature-Based):**
+
 ```
 features/{name}/
   components/  # Pure UI
@@ -82,6 +92,7 @@ features/{name}/
 ### Step 7: Data Model Design
 
 **Define:**
+
 - Entities (with attributes, relationships, invariants)
 - Value Objects (immutable, validation rules)
 - Aggregates (roots, boundaries, invariants)
@@ -98,7 +109,7 @@ features/{name}/
 
 ### Step 9: Architecture Gates Validation
 
-Run through ALL 7 gates from `gates/architecture-gates.md`:
+Run through ALL 7 gates from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/gates/architecture-gates.md`:
 
 1. **Simplicity Gate:** ≤3 projects? No future-proofing?
 2. **Type Safety Gate:** No `any`? Branded types?
@@ -113,12 +124,14 @@ Run through ALL 7 gates from `gates/architecture-gates.md`:
 ### Step 10: Create ADRs
 
 For each major decision:
-- Use template: `templates/adr.md`
+
+- Use template: `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/templates/adr.md`
 - Auto-number: ADR-{####} (e.g., ADR-0001)
 - Document: context, decision, alternatives, consequences
 - Save to: `docs/adr/ADR-{####}-{decision-name}.md`
 
 **Typical ADRs:**
+
 - ADR-0001: Choice of architecture pattern
 - ADR-0002: Tech stack selection
 - ADR-0003: Database choice
@@ -126,9 +139,10 @@ For each major decision:
 
 ### Step 11: Generate Design Document
 
-**Use template:** `templates/technical-design.md`
+**Use template:** `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/templates/adr.md`
 
 **Auto-number:**
+
 - Scan `docs/design/` for next number (DESIGN-###)
 - Link to spec: `spec: SPEC-{###}`
 
@@ -137,6 +151,7 @@ For each major decision:
 ### Step 12: Present Design
 
 Show the user:
+
 - Location of design document
 - Location of ADRs
 - Architecture approach and rationale
@@ -180,11 +195,13 @@ Execute `/product-engineering:plan` to break this design into atomic, executable
 **Input:** Spec document `SPEC-{###}`
 
 **MCP Servers Used (Heavy):**
+
 - Context7 (framework documentation, best practices)
 - Perplexity (architecture patterns, tech comparisons)
 - Octocode (reference implementations)
 
 **Next Phase:**
+
 - If approved: `/product-engineering:plan`
 - If needs work: Iterate on design
 

@@ -17,14 +17,14 @@ Transform rough, vague ideas into structured discovery documents through systema
 
 ## Quick Reference
 
-| Phase | Key Activities | MCP Usage | Output |
-|-------|---------------|-----------|--------|
-| **1. Initial Understanding** | Clarify problem, users, value | None | Draft understanding |
-| **2. Market Research** | Competitors, trends, solutions | Perplexity, Context7, Octocode | Research findings |
-| **3. Problem Validation** | Confirm real pain points | Perplexity | Validated problem |
-| **4. Solution Exploration** | 2-3 alternatives with trade-offs | Context7, Octocode | Alternative approaches |
-| **5. Recommendation** | Recommended approach + rationale | None | Go/No-Go decision |
-| **6. Discovery Documentation** | Write structured discovery doc | None | DISC-{###}-{name}.md |
+| Phase                          | Key Activities                   | MCP Usage                      | Output                 |
+| ------------------------------ | -------------------------------- | ------------------------------ | ---------------------- |
+| **1. Initial Understanding**   | Clarify problem, users, value    | None                           | Draft understanding    |
+| **2. Market Research**         | Competitors, trends, solutions   | Perplexity, Context7, Octocode | Research findings      |
+| **3. Problem Validation**      | Confirm real pain points         | Perplexity                     | Validated problem      |
+| **4. Solution Exploration**    | 2-3 alternatives with trade-offs | Context7, Octocode             | Alternative approaches |
+| **5. Recommendation**          | Recommended approach + rationale | None                           | Go/No-Go decision      |
+| **6. Discovery Documentation** | Write structured discovery doc   | None                           | DISC-{###}-{name}.md   |
 
 ---
 
@@ -35,12 +35,14 @@ Transform rough, vague ideas into structured discovery documents through systema
 **Goal:** Understand the rough idea and identify gaps
 
 **Activities:**
+
 1. Listen to user's idea description
 2. Identify what's clear vs unclear
 3. Ask ONE focused question at a time for critical gaps
 4. Draft initial understanding
 
 **Questions to Answer:**
+
 - What problem are we solving?
 - Who has this problem?
 - Why does it matter (business value)?
@@ -49,6 +51,7 @@ Transform rough, vague ideas into structured discovery documents through systema
 **Output:** Draft problem statement to confirm with user
 
 **Example:**
+
 ```
 Based on your description, it sounds like you want to build a real-time
 chat system for customer support teams, primarily because current solutions
@@ -66,28 +69,33 @@ Did I understand correctly? Is there anything I missed or got wrong?
 **MCP Research Strategy:**
 
 **Use Perplexity for:**
+
 - "What are the top 5 customer support chat solutions in 2025?"
 - "What are common pain points with Intercom/Zendesk/Freshdesk?"
 - "What features do users expect from support chat tools?"
 - "Latest trends in customer support technology"
 
 **Use Context7 for:**
+
 - Docs for similar frameworks (e.g., Socket.io, WebSockets)
 - Implementation patterns for real-time features
 - Best practices documentation
 
 **Use Octocode for:**
+
 - GitHub repos of open-source chat solutions
 - Reference implementations
 - Popular chat libraries and their usage
 
 **Output:** Research section with:
+
 - 3-5 competitor solutions (strengths, weaknesses, relevance)
 - Market trends and user expectations
 - Technology landscape
 - Key references (links, docs, repos)
 
 **Example Research Output:**
+
 ```
 ## Competitors/Similar Solutions
 
@@ -130,17 +138,20 @@ Did I understand correctly? Is there anything I missed or got wrong?
 **Goal:** Confirm this is a real problem worth solving
 
 **Activities:**
+
 1. Synthesize research findings
 2. Validate problem exists in market
 3. Identify target users and their pain points
 4. Assess business value
 
 **Use Perplexity to validate:**
+
 - "How big is the market for affordable customer support chat?"
 - "What % of small businesses use live chat?"
 - "What are the biggest complaints about existing solutions?"
 
 **Questions to Answer:**
+
 - Is this a real, validated problem?
 - Do users actually need this?
 - What's the potential business impact?
@@ -156,12 +167,14 @@ Did I understand correctly? Is there anything I missed or got wrong?
 
 **Approach Pattern:**
 For each alternative:
+
 1. Describe high-level approach (NO technical details yet)
 2. List pros
 3. List cons
 4. Explain why reject OR recommend
 
 **Use MCP for validation:**
+
 - Context7: Check if approach aligns with best practices
 - Octocode: Find reference implementations
 - Perplexity: Validate feasibility and common pitfalls
@@ -221,6 +234,7 @@ For each alternative:
 **Goal:** Make clear Go/No-Go recommendation with rationale
 
 **Activities:**
+
 1. Synthesize research and alternatives
 2. Recommend ONE approach
 3. Explain why this approach
@@ -228,6 +242,7 @@ For each alternative:
 5. Define success criteria
 
 **Output:** Clear recommendation with:
+
 - Recommended approach
 - Rationale (why this one?)
 - Key risks and constraints
@@ -235,6 +250,7 @@ For each alternative:
 - Go/No-Go decision
 
 **Example Recommendation:**
+
 ```
 **Recommended Approach:** Chat-Only Focus
 
@@ -265,13 +281,15 @@ For each alternative:
 **Goal:** Write structured discovery document using template
 
 **Activities:**
-1. Load `templates/discovery.md`
+
+1. Load `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/templates/discovery.md`
 2. Auto-number: DISC-{next-number}
 3. Fill all sections with research findings
 4. Include all MCP references
 5. Save to `docs/discovery/DISC-{###}-{name}.md`
 
 **Template Sections:**
+
 - Problem Statement (from Phase 3)
 - Who & Why (target users, pain points, business value)
 - Research Context (from Phase 2)
@@ -288,26 +306,31 @@ For each alternative:
 ## Key Principles
 
 ### Research First
+
 - Use MCP tools BEFORE asking user questions
 - Gather competitive intelligence automatically
 - Validate assumptions with market data
 
 ### Socratic Questioning
+
 - Ask ONE question at a time
 - Only ask when cannot infer from research
 - Guide user to discover insights themselves
 
 ### Alternative Exploration
+
 - ALWAYS explore 2-3 alternatives
 - Never commit to first idea
 - Evaluate trade-offs objectively
 
 ### Evidence-Based Decisions
+
 - Back recommendations with research
 - Cite specific examples and data
 - Link to references (Perplexity results, Context7 docs, Octocode repos)
 
 ### YAGNI for Discovery
+
 - NO technical decisions yet (that's design phase)
 - Focus on WHAT, not HOW
 - Keep scope minimal (MVP thinking)
@@ -321,22 +344,27 @@ For each alternative:
 ```javascript
 // 1. Market Research (Perplexity)
 const marketResearch = await perplexity.ask([
-  { role: 'user', content: 'What are top customer support chat solutions in 2025?' }
+  {
+    role: "user",
+    content: "What are top customer support chat solutions in 2025?",
+  },
 ]);
 
 // 2. Technical Validation (Context7)
 const technicalDocs = await context7.getLibraryDocs({
-  libraryId: '/socketio/socket.io',
-  topic: 'real-time messaging patterns'
+  libraryId: "/socketio/socket.io",
+  topic: "real-time messaging patterns",
 });
 
 // 3. Reference Implementations (Octocode)
 const refImpls = await octocode.searchCode({
-  queries: [{
-    keywordsToSearch: ['realtime', 'chat', 'websocket'],
-    stars: '>1000',
-    match: 'file'
-  }]
+  queries: [
+    {
+      keywordsToSearch: ["realtime", "chat", "websocket"],
+      stars: ">1000",
+      match: "file",
+    },
+  ],
 });
 ```
 
@@ -355,6 +383,7 @@ const refImpls = await octocode.searchCode({
 ## Common Pitfalls
 
 ❌ **Don't:**
+
 - Jump to technical solutions (save for design phase)
 - Accept first idea without exploring alternatives
 - Skip market research (MCP is fast, use it!)
@@ -362,6 +391,7 @@ const refImpls = await octocode.searchCode({
 - Write vague problem statements
 
 ✅ **Do:**
+
 - Use MCP tools extensively for research
 - Explore at least 2-3 alternatives
 - Validate problems with market data
@@ -389,3 +419,4 @@ If yes, I'll execute `/product-engineering:specify` to transform this discovery 
 
 ```
 User: "I want to build a cheaper alternative to Intercom"
+```

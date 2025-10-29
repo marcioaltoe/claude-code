@@ -1,7 +1,7 @@
 ---
 id: TASKS-{auto-number}
 plan: PLAN-{number}
-created: {YYYY-MM-DD}
+created: { YYYY-MM-DD }
 status: todo
 phase: tasks
 ---
@@ -13,18 +13,21 @@ phase: tasks
 ## Format: `[Status] [ID] [Tag] [P?] [Story] Description`
 
 **Status:**
+
 - `[ ]` = Not started
 - `[→]` = In progress
 - `[✓]` = Completed
 - `[✗]` = Blocked
 
 **Tags:**
+
 - `backlog` = Not started yet
 - `in-progress` = Currently being worked on
 - `done` = Completed
 - `blocked` = Blocked by dependency or issue
 
 **Markers:**
+
 - `[P]` = Can run in parallel with other [P] tasks in same batch
 - `[Story]` = User story reference (US1, US2, US3, etc.)
 
@@ -33,24 +36,28 @@ phase: tasks
 ## 📦 Batch 1: Foundation (5 tasks)
 
 - [ ] `T001` [backlog] Setup project structure
+
   - **Story:** -
   - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/`, `src/presentation/`
   - **Estimate:** 10 min
   - **Depends:** -
 
 - [ ] `T002` [backlog] Initialize Drizzle schema and migrations
+
   - **Story:** -
   - **Files:** `src/infrastructure/database/schema.ts`, `drizzle.config.ts`
   - **Estimate:** 15 min
   - **Depends:** T001
 
 - [ ] `T003` [backlog] [P] Configure DI Container
+
   - **Story:** -
   - **Files:** `src/infrastructure/container/main.ts`, `tokens.ts`
   - **Estimate:** 15 min
   - **Depends:** T001
 
 - [ ] `T004` [backlog] [P] Setup Zod validation schemas structure
+
   - **Story:** -
   - **Files:** `src/presentation/schemas/`
   - **Estimate:** 5 min
@@ -69,6 +76,7 @@ phase: tasks
 ## 🎯 Batch 2: User Story 1 (MVP) - Tests (2 tasks) 🔴
 
 - [ ] `T006` [backlog] [P] [US1] Write contract test for `POST /api/{resource}`
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `tests/integration/api/{resource}.integration.test.ts`
@@ -91,6 +99,7 @@ phase: tasks
 ## 🎯 Batch 3: User Story 1 (MVP) - Implementation (9 tasks) 🟢
 
 - [ ] `T008` [backlog] [P] [US1] Create `{Entity1}` entity
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/domain/entities/{entity1}.entity.ts`
@@ -98,6 +107,7 @@ phase: tasks
   - **Depends:** T001, T005
 
 - [ ] `T009` [backlog] [P] [US1] Create `{Entity2}` value object
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/domain/value-objects/{vo}.vo.ts`
@@ -105,6 +115,7 @@ phase: tasks
   - **Depends:** T001, T005
 
 - [ ] `T010` [backlog] [US1] Create `{Repository}` port
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/domain/ports/repositories/{entity}.repository.ts`
@@ -113,6 +124,7 @@ phase: tasks
   - **Note:** NO "I" prefix
 
 - [ ] `T011` [backlog] [US1] Implement `{Repository}` with Drizzle
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/infrastructure/repositories/{entity}.repository.impl.ts`
@@ -120,6 +132,7 @@ phase: tasks
   - **Depends:** T010, T002
 
 - [ ] `T012` [backlog] [US1] Create `{UseCase}`
+
   - **Story:** US-1
   - **Requirements:** FR-001, FR-002
   - **Files:** `src/application/use-cases/{action}-{entity}.use-case.ts`
@@ -127,6 +140,7 @@ phase: tasks
   - **Depends:** T010
 
 - [ ] `T013` [backlog] [US1] Create Zod schema
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/presentation/schemas/{resource}.schema.ts`
@@ -134,6 +148,7 @@ phase: tasks
   - **Depends:** T004
 
 - [ ] `T014` [backlog] [US1] Create `{Controller}`
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/presentation/controllers/{resource}.controller.ts`
@@ -142,6 +157,7 @@ phase: tasks
   - **Note:** Delegate to use case, no business logic
 
 - [ ] `T015` [backlog] [US1] Create Hono routes
+
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Files:** `src/presentation/routes/{resource}.routes.ts`
@@ -156,6 +172,7 @@ phase: tasks
   - **Depends:** T011, T012, T014
 
 **Parallel Opportunities:**
+
 - T008 and T009 can run together
 - T013 can run while T010-T012 are in progress
 
@@ -164,6 +181,7 @@ phase: tasks
 ## 🎯 Batch 4: User Story 1 (MVP) - Verification (4 tasks) ✅
 
 - [ ] `T017` [backlog] [US1] Run contract tests
+
   - **Story:** US-1
   - **Command:** `bun test tests/integration/api/{resource}.integration.test.ts`
   - **Estimate:** 5 min
@@ -171,6 +189,7 @@ phase: tasks
   - **Expected:** All green
 
 - [ ] `T018` [backlog] [US1] Run E2E tests
+
   - **Story:** US-1
   - **Command:** `bun test tests/e2e/{feature}/{story}.e2e.test.ts`
   - **Estimate:** 5 min
@@ -178,6 +197,7 @@ phase: tasks
   - **Expected:** All green
 
 - [ ] `T019` [backlog] [US1] Type check
+
   - **Story:** US-1
   - **Command:** `bun run type-check`
   - **Estimate:** 2 min
@@ -234,26 +254,32 @@ phase: tasks
 ## 🧪 Final Batch: Quality Gates
 
 - [ ] `T0XX` [backlog] Run full test suite
+
   - **Command:** `bun test`
   - **Expected:** All pass
 
 - [ ] `T0XX` [backlog] Type check entire codebase
+
   - **Command:** `bun run type-check`
   - **Expected:** No errors, no `any` types
 
 - [ ] `T0XX` [backlog] Lint codebase
+
   - **Command:** `bun run lint`
   - **Expected:** No errors
 
 - [ ] `T0XX` [backlog] Format codebase
+
   - **Command:** `bun run format`
   - **Expected:** All files formatted
 
 - [ ] `T0XX` [backlog] Verify functions < 20 lines
+
   - **Manual:** Review largest functions
   - **Expected:** All < 20 lines
 
 - [ ] `T0XX` [backlog] Quality check
+
   - **Command:** `/quality:check`
   - **Expected:** All checks pass
 
@@ -300,20 +326,21 @@ User Story 1 - Verification (Batch 4)
 
 ## 📊 Progress Tracking
 
-| Batch | Total | Backlog | In Progress | Done | Blocked |
-|-------|-------|---------|-------------|------|---------|
-| 1: Foundation | 5 | 5 | 0 | 0 | 0 |
-| 2: US1 Tests | 2 | 2 | 0 | 0 | 0 |
-| 3: US1 Impl | 9 | 9 | 0 | 0 | 0 |
-| 4: US1 Verify | 4 | 4 | 0 | 0 | 0 |
-| 5: US2 Tests | 2 | 2 | 0 | 0 | 0 |
-| **Total** | **XX** | **XX** | **0** | **0** | **0** |
+| Batch         | Total  | Backlog | In Progress | Done  | Blocked |
+| ------------- | ------ | ------- | ----------- | ----- | ------- |
+| 1: Foundation | 5      | 5       | 0           | 0     | 0       |
+| 2: US1 Tests  | 2      | 2       | 0           | 0     | 0       |
+| 3: US1 Impl   | 9      | 9       | 0           | 0     | 0       |
+| 4: US1 Verify | 4      | 4       | 0           | 0     | 0       |
+| 5: US2 Tests  | 2      | 2       | 0           | 0     | 0       |
+| **Total**     | **XX** | **XX**  | **0**       | **0** | **0**   |
 
 ---
 
 ## 🚀 Execution Strategy
 
 ### Option 1: Sequential by Priority
+
 1. Complete ALL of US-1 (MVP) first
 2. Validate US-1 works independently
 3. Move to US-2
@@ -321,12 +348,14 @@ User Story 1 - Verification (Batch 4)
 5. Continue...
 
 ### Option 2: Parallel by Team
+
 - Developer A: US-1
 - Developer B: US-2
 - Developer C: US-3
 - Merge and integrate after each is independently validated
 
 ### Option 3: Batch Execution (Recommended for AI)
+
 - Use `superpowers:executing-plans`
 - Execute 3-5 tasks per batch
 - Review and validate between batches
