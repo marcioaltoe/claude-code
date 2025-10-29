@@ -28,6 +28,7 @@
     "audio-notifications@claude-craftkit": true,
     "db-tools@claude-craftkit": true,
     "git@claude-craftkit": true,
+    "product-engineering@claude-craftkit": true,
     "quality@claude-craftkit": true,
     "reviewer@claude-craftkit": true,
     "ui-tests@claude-craftkit": true,
