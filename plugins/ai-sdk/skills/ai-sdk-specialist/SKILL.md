@@ -1,4 +1,5 @@
 ---
+name: ai-sdk-specialist
 description: Vercel AI SDK and LLM integration specialist
 capabilities: ["ai-sdk", "llm", "streaming", "function-calling", "chat", "embeddings"]
 ---

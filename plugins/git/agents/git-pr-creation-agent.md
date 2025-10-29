@@ -1,5 +1,5 @@
 ---
-agent: git-pr-creation-agent
+name: git-pr-creation-agent
 model: haiku
 description: Creates comprehensive pull requests to dev branch using GitHub CLI
 ---

@@ -1,5 +1,5 @@
 ---
-agent: git-commit-agent
+name: git-commit-agent
 model: haiku
 description: Creates git commits with conventional commit messages by analyzing code changes
 ---

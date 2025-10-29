@@ -1,5 +1,5 @@
 ---
-agent: git-clean-agent
+name: git-clean-agent
 model: haiku
 description: Cleans up local branches marked as [gone] and their associated worktrees
 ---
