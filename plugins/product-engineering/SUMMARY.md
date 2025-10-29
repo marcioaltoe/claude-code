@@ -40,30 +40,23 @@ All agents are specialized for their phase:
 4. ✅ `agents/task-planner.md` - Breaks design into atomic tasks
 5. ✅ `agents/implementation-validator.md` - Validates implementation
 
-### Skills (1 of 6 complete)
+### Skills (6 of 6 complete)
 
-1. ✅ `skills/idea-refinement/SKILL.md` - Complete with MCP integration
-2. ⚠️ `skills/requirements-elicitation/SKILL.md` - **TODO**
-3. ⚠️ `skills/spec-writing/SKILL.md` - **TODO**
-4. ⚠️ `skills/architecture-decision/SKILL.md` - **TODO**
-5. ⚠️ `skills/technical-design/SKILL.md` - **TODO**
-6. ⚠️ `skills/task-breakdown/SKILL.md` - **TODO**
+1. ✅ `skills/idea-refinement/SKILL.md` - Transform rough ideas into validated discovery documents
+2. ✅ `skills/requirements-elicitation/SKILL.md` - Elicit testable requirements through Socratic questioning
+   - Load `requirements-elicitation` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/requirements-elicitation/SKILL.md`
+3. ✅ `skills/spec-writing/SKILL.md` - Write clear, unambiguous specifications with testable acceptance criteria
+   - Load `spec-writing` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/spec-writing/SKILL.md`
+4. ✅ `skills/architecture-decision/SKILL.md` - Create ADRs documenting technical choices and alternatives
+   - Load `architecture-decision` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/architecture-decision/SKILL.md`
+5. ✅ `skills/technical-design/SKILL.md` - Design system architecture, data models, and API contracts
+   - Load `technical-design` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/technical-design/SKILL.md`
+6. ✅ `skills/task-breakdown/SKILL.md` - Break designs into atomic, TDD-driven tasks with 5-20 minute granularity
+   - Load `task-breakdown` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/task-breakdown/SKILL.md`
 
 ---
 
 ## ⚠️ What Still Needs to Be Created
-
-### Skills (5 remaining)
-
-These skills guide the agents through their processes. They can be created based on the patterns from `idea-refinement` and the agent descriptions:
-
-**Priority 1 (Critical for full workflow):**
-
-1. **`requirements-elicitation`** - Based on `requirements-engineer` agent
-2. **`architecture-decision`** - Based on `solutions-architect` agent
-3. **`task-breakdown`** - Based on `task-planner` agent
-
-**Priority 2 (Nice to have):** 4. **`spec-writing`** - Techniques for writing clear specs 5. **`technical-design`** - Patterns for technical documentation
 
 ### Examples (Optional but helpful)
 
@@ -79,7 +72,7 @@ Create example files showing completed documents for each phase:
 
 ## 📊 Completion Status
 
-### Overall Progress: ~75% Complete
+### Overall Progress: ~95% Complete
 
 | Component     | Status  | Count | Notes                         |
 | ------------- | ------- | ----- | ----------------------------- |
@@ -88,81 +81,32 @@ Create example files showing completed documents for each phase:
 | **Templates** | ✅ 100% | 6/6   | All templates complete        |
 | **Commands**  | ✅ 100% | 5/5   | All phases covered            |
 | **Agents**    | ✅ 100% | 5/5   | All phases covered            |
-| **Skills**    | ⚠️ 17%  | 1/6   | 5 skills remain               |
+| **Skills**    | ✅ 100% | 6/6   | All skills complete           |
 | **Examples**  | ❌ 0%   | 0/5   | Optional                      |
 
 ---
 
-## 🚀 How to Complete
+## 🚀 How to Use
 
-### Option 1: Use the Plugin As-Is
+### Complete Workflow Ready
 
-The plugin is **functional now** even without the remaining skills because:
+The plugin is **fully functional** with all core components complete:
 
-- All commands are complete and self-contained
-- All agents have clear instructions
-- Templates are comprehensive
-- Missing skills can be inferred from agent descriptions
+- ✅ All commands operational
+- ✅ All agents specialized
+- ✅ All templates ready
+- ✅ All skills documented
 
-**To use now:**
+**Start using now:**
 
 ```bash
 /product-engineering:discover
 # Follow the workflow through all phases
 ```
 
-### Option 2: Complete Remaining Skills
+### Optional Enhancements
 
-Create the 5 remaining skills based on this pattern:
-
-**Template for each skill:**
-
-```markdown
----
-name: { skill-name }
-description: { brief description }
----
-
-# {Skill Title}
-
-## Overview
-
-{Purpose and core principle}
-
-## Quick Reference
-
-{Table of phases/activities}
-
-## The Process
-
-{Step-by-step detailed process}
-
-## Key Principles
-
-{DOs and DON'Ts}
-
-## MCP Integration Pattern
-
-{How to use MCP servers}
-
-## Common Pitfalls
-
-{What to avoid}
-
-## Handoff to Next Phase
-
-{How to transition}
-```
-
-**Recommended creation order:**
-
-1. `requirements-elicitation` (mirrors `requirements-engineer` agent)
-2. `architecture-decision` (mirrors `solutions-architect` agent)
-3. `task-breakdown` (mirrors `task-planner` agent)
-4. `spec-writing` (techniques for clear specs)
-5. `technical-design` (patterns for documentation)
-
-### Option 3: Create Examples
+#### Create Examples
 
 Create example documents showing real-world usage:
 
@@ -315,4 +259,4 @@ superpowers:executing-plans
 
 ---
 
-**Status:** Plugin is functional and ready to use! Remaining skills are nice-to-have improvements.
+**Status:** Plugin is 100% functional and ready for production use! All core components complete. Examples are optional enhancements.

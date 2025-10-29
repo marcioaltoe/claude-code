@@ -6,184 +6,53 @@ You are executing the **Product Engineering Specification** workflow.
 
 ## 🎯 Purpose
 
-Create an executable spec (PRD) with prioritized user stories and clear requirements.
+Create an executable spec (PRD) with prioritized user stories and clear requirements from the discovery document.
 
-## 📋 Process
+## 📋 Workflow
 
-### Step 1: Load Required Skills
+This command will invoke the `requirements-engineer` agent, which will:
 
-- Load `requirements-elicitation` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/requirements-elicitation/SKILL.md`
-- Load `spec-writing` skill from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/skills/spec-writing/SKILL.md`
+1. **Read discovery document** - Extract problem, users, value proposition, and recommended solution from `docs/discovery/DISC-{###}-{name}.md`
+2. **Elicit requirements** - Derive functional and non-functional requirements using MCP research (Context7, Perplexity)
+3. **Create user stories** - Generate 3-5 prioritized user stories (P1/P2/P3) with Given-When-Then acceptance criteria
+4. **Ensure testability** - Each story must be independently testable (can build/test/deploy alone)
+5. **Map rastreabilidade** - Create traceability table linking user stories to requirements
+6. **Create feature branch** - Generate branch named `{###-kebab-case-name}` from dev/main
+7. **Generate spec document** - Create `docs/specs/SPEC-{###}-{name}.md` using the spec template
 
-### Step 2: Read Discovery Document
+## 🤖 Agent Invocation
 
-- Locate discovery document: `docs/discovery/DISC-{###}-{name}.md`
-- Extract: problem, users, value proposition, recommended solution
-- Review research findings and success criteria
+The agent will automatically use the `requirements-elicitation` and `spec-writing` skills to ensure testable, unambiguous requirements.
 
-### Step 3: Invoke Requirements Engineer Agent
+**Agent:** `requirements-engineer` from `plugins/product-engineering/agents/requirements-engineer.md`
 
-- Invoke `requirements-engineer` agent from `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/agents/requirements-engineer.md`
-- Agent will use loaded skills to guide elicitation
+## 📤 Expected Output
 
-### Step 4: Requirements Elicitation
-
-**Functional Requirements:**
-
-- Derive from discovery's recommended solution
-- Map to specific system capabilities
-- Ensure testable and unambiguous
-- Mark unclear items: `[NEEDS CLARIFICATION: question]`
-
-**Non-Functional Requirements:**
-
-- Performance (from discovery's success criteria)
-- Security (authentication, authorization, data protection)
-- Scalability (concurrent users, data volume)
-- Observability (logging, metrics, tracing)
-- Maintainability (test coverage, code quality)
-
-**Use MCP for research:**
-
-```
-Context7: Best practices for {domain} requirements
-Perplexity: "Common NFRs for {type} applications"
-```
-
-### Step 5: Create User Stories
-
-**Generate 3-5 Prioritized User Stories:**
-
-**Priority Levels:**
-
-- P1 (MVP): Must-have for initial release
-- P2 (Important): Valuable but not blocking
-- P3 (Nice to have): Future enhancements
-
-**Story Structure:**
-
-```
-As a {user type}
-I want {capability}
-So that {benefit}
-
-Why P1/P2/P3: {rationale}
-
-Independent Test: {how to verify this story alone}
-
-Acceptance Criteria:
-- Given {context}, When {action}, Then {outcome}
-```
-
-**Critical:** Each story MUST be independently testable (can build/test/deploy alone)
-
-### Step 6: Rastreabilidade Mapping
-
-Create table mapping:
-
-- User Story → Functional Requirements
-- User Story → Non-Functional Requirements
-
-Example:
-| User Story | Functional Requirements | NFRs |
-|------------|-------------------------|------|
-| US-1 | FR-001, FR-002 | NFR-P-001, NFR-S-001 |
-
-### Step 7: Generate Spec Document
-
-**Use template:** `~/.claude/plugins/marketplaces/claude-craftkit/plugins/product-engineering/templates/spec.md`
-
-**Auto-number:**
-
-- Scan `docs/specs/` for next number (SPEC-###)
-- Link to discovery: `discovery: DISC-{###}`
-
-**Create feature branch:**
-
-```bash
-# Branch naming: {###-kebab-case-name}
-git checkout -b 001-feature-name
-```
-
-**Save to:** `docs/specs/SPEC-{###}-{name}.md`
-
-### Step 8: Validation Checklist
-
-Run through spec completeness checklist:
-
-- [ ] No `[NEEDS CLARIFICATION]` markers remaining
-- [ ] All user stories have acceptance criteria
-- [ ] Each story has "Independent Test" defined
-- [ ] Stories prioritized (P1, P2, P3)
-- [ ] Requirements testable and unambiguous
-- [ ] NFRs cover all categories
-- [ ] Success criteria measurable
-- [ ] Out of scope clearly defined
-- [ ] Rastreabilidade table complete
-
-### Step 9: Present Spec Document
-
-Show the user:
-
-- Location of spec document
-- Summary of user stories (count by priority)
-- Key requirements highlights
-- Feature branch created
-- Any remaining `[NEEDS CLARIFICATION]` items
-
-### Step 10: Decision Point
-
-**If approved to proceed:**
-"Spec approved! Ready to create Technical Design?
-
-Execute `/product-engineering:design` to define architecture, tech stack, and implementation approach."
-
-**If needs clarification:**
-"Let's resolve the `[NEEDS CLARIFICATION]` items. What should we decide for each?"
-
-**If needs revision:**
-"What aspects of the spec need adjustment?"
-
----
-
-## 📤 Output
-
-- **File:** `docs/specs/SPEC-{###}-{name}.md`
-- **Branch:** `{###-feature-name}` (created from main/dev)
-- **Content:** Complete spec with:
-  - Overview (what, why, for whom)
+- **File:** `docs/specs/SPEC-{###}-{kebab-case-name}.md`
+- **Branch:** `{###-feature-name}` (created from dev/main)
+- **Content:** Complete specification with:
   - 3-5 prioritized user stories (P1, P2, P3)
-  - Functional requirements (testable, unambiguous)
-  - Non-functional requirements (all categories)
+  - Functional requirements (FR-###)
+  - Non-functional requirements (NFR-P/S/SC/O/M-###)
   - Success criteria (measurable)
-  - Out of scope (explicit boundaries)
-  - Rastreabilidade mapping
+  - Out of scope boundaries
+  - Rastreabilidade mapping table
 
----
+## 🔗 Next Steps
 
-## 🔗 Integration
+**If approved:** Execute `/product-engineering:design` to define architecture and technical approach
 
-**Input:** Discovery document `DISC-{###}`
+**If needs clarification:** Resolve `[NEEDS CLARIFICATION]` markers with user input
 
-**MCP Servers Used:**
-
-- Context7 (requirements best practices)
-- Perplexity (NFR research for domain)
-
-**Next Phase:**
-
-- If approved: `/product-engineering:design`
-- If needs work: Iterate on spec
-
----
+**If needs revision:** Adjust requirements or user stories based on feedback
 
 ## ✓ Success Criteria
 
-- [ ] Spec document created with auto-numbered ID
-- [ ] Linked to discovery document
+- [ ] Spec document created with auto-numbered ID (SPEC-###)
+- [ ] Linked to discovery document (DISC-###)
 - [ ] Feature branch created
-- [ ] 3-5 user stories with clear priorities
+- [ ] 3-5 user stories with clear priorities (P1, P2, P3)
 - [ ] All stories independently testable
 - [ ] Functional and non-functional requirements complete
-- [ ] Rastreabilidade table complete
-- [ ] Validation checklist passed
+- [ ] Rastreabilidade table maps stories to requirements
+- [ ] No unresolved `[NEEDS CLARIFICATION]` markers

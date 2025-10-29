@@ -297,15 +297,6 @@ Available templates:
 - `implementation-plan.md` - Implementation plan
 - `tasks.md` - Task list
 
-## 🎓 Examples
-
-See `examples/` directory for complete workflow examples:
-
-- `discovery-example.md` - Real-world discovery document
-- `spec-example.md` - Complete spec with user stories
-- `design-example.md` - Technical design with ADRs
-- `plan-example.md` - Implementation plan with tasks
-
 ## 🤝 Contributing
 
 This plugin follows the standards defined in:
