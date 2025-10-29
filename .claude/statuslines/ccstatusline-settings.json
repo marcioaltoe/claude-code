@@ -3,29 +3,105 @@
   "lines": [
     [
       {
+        "id": "64ce6779-5173-473a-91b6-09d4b90c69ac",
+        "type": "custom-text",
+        "customText": "⚡"
+      },
+      {
         "id": "1",
+        "type": "model",
+        "rawValue": true,
+        "color": "ansi256:216",
+        "bold": false
+      },
+      {
+        "id": "42d7d690-1554-4deb-86d7-5ce65b6a5383",
+        "type": "custom-text",
+        "customText": "•",
+        "color": "ansi256:245"
+      },
+      {
+        "id": "3",
         "type": "context-percentage",
-        "color": "yellow",
-        "bold": true,
-        "rawValue": true
+        "rawValue": true,
+        "metadata": {
+          "inverse": "false"
+        },
+        "color": "ansi256:136"
+      },
+      {
+        "id": "6dd68052-d626-4703-bb23-279de1b72108",
+        "type": "custom-text",
+        "customText": "•",
+        "color": "ansi256:245"
+      },
+      {
+        "id": "99479517-d1ad-4eb7-b078-afee64df3e83",
+        "type": "block-timer",
+        "rawValue": true,
+        "metadata": {
+          "display": "time"
+        },
+        "color": "ansi256:138"
+      },
+      {
+        "id": "ec7a2beb-6add-4de9-84fd-a7171934a77f",
+        "type": "separator",
+        "color": "ansi256:245"
+      },
+      {
+        "id": "90bcd270-ec0f-45d5-9418-da96854755a1",
+        "type": "git-branch",
+        "metadata": {
+          "hideNoGit": "false"
+        },
+        "bold": false,
+        "color": "ansi256:114"
+      },
+      {
+        "id": "f4e86363-9c1e-45c1-85f5-390304b4af69",
+        "type": "custom-text",
+        "customText": "•",
+        "color": "ansi256:245"
+      },
+      {
+        "id": "7",
+        "type": "git-changes",
+        "metadata": {
+          "hideNoGit": "false"
+        },
+        "color": "ansi256:73"
+      },
+      {
+        "id": "db54574e-bff3-4eda-bf5d-1e9bda99432d",
+        "type": "separator",
+        "color": "ansi256:245"
+      },
+      {
+        "id": "5",
+        "type": "current-working-dir",
+        "rawValue": true,
+        "metadata": {
+          "segments": "2"
+        },
+        "color": "ansi256:104"
       }
     ],
-    [],
     []
   ],
   "flexMode": "full-minus-40",
   "compactThreshold": 60,
   "colorLevel": 2,
+  "defaultPadding": " ",
   "inheritSeparatorColors": false,
   "globalBold": false,
   "powerline": {
     "enabled": false,
-    "separators": [""],
-    "separatorInvertBackground": [
-      false
-    ],
-    "startCaps": [],
-    "endCaps": [],
+    "separators": [""],
+    "separatorInvertBackground": [false],
+    "startCaps": [""],
+    "endCaps": [""],
+    "theme": "custom",
     "autoAlign": false
   }
 }
