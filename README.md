@@ -9,12 +9,14 @@ Transform your Claude Code experience with a curated collection of plugins desig
 **What makes this marketplace special:**
 
 - 🎯 **24 specialized commands** for common development tasks
-- ⚡ **21 intelligent skills** that work proactively
+- ⚡ **27 intelligent skills** that work proactively
+- 🤖 **8 specialized agents** for complex workflows
 - 🏗️ **Clean Architecture** patterns for backend and frontend applications
 - 🎨 **Hybrid architecture** - choose between automation and explicit control
 - 🎨 **Design system** support (Gesttione branding included)
 - 📐 **SOLID principles** and TypeScript best practices enforcement
 - 🚀 **Complete product workflow** from idea to validated implementation
+- ✅ **100% compliant** with official Claude Code documentation patterns
 
 ## Quick Links
 
@@ -23,19 +25,19 @@ Transform your Claude Code experience with a curated collection of plugins desig
 
 ## Plugin Summary
 
-| Plugin              | Commands | Skills | Category        |
-| ------------------- | -------- | ------ | --------------- |
-| db-tools            | 3        | 1      | Database        |
-| ui                  | 3        | 2      | UI Architecture |
-| ai-sdk              | 2        | 1      | AI              |
-| quality             | 2        | 3      | Testing         |
-| audio-notifications | -        | -      | QoL             |
-| git                 | 3        | 2      | Workflow        |
-| reviewer            | 3        | 1      | Development     |
-| ui-tests            | 3        | 1      | Testing         |
-| architecture-design | -        | 9      | Development     |
-| product-engineering | 5        | 1      | Workflow        |
-| **Total**           | **24**   | **21** | -               |
+| Plugin              | Commands | Agents | Skills | Category        |
+| ------------------- | -------- | ------ | ------ | --------------- |
+| db-tools            | 3        | 0      | 1      | Database        |
+| ui                  | 3        | 0      | 2      | UI Architecture |
+| ai-sdk              | 2        | 0      | 1      | AI              |
+| quality             | 2        | 0      | 3      | Testing         |
+| audio-notifications | -        | 0      | -      | QoL             |
+| git                 | 3        | 3      | 2      | Workflow        |
+| reviewer            | 3        | 0      | 1      | Development     |
+| ui-tests            | 3        | 0      | 1      | Testing         |
+| architecture-design | -        | 0      | 10     | Development     |
+| product-engineering | 5        | 5      | 6      | Workflow        |
+| **Total**           | **24**   | **8**  | **27** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 
@@ -56,6 +58,10 @@ Add this marketplace to Claude Code:
 /plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
+/plugin install reviewer@claude-craftkit
+/plugin install ui-tests@claude-craftkit
+/plugin install architecture-design@claude-craftkit
+/plugin install product-engineering@claude-craftkit
 ```
 
 Or use the interactive installer: `/plugin` → Browse Plugins
@@ -164,6 +170,7 @@ For plugin structure and customization guide, see [STRUCTURE.md](STRUCTURE.md#cu
 - [Fred Lacs](https://github.com/fredlacs/claude-code)
 - [adrianpuiu](https://github.com/adrianpuiu/claude-skills-marketplace)
 - [Bryan Lackey](https://github.com/lackeyjb/playwright-skill)
+- [Obra/Superpowers](https://github.com/obra/superpowers)
 
 ## Learn More
 

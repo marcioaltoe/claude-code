@@ -59,51 +59,61 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 ### Or Install Selectively Based on Your Needs
 
 **For Database Development:**
+
 ```bash
 /plugin install db-tools@claude-craftkit
 ```
 
 **For UI Development:**
+
 ```bash
 /plugin install ui@claude-craftkit
 ```
 
 **For AI Features:**
+
 ```bash
 /plugin install ai-sdk@claude-craftkit
 ```
 
 **For Testing:**
+
 ```bash
 /plugin install quality@claude-craftkit
 ```
 
 **For Audio Feedback:**
+
 ```bash
 /plugin install audio-notifications@claude-craftkit
 ```
 
 **For Git Workflow Automation:**
+
 ```bash
 /plugin install git@claude-craftkit
 ```
 
 **For PR Review Management:**
+
 ```bash
 /plugin install reviewer@claude-craftkit
 ```
 
 **For Browser Automation & E2E Testing:**
+
 ```bash
 /plugin install ui-tests@claude-craftkit
 ```
 
 **For Architecture & Design Best Practices:**
+
 ```bash
 /plugin install architecture-design@claude-craftkit
 ```
 
 **For Product Engineering Workflow (Idea → PRD → Implementation):**
+
 ```bash
 /plugin install product-engineering@claude-craftkit
 ```
@@ -167,6 +177,7 @@ Let's build a complete user profile feature with database, forms, and validation
 ```
 
 When prompted, create a `users` table with:
+
 - `id` (UUID, primary key)
 - `name` (text)
 - `email` (text, unique)
@@ -187,6 +198,7 @@ This creates a migration file for your schema changes.
 ```
 
 Generate type-safe queries for:
+
 - Get user by ID
 - Update user profile
 - List all users
@@ -198,6 +210,7 @@ Generate type-safe queries for:
 ```
 
 Generate a user profile edit form with:
+
 - Name input (required, min 2 chars)
 - Email input (required, email format)
 - Submit button
@@ -219,6 +232,7 @@ Create a complete CRUD feature for blog posts:
 ```
 
 Claude will automatically:
+
 - Use `database-architect` skill to design the schema
 - Use `ui-designer` skill for React components with shadcn/ui and Tailwind CSS
 - Use architecture-design plugin's `frontend-engineer` skill for Clean Architecture structure
@@ -239,6 +253,7 @@ Create a user authentication API with Clean Architecture:
 ```
 
 Claude will automatically:
+
 - Use architecture-design plugin's `backend-engineer` skill for Clean Architecture implementation
 - Create Domain Layer (entities, value objects, ports)
 - Create Application Layer (use cases, DTOs)
@@ -277,6 +292,7 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 ### Example 5: Git Workflow (Hybrid Approach)
 
 **Autonomous (Skills):**
+
 ```
 "I'm done with this feature, commit it for me"
 → git-commit skill creates conventional commit automatically
@@ -286,6 +302,7 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 ```
 
 **Explicit (Commands):**
+
 ```
 /commit                # Quick commit when you want control
 /commit-push-pr        # Full workflow when you know exactly what to do
@@ -327,6 +344,7 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 ```
 
 **Key Features:**
+
 - MCP-powered research at every phase (Perplexity, Context7, Octocode)
 - 7 architecture gates enforce quality
 - Test-first methodology (TDD mandatory)
@@ -371,6 +389,7 @@ Create `~/.claude/audio_notifications.json`:
 ```
 
 **Options:**
+
 - `audio_off`: Set to `true` to disable audio
 - `speech_command`: Custom TTS command (e.g., `"say -v Victoria"` on macOS, `"spd-say"` on Linux)
 
@@ -468,17 +487,20 @@ Create a chat application:
 ## Next Steps
 
 **Learn More:**
+
 - [README.md](README.md) - Overview and plugin summary
 - [STRUCTURE.md](STRUCTURE.md) - Complete command reference and technical details
 - [Claude Code Docs](https://docs.claude.com/en/docs/claude-code/plugins) - Official documentation
 
 **Customize:**
+
 - Explore plugin directories in `plugins/` to see how they work
 - Create custom commands by adding `.md` files to `commands/`
 - Create custom skills for your specific workflows
 - See [STRUCTURE.md](STRUCTURE.md#customization) for customization guide
 
 **Contribute:**
+
 - Fork the repository
 - Create new plugins or improve existing ones
 - Submit pull requests
