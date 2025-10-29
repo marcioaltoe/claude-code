@@ -8,12 +8,13 @@ Transform your Claude Code experience with a curated collection of plugins desig
 
 **What makes this marketplace special:**
 
-- 🎯 **19 specialized commands** for common development tasks
-- ⚡ **20 intelligent skills** that work proactively
-- 🏗️ **Clean Architecture** patterns for React applications
+- 🎯 **24 specialized commands** for common development tasks
+- ⚡ **21 intelligent skills** that work proactively
+- 🏗️ **Clean Architecture** patterns for backend and frontend applications
 - 🎨 **Hybrid architecture** - choose between automation and explicit control
 - 🎨 **Design system** support (Gesttione branding included)
 - 📐 **SOLID principles** and TypeScript best practices enforcement
+- 🚀 **Complete product workflow** from idea to validated implementation
 
 ## Quick Links
 
@@ -33,7 +34,8 @@ Transform your Claude Code experience with a curated collection of plugins desig
 | reviewer            | 3        | 1      | Development     |
 | ui-tests            | 3        | 1      | Testing         |
 | architecture-design | -        | 9      | Development     |
-| **Total**           | **19**   | **20** | -               |
+| product-engineering | 5        | 1      | Workflow        |
+| **Total**           | **24**   | **21** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 

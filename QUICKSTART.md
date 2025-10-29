@@ -53,6 +53,7 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 /plugin install reviewer@claude-craftkit
 /plugin install ui-tests@claude-craftkit
 /plugin install architecture-design@claude-craftkit
+/plugin install product-engineering@claude-craftkit
 ```
 
 ### Or Install Selectively Based on Your Needs
@@ -100,6 +101,11 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 **For Architecture & Design Best Practices:**
 ```bash
 /plugin install architecture-design@claude-craftkit
+```
+
+**For Product Engineering Workflow (Idea → PRD → Implementation):**
+```bash
+/plugin install product-engineering@claude-craftkit
 ```
 
 ### Verify Installation
@@ -285,6 +291,48 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 /commit-push-pr        # Full workflow when you know exactly what to do
 /clean                 # Branch cleanup
 ```
+
+### Example 6: Product Engineering Workflow (Idea → Implementation)
+
+**Complete workflow from rough idea to validated implementation:**
+
+```bash
+# Phase 1: Discover
+/product-engineering:discover
+# Transforms rough idea → discovery document (with MCP research)
+# Output: docs/discovery/DISC-001-feature-name.md
+
+# Phase 2: Specify
+/product-engineering:specify
+# Creates PRD with user stories and requirements
+# Output: docs/specs/SPEC-001-feature-name.md + feature branch
+
+# Phase 3: Design
+/product-engineering:design
+# Designs architecture with ADRs and gates validation
+# Output: docs/design/DESIGN-001-feature-name.md + docs/adr/ADR-*.md
+
+# Phase 4: Plan
+/product-engineering:plan
+# Breaks design into atomic tasks (5-20 min each)
+# Output: docs/plans/PLAN-001-feature-name.md + docs/tasks/TASKS-001-feature-name.md
+
+# Execute tasks (using superpowers plugin)
+/superpowers:execute-plan
+
+# Phase 5: Validate
+/product-engineering:validate
+# Validates implementation against spec and architecture gates
+# Output: Validation report with coverage, gaps, recommendations
+```
+
+**Key Features:**
+- MCP-powered research at every phase (Perplexity, Context7, Octocode)
+- 7 architecture gates enforce quality
+- Test-first methodology (TDD mandatory)
+- Full traceability: Idea → Discovery → Spec → Design → Tasks → Code
+- Manual adjustments between phases
+- Editable markdown output with YAML frontmatter
 
 > For complete command reference, see [STRUCTURE.md](STRUCTURE.md#command-reference).
 

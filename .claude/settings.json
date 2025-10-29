@@ -19,7 +19,19 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "uv run ~/.claude/statuslines/statusline.py",
+    "command": "bash ~/.claude/statuslines/matt-pocock-wrapper.sh",
     "padding": 0
+  },
+  "enabledPlugins": {
+    "ai-sdk@claude-craftkit": true,
+    "architecture-design@claude-craftkit": true,
+    "audio-notifications@claude-craftkit": true,
+    "db-tools@claude-craftkit": true,
+    "git@claude-craftkit": true,
+    "quality@claude-craftkit": true,
+    "reviewer@claude-craftkit": true,
+    "ui-tests@claude-craftkit": true,
+    "ui@claude-craftkit": true,
+    "superpowers@superpowers-marketplace": true
   }
 }

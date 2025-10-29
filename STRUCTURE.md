@@ -111,19 +111,49 @@ claude-craftkit/
 │   │   └── skills/
 │   │       └── web-tests.md
 │   │
-│   └── architecture-design/
+│   ├── architecture-design/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── skills/
+│   │   │   ├── project-workflow.md
+│   │   │   ├── code-standards.md
+│   │   │   ├── clean-architecture.md
+│   │   │   ├── naming-conventions.md
+│   │   │   ├── error-handling-patterns.md
+│   │   │   ├── typescript-type-safety.md
+│   │   │   ├── backend-engineer.md
+│   │   │   └── frontend-engineer.md
+│   │   └── README.md
+│   │
+│   └── product-engineering/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
+│       ├── commands/
+│       │   ├── discover.md
+│       │   ├── specify.md
+│       │   ├── design.md
+│       │   ├── plan.md
+│       │   └── validate.md
+│       ├── templates/
+│       │   ├── discovery.md
+│       │   ├── spec.md
+│       │   ├── technical-design.md
+│       │   ├── adr.md
+│       │   ├── implementation-plan.md
+│       │   └── tasks.md
+│       ├── agents/
+│       │   ├── discovery-facilitator.md
+│       │   ├── requirements-engineer.md
+│       │   ├── solutions-architect.md
+│       │   ├── task-planner.md
+│       │   └── implementation-validator.md
 │       ├── skills/
-│       │   ├── project-workflow.md
-│       │   ├── code-standards.md
-│       │   ├── clean-architecture.md
-│       │   ├── naming-conventions.md
-│       │   ├── error-handling-patterns.md
-│       │   ├── typescript-type-safety.md
-│       │   ├── backend-engineer.md
-│       │   └── frontend-engineer.md
-│       └── README.md
+│       │   └── idea-refinement/
+│       │       └── SKILL.md
+│       ├── gates/
+│       │   └── architecture-gates.md
+│       ├── README.md
+│       └── SUMMARY.md
 │
 ├── README.md                         # Main documentation
 ├── QUICKSTART.md                     # Quick start guide
@@ -135,18 +165,19 @@ claude-craftkit/
 
 ### Summary Table
 
-| Plugin              | Commands | Skills | Hooks | Category        |
-| ------------------- | -------- | ------ | ----- | --------------- |
-| db-tools            | 3        | 1      | 0     | Database        |
-| ui                  | 3        | 2      | 0     | UI Architecture |
-| ai-sdk              | 2        | 1      | 0     | AI              |
-| quality             | 2        | 3      | 0     | Testing         |
-| audio-notifications | 0        | 0      | 3     | QoL             |
-| git                 | 3        | 2      | 0     | Workflow        |
-| reviewer            | 3        | 0      | 0     | Development     |
-| ui-tests            | 3        | 0      | 0     | Testing         |
-| architecture-design | 0        | 8      | 0     | Development     |
-| **TOTAL**           | **19**   | **17** | **3** | -               |
+| Plugin              | Commands | Skills | Hooks | Agents | Templates | Category        |
+| ------------------- | -------- | ------ | ----- | ------ | --------- | --------------- |
+| db-tools            | 3        | 1      | 0     | 0      | 0         | Database        |
+| ui                  | 3        | 2      | 0     | 0      | 0         | UI Architecture |
+| ai-sdk              | 2        | 1      | 0     | 0      | 0         | AI              |
+| quality             | 2        | 3      | 0     | 0      | 0         | Testing         |
+| audio-notifications | 0        | 0      | 3     | 0      | 0         | QoL             |
+| git                 | 3        | 2      | 0     | 0      | 0         | Workflow        |
+| reviewer            | 3        | 0      | 0     | 0      | 0         | Development     |
+| ui-tests            | 3        | 0      | 0     | 0      | 0         | Testing         |
+| architecture-design | 0        | 8      | 0     | 0      | 0         | Development     |
+| product-engineering | 5        | 1      | 0     | 5      | 6         | Workflow        |
+| **TOTAL**           | **24**   | **18** | **3** | **5**  | **6**     | -               |
 
 ## Plugin Descriptions
 
@@ -397,6 +428,46 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 - Error handling strategy implementation
 - Project standards compliance
 
+### 10. Product Engineering (`product-engineering`)
+
+**Category:** Workflow
+**Author:** Marcio Altoé
+**License:** MIT
+
+Complete workflow from idea to implementation: Discovery → Specification → Design → Planning → Validation with MCP integration, architecture gates, and full traceability.
+
+**Features:**
+
+- **5-phase workflow:** Discovery → Spec → Design → Plan → Validate
+- **5 commands** (one per phase) for manual control between phases
+- **5 specialized agents** for autonomous execution
+- **6 templates** with YAML frontmatter and auto-numbering
+- **7 architecture gates** enforce quality (Simplicity, Type Safety, Clean Code, Test-First, Clean Architecture, Feature-Based, Naming)
+- **MCP integration** at every phase (Perplexity, Context7, Octocode)
+- **Test-first methodology** (TDD mandatory with Red-Green-Refactor)
+- **Full traceability:** Idea → Discovery → Spec → Design → Tasks → Code
+- **Editable markdown output** for human review
+- Architecture Decision Records (ADRs) for major technical decisions
+- Integration with superpowers plugin for task execution
+
+**Workflow:**
+1. `/product-engineering:discover` - Rough idea → Discovery document (with market research)
+2. `/product-engineering:specify` - Discovery → PRD with user stories and requirements
+3. `/product-engineering:design` - PRD → Technical design + ADRs (architecture gates validation)
+4. `/product-engineering:plan` - Design → Implementation plan + atomic tasks (5-20 min each)
+5. `/product-engineering:validate` - Validate implementation against spec and gates
+
+**Use Cases:**
+
+- Transforming rough ideas into validated discovery documents
+- Creating comprehensive PRDs with user stories and requirements
+- Designing architecture with research-backed decisions
+- Breaking designs into implementable tasks
+- Validating implementations against requirements
+- Enforcing architecture gates throughout development
+- Maintaining traceability from idea to code
+- Systematic product development workflow
+
 ## Command Reference
 
 Complete list of all available commands across all plugins.
@@ -456,6 +527,16 @@ Complete list of all available commands across all plugins.
 | `/check`           | Check webpage for issues (broken links, errors, etc.)         |
 | `/take-screenshot` | Take screenshots of web pages                                 |
 | `/test-feature`    | Test a webapp feature with Playwright                         |
+
+### Product Engineering (5 commands)
+
+| Command                        | Description                                                                                   |
+| ------------------------------ | --------------------------------------------------------------------------------------------- |
+| `/product-engineering:discover` | PHASE 1: Transform rough idea into validated discovery document with MCP-powered research    |
+| `/product-engineering:specify`  | PHASE 2: Create PRD with user stories, functional/non-functional requirements, and traceability |
+| `/product-engineering:design`   | PHASE 3: Design architecture with ADRs, tech stack decisions, and architecture gates validation |
+| `/product-engineering:plan`     | PHASE 4: Break design into atomic tasks (5-20 min each) with full traceability              |
+| `/product-engineering:validate` | PHASE 5: Validate implementation against spec, requirements, and architecture gates          |
 
 ## Intelligent Skills
 
@@ -969,6 +1050,43 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Custom test script generation
 - Saves tests to working directory for reusability
 
+### 21. idea-refinement
+
+**Plugin:** product-engineering
+**Type:** Autonomous skill
+**Focus:** Transform rough ideas into validated discovery documents
+
+**Invocation Examples:**
+
+- "I have an idea for a new feature"
+- "Help me refine this product concept"
+- "Research this idea"
+- "Validate this product idea"
+
+**Capabilities:**
+
+- Socratic questioning to elicit details (one question at a time)
+- MCP-powered market research (Perplexity for trends, Context7 for docs, Octocode for reference implementations)
+- Problem validation and solution exploration
+- Alternative analysis (always explore 2-3 alternatives)
+- Evidence-based recommendations
+- Discovery document generation with YAML frontmatter
+- YAGNI enforcement (no technical decisions at discovery phase)
+- Research-first approach with targeted questions
+
+**Process (6 phases):**
+1. Initial Understanding - Grasp the rough idea
+2. Market Research - Use MCP servers for competitive analysis and trends
+3. Problem Validation - Ensure problem is real and worth solving
+4. Solution Exploration - Explore 2-3 alternative approaches
+5. Recommendation & Decision - Evidence-based recommendation
+6. Discovery Documentation - Generate docs/discovery/DISC-{###}-{name}.md
+
+**MCP Integration Pattern:**
+- Perplexity: Market research, competitors, trends, best practices
+- Context7: Framework documentation, implementation patterns
+- Octocode: Reference implementations from GitHub repositories
+
 ## Hooks
 
 Hooks are event handlers that execute on specific Claude Code events.
@@ -1103,6 +1221,14 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** Development
 - **Keywords:** architecture, design-patterns, code-standards, solid-principles, clean-code, typescript, naming-conventions, best-practices
 
+### product-engineering
+
+- **Version:** 1.0.0
+- **Author:** Marcio Altoé
+- **License:** MIT
+- **Category:** Workflow
+- **Keywords:** product-engineering, discovery, specification, prd, technical-design, architecture-decision-records, adr, implementation-planning, requirements-engineering, mcp-integration, traceability
+
 ## Files Overview
 
 ### Marketplace Level
@@ -1115,13 +1241,15 @@ This marketplace provides comprehensive support for modern web development:
 
 ### Plugin Level
 
-- **9** Plugin manifests (`plugin.json` in each plugin)
-- **19** Command files (`.md` files in `commands/` directories)
-- **17** Skill definitions (`.md` files in `skills/` directories)
+- **10** Plugin manifests (`plugin.json` in each plugin)
+- **24** Command files (`.md` files in `commands/` directories)
+- **18** Skill definitions (`.md` files in `skills/` directories)
+- **5** Agent definitions (in product-engineering)
+- **6** Template files (in product-engineering)
 - **3** Hook files (in audio-notifications)
-- **7** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
+- **8** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design, product-engineering)
 
-**Total: 60 files** providing comprehensive Claude Code development support.
+**Total: 75 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 

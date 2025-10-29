@@ -194,6 +194,31 @@
         "email": "marcio.altoe@gmail.com"
       },
       "license": "MIT"
+    },
+    {
+      "name": "product-engineering",
+      "source": "./plugins/product-engineering",
+      "description": "Complete workflow from idea to implementation: Discovery → Spec → Design → Plan → Validate with MCP integration, architecture gates, and full traceability",
+      "version": "1.0.0",
+      "category": "workflow",
+      "keywords": [
+        "product-engineering",
+        "discovery",
+        "specification",
+        "prd",
+        "technical-design",
+        "architecture-decision-records",
+        "adr",
+        "implementation-planning",
+        "requirements-engineering",
+        "mcp-integration",
+        "traceability"
+      ],
+      "author": {
+        "name": "Marcio Altoé",
+        "email": "marcio.altoe@gmail.com"
+      },
+      "license": "MIT"
     }
   ]
 }
