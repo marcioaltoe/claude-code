@@ -173,7 +173,7 @@ phase: planning
 
 - [ ] **T014** [US1] Create `{Controller}` (self-registering)
 
-  - **Files:** `src/infrastructure/http/controllers/{resource}.controller.ts`
+  - **Files:** `src/infrastructure/controllers/{resource}.controller.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Depends:** T012, T013

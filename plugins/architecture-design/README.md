@@ -88,6 +88,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 **Purpose**: Clean Architecture principles including layered architecture, dependency rule, and domain-driven design patterns.
 
 **When to Use**:
+
 - Structuring a new project or module
 - Designing use cases or application services
 - Creating domain entities and value objects
@@ -95,14 +96,14 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Separating concerns across layers
 
 **Key Areas**:
+
 - **The Dependency Rule** - Dependencies point inward toward domain
 - **Domain Layer** - Pure business logic (Entities, Value Objects, Domain Services)
 - **Application Layer** - Use Cases, DTOs, Ports (interfaces)
-- **Infrastructure Layer** - Adapters (repositories, external services), includes HTTP layer (controllers, schemas, middleware)
-- **HTTP Layer** (within Infrastructure) - Self-registering controllers, Zod schemas, middleware, plugins
+- **Infrastructure Layer** - Adapters (repositories, external services), Controllers, includes HTTP layer (server, plugins, middleware)
+- **HTTP Layer** (within Infrastructure) - middleware, plugins
 - Repository pattern and Dependency Injection
 - Testing strategy (pure unit tests for domain, mocked tests for application)
-- Anti-patterns to avoid (anemic domain model, fat controllers)
 
 ### 5. Backend Engineer
 
@@ -111,6 +112,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 **Purpose**: Backend engineering with Clean Architecture, DDD, and Hono framework. Provides implementation examples and patterns.
 
 **When to Use**:
+
 - Implementing backend APIs and services
 - Creating repositories and database access
 - Designing use cases and business logic
@@ -119,10 +121,11 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Creating adapters for external services
 
 **Key Areas**:
+
 - **Domain Layer Examples** - Entities, Value Objects, Ports (interfaces)
 - **Application Layer Examples** - Use Cases, DTOs, Mappers
-- **Infrastructure Layer Examples** - Repositories, Adapters, DI Container
-- **HTTP Layer Examples** (in Infrastructure) - Self-registering Controllers, Zod Schemas, Middleware, Plugins
+- **Infrastructure Layer Examples** - Repositories, Adapters, DI Container, Controllers
+- **HTTP Layer Examples** (in Infrastructure) - Middleware, Plugins
 - **Custom DI Container** - Symbol-based tokens, lifetimes, composition root
 - **Best Practices** - Do's and Don'ts for backend development
 - **Common Patterns** - Result type, Domain Events, Repository pattern
@@ -134,6 +137,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 **Purpose**: Frontend engineering with Clean Architecture, React 19, and TanStack ecosystem. Provides implementation examples and patterns for testable, maintainable applications.
 
 **When to Use**:
+
 - Implementing frontend features and components
 - Creating use cases and gateways
 - Designing state management with TanStack Store
@@ -142,6 +146,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Organizing monorepo or standalone app structure
 
 **Key Areas**:
+
 - **Monorepo Structure** - apps/ + packages/ with Turborepo and Bun/pnpm workspaces
 - **Feature-Based Architecture** - Simplified structure (components, pages, stores, gateways, hooks, types)
 - **Gateway/Port Pattern** - Interfaces for HTTP, storage, events
@@ -160,6 +165,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 **Purpose**: Comprehensive architecture audit and analysis specialist for evaluating codebase quality, architectural patterns, and technical debt assessment.
 
 **When to Use**:
+
 - User asks to audit, review, or analyze architecture
 - Evaluating adherence to architectural patterns
 - Assessing technical debt
@@ -169,6 +175,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - Identifying architectural violations
 
 **Key Areas**:
+
 - **Discovery & Mapping** - Identify codebase type, structure, tech stack
 - **Layer Analysis** - Evaluate Clean Architecture layer organization (backend: domain, application, infrastructure with HTTP; frontend: feature-based)
 - **Pattern Compliance** - Verify dependency inversion, repository pattern, gateway pattern, state management
@@ -179,6 +186,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - **Skill Delegation** - Invokes `frontend-engineer`, `backend-engineer`, and other specialized skills for detailed analysis
 
 **Audit Process** (6 Phases):
+
 1. Discovery & Mapping
 2. Layer Analysis
 3. Pattern Compliance
@@ -187,6 +195,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 6. Critical Rules Compliance
 
 **Deliverables**:
+
 - Comprehensive audit report with executive summary
 - Evidence-based findings (file:line references, code snippets)
 - Prioritized recommendations (High/Medium/Low impact)
@@ -326,6 +335,7 @@ You can explicitly request skills:
 ## Skill Relationships
 
 ### Foundation (All Projects)
+
 ```
 project-standards (Critical Rules & Tech Stack)
     ↓
@@ -337,6 +347,7 @@ naming-conventions (Naming)
 ```
 
 ### Backend Path
+
 ```
 solid-principles (SOLID Principles)
     ↓
@@ -348,6 +359,7 @@ clean-code-principles (Code Quality)
 ```
 
 ### Frontend Path
+
 ```
 solid-principles (SOLID Principles - lighter)
     ↓
@@ -359,6 +371,7 @@ clean-code-principles (Code Quality)
 ```
 
 ### Architecture Audit Path
+
 ```
 architecture-auditor (Audit Coordinator)
     ↓ invokes
@@ -384,6 +397,7 @@ All skills work together to ensure:
 **For complete tech stack details, see `project-standards` skill**
 
 **Quick Reference:**
+
 - **Backend**: Bun, Hono, PostgreSQL + Drizzle ORM, Redis, BullMQ
 - **Frontend**: React 19, Vite 6, TanStack Router, shadcn/ui, Tailwind CSS 4
 - **Testing**: Bun test, React Testing Library, Playwright

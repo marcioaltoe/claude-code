@@ -59,7 +59,7 @@ Transform technical design into execution plan with:
 - Repository ports (interfaces)
 - Repository implementations
 - Use cases
-- Self-registering controllers (in infrastructure/http/controllers/)
+- Self-registering controllers (in infrastructure/controllers/)
 - HttpServer adapter setup (if not exists)
 - DI registration
 

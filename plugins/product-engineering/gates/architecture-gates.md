@@ -401,7 +401,8 @@ describe("UserRepository", () => {
 - ✅ Database (Drizzle schemas, migrations)
 - ✅ Adapters (Cache, Logger, Queue, HTTP clients)
 - ✅ DI Container
-- ✅ HTTP Layer (controllers, schemas, middleware, plugins)
+- ✅ Controllers and Schemas
+- ✅ HTTP Layer (server, middleware, plugins)
 - ✅ Can import from domain and application
 
 **HTTP Layer (src/infrastructure/http/):**

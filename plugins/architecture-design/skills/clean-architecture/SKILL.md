@@ -43,7 +43,7 @@ You should proactively assist when:
 
 - Domain layer has NO dependencies (pure business logic)
 - Application layer depends ONLY on Domain
-- Infrastructure layer depends on Application and Domain (includes HTTP layer with controllers, schemas, middleware)
+- Infrastructure layer depends on Application and Domain
 
 ### Benefits
 
@@ -189,6 +189,12 @@ export interface UserRepository {
 
 ```
 src/infrastructure/
+├── controllers/
+│   ├── user.controller.ts
+│   ├── order.controller.ts
+│   └── schemas/
+│       ├── user.schema.ts
+│       └── order.schema.ts
 ├── repositories/
 │   ├── user.repository.impl.ts
 │   └── order.repository.impl.ts
@@ -202,12 +208,6 @@ src/infrastructure/
 ├── http/
 │   ├── server/
 │   │   └── hono-http-server.adapter.ts
-│   ├── controllers/
-│   │   ├── user.controller.ts
-│   │   └── order.controller.ts
-│   ├── schemas/
-│   │   ├── user.schema.ts
-│   │   └── order.schema.ts
 │   ├── middleware/
 │   │   ├── auth.middleware.ts
 │   │   ├── validation.middleware.ts
@@ -229,10 +229,10 @@ src/infrastructure/
 
 - **Repositories**: Implement ports from `domain/ports/repositories/` using Drizzle ORM
 - **Adapters**: Implement external service ports (Cache, Logger, Queue)
+- **Controllers**: Self-registering HTTP controllers (thin layer, delegate to use cases)
+  - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
 - **HTTP Layer**: Framework-specific HTTP handling
   - Server: Hono adapter (implements HttpServer port)
-  - Controllers: Self-registering HTTP controllers (thin layer, delegate to use cases)
-  - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
   - Middleware: HTTP middleware (auth, validation, error handling)
   - Plugins: Hono plugins (CORS, compression, OpenAPI, etc.)
 - **Database**: Drizzle schemas, migrations, connection management

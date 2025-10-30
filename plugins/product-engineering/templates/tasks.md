@@ -151,7 +151,7 @@ w
 
   - **Story:** US-1
   - **Requirements:** FR-001
-  - **Files:** `src/infrastructure/http/controllers/{resource}.controller.ts`
+  - **Files:** `src/infrastructure/controllers/{resource}.controller.ts`
   - **Estimate:** 15 min
   - **Depends:** T012, T013
   - **Note:** Delegate to use case, no business logic. Controller auto-registers routes in constructor.

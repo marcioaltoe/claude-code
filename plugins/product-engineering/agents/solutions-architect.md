@@ -76,8 +76,9 @@ For each:
 src/domain/       # No dependencies
 src/application/  # Depends on domain
 src/infrastructure/ # Implements domain ports, includes HTTP layer
-  ├── http/       # HTTP Layer (controllers, schemas, middleware, plugins)
+  ├── http/       # HTTP Layer (schemas, middleware, plugins)
   ├── repositories/
+  ├── controllers/
   ├── adapters/
   └── container/
 ```
@@ -193,7 +194,7 @@ For each major decision:
 - Domain has no dependencies
 - Flow: Infrastructure (with HTTP) → Application → Domain
 - Interfaces in domain/ports/ (no "I" prefix)
-- HTTP layer lives in infrastructure/http/ (controllers, schemas, middleware)
+- HTTP layer lives in infrastructure/http/ (schemas, middleware)
 
 **Feature-Based (Frontend):**
 

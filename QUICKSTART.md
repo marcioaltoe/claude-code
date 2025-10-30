@@ -257,7 +257,7 @@ Claude will automatically:
 - Use architecture-design plugin's `backend-engineer` skill for Clean Architecture implementation
 - Create Domain Layer (entities, value objects, ports)
 - Create Application Layer (use cases, DTOs)
-- Create Infrastructure Layer with HTTP sublayer (repositories, adapters, DI container, HTTP server, controllers, schemas)
+- Create Infrastructure Layer with HTTP sublayer (repositories, adapters, controllers, DI container, HTTP server)
 - Implement custom DI Container with proper lifetimes (singleton, scoped, transient)
 - Generate all code following SOLID principles and Clean Architecture patterns
 

@@ -79,6 +79,10 @@ src/
 │       └── {entity}.dto.ts
 │
 └── infrastructure/            # Layer 3 (depends on Application + Domain)
+    ├── controllers/       # Self-registering controllers
+    │   ├── {resource}.controller.ts
+    │   └── schemas/           # Zod validation schemas
+    │       └── {resource}.schema.ts
     ├── repositories/          # Repository implementations
     │   └── {entity}.repository.impl.ts
     ├── adapters/              # External service adapters
@@ -94,10 +98,6 @@ src/
     ├── http/                  # HTTP Layer (framework-specific)
     │   ├── server/            # HttpServer adapter (Hono implementation)
     │   │   └── hono-http-server.adapter.ts
-    │   ├── controllers/       # Self-registering controllers
-    │   │   └── {resource}.controller.ts
-    │   ├── schemas/           # Zod validation schemas
-    │   │   └── {resource}.schema.ts
     │   ├── middleware/        # HTTP middleware
     │   │   └── {name}.middleware.ts
     │   └── plugins/           # Hono plugins (CORS, compression, etc.)

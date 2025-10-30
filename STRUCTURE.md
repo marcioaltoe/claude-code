@@ -867,8 +867,8 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - The Dependency Rule - Dependencies point inward toward domain
 - Domain Layer - Pure business logic (Entities, Value Objects, Domain Services)
 - Application Layer - Use Cases, DTOs, Ports (interfaces)
-- Infrastructure Layer - Adapters (repositories, external services, HTTP layer)
-  - HTTP Layer: Server, Controllers, Schemas, Middleware, Plugins
+- Infrastructure Layer - Adapters (repositories, external services, controllers, HTTP layer)
+  - HTTP Layer: Server, Middleware, Plugins
 - Repository pattern and Dependency Injection
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
@@ -969,8 +969,8 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 - Domain Layer examples (Entities, Value Objects, Ports)
 - Application Layer examples (Use Cases, DTOs, Mappers)
-- Infrastructure Layer examples (Repositories, Adapters, DI Container)
-- HTTP Layer examples (Server, Controllers, Schemas with Zod, Middleware, Plugins)
+- Infrastructure Layer examples (Repositories, Adapters, DI Container, Controllers)
+- HTTP Layer examples (Server, Middleware, Plugins)
 - Custom DI Container with Symbol-based tokens
 - Lifetime management (singleton, scoped, transient)
 - Composition root pattern

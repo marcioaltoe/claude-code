@@ -229,6 +229,8 @@ src/
 │   └── dtos/              # Data transfer objects
 │
 └── infrastructure/        # Layer 3 (depends on Application + Domain)
+    ├── controllers/       # Self-registering HTTP controllers
+    │   └── schemas/       # Zod validation schemas (request/response contracts)
     ├── repositories/      # Repository implementations (Drizzle ORM)
     ├── adapters/          # External service adapters
     │   ├── cache/         # Redis adapter (implements CacheService port)
@@ -237,8 +239,6 @@ src/
     ├── http/              # HTTP layer (framework-specific)
     │   ├── server/
     │   │   └── hono-http-server.adapter.ts  # Hono implementation of HttpServer port
-    │   ├── controllers/   # Self-registering HTTP controllers
-    │   ├── schemas/       # Zod validation schemas (request/response contracts)
     │   ├── middleware/    # HTTP middleware (auth, validation, error handling)
     │   └── plugins/       # Hono plugins (CORS, compression, OpenAPI, etc.)
     ├── database/          # Drizzle schemas, migrations, connection
@@ -263,10 +263,10 @@ src/
 
    - Repositories: Database implementations (implements domain/ports/repositories)
    - Adapters: External service implementations (Cache, Logger, Queue)
+   - Controllers: Self-registering HTTP controllers (thin layer, delegate to use cases)
+     - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
    - HTTP Layer: Framework-specific HTTP handling
      - Server: Hono adapter (implements HttpServer port)
-     - Controllers: Self-registering HTTP controllers (thin layer, delegate to use cases)
-     - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
      - Middleware: HTTP middleware (auth, validation, error handling)
      - Plugins: Hono plugins (CORS, compression, OpenAPI, etc.)
    - Database: Drizzle schemas, migrations, connection management

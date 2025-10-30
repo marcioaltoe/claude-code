@@ -324,7 +324,7 @@ Adopt Hono as our backend web framework for all API routes and middleware.
 
 1. Install Hono and configure for Bun runtime
 2. Create middleware stack: logging � authentication � error handling
-3. Define route structure following Clean Architecture (controllers in infrastructure/http/)
+3. Define route structure following Clean Architecture (controllers in infrastructure/)
 4. Use Hono's built-in validation with Zod schemas
 5. Migrate existing Express mental models to Hono patterns (minimal relearning)
 
@@ -398,7 +398,7 @@ No migration needed (greenfield project). For future reference if porting from E
 - [x] **Type Safety Gate**: PASS - Native TypeScript support eliminates `any` usage
 - [x] **Clean Code Gate**: N/A - Framework choice doesn't affect function size
 - [x] **Test-First Gate**: PASS - Hono supports test-friendly context mocking
-- [x] **Clean Architecture Gate**: PASS - Hono controllers live in infrastructure/http/, delegate to use cases
+- [x] **Clean Architecture Gate**: PASS - Hono controllers live in infrastructure/controllers/, delegate to use cases
 - [ ] **Feature-Based Architecture Gate**: N/A - Backend framework (frontend gate)
 - [x] **Naming Conventions Gate**: PASS - Framework doesn't constrain naming
 
