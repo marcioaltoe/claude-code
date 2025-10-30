@@ -31,6 +31,7 @@ The agent will automatically use the `task-breakdown` skill to ensure atomic tas
 ## 📤 Expected Output
 
 - **File 1:** `docs/plans/PLAN-{###}-{kebab-case-name}.md`
+
   - Implementation plan with phases (Foundation → US-1 → US-2 → Quality Gates)
   - Dependencies graph and critical path
   - Rastreabilidade table (tasks → user stories → requirements)

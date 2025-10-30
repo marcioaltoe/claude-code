@@ -78,33 +78,34 @@ src/
 │   └── dtos/                  # Data transfer objects
 │       └── {entity}.dto.ts
 │
-├── infrastructure/            # Layer 3 (depends on Application + Domain)
-│   ├── repositories/          # Repository implementations
-│   │   └── {entity}.repository.impl.ts
-│   ├── adapters/              # External service adapters
-│   │   ├── cache/             # Redis, etc.
-│   │   │   └── redis.adapter.ts
-│   │   ├── logger/            # Winston, Pino, etc.
-│   │   │   └── logger.adapter.ts
-│   │   └── queue/             # BullMQ, etc.
-│   │       └── bullmq.adapter.ts
-│   ├── database/              # Drizzle schemas, migrations
-│   │   ├── schema.ts
-│   │   └── migrations/
-│   ├── http/                  # HTTP clients
-│   │   └── {service}.client.ts
-│   └── container/             # DI Container
-│       ├── main.ts
-│       ├── tokens.ts
-│       └── register-*.ts
-│
-└── presentation/              # Layer 4 (depends on Application)
-    ├── routes/                # Hono route registration
-    │   └── {resource}.routes.ts
-    ├── controllers/           # Route handlers
-    │   └── {resource}.controller.ts
-    └── schemas/               # Zod validation schemas
-        └── {resource}.schema.ts
+└── infrastructure/            # Layer 3 (depends on Application + Domain)
+    ├── repositories/          # Repository implementations
+    │   └── {entity}.repository.impl.ts
+    ├── adapters/              # External service adapters
+    │   ├── cache/             # Redis, etc.
+    │   │   └── redis.adapter.ts
+    │   ├── logger/            # Winston, Pino, etc.
+    │   │   └── logger.adapter.ts
+    │   └── queue/             # BullMQ, etc.
+    │       └── bullmq.adapter.ts
+    ├── database/              # Drizzle schemas, migrations
+    │   ├── schema.ts
+    │   └── migrations/
+    ├── http/                  # HTTP Layer (framework-specific)
+    │   ├── server/            # HttpServer adapter (Hono implementation)
+    │   │   └── hono-http-server.adapter.ts
+    │   ├── controllers/       # Self-registering controllers
+    │   │   └── {resource}.controller.ts
+    │   ├── schemas/           # Zod validation schemas
+    │   │   └── {resource}.schema.ts
+    │   ├── middleware/        # HTTP middleware
+    │   │   └── {name}.middleware.ts
+    │   └── plugins/           # Hono plugins (CORS, compression, etc.)
+    │       └── {name}.plugin.ts
+    └── container/             # DI Container
+        ├── main.ts
+        ├── tokens.ts
+        └── register-*.ts
 ```
 
 ### Frontend Structure (Feature-Based)
@@ -302,7 +303,7 @@ export const userResponseSchema = z.object({
 ### Gate 5: Clean Architecture Gate (Backend) ✅
 
 - [ ] Domain layer has no dependencies?
-- [ ] Dependency flow correct (Presentation → Application → Domain ← Infrastructure)?
+- [ ] Dependency flow correct (Infrastructure → Application → Domain)?
 - [ ] Interfaces in domain/ports/ (no "I" prefix)?
 - [ ] Repository pattern for data access?
 - [ ] Constructor injection for dependencies?
@@ -380,7 +381,7 @@ export const userResponseSchema = z.object({
 ### Example Flow: Create User
 
 ```
-1. HTTP Request → Presentation Layer (Controller)
+1. HTTP Request → Infrastructure Layer - HTTP (Controller)
 2. Controller validates input (Zod schema)
 3. Controller calls Application Layer (Use Case)
 4. Use Case coordinates Domain Layer (Entity + Repository Port)

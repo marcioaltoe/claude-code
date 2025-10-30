@@ -66,7 +66,7 @@ features/[name]/
 └── types/        # TypeScript types
 ```
 
-**NO Clean Architecture layers (domain/application/infrastructure/presentation)**
+**NO Clean Architecture layers (domain/application/infrastructure)**
 
 ### Testing:
 
@@ -188,7 +188,7 @@ tests/
 1. **`clean-architecture` skill** (from architecture-design plugin)
 
    - **ALWAYS use when creating files** - Deciding file locations and layer organization
-   - **ALWAYS use when organizing layers** - Domain/Application/Infrastructure/Presentation
+   - **ALWAYS use when organizing layers** - Domain/Application/Infrastructure (with HTTP layer)
    - Creating entities, value objects, aggregates, domain events
    - Defining repository patterns and ports (interface contracts)
    - Implementing use cases and application services
@@ -291,8 +291,8 @@ src/
 - **Use `code-standards` skill when writing backend code** - SOLID principles + Clean Code patterns
 - Inject dependencies via constructors (constructor injection)
 - Define interfaces in `domain/ports/` (NO "I" prefix)
-- Use DTOs/ViewModels for presentation layer (never expose entities)
-- Follow dependency rule: Domain ← Application ← Infrastructure/Presentation
+- Use DTOs/ViewModels for HTTP layer (never expose entities)
+- Follow dependency rule: Infrastructure (with HTTP) → Application → Domain
 - Implement repository pattern for data access
 - Use type-safe DI tokens with Symbol
 - Separate registration functions by layer (registerDomain, registerApplication, etc.)
@@ -375,7 +375,11 @@ export interface HttpServer {
 // infrastructure/http/server/hono-http-server.adapter.ts
 import type { Context } from "hono";
 import { Hono } from "hono";
-import { type HttpHandler, HttpMethod, type HttpServer } from "@/domain/ports/http-server";
+import {
+  type HttpHandler,
+  HttpMethod,
+  type HttpServer,
+} from "@/domain/ports/http-server";
 
 export class HonoHttpServer implements HttpServer {
   private readonly app: Hono;

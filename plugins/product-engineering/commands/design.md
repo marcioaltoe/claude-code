@@ -16,7 +16,7 @@ This command will invoke the `solutions-architect` agent, which will:
 2. **Research architectures** - Use MCP (Context7, Perplexity, Octocode) to research patterns, frameworks, and reference implementations
 3. **Evaluate 2-3 architectures** - Compare approaches (Clean, Hexagonal, Transactional Script) with pros/cons
 4. **Design tech stack** - Select runtime, framework, database, cache, queue with research-backed rationale
-5. **Define system structure** - Backend layers (domain/application/infrastructure/presentation) and frontend features
+5. **Define system structure** - Backend layers (domain/application/infrastructure with HTTP) and frontend features
 6. **Model data** - Design entities, value objects, aggregates, and database schema
 7. **Design API** - Define endpoints with Zod schemas for request/response
 8. **Validate architecture gates** - Run all 7 gates (Simplicity, Type Safety, Clean Code, Test-First, Clean Architecture, Feature-Based, Naming)

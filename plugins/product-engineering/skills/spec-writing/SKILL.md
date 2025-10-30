@@ -17,15 +17,15 @@ Master the craft of writing precise, actionable specifications that eliminate am
 
 ## Quick Reference
 
-| Technique                    | Purpose                          | Key Pattern                     | Example                         |
-| ---------------------------- | -------------------------------- | ------------------------------- | ------------------------------- |
-| **Active Voice Requirements** | Clear, testable statements      | "System MUST {verb} {object}"   | "System MUST validate email"    |
-| **Given-When-Then Scenarios** | Unambiguous acceptance criteria | Given X, When Y, Then Z         | Given user logged in, When...   |
-| **Avoid Ambiguity Words**    | Eliminate interpretation         | Replace vague with specific     | "< 500ms" not "fast"            |
-| **Edge Case Documentation**  | Complete behavior specification  | "What happens when...?"         | "What happens when offline?"    |
-| **NFR Categorization**       | Systematic quality coverage      | 5 categories (P/S/SC/O/M)       | Performance, Security, etc.     |
-| **[NEEDS CLARIFICATION]**    | Mark uncertainties explicitly    | Flag unknowns, don't guess      | [NEEDS CLARIFICATION: timeout?] |
-| **Independent Testability**  | Stories work standalone          | No hidden dependencies          | Can test US-1 without US-2      |
+| Technique                     | Purpose                         | Key Pattern                   | Example                         |
+| ----------------------------- | ------------------------------- | ----------------------------- | ------------------------------- |
+| **Active Voice Requirements** | Clear, testable statements      | "System MUST {verb} {object}" | "System MUST validate email"    |
+| **Given-When-Then Scenarios** | Unambiguous acceptance criteria | Given X, When Y, Then Z       | Given user logged in, When...   |
+| **Avoid Ambiguity Words**     | Eliminate interpretation        | Replace vague with specific   | "< 500ms" not "fast"            |
+| **Edge Case Documentation**   | Complete behavior specification | "What happens when...?"       | "What happens when offline?"    |
+| **NFR Categorization**        | Systematic quality coverage     | 5 categories (P/S/SC/O/M)     | Performance, Security, etc.     |
+| **[NEEDS CLARIFICATION]**     | Mark uncertainties explicitly   | Flag unknowns, don't guess    | [NEEDS CLARIFICATION: timeout?] |
+| **Independent Testability**   | Stories work standalone         | No hidden dependencies        | Can test US-1 without US-2      |
 
 ---
 
@@ -50,12 +50,12 @@ Describe capabilities, not implementation.
 
 Replace subjective adjectives with objective metrics:
 
-| Vague Word    | Specific Metric                  |
-| ------------- | -------------------------------- |
-| "Fast"        | "< 500ms p95"                    |
-| "Scalable"    | "Handle 1000 concurrent users"   |
-| "Reliable"    | "99.9% uptime"                   |
-| "Secure"      | "TLS 1.3, bcrypt rounds=12"      |
+| Vague Word | Specific Metric                |
+| ---------- | ------------------------------ |
+| "Fast"     | "< 500ms p95"                  |
+| "Scalable" | "Handle 1000 concurrent users" |
+| "Reliable" | "99.9% uptime"                 |
+| "Secure"   | "TLS 1.3, bcrypt rounds=12"    |
 
 ### Principle 5: Given-When-Then for All Acceptance Criteria
 
@@ -93,4 +93,4 @@ L **Don't:**
 
 ---
 
-*This skill should be used in conjunction with `requirements-elicitation` skill when creating specifications from discovery documents.*
+_This skill should be used in conjunction with `requirements-elicitation` skill when creating specifications from discovery documents._

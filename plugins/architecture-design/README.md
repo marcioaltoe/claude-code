@@ -98,8 +98,8 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - **The Dependency Rule** - Dependencies point inward toward domain
 - **Domain Layer** - Pure business logic (Entities, Value Objects, Domain Services)
 - **Application Layer** - Use Cases, DTOs, Ports (interfaces)
-- **Infrastructure Layer** - Adapters (repositories, external services)
-- **Presentation Layer** - Controllers, routes, HTTP/CLI handling
+- **Infrastructure Layer** - Adapters (repositories, external services), includes HTTP layer (controllers, schemas, middleware)
+- **HTTP Layer** (within Infrastructure) - Self-registering controllers, Zod schemas, middleware, plugins
 - Repository pattern and Dependency Injection
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
@@ -122,7 +122,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 - **Domain Layer Examples** - Entities, Value Objects, Ports (interfaces)
 - **Application Layer Examples** - Use Cases, DTOs, Mappers
 - **Infrastructure Layer Examples** - Repositories, Adapters, DI Container
-- **Presentation Layer Examples** - Routes, Controllers, Schemas (Zod)
+- **HTTP Layer Examples** (in Infrastructure) - Self-registering Controllers, Zod Schemas, Middleware, Plugins
 - **Custom DI Container** - Symbol-based tokens, lifetimes, composition root
 - **Best Practices** - Do's and Don'ts for backend development
 - **Common Patterns** - Result type, Domain Events, Repository pattern
@@ -143,7 +143,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 
 **Key Areas**:
 - **Monorepo Structure** - apps/ + packages/ with Turborepo and Bun/pnpm workspaces
-- **Feature-Based Clean Architecture** - domain, application, infrastructure, presentation
+- **Feature-Based Architecture** - Simplified structure (components, pages, stores, gateways, hooks, types)
 - **Gateway/Port Pattern** - Interfaces for HTTP, storage, events
 - **Thin Use Cases** - Delegate to gateways
 - **State Management** - TanStack Store (local state) + TanStack Query (server state)
@@ -170,7 +170,7 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 
 **Key Areas**:
 - **Discovery & Mapping** - Identify codebase type, structure, tech stack
-- **Layer Analysis** - Evaluate Clean Architecture layer organization (domain, application, infrastructure, presentation)
+- **Layer Analysis** - Evaluate Clean Architecture layer organization (backend: domain, application, infrastructure with HTTP; frontend: feature-based)
 - **Pattern Compliance** - Verify dependency inversion, repository pattern, gateway pattern, state management
 - **Tech Stack Compliance** - Check correct usage of Bun, React 19, Hono, TanStack ecosystem, etc.
 - **Code Quality Assessment** - Evaluate KISS, YAGNI, DRY, TDA, type safety, testing

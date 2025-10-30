@@ -57,6 +57,7 @@ description: Expert frontend engineering with simplified pragmatic architecture,
 **Quick Architecture Reference:**
 
 This skill focuses on:
+
 - Feature-based architecture (NOT Clean Architecture layers)
 - Gateway Pattern (Interface + HTTP + Fake)
 - Context API injection for testability
@@ -1009,7 +1010,7 @@ export function UserAvatar() {}
 
 **NEVER:**
 
-- Use Clean Architecture layers (domain/application/infrastructure/presentation) - **REMOVED**
+- Use Clean Architecture layers (domain/application/infrastructure)
 - Import stores in components (pass data via props)
 - Call HTTP directly from components (use gateways)
 - Use `any` type (use `unknown` with type guards)

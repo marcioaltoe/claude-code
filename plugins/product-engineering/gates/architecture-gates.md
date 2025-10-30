@@ -362,8 +362,10 @@ describe("UserRepository", () => {
 
 ```
 ┌─────────────────────────────────────┐
-│       Presentation Layer            │ ← HTTP, CLI, GraphQL
-│  (Routes, Controllers, Schemas)     │
+│     Infrastructure Layer            │ ← Repositories, Adapters, DB
+│  ┌────────────────────────────────┐ │
+│  │   HTTP Layer                   │ │ ← Controllers, Schemas, Middleware
+│  └────────────────────────────────┘ │
 └─────────────────────────────────────┘
               ↓
 ┌─────────────────────────────────────┐
@@ -373,10 +375,6 @@ describe("UserRepository", () => {
 ┌─────────────────────────────────────┐
 │        Domain Layer                 │ ← Entities, Value Objects, Ports
 │     (NO DEPENDENCIES)               │
-└─────────────────────────────────────┘
-              ↑
-┌─────────────────────────────────────┐
-│     Infrastructure Layer            │ ← Repositories, Adapters, DB
 └─────────────────────────────────────┘
 ```
 
@@ -395,7 +393,7 @@ describe("UserRepository", () => {
 - ✅ Use Cases (application logic)
 - ✅ DTOs (data transfer objects)
 - ✅ Can import from domain
-- ❌ NO imports from infrastructure or presentation
+- ❌ NO imports from infrastructure
 
 **Infrastructure Layer (src/infrastructure/):**
 
@@ -403,13 +401,16 @@ describe("UserRepository", () => {
 - ✅ Database (Drizzle schemas, migrations)
 - ✅ Adapters (Cache, Logger, Queue, HTTP clients)
 - ✅ DI Container
+- ✅ HTTP Layer (controllers, schemas, middleware, plugins)
 - ✅ Can import from domain and application
 
-**Presentation Layer (src/presentation/):**
+**HTTP Layer (src/infrastructure/http/):**
 
-- ✅ Routes (Hono route registration)
-- ✅ Controllers (route handlers, delegate to use cases)
-- ✅ Schemas (Zod validation)
+- ✅ Server (Hono adapter implementing HttpServer port)
+- ✅ Controllers (self-registering, delegate to use cases)
+- ✅ Schemas (Zod validation for requests/responses)
+- ✅ Middleware (auth, validation, error handling)
+- ✅ Plugins (CORS, compression, OpenAPI)
 - ✅ Can import from application
 - ❌ NO business logic in controllers
 
@@ -454,7 +455,7 @@ class CreateUserUseCase {
 ### Validation Questions
 
 - [ ] Domain layer has no dependencies?
-- [ ] Dependency flow: Presentation → Application → Domain ← Infrastructure?
+- [ ] Dependency flow: Infrastructure → Application → Domain?
 - [ ] Interfaces in domain/ports/ (no "I" prefix)?
 - [ ] Repository pattern for data access?
 - [ ] Constructor injection for all dependencies?

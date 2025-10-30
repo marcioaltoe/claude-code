@@ -40,28 +40,31 @@ You should proactively assist when:
 
 **This section provides practical implementation examples. For architectural principles, dependency rules, and testing strategies, see `clean-architecture` skill**
 
-### Layers (dependency flow: outward → inward)
+### Layers (dependency flow: Infrastructure → Application → Domain)
 
 ```
 ┌─────────────────────────────────────────┐
-│         Presentation Layer               │
-│         (routes, controllers)            │
+│      Infrastructure Layer               │
+│  (repositories, adapters, container)    │
+│                                         │
+│  ├── HTTP Layer (framework-specific)    │
+│  │   ├── server/    (Hono adapter)      │
+│  │   ├── controllers/ (self-register)   │
+│  │   ├── schemas/   (Zod validation)    │
+│  │   ├── middleware/                    │
+│  │   └── plugins/                       │
 └────────────────┬────────────────────────┘
                  │ depends on ↓
 ┌────────────────▼────────────────────────┐
-│         Infrastructure Layer             │
-│  (repositories, adapters, container)     │
+│         Application Layer               │
+│         (use cases, DTOs)               │
 └────────────────┬────────────────────────┘
                  │ depends on ↓
 ┌────────────────▼────────────────────────┐
-│         Application Layer                │
-│         (use cases, DTOs)                │
-└────────────────┬────────────────────────┘
-                 │ depends on ↓
-┌────────────────▼────────────────────────┐
-│           Domain Layer                   │
-│  (entities, value objects, ports)        │
-└──────────────────────────────────────────┘
+│           Domain Layer                  │
+│  (entities, value objects, ports)       │
+│         (NO DEPENDENCIES)               │
+└─────────────────────────────────────────┘
 ```
 
 ### 1. Domain Layer (Core Business Logic)
@@ -188,10 +191,7 @@ import type { Logger } from "@/domain/ports";
 import { User } from "@/domain/entities";
 import { Email } from "@/domain/value-objects";
 import { UUIDv7 } from "@/domain/value-objects";
-import type {
-  CreateUserDto,
-  UserResponseDto,
-} from "@/application/dtos";
+import type { CreateUserDto, UserResponseDto } from "@/application/dtos";
 
 export class CreateUserUseCase {
   constructor(
@@ -479,7 +479,11 @@ export interface HttpServer {
 // infrastructure/http/server/hono-http-server.adapter.ts
 import type { Context } from "hono";
 import { Hono } from "hono";
-import { type HttpHandler, HttpMethod, type HttpServer } from "@/domain/ports/http-server";
+import {
+  type HttpHandler,
+  HttpMethod,
+  type HttpServer,
+} from "@/domain/ports/http-server";
 
 export class HonoHttpServer implements HttpServer {
   private readonly app: Hono;
@@ -673,7 +677,7 @@ import type { UserRepository } from "@/domain/ports/repositories/user.repository
 import type { CacheService } from "@/domain/ports/cache.service";
 import type { Logger } from "@/domain/ports/logger.service";
 import type { CreateUserUseCase } from "@/application/use-cases/create-user.use-case";
-import type { UserController } from "@/presentation/controllers/user.controller";
+import type { UserController } from "@/infrastructure/http/controllers/user.controller";
 
 export const TOKENS = {
   // Core
@@ -787,7 +791,7 @@ import {
   createRequestScope,
 } from "@/infrastructure/container/main";
 import { TOKENS } from "@/infrastructure/container/tokens";
-import { registerUserRoutes } from "@/presentation/routes/user.routes";
+// Note: With self-registering controllers, route registration is handled by controllers themselves
 
 const app = new Hono();
 

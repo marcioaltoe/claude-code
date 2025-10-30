@@ -348,8 +348,7 @@ Example `barrel-craft.json` for Clean Architecture:
   "forceGenerate": [
     "src/domain",
     "src/application",
-    "src/infrastructure",
-    "src/presentation"
+    "src/infrastructure"
   ],
   "exclude": ["**/*.test.*", "**/*.spec.*", "**/*.d.ts"],
   "extensions": ["ts", "tsx"],

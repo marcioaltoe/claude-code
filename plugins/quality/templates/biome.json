@@ -114,7 +114,7 @@
               ":BLANK_LINE:",
               ["@gesttione/**", "@gesttione-solutions/**"],
               ":BLANK_LINE:",
-              ["@/domain/**", "@/application/**", "@/infrastructure/**", "@/presentation/**"],
+              ["@/domain/**", "@/application/**", "@/infrastructure/**"],
               ":BLANK_LINE:",
               ["~/**"],
               ":BLANK_LINE:",

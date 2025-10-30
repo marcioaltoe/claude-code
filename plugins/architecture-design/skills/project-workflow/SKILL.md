@@ -82,6 +82,7 @@ bun run craft
 This updates barrel files (index.ts exports) for clean imports.
 
 **When to run:**
+
 - After creating new files
 - After moving/renaming files
 - After deleting files

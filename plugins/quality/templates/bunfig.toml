@@ -12,5 +12,6 @@ coveragePathIgnorePatterns = [
   "**/migrations/**",
   "**/index.ts",
   "src/server.ts",
-  "index.ts"
+  "index.ts",
+  "index.tsx"
 ]

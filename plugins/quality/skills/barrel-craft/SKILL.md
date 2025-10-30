@@ -207,12 +207,7 @@ Expands to:
 ```json
 {
   "targets": ["src"],
-  "forceGenerate": [
-    "src/domain",
-    "src/application",
-    "src/infrastructure",
-    "src/presentation"
-  ],
+  "forceGenerate": ["src/domain", "src/application", "src/infrastructure"],
   "exclude": ["**/*.test.*", "**/*.spec.*", "**/*.d.ts"],
   "sortExports": true,
   "subdirectories": true

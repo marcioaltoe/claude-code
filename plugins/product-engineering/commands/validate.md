@@ -44,6 +44,7 @@ The agent will systematically verify implementation using automated checks (bash
 **Validation Report** (inline or as file: `docs/validation/VALIDATION-{###}-{name}.md`)
 
 **Report includes:**
+
 - **Summary:** Overall status, requirements coverage (X%), architecture gates (X/7), quality gates (X/4)
 - **Requirements Coverage Table:** Each FR/NFR with status (✅ Implemented | ⚠️ Partial | ❌ Not Met), test coverage %, notes
 - **Architecture Gates Table:** Each gate with status and issues found
@@ -59,6 +60,7 @@ The agent will systematically verify implementation using automated checks (bash
 
 **If partial/fails (⚠️ ❌):**
 "Validation identified {N} issues. Review recommendations:
+
 1. Fix critical issues now
 2. Create follow-up tasks for non-critical items
 3. Update design docs to reflect accepted deviations"

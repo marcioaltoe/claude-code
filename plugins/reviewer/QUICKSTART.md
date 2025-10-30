@@ -88,11 +88,13 @@ After fixing issues:
 ## Common Issues
 
 **"Bun not found"**
+
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
 **"GITHUB_TOKEN not set"**
+
 ```bash
 echo "GITHUB_TOKEN=ghp_your_token" > .env
 ```

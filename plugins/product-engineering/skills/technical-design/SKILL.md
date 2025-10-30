@@ -17,14 +17,14 @@ Create clear, maintainable technical design documents that bridge specifications
 
 ## Quick Reference
 
-| Component              | Purpose                      | Key Elements                    | Output                           |
-| ---------------------- | ---------------------------- | ------------------------------- | -------------------------------- |
-| **Architecture Pattern** | System structure           | Layers, boundaries, dependencies | Clean Architecture diagram       |
-| **Tech Stack**         | Technology choices           | Framework, DB, cache, queue     | ADRs + rationale                 |
-| **Data Model**         | Entities & relationships     | Entities, value objects, aggregates | Drizzle schema + diagrams    |
-| **API Design**         | Contract definitions         | Endpoints, schemas, auth        | OpenAPI/Zod schemas              |
-| **System Structure**   | Directory organization       | File paths, modules             | Project structure tree           |
-| **Architecture Gates** | Quality validation           | 7 gates checked                 | Pass/Fail + Complexity Tracking  |
+| Component                | Purpose                  | Key Elements                        | Output                          |
+| ------------------------ | ------------------------ | ----------------------------------- | ------------------------------- |
+| **Architecture Pattern** | System structure         | Layers, boundaries, dependencies    | Clean Architecture diagram      |
+| **Tech Stack**           | Technology choices       | Framework, DB, cache, queue         | ADRs + rationale                |
+| **Data Model**           | Entities & relationships | Entities, value objects, aggregates | Drizzle schema + diagrams       |
+| **API Design**           | Contract definitions     | Endpoints, schemas, auth            | OpenAPI/Zod schemas             |
+| **System Structure**     | Directory organization   | File paths, modules                 | Project structure tree          |
+| **Architecture Gates**   | Quality validation       | 7 gates checked                     | Pass/Fail + Complexity Tracking |
 
 ---
 
@@ -81,12 +81,14 @@ Create clear, maintainable technical design documents that bridge specifications
 **Common Patterns:**
 
 1. **Clean Architecture** (Layered, strict boundaries)
-   - Domain ’ Application ’ Infrastructure/Presentation
+
+   - Infrastructure (with HTTP) â†’ Application â†’ Domain
    - Best for: Complex business logic, DDD
    - Trade-off: More structure, higher learning curve
 
 2. **Hexagonal Architecture** (Ports & Adapters)
-   - Core ’ Ports (interfaces) ’ Adapters (implementations)
+
+   - Core ï¿½ Ports (interfaces) ï¿½ Adapters (implementations)
    - Best for: External integrations, testability
    - Trade-off: Similar to Clean Arch, different terminology
 
@@ -102,7 +104,8 @@ Create clear, maintainable technical design documents that bridge specifications
 const architectureComparison = await perplexity.ask([
   {
     role: "user",
-    content: "Compare Clean Architecture vs Hexagonal Architecture vs Transactional Script for a {domain} application with {complexity level} business logic. Include maintainability, testability, and learning curve trade-offs.",
+    content:
+      "Compare Clean Architecture vs Hexagonal Architecture vs Transactional Script for a {domain} application with {complexity level} business logic. Include maintainability, testability, and learning curve trade-offs.",
   },
 ]);
 
@@ -183,6 +186,7 @@ const refImpls = await octocode.searchRepositories({
 ## Tech Stack
 
 ### Backend
+
 - **Runtime**: Bun 1.x
   - Rationale: [Link to ADR-####]
 - **Framework**: Hono v3
@@ -195,6 +199,7 @@ const refImpls = await octocode.searchRepositories({
   - Rationale: [Link to ADR-####]
 
 ### Frontend
+
 - **Framework**: React 19 + Vite 6
 - **Router**: TanStack Router
 - **State**: Zustand (client) + TanStack Query (server)
@@ -223,15 +228,18 @@ const refImpls = await octocode.searchRepositories({
 **Purpose**: {What this entity represents}
 
 **Attributes**:
+
 - `id`: UUID - Unique identifier
 - `{attribute}`: {type} - {description}
 - `createdAt`: timestamp - Creation timestamp
 - `updatedAt`: timestamp - Last update timestamp
 
 **Invariants**:
+
 - {Business rule that must always be true}
 
 **Relationships**:
+
 - {Relationship to other entities}
 ```
 
@@ -243,6 +251,7 @@ const refImpls = await octocode.searchRepositories({
 **Purpose**: Represents a registered user in the system
 
 **Attributes**:
+
 - `id`: UUID - Unique identifier
 - `email`: Email (value object) - User's email address (unique)
 - `passwordHash`: string - bcrypt hashed password
@@ -251,11 +260,13 @@ const refImpls = await octocode.searchRepositories({
 - `updatedAt`: timestamp - Last profile update
 
 **Invariants**:
+
 - Email must be unique across all users
 - Password hash must use bcrypt with cost factor e12
 - Display name must be 1-50 characters
 
 **Relationships**:
+
 - User has many Messages (one-to-many)
 - User has many ChatRooms (many-to-many through UserChatRoom)
 ```
@@ -270,11 +281,13 @@ const refImpls = await octocode.searchRepositories({
 **Purpose**: Represents a validated email address
 
 **Validation**:
+
 - Must match RFC 5322 pattern
 - Must be d255 characters
 - Case-insensitive comparison
 
 **Methods**:
+
 - `validate()`: Ensures email format is valid
 - `toString()`: Returns lowercase email string
 ```
@@ -331,16 +344,19 @@ export const users = pgTable("users", {
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/login` - User login
 - `POST /api/auth/logout` - User logout
 - `POST /api/auth/register` - New user registration
 
 ### Messages
+
 - `POST /api/messages` - Send message
 - `GET /api/messages/:roomId` - Get message history
 - `WS /api/ws/messages` - Real-time message stream
 
 ### Users
+
 - `GET /api/users/me` - Get current user profile
 - `PATCH /api/users/me` - Update profile
 ```
@@ -349,20 +365,23 @@ export const users = pgTable("users", {
 
 **For each endpoint, define:**
 
-```markdown
+````markdown
 ### POST /api/auth/login
 
 **Purpose**: Authenticate user and create session
 
 **Request**:
+
 ```json
 {
   "email": "user@example.com",
   "password": "SecurePass123!"
 }
 ```
+````
 
 **Success Response (200)**:
+
 ```json
 {
   "token": "jwt.token.here",
@@ -375,6 +394,7 @@ export const users = pgTable("users", {
 ```
 
 **Error Responses**:
+
 - `400 Bad Request`: Invalid email format
 - `401 Unauthorized`: Invalid credentials
 - `429 Too Many Requests`: Rate limit exceeded
@@ -384,14 +404,15 @@ export const users = pgTable("users", {
 **Rate Limiting**: 5 requests per 10 minutes per IP
 
 **Related Requirements**: FR-005, NFR-S-002, NFR-S-004
-```
+
+````
 
 #### 5.3 Zod Validation Schemas
 
 **Create Zod schemas for request/response validation:**
 
 ```typescript
-// src/presentation/schemas/auth.schema.ts
+// src/infrastructure/http/schemas/auth.schema.ts
 import { z } from "zod";
 
 export const loginRequestSchema = z.object({
@@ -407,7 +428,7 @@ export const loginResponseSchema = z.object({
     displayName: z.string(),
   }),
 });
-```
+````
 
 ---
 
@@ -419,65 +440,65 @@ export const loginResponseSchema = z.object({
 
 ```markdown
 ## Backend Structure
+```
+
+src/
+   domain/ # Layer 1 (no dependencies)
+    entities/ # User, Message, ChatRoom
+    value-objects/ # Email, MessageContent
+    aggregates/ # ChatRoom aggregate
+    events/ # MessageSent, UserJoined
+    ports/ # Interfaces (NO "I" prefix)
+    repositories/ # UserRepository, MessageRepository
+    services/ # External service interfaces
+
+   application/ # Layer 2 (depends on Domain only)
+    use-cases/ # SendMessage, GetMessageHistory
+    dtos/ # SendMessageDto, MessageDto
+
+   infrastructure/ # Layer 3 (depends on Application + Domain)
+    repositories/ # UserRepositoryImpl, MessageRepositoryImpl
+    adapters/ # External service implementations
+     cache/ # RedisCache
+     logger/ # WinstonLogger
+     queue/ # BullMQQueue
+    database/ # Drizzle schemas, migrations
+    http/ # HTTP clients
+    container/ # DI Container
+
 
 ```
-src/
-   domain/                 # Layer 1 (no dependencies)
-      entities/          # User, Message, ChatRoom
-      value-objects/     # Email, MessageContent
-      aggregates/        # ChatRoom aggregate
-      events/            # MessageSent, UserJoined
-      ports/             # Interfaces (NO "I" prefix)
-          repositories/  # UserRepository, MessageRepository
-          services/      # External service interfaces
-
-   application/           # Layer 2 (depends on Domain only)
-      use-cases/         # SendMessage, GetMessageHistory
-      dtos/              # SendMessageDto, MessageDto
-
-   infrastructure/        # Layer 3 (depends on Application + Domain)
-      repositories/      # UserRepositoryImpl, MessageRepositoryImpl
-      adapters/          # External service implementations
-         cache/         # RedisCache
-         logger/        # WinstonLogger
-         queue/         # BullMQQueue
-      database/          # Drizzle schemas, migrations
-      http/              # HTTP clients
-      container/         # DI Container
-
-   presentation/          # Layer 4 (depends on Application)
-       routes/            # Route registration
-       controllers/       # Route handlers
-       schemas/           # Zod validation schemas
-```
+
 ```
 
 #### 6.2 Frontend Structure (Feature-Based)
 
 ```markdown
 ## Frontend Structure
-
 ```
+
 features/
    auth/
-      components/        # LoginForm, RegisterForm (pure UI)
-      pages/             # LoginPage, RegisterPage (orchestration)
-      stores/            # useAuthStore (Zustand)
-      gateways/          # AuthGateway (Interface + HTTP + Fake)
-      types/             # TypeScript types
+    components/ # LoginForm, RegisterForm (pure UI)
+    pages/ # LoginPage, RegisterPage (orchestration)
+    stores/ # useAuthStore (Zustand)
+    gateways/ # AuthGateway (Interface + HTTP + Fake)
+    types/ # TypeScript types
 
    messages/
-      components/        # MessageList, MessageInput
-      pages/             # ChatPage
-      stores/            # useMessagesStore
-      gateways/          # MessagesGateway (Interface + HTTP + Fake)
-      types/
+    components/ # MessageList, MessageInput
+    pages/ # ChatPage
+    stores/ # useMessagesStore
+    gateways/ # MessagesGateway (Interface + HTTP + Fake)
+    types/
 
    shared/
-       components/        # Button, Input, etc.
-       hooks/             # useWebSocket, useAuth
-       utils/             # formatDate, etc.
+   components/ # Button, Input, etc.
+   hooks/ # useWebSocket, useAuth
+   utils/ # formatDate, etc.
+
 ```
+
 ```
 
 ---
@@ -492,7 +513,7 @@ features/
 2. **Type Safety Gate**: No `any`, branded types for domain primitives, type guards
 3. **Clean Code Gate**: Functions <20 lines, SOLID principles, meaningful names
 4. **Test-First Gate**: TDD (Red-Green-Refactor), tests before implementation
-5. **Clean Architecture Gate** (Backend): Domain  Application  Infrastructure/Presentation
+5. **Clean Architecture Gate** (Backend): Domain ï¿½ Application ï¿½ Infrastructure/Presentation
 6. **Feature-Based Architecture Gate** (Frontend): Pure components, injected gateways, Zustand stores
 7. **Naming Conventions Gate**: kebab-case (files), PascalCase (classes), camelCase (functions)
 
@@ -502,39 +523,46 @@ features/
 ### Phase -1: Pre-Implementation Gates
 
 #### Simplicity Gate (Article VII)
-- [ ] Using d3 projects? ’ **PASS**: Backend + Frontend + Shared (3 projects)
-- [ ] No future-proofing? ’ **PASS**: Building only for current requirements
-- [ ] Rule of Three before DRY? ’ **PASS**: Will extract abstractions after 3rd occurrence
+
+- [ ] Using d3 projects? ï¿½ **PASS**: Backend + Frontend + Shared (3 projects)
+- [ ] No future-proofing? ï¿½ **PASS**: Building only for current requirements
+- [ ] Rule of Three before DRY? ï¿½ **PASS**: Will extract abstractions after 3rd occurrence
 
 #### Type Safety Gate
-- [ ] No `any` types? ’ **PASS**: TypeScript strict mode enabled
-- [ ] Branded types for domain? ’ **PASS**: Email, MessageContent are branded types
-- [ ] Type guards for unknown? ’ **PASS**: Using Zod for runtime validation
+
+- [ ] No `any` types? ï¿½ **PASS**: TypeScript strict mode enabled
+- [ ] Branded types for domain? ï¿½ **PASS**: Email, MessageContent are branded types
+- [ ] Type guards for unknown? ï¿½ **PASS**: Using Zod for runtime validation
 
 #### Clean Code Gate
-- [ ] Functions < 20 lines? ’ **PASS**: Enforced in linting rules
-- [ ] SOLID principles? ’ **PASS**: Single Responsibility per class, DI used
-- [ ] Meaningful names? ’ **PASS**: No abbreviations, descriptive names
+
+- [ ] Functions < 20 lines? ï¿½ **PASS**: Enforced in linting rules
+- [ ] SOLID principles? ï¿½ **PASS**: Single Responsibility per class, DI used
+- [ ] Meaningful names? ï¿½ **PASS**: No abbreviations, descriptive names
 
 #### Test-First Gate
-- [ ] TDD approach? ’ **PASS**: Tests written before implementation (Red-Green-Refactor)
-- [ ] Real dependencies over mocks? ’ **PASS**: Integration tests use real DB/Redis
+
+- [ ] TDD approach? ï¿½ **PASS**: Tests written before implementation (Red-Green-Refactor)
+- [ ] Real dependencies over mocks? ï¿½ **PASS**: Integration tests use real DB/Redis
 
 #### Clean Architecture Gate (Backend)
-- [ ] Dependency flow correct? ’ **PASS**: Domain  Application  Infrastructure/Presentation
-- [ ] No implementation in domain? ’ **PASS**: Domain has only business logic, no frameworks
-- [ ] Interfaces in domain/ports/? ’ **PASS**: Repository interfaces defined in domain
+
+- [ ] Dependency flow correct? ï¿½ **PASS**: Domain ï¿½ Application ï¿½ Infrastructure/Presentation
+- [ ] No implementation in domain? ï¿½ **PASS**: Domain has only business logic, no frameworks
+- [ ] Interfaces in domain/ports/? ï¿½ **PASS**: Repository interfaces defined in domain
 
 #### Feature-Based Architecture Gate (Frontend)
-- [ ] Components pure UI? ’ **PASS**: No business logic, props only
-- [ ] Gateways injected via Context? ’ **PASS**: Gateway pattern with Interface + HTTP + Fake
-- [ ] Stores framework-agnostic? ’ **PASS**: Zustand stores are pure TypeScript
+
+- [ ] Components pure UI? ï¿½ **PASS**: No business logic, props only
+- [ ] Gateways injected via Context? ï¿½ **PASS**: Gateway pattern with Interface + HTTP + Fake
+- [ ] Stores framework-agnostic? ï¿½ **PASS**: Zustand stores are pure TypeScript
 
 #### Naming Conventions Gate
-- [ ] kebab-case for files? ’ **PASS**: user-repository.impl.ts
-- [ ] PascalCase for classes? ’ **PASS**: UserRepository, SendMessageUseCase
-- [ ] camelCase for functions? ’ **PASS**: sendMessage, getMessageHistory
-- [ ] NO "I" prefix? ’ **PASS**: UserRepository not IUserRepository
+
+- [ ] kebab-case for files? ï¿½ **PASS**: user-repository.impl.ts
+- [ ] PascalCase for classes? ï¿½ **PASS**: UserRepository, SendMessageUseCase
+- [ ] camelCase for functions? ï¿½ **PASS**: sendMessage, getMessageHistory
+- [ ] NO "I" prefix? ï¿½ **PASS**: UserRepository not IUserRepository
 
 **Complexity Tracking**: None - all gates PASS
 ```
@@ -549,6 +577,7 @@ Document in **Complexity Tracking** section:
 **Failed Gates:**
 
 1. **Simplicity Gate - FAIL**: Using 4 projects (Backend, Frontend, Admin, Shared)
+
    - **Why necessary**: Admin dashboard requires separate deployment and permissions
    - **Problem it solves**: Security isolation between user-facing app and admin tools
    - **Why simpler rejected**: Single project would mix user/admin concerns, violating security
@@ -610,10 +639,10 @@ Document in **Complexity Tracking** section:
 
 **Create traceability through hyperlinks**
 
-- Link design ’ spec
-- Link design ’ ADRs
-- Link API endpoints ’ requirements
-- Link entities ’ user stories
+- Link design ï¿½ spec
+- Link design ï¿½ ADRs
+- Link API endpoints ï¿½ requirements
+- Link entities ï¿½ user stories
 
 ### Principle 4: Make It Searchable
 
@@ -656,7 +685,7 @@ L **Don't:**
 5. **Research with MCP before deciding** - Perplexity, Context7, Octocode
 6. **Keep design doc high-level** - Details in separate files
 7. **Update docs with code** - Treat docs as code artifacts
-8. **Define clear module boundaries** - Domain, application, infrastructure, presentation
+8. **Define clear module boundaries** - Domain, application, infrastructure (with HTTP layer)
 
 ---
 
@@ -671,10 +700,12 @@ When technical design is complete:
 **Architecture**: {Pattern name} (see ADR-####)
 
 **Tech Stack**:
+
 - Backend: {Runtime + Framework + DB + ORM}
 - Frontend: {Framework + State + UI}
 
 **ADRs Created**:
+
 - ADR-####: {Architecture pattern}
 - ADR-####: {Tech decision 1}
 - ADR-####: {Tech decision 2}
@@ -693,4 +724,4 @@ If yes, I'll execute `/product-engineering:plan` to break this design into atomi
 
 ---
 
-*Powered by research from Perplexity MCP, Context7, Octocode, and industry best practices for technical documentation*
+_Powered by research from Perplexity MCP, Context7, Octocode, and industry best practices for technical documentation_

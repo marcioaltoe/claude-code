@@ -324,7 +324,7 @@ Adopt Hono as our backend web framework for all API routes and middleware.
 
 1. Install Hono and configure for Bun runtime
 2. Create middleware stack: logging � authentication � error handling
-3. Define route structure following Clean Architecture (routes in presentation layer)
+3. Define route structure following Clean Architecture (controllers in infrastructure/http/)
 4. Use Hono's built-in validation with Zod schemas
 5. Migrate existing Express mental models to Hono patterns (minimal relearning)
 
@@ -383,7 +383,7 @@ No migration needed (greenfield project). For future reference if porting from E
 2. **Type Safety Gate**: No `any`, branded types, type guards
 3. **Clean Code Gate**: Functions <20 lines, SOLID, meaningful names
 4. **Test-First Gate**: TDD (Red-Green-Refactor), tests before code
-5. **Clean Architecture Gate** (Backend): Domain � Application � Infrastructure/Presentation
+5. **Clean Architecture Gate** (Backend): Domain � Application � Infrastructure (with HTTP layer)
 6. **Feature-Based Architecture Gate** (Frontend): Pure components, injected gateways, Zustand stores
 7. **Naming Conventions Gate**: kebab-case (files), PascalCase (classes), camelCase (functions)
 
@@ -398,7 +398,7 @@ No migration needed (greenfield project). For future reference if porting from E
 - [x] **Type Safety Gate**: PASS - Native TypeScript support eliminates `any` usage
 - [x] **Clean Code Gate**: N/A - Framework choice doesn't affect function size
 - [x] **Test-First Gate**: PASS - Hono supports test-friendly context mocking
-- [x] **Clean Architecture Gate**: PASS - Hono routes live in presentation layer, delegate to use cases
+- [x] **Clean Architecture Gate**: PASS - Hono controllers live in infrastructure/http/, delegate to use cases
 - [ ] **Feature-Based Architecture Gate**: N/A - Backend framework (frontend gate)
 - [x] **Naming Conventions Gate**: PASS - Framework doesn't constrain naming
 

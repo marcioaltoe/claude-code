@@ -51,6 +51,7 @@ You should proactively assist when users mention:
 ```
 
 **This skill focuses on:**
+
 - Biome configuration and setup
 - Prettier configuration for Markdown
 - TypeScript strict mode configuration
@@ -106,12 +107,7 @@ You should proactively assist when users mention:
               ":BLANK_LINE:",
               ["@org/**"],
               ":BLANK_LINE:",
-              [
-                "@/domain/**",
-                "@/application/**",
-                "@/infrastructure/**",
-                "@/presentation/**"
-              ],
+              ["@/domain/**", "@/application/**", "@/infrastructure/**"],
               ":BLANK_LINE:",
               ["~/**"],
               ":BLANK_LINE:",
@@ -130,7 +126,7 @@ This organizes imports as:
 1. Bun/Node built-ins
 2. External packages
 3. Organization packages
-4. Domain/Application/Infrastructure/Presentation layers
+4. Domain/Application/Infrastructure layers (Clean Architecture)
 5. Workspace packages
 6. Relative imports
 

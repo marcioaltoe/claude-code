@@ -7,6 +7,7 @@ description: Complete browser automation with Playwright. **ALWAYS use when user
 This skill is installed globally but saves outputs to the user's working directory. Always pass `CWD` environment variable when executing commands to ensure outputs go to the correct location.
 
 Common installation paths:
+
 - Plugin system: `~/.claude/plugins/marketplaces/ui-tests/skills/web-tests`
 - Manual global: `~/.claude/skills/web-tests`
 - Project-specific: `<project>/.claude/skills/web-tests`
@@ -18,9 +19,11 @@ General-purpose browser automation skill. I'll write custom Playwright code for 
 **CRITICAL WORKFLOW - Follow these steps in order:**
 
 1. **Auto-detect dev servers** - For localhost testing, ALWAYS run server detection FIRST:
+
    ```bash
    cd $SKILL_DIR && node -e "require('./lib/helpers').detectDevServers().then(servers => console.log(JSON.stringify(servers)))"
    ```
+
    - If **1 server found**: Use it automatically, inform user
    - If **multiple servers found**: Ask user which one to test
    - If **no servers found**: Ask for URL or offer to help start dev server
@@ -61,20 +64,23 @@ cd $SKILL_DIR && node -e "require('./lib/helpers').detectDevServers().then(s => 
 
 ```javascript
 // .web-tests/scripts/test-page.js
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
 
 // Parameterized URL (detected or user-provided)
-const TARGET_URL = 'http://localhost:3001'; // <-- Auto-detected or from user
+const TARGET_URL = "http://localhost:3001"; // <-- Auto-detected or from user
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
   await page.goto(TARGET_URL);
-  console.log('Page loaded:', await page.title());
+  console.log("Page loaded:", await page.title());
 
-  await page.screenshot({ path: '.web-tests/screenshots/page.png', fullPage: true });
-  console.log('📸 Screenshot saved to .web-tests/screenshots/page.png');
+  await page.screenshot({
+    path: ".web-tests/screenshots/page.png",
+    fullPage: true,
+  });
+  console.log("📸 Screenshot saved to .web-tests/screenshots/page.png");
 
   await browser.close();
 })();
@@ -92,10 +98,10 @@ CWD=$(pwd) cd $SKILL_DIR && node run.js $(pwd)/.web-tests/scripts/test-page.js
 
 ```javascript
 // .web-tests/scripts/test-responsive.js
-const { chromium } = require('playwright');
-const helpers = require('$SKILL_DIR/lib/helpers'); // Path will be resolved
+const { chromium } = require("playwright");
+const helpers = require("$SKILL_DIR/lib/helpers"); // Path will be resolved
 
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = "http://localhost:3001"; // Auto-detected
 
 (async () => {
   const browser = await chromium.launch({ headless: false, slowMo: 100 });
@@ -104,12 +110,12 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
   // Desktop test
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto(TARGET_URL);
-  console.log('Desktop - Title:', await page.title());
-  await helpers.takeScreenshot(page, 'desktop'); // Saves to .web-tests/screenshots/
+  console.log("Desktop - Title:", await page.title());
+  await helpers.takeScreenshot(page, "desktop"); // Saves to .web-tests/screenshots/
 
   // Mobile test
   await page.setViewportSize({ width: 375, height: 667 });
-  await helpers.takeScreenshot(page, 'mobile');
+  await helpers.takeScreenshot(page, "mobile");
 
   await browser.close();
 })();
@@ -119,9 +125,9 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
 ```javascript
 // .web-tests/scripts/test-login.js
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
 
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = "http://localhost:3001"; // Auto-detected
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
@@ -129,13 +135,13 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
   await page.goto(`${TARGET_URL}/login`);
 
-  await page.fill('input[name="email"]', 'test@example.com');
-  await page.fill('input[name="password"]', 'password123');
+  await page.fill('input[name="email"]', "test@example.com");
+  await page.fill('input[name="password"]', "password123");
   await page.click('button[type="submit"]');
 
   // Wait for redirect
-  await page.waitForURL('**/dashboard');
-  console.log('✅ Login successful, redirected to dashboard');
+  await page.waitForURL("**/dashboard");
+  console.log("✅ Login successful, redirected to dashboard");
 
   await browser.close();
 })();
@@ -145,10 +151,10 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
 ```javascript
 // .web-tests/scripts/test-form.js
-const { chromium } = require('playwright');
-const helpers = require('$SKILL_DIR/lib/helpers');
+const { chromium } = require("playwright");
+const helpers = require("$SKILL_DIR/lib/helpers");
 
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = "http://localhost:3001"; // Auto-detected
 
 (async () => {
   const browser = await chromium.launch({ headless: false, slowMo: 50 });
@@ -156,17 +162,17 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
   await page.goto(`${TARGET_URL}/contact`);
 
-  await page.fill('input[name="name"]', 'John Doe');
-  await page.fill('input[name="email"]', 'john@example.com');
-  await page.fill('textarea[name="message"]', 'Test message');
+  await page.fill('input[name="name"]', "John Doe");
+  await page.fill('input[name="email"]', "john@example.com");
+  await page.fill('textarea[name="message"]', "Test message");
 
-  await helpers.takeScreenshot(page, 'form-filled');
+  await helpers.takeScreenshot(page, "form-filled");
   await page.click('button[type="submit"]');
 
   // Verify submission
-  await page.waitForSelector('.success-message');
-  console.log('✅ Form submitted successfully');
-  await helpers.takeScreenshot(page, 'form-success');
+  await page.waitForSelector(".success-message");
+  console.log("✅ Form submitted successfully");
+  await helpers.takeScreenshot(page, "form-success");
 
   await browser.close();
 })();
@@ -176,9 +182,9 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
 ```javascript
 // .web-tests/scripts/test-broken-links.js
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
 
-const TARGET_URL = 'http://localhost:3001';
+const TARGET_URL = "http://localhost:3001";
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
@@ -190,7 +196,7 @@ const TARGET_URL = 'http://localhost:3001';
   const results = { working: 0, broken: [] };
 
   for (const link of links) {
-    const href = await link.getAttribute('href');
+    const href = await link.getAttribute("href");
     try {
       const response = await page.request.head(href);
       if (response.ok()) {
@@ -214,10 +220,10 @@ const TARGET_URL = 'http://localhost:3001';
 
 ```javascript
 // .web-tests/scripts/screenshot-with-error-handling.js
-const { chromium } = require('playwright');
-const helpers = require('$SKILL_DIR/lib/helpers');
+const { chromium } = require("playwright");
+const helpers = require("$SKILL_DIR/lib/helpers");
 
-const TARGET_URL = 'http://localhost:3001';
+const TARGET_URL = "http://localhost:3001";
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
@@ -225,15 +231,15 @@ const TARGET_URL = 'http://localhost:3001';
 
   try {
     await page.goto(TARGET_URL, {
-      waitUntil: 'networkidle',
-      timeout: 10000
+      waitUntil: "networkidle",
+      timeout: 10000,
     });
 
-    await helpers.takeScreenshot(page, 'page-success');
-    console.log('📸 Screenshot saved successfully');
+    await helpers.takeScreenshot(page, "page-success");
+    console.log("📸 Screenshot saved successfully");
   } catch (error) {
-    console.error('❌ Error:', error.message);
-    await helpers.takeScreenshot(page, 'page-error');
+    console.error("❌ Error:", error.message);
+    await helpers.takeScreenshot(page, "page-error");
   } finally {
     await browser.close();
   }
@@ -244,27 +250,29 @@ const TARGET_URL = 'http://localhost:3001';
 
 ```javascript
 // .web-tests/scripts/test-responsive-full.js
-const { chromium } = require('playwright');
-const helpers = require('$SKILL_DIR/lib/helpers');
+const { chromium } = require("playwright");
+const helpers = require("$SKILL_DIR/lib/helpers");
 
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = "http://localhost:3001"; // Auto-detected
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
   const viewports = [
-    { name: 'Desktop', width: 1920, height: 1080 },
-    { name: 'Tablet', width: 768, height: 1024 },
-    { name: 'Mobile', width: 375, height: 667 }
+    { name: "Desktop", width: 1920, height: 1080 },
+    { name: "Tablet", width: 768, height: 1024 },
+    { name: "Mobile", width: 375, height: 667 },
   ];
 
   for (const viewport of viewports) {
-    console.log(`Testing ${viewport.name} (${viewport.width}x${viewport.height})`);
+    console.log(
+      `Testing ${viewport.name} (${viewport.width}x${viewport.height})`
+    );
 
     await page.setViewportSize({
       width: viewport.width,
-      height: viewport.height
+      height: viewport.height,
     });
 
     await page.goto(TARGET_URL);
@@ -273,7 +281,7 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
     await helpers.takeScreenshot(page, viewport.name.toLowerCase());
   }
 
-  console.log('✅ All viewports tested');
+  console.log("✅ All viewports tested");
   await browser.close();
 })();
 ```
@@ -295,6 +303,7 @@ await browser.close();
 ```
 
 **When to use inline vs files:**
+
 - **Inline**: Quick one-off tasks (screenshot, check if element exists, get page title)
 - **Files**: Complex tests, responsive design checks, anything user might want to re-run
 
@@ -303,26 +312,26 @@ await browser.close();
 Optional utility functions in `lib/helpers.js`:
 
 ```javascript
-const helpers = require('./lib/helpers');
+const helpers = require("./lib/helpers");
 
 // Detect running dev servers (CRITICAL - use this first!)
 const servers = await helpers.detectDevServers();
-console.log('Found servers:', servers);
+console.log("Found servers:", servers);
 
 // Safe click with retry
-await helpers.safeClick(page, 'button.submit', { retries: 3 });
+await helpers.safeClick(page, "button.submit", { retries: 3 });
 
 // Safe type with clear
-await helpers.safeType(page, '#username', 'testuser');
+await helpers.safeType(page, "#username", "testuser");
 
 // Take timestamped screenshot (auto-saves to .web-tests/screenshots/)
-await helpers.takeScreenshot(page, 'test-result');
+await helpers.takeScreenshot(page, "test-result");
 
 // Handle cookie banners
 await helpers.handleCookieBanner(page);
 
 // Extract table data
-const data = await helpers.extractTableData(page, 'table.results');
+const data = await helpers.extractTableData(page, "table.results");
 ```
 
 See `lib/helpers.js` for full list.
@@ -361,6 +370,7 @@ user-repo/
 ## Troubleshooting
 
 **Playwright not installed:**
+
 ```bash
 cd $SKILL_DIR && npm run setup
 ```

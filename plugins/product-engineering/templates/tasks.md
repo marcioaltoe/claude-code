@@ -32,13 +32,13 @@ phase: tasks
 - `[Story]` = User story reference (US1, US2, US3, etc.)
 
 ---
-
+w
 ## 📦 Batch 1: Foundation (5 tasks)
 
 - [ ] `T001` [backlog] Setup project structure
 
   - **Story:** -
-  - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/`, `src/presentation/`
+  - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/` (including `infrastructure/http/`)
   - **Estimate:** 10 min
   - **Depends:** -
 
@@ -59,7 +59,7 @@ phase: tasks
 - [ ] `T004` [backlog] [P] Setup Zod validation schemas structure
 
   - **Story:** -
-  - **Files:** `src/presentation/schemas/`
+  - **Files:** `src/infrastructure/http/schemas/`
   - **Estimate:** 5 min
   - **Depends:** T001
 
@@ -143,24 +143,24 @@ phase: tasks
 
   - **Story:** US-1
   - **Requirements:** FR-001
-  - **Files:** `src/presentation/schemas/{resource}.schema.ts`
+  - **Files:** `src/infrastructure/http/schemas/{resource}.schema.ts`
   - **Estimate:** 10 min
   - **Depends:** T004
 
-- [ ] `T014` [backlog] [US1] Create `{Controller}`
+- [ ] `T014` [backlog] [US1] Create `{Controller}` (self-registering)
 
   - **Story:** US-1
   - **Requirements:** FR-001
-  - **Files:** `src/presentation/controllers/{resource}.controller.ts`
+  - **Files:** `src/infrastructure/http/controllers/{resource}.controller.ts`
   - **Estimate:** 15 min
   - **Depends:** T012, T013
-  - **Note:** Delegate to use case, no business logic
+  - **Note:** Delegate to use case, no business logic. Controller auto-registers routes in constructor.
 
-- [ ] `T015` [backlog] [US1] Create Hono routes
+- [ ] `T015` [backlog] [US1] Setup HttpServer adapter (if not exists)
 
   - **Story:** US-1
   - **Requirements:** FR-001
-  - **Files:** `src/presentation/routes/{resource}.routes.ts`
+  - **Files:** `src/infrastructure/http/server/hono-http-server.adapter.ts`
   - **Estimate:** 10 min
   - **Depends:** T014
 

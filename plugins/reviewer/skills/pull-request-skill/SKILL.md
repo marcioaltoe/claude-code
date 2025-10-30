@@ -52,6 +52,7 @@ The reviewer plugin provides three slash commands:
 ```
 
 **What happens:**
+
 - Fetches all CodeRabbit AI comments from the PR
 - Organizes them into issues (review threads) and comments
 - Categorizes by severity: 🔴 Critical, 🟠 Major, 🔵 Trivial
@@ -59,6 +60,7 @@ The reviewer plugin provides three slash commands:
 - Generates a summary report
 
 **Output Structure:**
+
 ```
 .reviews/reviews-pr-123/
 ├── summary.md                  # 📊 Overview with statistics
@@ -83,6 +85,7 @@ cat .reviews/reviews-pr-<number>/summary.md
 ```
 
 The summary includes:
+
 - Total issues by severity
 - Resolved vs unresolved count
 - Issue list with file paths and descriptions
@@ -98,6 +101,7 @@ Help users systematically resolve issues:
 ```
 
 **Your role when fixing:**
+
 1. Read the issue file to understand the problem
 2. Locate the relevant code file
 3. Analyze the CodeRabbit suggestion
@@ -106,6 +110,7 @@ Help users systematically resolve issues:
 6. Move to the next issue
 
 **Priority order:**
+
 1. 🔴 Critical issues first
 2. 🟠 Major issues next
 3. 🔵 Trivial issues last
@@ -120,6 +125,7 @@ Monitor progress on review resolution:
 ```
 
 Shows:
+
 - Total issues vs resolved
 - Remaining critical/major/trivial issues
 - Progress percentage
@@ -140,6 +146,7 @@ PR_REVIEW_TZ=America/Sao_Paulo
 ```
 
 **If the token is not set:**
+
 1. Guide user to create `.env` file in skill directory
 2. Help them generate token at: https://github.com/settings/tokens
 3. Required scopes: `repo` (full repository access)
@@ -147,6 +154,7 @@ PR_REVIEW_TZ=America/Sao_Paulo
 ### Dependencies
 
 Dependencies are auto-installed on first run. The skill uses:
+
 - `@octokit/rest` - GitHub API client
 - `@octokit/graphql` - GraphQL API
 - `winston` - Logging
@@ -158,10 +166,12 @@ Dependencies are auto-installed on first run. The skill uses:
 Issues are automatically categorized:
 
 - **🔴 Critical**: Security issues, bugs, breaking changes
+
   - **Action**: Fix immediately
   - **Examples**: Memory leaks, security vulnerabilities, data corruption
 
 - **🟠 Major**: Important issues affecting functionality
+
   - **Action**: Fix before merging
   - **Examples**: Logic errors, performance issues, incorrect behavior
 
@@ -174,6 +184,7 @@ Issues are automatically categorized:
 ### When Downloading Reviews
 
 1. **Always show summary first**
+
    ```bash
    /reviewer:download-issues --pr 123
    # Then immediately:
@@ -181,6 +192,7 @@ Issues are automatically categorized:
    ```
 
 2. **Verify repository context**
+
    - Ensure you're in the correct repository
    - Check git remote: `git remote -v`
 
@@ -192,16 +204,19 @@ Issues are automatically categorized:
 ### When Fixing Issues
 
 1. **Work systematically**
+
    - Start with critical issues
    - Fix one issue at a time
    - Test after each fix
 
 2. **Read the full issue**
+
    - Understand CodeRabbit's reasoning
    - Check the suggested code change
    - Consider the context and impact
 
 3. **Follow project standards**
+
    - Use project's code style
    - Run linters/formatters after changes
    - Ensure tests pass
@@ -213,6 +228,7 @@ Issues are automatically categorized:
 ### When Reporting Status
 
 1. **Provide clear summary**
+
    - Total issues vs resolved
    - Breakdown by severity
    - Estimated remaining work
@@ -237,6 +253,7 @@ Issues are automatically categorized:
 **User**: "I got CodeRabbit feedback on my PR, help me fix it"
 
 **Your actions**:
+
 1. Ask for PR number (or auto-detect)
 2. Run `/reviewer:download-issues --pr <number>`
 3. Show the summary
@@ -248,6 +265,7 @@ Issues are automatically categorized:
 **User**: "What issues are left on PR 123?"
 
 **Your actions**:
+
 1. Run `/reviewer:pr-status --pr 123`
 2. Show breakdown by severity
 3. Recommend starting with critical issues
@@ -258,6 +276,7 @@ Issues are automatically categorized:
 **User**: "I fixed the critical issues, what's next?"
 
 **Your actions**:
+
 1. Run `/reviewer:pr-status --pr 123`
 2. Verify critical issues are resolved
 3. Show remaining major issues
@@ -266,13 +285,17 @@ Issues are automatically categorized:
 ## Troubleshooting
 
 ### "GITHUB_TOKEN is not set"
+
 **Solution**:
+
 1. Create `.env` file: `~/.claude/plugins/reviewer/skills/pull-request-skill/.env`
 2. Add: `GITHUB_TOKEN=ghp_...`
 3. Generate token at: https://github.com/settings/tokens
 
 ### "No CodeRabbit AI comments found"
+
 **Causes**:
+
 - CodeRabbit hasn't reviewed the PR yet
 - PR doesn't have comments from `@coderabbitai[bot]`
 - Wrong PR number
@@ -280,17 +303,22 @@ Issues are automatically categorized:
 **Solution**: Verify PR has CodeRabbit comments on GitHub
 
 ### "Repository information could not be parsed"
+
 **Causes**:
+
 - Not in a git repository
 - No remote configured
 - Remote URL format incorrect
 
 **Solution**:
+
 1. Check: `git remote -v`
 2. Remote must be: `https://github.com/owner/repo.git`
 
 ### "Dependencies not found"
+
 **Solution**:
+
 ```bash
 cd ~/.claude/plugins/reviewer/skills/pull-request-skill
 bun install

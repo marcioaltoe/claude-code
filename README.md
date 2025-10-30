@@ -124,7 +124,7 @@ This marketplace provides comprehensive support for:
 - **UI:** shadcn/ui + Tailwind CSS v4 + Design tokens + Dark mode
 - **State:** TanStack Query + Zustand + TanStack Store
 - **Forms:** TanStack Form + Zod validation
-- **Architecture:** Clean Architecture (domain/application/infrastructure/presentation)
+- **Architecture:** Clean Architecture (domain/application/infrastructure with HTTP layer)
 - **AI:** Vercel AI SDK with OpenAI & Anthropic support
 - **Testing:** Bun built-in test + React Testing Library + Happy DOM
 - **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft

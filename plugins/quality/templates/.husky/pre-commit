@@ -5,8 +5,10 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 if [[ "$current_branch" == "main" || "$current_branch" == "dev" ]]; then
   echo "❌ Direct commits to '$current_branch' are not allowed!"
   echo "Please create a feature branch from 'dev' and submit a PR:"
-  echo "  git new-feat your-feature-name"
-  echo "  git new-fix your-fix-name" 
+  echo "  git checkout dev"
+  echo "  git checkout -b feat/your-feature-name"
+  echo "  # OR for fixes:"
+  echo "  git checkout -b fix/your-fix-name"
   echo "  # Create PR: feat/fix branch → dev → main"
   exit 1
 fi

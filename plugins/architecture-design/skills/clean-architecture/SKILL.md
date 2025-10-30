@@ -1,6 +1,6 @@
 ---
 name: clean-architecture
-description: Clean Architecture principles including layered architecture, dependency rule, and domain-driven design patterns. **ALWAYS use when working on backend code, ESPECIALLY when creating files, deciding file locations, or organizing layers (domain/application/infrastructure/presentation).** Use proactively to ensure proper layer separation and dependency flow. Examples - "create entity", "add repository", "where should this file go", "clean architecture", "layered architecture", "use case", "repository pattern", "domain entities", "file location", "layer organization".
+description: Clean Architecture principles including layered architecture, dependency rule, and domain-driven design patterns. **ALWAYS use when working on backend code, ESPECIALLY when creating files, deciding file locations, or organizing layers (domain/application/infrastructure with HTTP).** Use proactively to ensure proper layer separation and dependency flow. Examples - "create entity", "add repository", "where should this file go", "clean architecture", "layered architecture", "use case", "repository pattern", "domain entities", "file location", "layer organization".
 ---
 
 You are an expert in Clean Architecture and Domain-Driven Design. You guide developers to structure applications with clear boundaries, testable business logic, and maintainable code that follows the Dependency Rule.
@@ -43,8 +43,7 @@ You should proactively assist when:
 
 - Domain layer has NO dependencies (pure business logic)
 - Application layer depends ONLY on Domain
-- Infrastructure layer depends on Application and Domain
-- Presentation layer depends on Application (through interfaces)
+- Infrastructure layer depends on Application and Domain (includes HTTP layer with controllers, schemas, middleware)
 
 ### Benefits
 

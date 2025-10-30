@@ -235,7 +235,7 @@ Claude will automatically:
 
 - Use `database-architect` skill to design the schema
 - Use `ui-designer` skill for React components with shadcn/ui and Tailwind CSS
-- Use architecture-design plugin's `frontend-engineer` skill for Clean Architecture structure
+- Use architecture-design plugin's `frontend-engineer` skill for feature-based structure
 - Generate all necessary code with proper typing
 - Implement validation and error handling
 
@@ -257,8 +257,7 @@ Claude will automatically:
 - Use architecture-design plugin's `backend-engineer` skill for Clean Architecture implementation
 - Create Domain Layer (entities, value objects, ports)
 - Create Application Layer (use cases, DTOs)
-- Create Infrastructure Layer (repositories, adapters, DI container)
-- Create Presentation Layer (routes, controllers, Zod schemas)
+- Create Infrastructure Layer with HTTP sublayer (repositories, adapters, DI container, HTTP server, controllers, schemas)
 - Implement custom DI Container with proper lifetimes (singleton, scoped, transient)
 - Generate all code following SOLID principles and Clean Architecture patterns
 

@@ -70,13 +70,16 @@ For each:
 
 ### 4. System Structure
 
-**Backend (Clean Architecture):**
+**Backend (Clean Architecture - 3 Layers):**
 
 ```
 src/domain/       # No dependencies
 src/application/  # Depends on domain
-src/infrastructure/ # Implements domain ports
-src/presentation/ # Delegates to application
+src/infrastructure/ # Implements domain ports, includes HTTP layer
+  ├── http/       # HTTP Layer (controllers, schemas, middleware, plugins)
+  ├── repositories/
+  ├── adapters/
+  └── container/
 ```
 
 **Frontend (Feature-Based):**
@@ -185,11 +188,12 @@ For each major decision:
 - SOLID principles
 - Tell, Don't Ask
 
-**Clean Architecture (Backend):**
+**Clean Architecture (Backend - 3 Layers):**
 
 - Domain has no dependencies
-- Flow: Presentation → Application → Domain ← Infrastructure
+- Flow: Infrastructure (with HTTP) → Application → Domain
 - Interfaces in domain/ports/ (no "I" prefix)
+- HTTP layer lives in infrastructure/http/ (controllers, schemas, middleware)
 
 **Feature-Based (Frontend):**
 

@@ -406,7 +406,7 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 
 - 8 specialized skills covering all architecture aspects
 - SOLID principles + Clean Code standards (KISS, YAGNI, DRY, TDA) consolidated in `code-standards` skill
-- Clean Architecture patterns (domain/application/infrastructure/presentation)
+- Clean Architecture patterns (domain/application/infrastructure with HTTP layer)
 - Backend engineering with Hono, DDD, and custom DI Container
 - Frontend engineering with React 19, TanStack ecosystem, and monorepo patterns
 - TypeScript type safety best practices
@@ -452,6 +452,7 @@ Complete workflow from idea to implementation: Discovery → Specification → D
 - Integration with superpowers plugin for task execution
 
 **Workflow:**
+
 1. `/product-engineering:discover` - Rough idea → Discovery document (with market research) using idea-refinement skill
 2. `/product-engineering:specify` - Discovery → PRD with user stories and requirements using requirements-elicitation + spec-writing skills
 3. `/product-engineering:design` - PRD → Technical design + ADRs (architecture gates validation) using architecture-decision + technical-design skills
@@ -515,29 +516,29 @@ Complete list of all available commands across all plugins.
 
 ### PR Reviewer (3 commands)
 
-| Command              | Description                                                   |
-| -------------------- | ------------------------------------------------------------- |
-| `/download-issues`   | Download CodeRabbit AI review comments for a Pull Request     |
-| `/fix-issues`        | Fix issues for a given PR systematically                      |
-| `/pr-status`         | Check status of PR review issues                              |
+| Command            | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| `/download-issues` | Download CodeRabbit AI review comments for a Pull Request |
+| `/fix-issues`      | Fix issues for a given PR systematically                  |
+| `/pr-status`       | Check status of PR review issues                          |
 
 ### UI Tests (3 commands)
 
-| Command            | Description                                                   |
-| ------------------ | ------------------------------------------------------------- |
-| `/check`           | Check webpage for issues (broken links, errors, etc.)         |
-| `/take-screenshot` | Take screenshots of web pages                                 |
-| `/test-feature`    | Test a webapp feature with Playwright                         |
+| Command            | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| `/check`           | Check webpage for issues (broken links, errors, etc.) |
+| `/take-screenshot` | Take screenshots of web pages                         |
+| `/test-feature`    | Test a webapp feature with Playwright                 |
 
 ### Product Engineering (5 commands)
 
-| Command                        | Description                                                                                   |
-| ------------------------------ | --------------------------------------------------------------------------------------------- |
-| `/product-engineering:discover` | PHASE 1: Transform rough idea into validated discovery document with MCP-powered research    |
+| Command                         | Description                                                                                     |
+| ------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `/product-engineering:discover` | PHASE 1: Transform rough idea into validated discovery document with MCP-powered research       |
 | `/product-engineering:specify`  | PHASE 2: Create PRD with user stories, functional/non-functional requirements, and traceability |
 | `/product-engineering:design`   | PHASE 3: Design architecture with ADRs, tech stack decisions, and architecture gates validation |
-| `/product-engineering:plan`     | PHASE 4: Break design into atomic tasks (5-20 min each) with full traceability              |
-| `/product-engineering:validate` | PHASE 5: Validate implementation against spec, requirements, and architecture gates          |
+| `/product-engineering:plan`     | PHASE 4: Break design into atomic tasks (5-20 min each) with full traceability                  |
+| `/product-engineering:validate` | PHASE 5: Validate implementation against spec, requirements, and architecture gates             |
 
 ## Intelligent Skills
 
@@ -825,6 +826,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Capabilities:**
 
 **SOLID Principles (OOP Design):**
+
 - Single Responsibility Principle (SRP) - One reason to change per class/module
 - Open/Closed Principle (OCP) - Open for extension, closed for modification
 - Liskov Substitution Principle (LSP) - Subtypes must be substitutable for base types
@@ -832,12 +834,14 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Dependency Inversion Principle (DIP) - Depend on abstractions, not concretions
 
 **Clean Code Principles (Simplicity & Pragmatism):**
+
 - KISS (Keep It Simple, Stupid) - Simplicity over complexity
 - YAGNI (You Aren't Gonna Need It) - Build only what's needed right now
 - DRY (Don't Repeat Yourself) - Apply abstraction after Rule of Three (3 occurrences)
 - TDA (Tell, Don't Ask) - Tell objects what to do, don't ask for data and make decisions
 
 **Function Design & Code Organization:**
+
 - Keep functions < 20 lines
 - Meaningful names over comments
 - Single level of abstraction per function
@@ -863,8 +867,8 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - The Dependency Rule - Dependencies point inward toward domain
 - Domain Layer - Pure business logic (Entities, Value Objects, Domain Services)
 - Application Layer - Use Cases, DTOs, Ports (interfaces)
-- Infrastructure Layer - Adapters (repositories, external services)
-- Presentation Layer - Controllers, routes, HTTP/CLI handling
+- Infrastructure Layer - Adapters (repositories, external services, HTTP layer)
+  - HTTP Layer: Server, Controllers, Schemas, Middleware, Plugins
 - Repository pattern and Dependency Injection
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
@@ -966,7 +970,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Domain Layer examples (Entities, Value Objects, Ports)
 - Application Layer examples (Use Cases, DTOs, Mappers)
 - Infrastructure Layer examples (Repositories, Adapters, DI Container)
-- Presentation Layer examples (Routes, Controllers, Schemas with Zod)
+- HTTP Layer examples (Server, Controllers, Schemas with Zod, Middleware, Plugins)
 - Custom DI Container with Symbol-based tokens
 - Lifetime management (singleton, scoped, transient)
 - Composition root pattern
@@ -991,7 +995,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 **Capabilities:**
 
 - Monorepo structure (apps/ + packages/ with Turborepo)
-- Feature-based Clean Architecture (domain, application, infrastructure, presentation)
+- Feature-based architecture (components, pages, stores, gateways, hooks, types)
 - Gateway/Port pattern for HTTP, storage, events
 - Thin Use Cases that delegate to gateways
 - State Management (TanStack Store for local state + TanStack Query for server state)
@@ -1076,6 +1080,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Research-first approach with targeted questions
 
 **Process (6 phases):**
+
 1. Initial Understanding - Grasp the rough idea
 2. Market Research - Use MCP servers for competitive analysis and trends
 3. Problem Validation - Ensure problem is real and worth solving
@@ -1084,6 +1089,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 6. Discovery Documentation - Generate docs/discovery/DISC-{###}-{name}.md
 
 **MCP Integration Pattern:**
+
 - Perplexity: Market research, competitors, trends, best practices
 - Context7: Framework documentation, implementation patterns
 - Octocode: Reference implementations from GitHub repositories
@@ -1113,6 +1119,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - `[NEEDS CLARIFICATION]` marker for uncertainties
 
 **Process (7 phases):**
+
 1. Discovery Analysis - Extract problem, users, solution from discovery doc
 2. Functional Requirements - Derive from recommended solution
 3. Non-Functional Requirements - Performance, Security, Scalability, Observability, Maintainability
@@ -1146,6 +1153,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Quantify everything measurable
 
 **Key Principles:**
+
 - Precision over brevity
 - Testability is mandatory (clear pass/fail criteria)
 - Solution-agnostic (WHAT not HOW)
@@ -1177,6 +1185,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Architecture gates validation
 
 **Process (8 phases):**
+
 1. Identify Decision - What needs deciding
 2. Research with MCP - Context7 for docs, Perplexity for comparisons, Octocode for implementations
 3. Define Context & Forces - Business constraints, technical constraints, quality attributes
@@ -1211,12 +1220,13 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Architecture gates validation (all 7 gates)
 
 **Process (8 phases):**
+
 1. Specification Analysis - Extract requirements and constraints from spec
 2. Architecture Pattern Selection - Evaluate 2-3 patterns
 3. Tech Stack Decisions - Select runtime, framework, database, cache, queue with MCP research
 4. Data Model Design - Entities, VOs, aggregates, relationships, Drizzle schema
 5. API Design - REST endpoints, Zod schemas, error codes
-6. System Structure - Backend (domain/application/infrastructure/presentation), Frontend (features-based)
+6. System Structure - Backend (domain/application/infrastructure with HTTP layer), Frontend (features-based)
 7. Gates Validation - Run all 7 architecture gates
 8. Document Creation - Generate docs/design/DESIGN-{###}-{name}.md + ADRs
 
@@ -1245,6 +1255,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Estimate tracking (X min per task)
 
 **Task Format:**
+
 ```
 - [ ] T{###} [P?] [US#] Description
   - Story: US-#
@@ -1255,6 +1266,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 ```
 
 **Process (9 phases):**
+
 1. Read Design Documents - Extract architecture, tech stack, structure from design + ADRs + spec
 2. Organize by Phases - Foundation → US-1 (P1-MVP) → US-2 (P2) → Quality Gates
 3. Foundation Tasks - Core infrastructure (T001-T00X) that BLOCKS all stories
@@ -1325,7 +1337,7 @@ This marketplace provides comprehensive support for modern web development:
 ✅ **UI Components:** shadcn/ui component library
 ✅ **State Management:** TanStack Query + Zustand + TanStack Store
 ✅ **Forms:** TanStack Form + Zod validation
-✅ **Architecture:** Clean Architecture (domain/application/infrastructure/presentation)
+✅ **Architecture:** Clean Architecture (3-layer: domain/application/infrastructure)
 ✅ **Design System:** Gesttione brand colors and metrics
 ✅ **AI Integration:** Vercel AI SDK with OpenAI & Anthropic support
 ✅ **Testing:** Bun built-in test + React Testing Library + Happy DOM

@@ -58,7 +58,7 @@ phase: planning
 
 - [ ] **T001** Setup project structure per Clean Architecture
 
-  - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/`, `src/presentation/`
+  - **Files:** `src/domain/`, `src/application/`, `src/infrastructure/` (including `infrastructure/http/`)
   - **Story:** -
   - **Estimate:** 10 min
 
@@ -78,7 +78,7 @@ phase: planning
 
 - [ ] **T004** [P] Setup Zod validation schemas structure
 
-  - **Files:** `src/presentation/schemas/`
+  - **Files:** `src/infrastructure/http/schemas/`
   - **Story:** -
   - **Depends:** T001
   - **Estimate:** 5 min
@@ -165,24 +165,24 @@ phase: planning
 
 - [ ] **T013** [US1] Create Zod schema for request/response
 
-  - **Files:** `src/presentation/schemas/{resource}.schema.ts`
+  - **Files:** `src/infrastructure/http/schemas/{resource}.schema.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Depends:** T004
   - **Estimate:** 10 min
 
-- [ ] **T014** [US1] Create `{Controller}`
+- [ ] **T014** [US1] Create `{Controller}` (self-registering)
 
-  - **Files:** `src/presentation/controllers/{resource}.controller.ts`
+  - **Files:** `src/infrastructure/http/controllers/{resource}.controller.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Depends:** T012, T013
   - **Estimate:** 15 min
-  - **Note:** Delegate to use case, no business logic here
+  - **Note:** Delegate to use case, no business logic here. Controller auto-registers routes in constructor.
 
-- [ ] **T015** [US1] Create Hono routes
+- [ ] **T015** [US1] Setup HttpServer adapter (if not exists)
 
-  - **Files:** `src/presentation/routes/{resource}.routes.ts`
+  - **Files:** `src/infrastructure/http/server/hono-http-server.adapter.ts`
   - **Story:** US-1
   - **Requirements:** FR-001
   - **Depends:** T014

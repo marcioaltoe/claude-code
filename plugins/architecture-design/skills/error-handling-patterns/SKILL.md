@@ -27,19 +27,19 @@ You should proactively assist when:
 export class CreateUserUseCase {
   async execute(dto: CreateUserDto): Promise<User> {
     if (!this.isValidEmail(dto.email)) {
-      throw new ValidationError(
-        'Invalid email format',
-        { email: dto.email, field: 'email' }
-      );
+      throw new ValidationError("Invalid email format", {
+        email: dto.email,
+        field: "email",
+      });
     }
 
     try {
       return await this.repository.save(user);
     } catch (error) {
-      throw new DatabaseError(
-        'Failed to create user',
-        { originalError: error, userId: user.id }
-      );
+      throw new DatabaseError("Failed to create user", {
+        originalError: error,
+        userId: user.id,
+      });
     }
   }
 }
@@ -52,7 +52,7 @@ export class CreateUserUseCase {
     error?: string;
   }> {
     if (!this.isValidEmail(dto.email)) {
-      return { success: false, error: 'Invalid email' };
+      return { success: false, error: "Invalid email" };
     }
     // Forces caller to check success flag everywhere
   }
@@ -97,19 +97,19 @@ export class ValidationError extends Error {
     public readonly context: Record<string, unknown>
   ) {
     super(message);
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
   }
 }
 
-throw new ValidationError('Invalid email format', {
+throw new ValidationError("Invalid email format", {
   email: dto.email,
-  field: 'email',
-  rule: 'email-format',
+  field: "email",
+  rule: "email-format",
   attemptedAt: new Date().toISOString(),
 });
 
 // ❌ Bad - No context
-throw new Error('Invalid');
+throw new Error("Invalid");
 ```
 
 ## Exception Hierarchy
@@ -132,21 +132,17 @@ export abstract class DomainError extends Error {
 // Specific domain exceptions
 export class UserAlreadyExistsError extends DomainError {
   constructor(email: string) {
-    super(
-      `User with email ${email} already exists`,
-      'USER_ALREADY_EXISTS',
-      { email }
-    );
+    super(`User with email ${email} already exists`, "USER_ALREADY_EXISTS", {
+      email,
+    });
   }
 }
 
 export class InvalidPasswordError extends DomainError {
   constructor(reason: string) {
-    super(
-      'Password does not meet requirements',
-      'INVALID_PASSWORD',
-      { reason }
-    );
+    super("Password does not meet requirements", "INVALID_PASSWORD", {
+      reason,
+    });
   }
 }
 
@@ -154,7 +150,7 @@ export class InsufficientPermissionsError extends DomainError {
   constructor(userId: string, resource: string, action: string) {
     super(
       `User ${userId} cannot ${action} ${resource}`,
-      'INSUFFICIENT_PERMISSIONS',
+      "INSUFFICIENT_PERMISSIONS",
       { userId, resource, action }
     );
   }
@@ -171,7 +167,7 @@ export class DatabaseError extends Error {
     public readonly query?: string
   ) {
     super(message);
-    this.name = 'DatabaseError';
+    this.name = "DatabaseError";
   }
 }
 
@@ -183,7 +179,7 @@ export class ExternalServiceError extends Error {
     public readonly originalError?: unknown
   ) {
     super(`${service}: ${message}`);
-    this.name = 'ExternalServiceError';
+    this.name = "ExternalServiceError";
   }
 }
 ```
@@ -204,7 +200,7 @@ export class UserService {
     if (!user) {
       return {
         success: false,
-        error: new NotFoundError('User not found'),
+        error: new NotFoundError("User not found"),
       };
     }
 
@@ -213,10 +209,10 @@ export class UserService {
 }
 
 // Usage
-const result = await userService.findByEmail('user@example.com');
+const result = await userService.findByEmail("user@example.com");
 
 if (!result.success) {
-  console.error('User not found:', result.error.message);
+  console.error("User not found:", result.error.message);
   return;
 }
 
@@ -227,11 +223,13 @@ const user = result.value;
 ### When to Use Result Pattern
 
 **Use Result for:**
+
 - Expected business failures (user not found, insufficient balance)
 - Operations where failure is part of normal flow
 - When caller needs to handle different failure types
 
 **Use Exceptions for:**
+
 - Unexpected errors (database connection lost, out of memory)
 - Programming errors (invalid state, null pointer)
 - Infrastructure failures
@@ -241,31 +239,34 @@ const user = result.value;
 ### Input Validation at Boundaries
 
 ```typescript
-import { z } from 'zod';
+import { z } from "zod";
 
 // ✅ Good - Validate at system boundaries
 const CreateUserSchema = z.object({
-  email: z.string().email('Invalid email format'),
-  password: z.string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain uppercase letter')
-    .regex(/[0-9]/, 'Password must contain number'),
-  name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name must be at most 100 characters'),
-  age: z.number()
-    .int('Age must be an integer')
-    .min(18, 'Must be at least 18 years old')
+  email: z.string().email("Invalid email format"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[A-Z]/, "Password must contain uppercase letter")
+    .regex(/[0-9]/, "Password must contain number"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be at most 100 characters"),
+  age: z
+    .number()
+    .int("Age must be an integer")
+    .min(18, "Must be at least 18 years old")
     .optional(),
 });
 
 export type CreateUserDto = z.infer<typeof CreateUserSchema>;
 
 // In Hono controller
-import { zValidator } from '@hono/zod-validator';
+import { zValidator } from "@hono/zod-validator";
 
-app.post('/users', zValidator('json', CreateUserSchema), async (c) => {
-  const data = c.req.valid('json'); // Type-safe and validated
+app.post("/users", zValidator("json", CreateUserSchema), async (c) => {
+  const data = c.req.valid("json"); // Type-safe and validated
   const user = await createUserUseCase.execute(data);
   return c.json(user, 201);
 });
@@ -282,7 +283,7 @@ export class Email {
     if (!value) {
       return {
         success: false,
-        error: new ValidationError('Email is required', { field: 'email' }),
+        error: new ValidationError("Email is required", { field: "email" }),
       };
     }
 
@@ -290,9 +291,9 @@ export class Email {
     if (!emailRegex.test(value)) {
       return {
         success: false,
-        error: new ValidationError('Invalid email format', {
+        error: new ValidationError("Invalid email format", {
           email: value,
-          field: 'email',
+          field: "email",
         }),
       };
     }
@@ -340,7 +341,9 @@ export async function withRetry<T>(
         break;
       }
 
-      await new Promise(resolve => setTimeout(resolve, delayMs * (attempt + 1)));
+      await new Promise((resolve) =>
+        setTimeout(resolve, delayMs * (attempt + 1))
+      );
     }
   }
 
@@ -348,14 +351,11 @@ export async function withRetry<T>(
 }
 
 // Usage
-const user = await withRetry(
-  () => userRepository.findById(id),
-  {
-    maxRetries: 3,
-    delayMs: 1000,
-    shouldRetry: (error) => error instanceof DatabaseError,
-  }
-);
+const user = await withRetry(() => userRepository.findById(id), {
+  maxRetries: 3,
+  delayMs: 1000,
+  shouldRetry: (error) => error instanceof DatabaseError,
+});
 ```
 
 ### Circuit Breaker
@@ -364,7 +364,7 @@ const user = await withRetry(
 export class CircuitBreaker {
   private failureCount = 0;
   private lastFailureTime?: number;
-  private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
+  private state: "CLOSED" | "OPEN" | "HALF_OPEN" = "CLOSED";
 
   constructor(
     private readonly failureThreshold: number,
@@ -372,11 +372,11 @@ export class CircuitBreaker {
   ) {}
 
   async execute<T>(operation: () => Promise<T>): Promise<T> {
-    if (this.state === 'OPEN') {
+    if (this.state === "OPEN") {
       if (Date.now() - (this.lastFailureTime || 0) > this.resetTimeoutMs) {
-        this.state = 'HALF_OPEN';
+        this.state = "HALF_OPEN";
       } else {
-        throw new Error('Circuit breaker is OPEN');
+        throw new Error("Circuit breaker is OPEN");
       }
     }
 
@@ -392,7 +392,7 @@ export class CircuitBreaker {
 
   private onSuccess(): void {
     this.failureCount = 0;
-    this.state = 'CLOSED';
+    this.state = "CLOSED";
   }
 
   private onFailure(): void {
@@ -400,7 +400,7 @@ export class CircuitBreaker {
     this.lastFailureTime = Date.now();
 
     if (this.failureCount >= this.failureThreshold) {
-      this.state = 'OPEN';
+      this.state = "OPEN";
     }
   }
 }
@@ -408,9 +408,7 @@ export class CircuitBreaker {
 // Usage
 const breaker = new CircuitBreaker(5, 60000); // 5 failures, 60s timeout
 
-const data = await breaker.execute(() =>
-  externalService.fetchData()
-);
+const data = await breaker.execute(() => externalService.fetchData());
 ```
 
 ### Fallback Values
@@ -429,7 +427,7 @@ export class ConfigService {
 }
 
 // Usage
-const maxRetries = await configService.get('maxRetries', 3);
+const maxRetries = await configService.get("maxRetries", 3);
 ```
 
 ## Error Logging
@@ -447,7 +445,7 @@ export interface LogContext {
 export class Logger {
   error(message: string, error: Error, context?: LogContext): void {
     console.error({
-      level: 'error',
+      level: "error",
       message,
       error: {
         name: error.name,
@@ -461,7 +459,7 @@ export class Logger {
 
   warn(message: string, context?: LogContext): void {
     console.warn({
-      level: 'warn',
+      level: "warn",
       message,
       context,
       timestamp: new Date().toISOString(),
@@ -473,26 +471,26 @@ export class Logger {
 try {
   await userRepository.save(user);
 } catch (error) {
-  logger.error('Failed to save user', error as Error, {
+  logger.error("Failed to save user", error as Error, {
     userId: user.id,
-    operation: 'createUser',
+    operation: "createUser",
     requestId: context.requestId,
   });
-  throw new DatabaseError('Failed to save user', error);
+  throw new DatabaseError("Failed to save user", error);
 }
 ```
 
 ## HTTP Error Handling (Hono)
 
 ```typescript
-import { Hono } from 'hono';
-import type { Context } from 'hono';
+import { Hono } from "hono";
+import type { Context } from "hono";
 
 const app = new Hono();
 
 // Global error handler
 app.onError((err, c) => {
-  logger.error('Unhandled error', err, {
+  logger.error("Unhandled error", err, {
     path: c.req.path,
     method: c.req.method,
   });
@@ -500,7 +498,7 @@ app.onError((err, c) => {
   if (err instanceof ValidationError) {
     return c.json(
       {
-        error: 'Validation failed',
+        error: "Validation failed",
         message: err.message,
         context: err.context,
       },
@@ -511,7 +509,7 @@ app.onError((err, c) => {
   if (err instanceof NotFoundError) {
     return c.json(
       {
-        error: 'Resource not found',
+        error: "Resource not found",
         message: err.message,
       },
       404
@@ -532,8 +530,8 @@ app.onError((err, c) => {
   // Unknown error - don't leak details
   return c.json(
     {
-      error: 'Internal server error',
-      message: 'An unexpected error occurred',
+      error: "Internal server error",
+      message: "An unexpected error occurred",
     },
     500
   );
@@ -543,6 +541,7 @@ app.onError((err, c) => {
 ## Best Practices
 
 ### Do:
+
 - ✅ Throw exceptions for exceptional situations
 - ✅ Use Result pattern for expected failures
 - ✅ Provide rich context in errors
@@ -553,6 +552,7 @@ app.onError((err, c) => {
 - ✅ Create domain-specific exception types
 
 ### Don't:
+
 - ❌ Swallow exceptions silently
 - ❌ Return null for errors
 - ❌ Use exceptions for control flow

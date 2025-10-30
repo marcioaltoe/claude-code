@@ -99,7 +99,7 @@ find . -name "vite.config.*" -o -name "tsconfig.json" -o -name "drizzle.config.*
 2. **Extract documented architecture patterns**:
 
    - Expected directory structure
-   - Required layers (domain, application, infrastructure, presentation)
+   - Required layers (domain, application, infrastructure with HTTP layer)
    - Mandated tech stack
    - Naming conventions
    - File organization patterns
@@ -131,12 +131,12 @@ find . -name "vite.config.*" -o -name "tsconfig.json" -o -name "drizzle.config.*
 ```markdown
 ## Documentation vs Implementation
 
-| Aspect            | Documented                                 | Implemented                                                        | Status     | Priority |
-| ----------------- | ------------------------------------------ | ------------------------------------------------------------------ | ---------- | -------- |
-| Feature structure | `features/[name]/{components,hooks,types}` | `features/[name]/{domain,application,infrastructure,presentation}` | ❌ Differs | High     |
-| Naming convention | kebab-case                                 | kebab-case                                                         | ✅ Matches | -        |
-| Router            | TanStack Router                            | TanStack Router                                                    | ✅ Matches | -        |
-| State management  | TanStack Query + Context                   | TanStack Query + TanStack Store + Context                          | ⚠️ Partial | Medium   |
+| Aspect            | Documented                                 | Implemented                                | Status     | Priority |
+| ----------------- | ------------------------------------------ | ------------------------------------------ | ---------- | -------- |
+| Feature structure | `features/[name]/{components,hooks,types}` | `features/[name]/{components,hooks,types}` | ✅ Matches | -        |
+| Naming convention | kebab-case                                 | kebab-case                                 | ✅ Matches | -        |
+| Router            | TanStack Router                            | TanStack Router                            | ✅ Matches | -        |
+| State management  | TanStack Query + Context                   | TanStack Query + TanStack Store + Context  | ⚠️ Partial | Medium   |
 
 ### Critical Discrepancies
 
@@ -163,7 +163,7 @@ ls -R apps/front/src/features/fastbi/
 
 # Search for documented patterns in code
 grep -r "components/" apps/front/src/features/ | wc -l
-grep -r "presentation/components/" apps/front/src/features/ | wc -l
+grep -r "pages/" apps/front/src/features/ | wc -l
 ```
 
 ---
@@ -196,10 +196,11 @@ Checklist:
   - Database configuration and migrations
   - DI Container setup
 
-- [ ] **Presentation Layer** is thin
-  - Controllers delegate to use cases
-  - Routes register endpoints
-  - Zod schemas validate requests
+- [ ] **HTTP Layer** (in infrastructure) is thin
+  - Controllers self-register routes and delegate to use cases
+  - Schemas (Zod) validate HTTP requests/responses
+  - Middleware handles auth, validation, error handling
+  - Plugins configure CORS, compression, OpenAPI
   - No business logic in controllers
 
 **For Frontend** (invoke `frontend-engineer` skill for reference):
@@ -212,7 +213,7 @@ Checklist:
 
   - `features/` directory with isolated modules
   - Each feature has: components/, pages/, stores/, gateways/, hooks/, types/
-  - NO domain/application/infrastructure/presentation layers (simplified architecture)
+  - Simplified feature-based architecture (NOT Clean Architecture layers)
 
 - [ ] **Components Layer**
 
@@ -579,10 +580,11 @@ After completing all phases, generate a comprehensive report:
 - Status: [✅ Compliant / ⚠️ Partial / ❌ Non-Compliant / N/A]
 - Findings: [Details]
 
-### Presentation Layer
+### HTTP Layer (in Infrastructure)
 
 - Status: [✅ Compliant / ⚠️ Partial / ❌ Non-Compliant / N/A]
 - Findings: [Details]
+- Components: Server, Controllers, Schemas, Middleware, Plugins
 
 ### Recommendations
 
@@ -795,8 +797,8 @@ This skill **MUST invoke** specialized skills for detailed analysis:
 grep -r "from.*infrastructure" features/*/domain/
 grep -r "from.*infrastructure" core/domain/
 
-# Find direct axios usage in components (should use gateways)
-grep -r "import.*axios" features/*/presentation/
+# Find direct axios usage in components (should use gateways - frontend only)
+grep -r "import.*axios" features/*/components/
 ```
 
 **Pattern Violations**:
@@ -817,7 +819,7 @@ grep -r "<any>" src/
 find src -name "*.ts" -o -name "*.tsx" | xargs wc -l | sort -nr | head -20
 
 # Find large components (>150 lines for frontend)
-find src/features/*/presentation/components -name "*.tsx" | xargs wc -l | sort -nr
+find src/features/*/components -name "*.tsx" | xargs wc -l | sort -nr
 ```
 
 **Test Coverage**:
@@ -854,7 +856,7 @@ find src -name "*.ts" -not -name "*.test.ts" -not -path "*/__tests__/*"
 **Your Process**:
 
 1. Create TodoWrite with audit phases
-2. Map directory structure (domain/, application/, infrastructure/, presentation/)
+2. Map directory structure (domain/, application/, infrastructure/ with http/)
 3. Invoke `backend-engineer` skill for reference standards
 4. Verify dependency rule (outer → inner)
 5. Check DI Container implementation

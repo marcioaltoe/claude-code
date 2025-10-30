@@ -196,8 +196,7 @@ Our workflow enforces these architectural principles (see `gates/architecture-ga
 
 - Domain layer (no dependencies)
 - Application layer (depends on domain)
-- Infrastructure layer (depends on application)
-- Presentation layer (depends on application)
+- Infrastructure layer (depends on application, includes HTTP layer)
 
 ### 6. Feature-Based (Frontend)
 
