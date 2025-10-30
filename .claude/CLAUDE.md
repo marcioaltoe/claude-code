@@ -221,49 +221,56 @@ src/
 │   ├── events/            # Domain events
 │   └── ports/             # Interface contracts (NO "I" prefix)
 │       ├── repositories/  # Repository interfaces
-│       └── services/      # Service interfaces
+│       ├── services/      # Service interfaces
+│       └── http-server.ts # HTTP server interface
 │
 ├── application/           # Layer 2 (depends on Domain only)
 │   ├── use-cases/         # Application business rules
 │   └── dtos/              # Data transfer objects
 │
-├── infrastructure/        # Layer 3 (depends on Application + Domain)
-│   ├── repositories/      # Repository implementations
-│   ├── adapters/          # External service adapters
-│   │   ├── cache/         # Redis, etc.
-│   │   ├── logger/        # Winston, etc.
-│   │   └── queue/         # BullMQ, etc.
-│   ├── database/          # Drizzle schemas, migrations
-│   ├── http/              # HTTP clients
-│   └── container/         # DI Container
-│
-└── presentation/          # Layer 4 (depends on Application)
-    ├── routes/            # Hono route registration
-    ├── controllers/       # Route handlers
-    └── schemas/           # Zod validation schemas
+└── infrastructure/        # Layer 3 (depends on Application + Domain)
+    ├── repositories/      # Repository implementations (Drizzle ORM)
+    ├── adapters/          # External service adapters
+    │   ├── cache/         # Redis adapter (implements CacheService port)
+    │   ├── logger/        # Logger adapter (implements Logger port)
+    │   └── queue/         # BullMQ adapter (implements Queue port)
+    ├── http/              # HTTP layer (framework-specific)
+    │   ├── server/
+    │   │   └── hono-http-server.adapter.ts  # Hono implementation of HttpServer port
+    │   ├── controllers/   # Self-registering HTTP controllers
+    │   ├── schemas/       # Zod validation schemas (request/response contracts)
+    │   ├── middleware/    # HTTP middleware (auth, validation, error handling)
+    │   └── plugins/       # Hono plugins (CORS, compression, OpenAPI, etc.)
+    ├── database/          # Drizzle schemas, migrations, connection
+    └── container/         # DI Container (composition root)
 ```
 
-**Dependency flow:** Domain ← Application ← Infrastructure/Presentation
+**Dependency flow:** Domain ← Application ← Infrastructure
 
 ### Quick Reference - Layers
 
 1. **Domain Layer** (innermost, no dependencies)
+
    - Entities, Value Objects, Aggregates, Domain Events
    - Ports: Interface contracts (repositories, services) - NO "I" prefix
 
 2. **Application Layer** (depends on Domain only)
+
    - Use Cases: Application-specific business rules
    - DTOs: Data transfer between layers
 
 3. **Infrastructure Layer** (depends on Application + Domain)
-   - Repositories: Database implementations (implements domain/ports/repositories)
-   - Adapters: External service implementations (Cache, Logger, Queue, APIs)
-   - Config, Database, HTTP, Container (DI)
 
-4. **Presentation Layer** (depends on Application)
-   - Routes: Hono route registration
-   - Controllers: Route handlers (business logic delegation)
-   - Schemas: Zod validation schemas for requests/responses
+   - Repositories: Database implementations (implements domain/ports/repositories)
+   - Adapters: External service implementations (Cache, Logger, Queue)
+   - HTTP Layer: Framework-specific HTTP handling
+     - Server: Hono adapter (implements HttpServer port)
+     - Controllers: Self-registering HTTP controllers (thin layer, delegate to use cases)
+     - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
+     - Middleware: HTTP middleware (auth, validation, error handling)
+     - Plugins: Hono plugins (CORS, compression, OpenAPI, etc.)
+   - Database: Drizzle schemas, migrations, connection management
+   - Container: DI Container (composition root)
 
 ### Critical Backend Rules
 
@@ -289,6 +296,163 @@ src/
 - Implement repository pattern for data access
 - Use type-safe DI tokens with Symbol
 - Separate registration functions by layer (registerDomain, registerApplication, etc.)
+
+### Controller Pattern (Self-Registering)
+
+**Controllers now auto-register routes in the constructor:**
+
+```typescript
+// infrastructure/http/controllers/system.controller.ts
+
+/**
+ * SystemController
+ *
+ * Infrastructure layer (HTTP) - handles HTTP requests.
+ * Thin layer that delegates to use cases.
+ *
+ * Responsibilities:
+ * 1. Register routes in constructor
+ * 2. Validate requests (Zod schemas)
+ * 3. Delegate to use cases
+ * 4. Format responses (return DTOs)
+ *
+ * NO business logic here! Controllers should be thin.
+ *
+ * Pattern: Constructor Injection + Auto-registration
+ */
+
+import type { GetSystemInfoUseCase } from "@/application/use-cases/get-system-info.use-case";
+import type { HttpServer } from "@/domain/ports/http-server";
+import { HttpMethod } from "@/domain/ports/http-server";
+
+export class SystemController {
+  constructor(
+    private readonly httpServer: HttpServer, // ✅ HttpServer port injected
+    private readonly getSystemInfoUseCase: GetSystemInfoUseCase // ✅ Use case injected
+  ) {
+    this.registerRoutes(); // ✅ Auto-register routes in constructor
+  }
+
+  private registerRoutes(): void {
+    // Register routes using HttpServer port
+    this.httpServer.route(HttpMethod.GET, "/system/info", async (context) => {
+      try {
+        // Delegate to use case (business logic lives there)
+        const systemInfo = await this.getSystemInfoUseCase.execute();
+        return context.json(systemInfo, 200);
+      } catch (error) {
+        console.error("Error getting system info:", error);
+        return context.json({ error: "Internal server error" }, 500);
+      }
+    });
+  }
+}
+```
+
+**HttpServer Port (Domain Layer):**
+
+```typescript
+// domain/ports/http-server.ts
+export enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+  PATCH = "PATCH",
+}
+
+export type HttpHandler = (context: unknown) => Promise<Response | unknown>;
+
+export interface HttpServer {
+  route(method: HttpMethod, url: string, handler: HttpHandler): void;
+  listen(port: number): void;
+}
+```
+
+**HonoHttpServer Implementation (Infrastructure Layer):**
+
+```typescript
+// infrastructure/http/server/hono-http-server.adapter.ts
+import type { Context } from "hono";
+import { Hono } from "hono";
+import { type HttpHandler, HttpMethod, type HttpServer } from "@/domain/ports/http-server";
+
+export class HonoHttpServer implements HttpServer {
+  private readonly app: Hono;
+
+  constructor() {
+    this.app = new Hono();
+  }
+
+  route(method: HttpMethod, url: string, handler: HttpHandler): void {
+    const honoHandler = async (c: Context) => {
+      try {
+        const result = await handler(c);
+        return result instanceof Response ? result : (result as Response);
+      } catch (error) {
+        console.error("Error handling request:", error);
+        return c.json({ error: "Internal server error" }, 500);
+      }
+    };
+
+    switch (method) {
+      case HttpMethod.GET:
+        this.app.get(url, honoHandler);
+        break;
+      case HttpMethod.POST:
+        this.app.post(url, honoHandler);
+        break;
+      // ... other methods
+    }
+  }
+
+  listen(port: number): void {
+    console.log(`Server is running on http://localhost:${port}`);
+    Bun.serve({
+      fetch: this.app.fetch,
+      port,
+    });
+  }
+}
+```
+
+**Bootstrap (Entry Point):**
+
+```typescript
+// main.ts
+import { getAppContainer, TOKENS } from "@/infrastructure/di";
+
+const DEFAULT_PORT = 3000;
+
+async function bootstrap() {
+  // Get application container (DI)
+  const container = getAppContainer();
+
+  // Initialize controllers (they auto-register routes in constructor)
+  container.resolve(TOKENS.systemController);
+  container.resolve(TOKENS.userController);
+
+  // Start HTTP server
+  const server = container.resolve(TOKENS.httpServer);
+  const port = Number(process.env.PORT) || DEFAULT_PORT;
+
+  server.listen(port);
+}
+
+bootstrap().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});
+```
+
+**Key Benefits:**
+
+- ✅ **Thin controllers** - Only route registration + delegation
+- ✅ **Auto-registration** - Controllers register themselves in constructor
+- ✅ **Framework-agnostic domain** - HttpServer port in domain layer
+- ✅ **Testable** - Easy to mock HttpServer for testing
+- ✅ **DI-friendly** - Controllers resolve via container
+- ✅ **Clean separation** - No routes/ folder needed
 
 ## Dependency Injection Container
 

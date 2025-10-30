@@ -25,6 +25,7 @@ You should proactively assist when:
 **For complete backend tech stack details, see `project-standards` skill**
 
 **Quick Reference:**
+
 - **Runtime**: Bun
 - **Framework**: Hono (HTTP)
 - **Database**: PostgreSQL + Drizzle ORM
@@ -181,13 +182,16 @@ export interface UserRepository {
 
 ```typescript
 // application/use-cases/create-user.use-case.ts
-import type { UserRepository } from "@/domain/ports/repositories/user.repository";
-import type { CacheService } from "@/domain/ports/cache.service";
-import type { Logger } from "@/domain/ports/logger.service";
-import { User } from "@/domain/entities/user.entity";
-import { Email } from "@/domain/value-objects/email.value-object";
-import { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
-import type { CreateUserDto, UserResponseDto } from "@/application/dtos/user.dto";
+import type { UserRepository } from "@/domain/ports";
+import type { CacheService } from "@/domain/ports";
+import type { Logger } from "@/domain/ports";
+import { User } from "@/domain/entities";
+import { Email } from "@/domain/value-objects";
+import { UUIDv7 } from "@/domain/value-objects";
+import type {
+  CreateUserDto,
+  UserResponseDto,
+} from "@/application/dtos";
 
 export class CreateUserUseCase {
   constructor(
@@ -334,7 +338,11 @@ export class CacheServiceImpl implements CacheService {
     });
   }
 
-  async set(key: string, value: string, expirationInSeconds?: number): Promise<void> {
+  async set(
+    key: string,
+    value: string,
+    expirationInSeconds?: number
+  ): Promise<void> {
     if (expirationInSeconds) {
       await this.redis.set(key, value, "EX", expirationInSeconds);
     } else {
@@ -356,14 +364,16 @@ export class CacheServiceImpl implements CacheService {
 }
 ```
 
-### 4. Presentation Layer (HTTP API)
+### 4. HTTP Layer (Framework-Specific, in Infrastructure)
 
-**Contains**: Routes, Controllers, Schemas (Zod validation)
+**Location**: `infrastructure/http/`
+
+**Contains**: Server, Controllers (self-registering), Schemas (Zod validation), Middleware, Plugins
 
 **Example: Schema**
 
 ```typescript
-// presentation/schemas/user.schema.ts
+// infrastructure/http/schemas/user.schema.ts
 import { z } from "zod";
 
 export const createUserRequestSchema = z.object({
@@ -381,49 +391,195 @@ export const userResponseSchema = z.object({
 });
 ```
 
-**Example: Controller**
+**Example: Self-Registering Controller**
 
 ```typescript
-// presentation/controllers/user.controller.ts
-import type { Context } from "hono";
+// infrastructure/http/controllers/user.controller.ts
+import type { HttpServer } from "@/domain/ports/http-server";
+import { HttpMethod } from "@/domain/ports/http-server";
 import type { CreateUserUseCase } from "@/application/use-cases/create-user.use-case";
+import type { GetUserUseCase } from "@/application/use-cases/get-user.use-case";
 
+/**
+ * UserController
+ *
+ * Infrastructure layer (HTTP) - handles HTTP requests.
+ * Thin layer that delegates to use cases.
+ *
+ * Responsibilities:
+ * 1. Register routes in constructor
+ * 2. Validate requests (Zod schemas)
+ * 3. Delegate to use cases
+ * 4. Format responses (return DTOs)
+ *
+ * NO business logic here! Controllers should be thin.
+ *
+ * Pattern: Constructor Injection + Auto-registration
+ */
 export class UserController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
-
-  async create(c: Context) {
-    const dto = c.req.valid("json"); // Validated by route middleware
-    const user = await this.createUserUseCase.execute(dto);
-    return c.json(user, 201);
+  constructor(
+    private readonly httpServer: HttpServer, // ✅ HttpServer port injected
+    private readonly createUserUseCase: CreateUserUseCase, // ✅ Use case injected
+    private readonly getUserUseCase: GetUserUseCase // ✅ Use case injected
+  ) {
+    this.registerRoutes(); // ✅ Auto-register routes in constructor
   }
 
-  async getById(c: Context) {
-    const { id } = c.req.param();
-    const user = await this.getUserUseCase.execute(id);
-    return c.json(user);
+  private registerRoutes(): void {
+    // POST /users - Create new user
+    this.httpServer.route(HttpMethod.POST, "/users", async (context) => {
+      try {
+        const dto = context.req.valid("json"); // Validated by middleware
+        const user = await this.createUserUseCase.execute(dto);
+        return context.json(user, 201);
+      } catch (error) {
+        console.error("Error creating user:", error);
+        return context.json({ error: "Internal server error" }, 500);
+      }
+    });
+
+    // GET /users/:id - Get user by ID
+    this.httpServer.route(HttpMethod.GET, "/users/:id", async (context) => {
+      try {
+        const { id } = context.req.param();
+        const user = await this.getUserUseCase.execute(id);
+        return context.json(user, 200);
+      } catch (error) {
+        console.error("Error getting user:", error);
+        return context.json({ error: "User not found" }, 404);
+      }
+    });
   }
 }
 ```
 
-**Example: Routes**
+**Example: HttpServer Port (Domain Layer)**
 
 ```typescript
-// presentation/routes/user.routes.ts
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import type { UserController } from "@/presentation/controllers/user.controller";
-import { createUserRequestSchema } from "@/presentation/schemas/user.schema";
+// domain/ports/http-server.ts
+export enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+  PATCH = "PATCH",
+}
 
-export function registerUserRoutes(app: Hono, controller: UserController) {
-  app.post(
-    "/users",
-    zValidator("json", createUserRequestSchema),
-    (c) => controller.create(c)
-  );
+export type HttpHandler = (context: unknown) => Promise<Response | unknown>;
 
-  app.get("/users/:id", (c) => controller.getById(c));
+export interface HttpServer {
+  route(method: HttpMethod, url: string, handler: HttpHandler): void;
+  listen(port: number): void;
 }
 ```
+
+**Example: HonoHttpServer Implementation (Infrastructure Layer)**
+
+```typescript
+// infrastructure/http/server/hono-http-server.adapter.ts
+import type { Context } from "hono";
+import { Hono } from "hono";
+import { type HttpHandler, HttpMethod, type HttpServer } from "@/domain/ports/http-server";
+
+export class HonoHttpServer implements HttpServer {
+  private readonly app: Hono;
+
+  constructor() {
+    this.app = new Hono();
+  }
+
+  route(method: HttpMethod, url: string, handler: HttpHandler): void {
+    const honoHandler = async (c: Context) => {
+      try {
+        const result = await handler(c);
+        return result instanceof Response ? result : (result as Response);
+      } catch (error) {
+        console.error("Error handling request:", error);
+        return c.json({ error: "Internal server error" }, 500);
+      }
+    };
+
+    switch (method) {
+      case HttpMethod.GET:
+        this.app.get(url, honoHandler);
+        break;
+      case HttpMethod.POST:
+        this.app.post(url, honoHandler);
+        break;
+      case HttpMethod.PUT:
+        this.app.put(url, honoHandler);
+        break;
+      case HttpMethod.DELETE:
+        this.app.delete(url, honoHandler);
+        break;
+      case HttpMethod.PATCH:
+        this.app.patch(url, honoHandler);
+        break;
+      default:
+        throw new Error(`Unsupported HTTP method: ${method}`);
+    }
+  }
+
+  listen(port: number): void {
+    console.log(`Server is running on http://localhost:${port}`);
+    Bun.serve({
+      fetch: this.app.fetch,
+      port,
+    });
+  }
+
+  getApp(): Hono {
+    return this.app;
+  }
+}
+```
+
+**Example: Bootstrap (Entry Point)**
+
+```typescript
+// main.ts
+import { getAppContainer, TOKENS } from "@/infrastructure/di";
+
+const DEFAULT_PORT = 3000;
+
+/**
+ * Application Bootstrap
+ *
+ * 1. Get application container (DI)
+ * 2. Initialize controllers (they auto-register routes in constructor)
+ * 3. Start HTTP server
+ */
+async function bootstrap() {
+  // Get application container (singleton)
+  const container = getAppContainer();
+
+  // Initialize controllers (they auto-register routes in constructor)
+  container.resolve(TOKENS.systemController);
+  container.resolve(TOKENS.userController);
+
+  // Resolve and start HTTP server
+  const server = container.resolve(TOKENS.httpServer);
+  const port = Number(process.env.PORT) || DEFAULT_PORT;
+
+  server.listen(port);
+}
+
+// Entry point with error handling
+bootstrap().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});
+```
+
+**Key Benefits:**
+
+- ✅ **Thin controllers** - Only route registration + delegation
+- ✅ **Auto-registration** - Controllers register themselves in constructor
+- ✅ **Framework-agnostic domain** - HttpServer port in domain layer
+- ✅ **Testable** - Easy to mock HttpServer for testing controllers
+- ✅ **DI-friendly** - Controllers resolve via container
+- ✅ **Clean separation** - No routes/ folder needed
+- ✅ **Single responsibility** - Controllers only handle HTTP, business logic in use cases
 
 ## Dependency Injection Container
 
@@ -431,7 +587,7 @@ export function registerUserRoutes(app: Hono, controller: UserController) {
 
 ```typescript
 // infrastructure/container/container.ts
-export type Lifetime = 'singleton' | 'scoped' | 'transient';
+export type Lifetime = "singleton" | "scoped" | "transient";
 export type Token<T> = symbol & { readonly __type?: T };
 
 export interface Provider<T> {
@@ -465,7 +621,9 @@ export class Container {
 
   register<T>(token: Token<T>, provider: Provider<T>): void {
     if (this.registry.has(token as Token<unknown>)) {
-      throw new Error(`Provider already registered for token: ${token.description}`);
+      throw new Error(
+        `Provider already registered for token: ${token.description}`
+      );
     }
     this.registry.set(token as Token<unknown>, provider as Provider<unknown>);
   }
@@ -477,12 +635,12 @@ export class Container {
     }
 
     // useValue
-    if ('useValue' in provider && provider.useValue !== undefined) {
+    if ("useValue" in provider && provider.useValue !== undefined) {
       return provider.useValue as T;
     }
 
     // singleton cache
-    if (provider.lifetime === 'singleton') {
+    if (provider.lifetime === "singleton") {
       if (this.singletons.has(token as Token<unknown>)) {
         return this.singletons.get(token as Token<unknown>) as T;
       }
@@ -492,7 +650,7 @@ export class Container {
     }
 
     // scoped cache
-    if (provider.lifetime === 'scoped') {
+    if (provider.lifetime === "scoped") {
       if (this.scopedCache.has(token as Token<unknown>)) {
         return this.scopedCache.get(token as Token<unknown>) as T;
       }
@@ -519,21 +677,21 @@ import type { UserController } from "@/presentation/controllers/user.controller"
 
 export const TOKENS = {
   // Core
-  Logger: Symbol('Logger') as Token<Logger>,
-  Config: Symbol('Config') as Token<EnvConfig>,
-  DatabaseConnection: Symbol('DatabaseConnection') as Token<DatabaseConnection>,
+  Logger: Symbol("Logger") as Token<Logger>,
+  Config: Symbol("Config") as Token<EnvConfig>,
+  DatabaseConnection: Symbol("DatabaseConnection") as Token<DatabaseConnection>,
 
   // Repositories
-  UserRepository: Symbol('UserRepository') as Token<UserRepository>,
+  UserRepository: Symbol("UserRepository") as Token<UserRepository>,
 
   // Services
-  CacheService: Symbol('CacheService') as Token<CacheService>,
+  CacheService: Symbol("CacheService") as Token<CacheService>,
 
   // Use Cases
-  CreateUserUseCase: Symbol('CreateUserUseCase') as Token<CreateUserUseCase>,
+  CreateUserUseCase: Symbol("CreateUserUseCase") as Token<CreateUserUseCase>,
 
   // Controllers
-  UserController: Symbol('UserController') as Token<UserController>,
+  UserController: Symbol("UserController") as Token<UserController>,
 } as const;
 ```
 
@@ -543,17 +701,17 @@ export const TOKENS = {
 // infrastructure/container/registers/register.infrastructure.ts
 export function registerInfrastructure(container: Container): void {
   container.register(TOKENS.Logger, {
-    lifetime: 'singleton',
+    lifetime: "singleton",
     useValue: logger,
   });
 
   container.register(TOKENS.DatabaseConnection, {
-    lifetime: 'singleton',
+    lifetime: "singleton",
     useValue: dbConnection,
   });
 
   container.register(TOKENS.Config, {
-    lifetime: 'singleton',
+    lifetime: "singleton",
     useValue: Config.getInstance().env,
   });
 }
@@ -561,32 +719,31 @@ export function registerInfrastructure(container: Container): void {
 // infrastructure/container/registers/register.repositories.ts
 export function registerRepositories(container: Container): void {
   container.register(TOKENS.UserRepository, {
-    lifetime: 'singleton',
-    useFactory: () => new UserRepositoryImpl(
-      container.resolve(TOKENS.DatabaseConnection)
-    ),
+    lifetime: "singleton",
+    useFactory: () =>
+      new UserRepositoryImpl(container.resolve(TOKENS.DatabaseConnection)),
   });
 }
 
 // infrastructure/container/registers/register.use-cases.ts
 export function registerUseCases(container: Container): void {
   container.register(TOKENS.CreateUserUseCase, {
-    lifetime: 'scoped', // Per-request
-    useFactory: (scope) => new CreateUserUseCase(
-      scope.resolve(TOKENS.UserRepository),
-      scope.resolve(TOKENS.CacheService),
-      scope.resolve(TOKENS.Logger)
-    ),
+    lifetime: "scoped", // Per-request
+    useFactory: (scope) =>
+      new CreateUserUseCase(
+        scope.resolve(TOKENS.UserRepository),
+        scope.resolve(TOKENS.CacheService),
+        scope.resolve(TOKENS.Logger)
+      ),
   });
 }
 
 // infrastructure/container/registers/register.controllers.ts
 export function registerControllers(container: Container): void {
   container.register(TOKENS.UserController, {
-    lifetime: 'singleton',
-    useFactory: (scope) => new UserController(
-      scope.resolve(TOKENS.CreateUserUseCase)
-    ),
+    lifetime: "singleton",
+    useFactory: (scope) =>
+      new UserController(scope.resolve(TOKENS.CreateUserUseCase)),
   });
 }
 ```
@@ -625,22 +782,25 @@ export function createRequestScope(root: Container): Container {
 ```typescript
 // infrastructure/http/app.ts
 import { Hono } from "hono";
-import { getAppContainer, createRequestScope } from "@/infrastructure/container/main";
+import {
+  getAppContainer,
+  createRequestScope,
+} from "@/infrastructure/container/main";
 import { TOKENS } from "@/infrastructure/container/tokens";
 import { registerUserRoutes } from "@/presentation/routes/user.routes";
 
 const app = new Hono();
 
 // Middleware: Create scoped container per request
-app.use('*', async (c, next) => {
+app.use("*", async (c, next) => {
   const rootContainer = getAppContainer();
   const requestScope = createRequestScope(rootContainer);
-  c.set('container', requestScope);
+  c.set("container", requestScope);
   await next();
 });
 
 // Register routes
-const userController = app.get('container').resolve(TOKENS.UserController);
+const userController = app.get("container").resolve(TOKENS.UserController);
 registerUserRoutes(app, userController);
 
 export default app;

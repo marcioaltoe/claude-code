@@ -194,32 +194,50 @@ src/infrastructure/
 │   ├── user.repository.impl.ts
 │   └── order.repository.impl.ts
 ├── adapters/
-│   ├── cache.service.impl.ts
-│   ├── logger.service.impl.ts
-│   └── queue.adapter.ts
+│   ├── cache/
+│   │   └── redis-cache.adapter.ts
+│   ├── logger/
+│   │   └── winston-logger.adapter.ts
+│   └── queue/
+│       └── bullmq-queue.adapter.ts
+├── http/
+│   ├── server/
+│   │   └── hono-http-server.adapter.ts
+│   ├── controllers/
+│   │   ├── user.controller.ts
+│   │   └── order.controller.ts
+│   ├── schemas/
+│   │   ├── user.schema.ts
+│   │   └── order.schema.ts
+│   ├── middleware/
+│   │   ├── auth.middleware.ts
+│   │   ├── validation.middleware.ts
+│   │   └── error-handler.middleware.ts
+│   └── plugins/
+│       ├── cors.plugin.ts
+│       └── openapi.plugin.ts
 ├── database/
 │   ├── drizzle/
 │   │   ├── schema/
 │   │   │   └── users.schema.ts
 │   │   └── migrations/
 │   └── connection.ts
-├── http/
-│   ├── middleware/
-│   │   ├── auth.middleware.ts
-│   │   ├── validation.middleware.ts
-│   │   └── error-handler.middleware.ts
-│   └── openapi/
-│       └── swagger.config.ts
-└── config/
-    ├── env.config.ts
-    └── env.schema.ts
+└── container/
+    └── main.ts
 ```
 
 **Infrastructure Layer Responsibilities:**
 
 - **Repositories**: Implement ports from `domain/ports/repositories/` using Drizzle ORM
-- **Adapters**: Implement external service ports (Cache, Logger, Queue, Email)
+- **Adapters**: Implement external service ports (Cache, Logger, Queue)
+- **HTTP Layer**: Framework-specific HTTP handling
+  - Server: Hono adapter (implements HttpServer port)
+  - Controllers: Self-registering HTTP controllers (thin layer, delegate to use cases)
+  - Schemas: Zod validation schemas for HTTP contracts (requests/responses)
+  - Middleware: HTTP middleware (auth, validation, error handling)
+  - Plugins: Hono plugins (CORS, compression, OpenAPI, etc.)
 - **Database**: Drizzle schemas, migrations, connection management
+- **Container**: DI Container (composition root)
 - **NO business logic**: Only technical implementation details
 
 **Repository Pattern:**
@@ -239,61 +257,127 @@ export class UserRepositoryImpl implements UserRepository {
 
 **For complete Repository and Adapter implementations with Drizzle ORM, Redis, and other infrastructure examples, see `backend-engineer` skill**
 
-### 4. Presentation Layer (Controllers/Routes)
+### 4. HTTP Layer (Framework-Specific, in Infrastructure)
 
 **Purpose**: Handle HTTP requests, WebSocket connections, CLI commands
 
+**Location**: `infrastructure/http/`
+
 **Contains:**
 
-- Routes (Hono route registration)
-- Controllers (route handlers)
-- Schemas (Zod validation for requests/responses)
+- Server: Hono adapter (implements HttpServer port)
+- Controllers: Self-registering HTTP controllers (route registration + handlers)
+- Schemas: Zod validation for requests/responses
+- Middleware: HTTP middleware (auth, validation, error handling)
+- Plugins: Hono plugins (CORS, compression, OpenAPI, etc.)
 
 **Rules:**
 
-- ✅ Depends on Application layer (Use Cases)
-- ✅ Handles HTTP/WebSocket/CLI specifics
+- ✅ Part of Infrastructure layer (HTTP is technical detail)
+- ✅ Depends on Application layer (Use Cases) and HttpServer port
 - ✅ Thin layer - delegates to Use Cases
 - ✅ NO business logic
+- ✅ Controllers auto-register routes in constructor
 
 **Example Structure:**
 
 ```
-src/presentation/
-├── routes/
-│   ├── user.routes.ts
-│   └── order.routes.ts
+src/infrastructure/http/
+├── server/
+│   └── hono-http-server.adapter.ts
 ├── controllers/
 │   ├── user.controller.ts
 │   └── order.controller.ts
-└── schemas/
-    ├── user.schema.ts
-    └── order.schema.ts
+├── schemas/
+│   ├── user.schema.ts
+│   └── order.schema.ts
+├── middleware/
+│   ├── auth.middleware.ts
+│   └── error-handler.middleware.ts
+└── plugins/
+    ├── cors.plugin.ts
+    └── openapi.plugin.ts
 ```
 
-**Presentation Layer Responsibilities:**
+**Controller Responsibilities:**
 
 - **Thin layer**: Validation + Delegation to Use Cases
 - **NO business logic**: Controllers should be lightweight
 - **Request validation**: Use Zod schemas at entry point
 - **Response formatting**: Return DTOs (never domain entities)
+- **Self-registering**: Controllers register routes in constructor via HttpServer port
 
-**Controller Pattern:**
+**Controller Pattern (Self-Registering):**
 
 ```typescript
-// ✅ Thin controller delegates to use case
-export class UserController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+// infrastructure/http/controllers/user.controller.ts
 
-  async create(c: Context) {
-    const dto = c.req.valid("json"); // Validated by middleware
-    const user = await this.createUserUseCase.execute(dto);
-    return c.json(user, 201);
+/**
+ * UserController
+ *
+ * Infrastructure layer (HTTP) - handles HTTP requests.
+ * Thin layer that delegates to use cases.
+ *
+ * Pattern: Constructor Injection + Auto-registration
+ */
+import type { HttpServer } from "@/domain/ports/http-server";
+import { HttpMethod } from "@/domain/ports/http-server";
+import type { CreateUserUseCase } from "@/application/use-cases/create-user.use-case";
+
+export class UserController {
+  constructor(
+    private readonly httpServer: HttpServer, // ✅ HttpServer port injected
+    private readonly createUserUseCase: CreateUserUseCase // ✅ Use case injected
+  ) {
+    this.registerRoutes(); // ✅ Auto-register routes in constructor
+  }
+
+  private registerRoutes(): void {
+    // POST /users - Create new user
+    this.httpServer.route(HttpMethod.POST, "/users", async (context) => {
+      try {
+        const dto = context.req.valid("json"); // Validated by middleware
+        const user = await this.createUserUseCase.execute(dto);
+        return context.json(user, 201);
+      } catch (error) {
+        console.error("Error creating user:", error);
+        return context.json({ error: "Internal server error" }, 500);
+      }
+    });
   }
 }
 ```
 
-**For complete Hono route examples with Zod validation, controllers, and middleware patterns, see `backend-engineer` skill**
+**HttpServer Port (Domain Layer):**
+
+```typescript
+// domain/ports/http-server.ts
+export enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+  PATCH = "PATCH",
+}
+
+export type HttpHandler = (context: unknown) => Promise<Response | unknown>;
+
+export interface HttpServer {
+  route(method: HttpMethod, url: string, handler: HttpHandler): void;
+  listen(port: number): void;
+}
+```
+
+**Key Benefits:**
+
+- ✅ **Framework-agnostic domain** - HttpServer port in domain layer
+- ✅ **Testable** - Easy to mock HttpServer for testing controllers
+- ✅ **DI-friendly** - Controllers resolve via container
+- ✅ **Auto-registration** - Controllers register themselves in constructor
+- ✅ **Thin controllers** - Only route registration + delegation
+- ✅ **Clean separation** - No routes/ folder needed
+
+**For complete HttpServer implementation (Hono adapter), Zod validation, and middleware patterns, see `backend-engineer` skill**
 
 ## Dependency Injection
 
@@ -314,9 +398,9 @@ export class UserController {
 // ✅ Use cases depend on abstractions (ports), not implementations
 export class CreateUserUseCase {
   constructor(
-    private readonly userRepository: UserRepository,      // Port from domain/ports/
-    private readonly passwordHasher: PasswordHasher,      // Port from domain/ports/
-    private readonly emailService: EmailService           // Port from domain/ports/
+    private readonly userRepository: UserRepository, // Port from domain/ports/
+    private readonly passwordHasher: PasswordHasher, // Port from domain/ports/
+    private readonly emailService: EmailService // Port from domain/ports/
   ) {}
 
   async execute(dto: CreateUserDto): Promise<UserResponseDto> {
