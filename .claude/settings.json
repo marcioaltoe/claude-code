@@ -15,7 +15,14 @@
       "Bash(tree:*)",
       "Bash(uv:*)",
       "Edit",
+      "mcp__context7__get-library-docs",
+      "mcp__context7__resolve-library-id",
+      "mcp__octocode__githubGetFileContent",
+      "mcp__octocode__githubSearchCode",
+      "mcp__octocode__githubSearchRepositories",
+      "mcp__octocode__githubViewRepoStructure",
       "mcp__perplexity__perplexity_ask",
+      "mcp__perplexity__perplexity_reason",
       "Write"
     ],
     "deny": []
