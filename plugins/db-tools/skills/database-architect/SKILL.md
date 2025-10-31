@@ -311,16 +311,12 @@ export type PostsSelectSchema = typeof postsSchema.$inferSelect
 
 ```typescript
 export const students = pgTable("students", {
-  id: uuid("id")
-    .primaryKey()
-    .$defaultFn(() => Bun.randomUUIDv7()),
+  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
   name: varchar("name", { length: 255 }).notNull(),
 });
 
 export const courses = pgTable("courses", {
-  id: uuid("id")
-    .primaryKey()
-    .$defaultFn(() => Bun.randomUUIDv7()),
+  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
   title: varchar("title", { length: 255 }).notNull(),
 });
 

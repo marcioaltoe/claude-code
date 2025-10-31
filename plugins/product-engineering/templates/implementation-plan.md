@@ -33,7 +33,7 @@ phase: planning
 - Framework: {Hono}
 - Database: {PostgreSQL + Drizzle}
 - Cache: {Redis}
-- Queue: {BullMQ}
+- Queue: {AWS SQS with LocalStack local}
 
 **Frontend:**
 

@@ -204,7 +204,9 @@ src/infrastructure/
 │   ├── logger/
 │   │   └── winston-logger.adapter.ts
 │   └── queue/
-│       └── bullmq-queue.adapter.ts
+│       ├── sqs-queue.adapter.ts
+│       ├── localstack-sqs.adapter.ts
+│       └── fake-queue.adapter.ts
 ├── http/
 │   ├── server/
 │   │   └── hono-http-server.adapter.ts

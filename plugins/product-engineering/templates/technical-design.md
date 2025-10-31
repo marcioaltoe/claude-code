@@ -37,7 +37,7 @@ phase: design
 | **Database**           | PostgreSQL               | {why chosen}                   |
 | **ORM**                | Drizzle                  | {why chosen}                   |
 | **Cache**              | Redis (ioredis)          | {why needed, why Redis}        |
-| **Queue**              | BullMQ                   | {why needed, why BullMQ}       |
+| **Queue**              | AWS SQS (LocalStack local) | {why needed, why SQS}       |
 | **Frontend Framework** | React 19 + Vite 6        | {why chosen}                   |
 | **Router**             | TanStack Router          | {why chosen}                   |
 | **State Management**   | Zustand + TanStack Query | {why chosen}                   |
@@ -90,8 +90,10 @@ src/
     │   │   └── redis.adapter.ts
     │   ├── logger/            # Winston, Pino, etc.
     │   │   └── logger.adapter.ts
-    │   └── queue/             # BullMQ, etc.
-    │       └── bullmq.adapter.ts
+    │   └── queue/             # SQS, etc.
+    │       ├── sqs.adapter.ts
+    │       ├── localstack-sqs.adapter.ts
+    │       └── fake-queue.adapter.ts
     ├── database/              # Drizzle schemas, migrations
     │   ├── schema.ts
     │   └── migrations/

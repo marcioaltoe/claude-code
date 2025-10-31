@@ -30,7 +30,7 @@ You should proactively assist when:
 - **Framework**: Hono (HTTP)
 - **Database**: PostgreSQL + Drizzle ORM
 - **Cache**: Redis (ioredis)
-- **Queue**: BullMQ
+- **Queue**: AWS SQS (LocalStack local)
 - **Validation**: Zod
 - **Testing**: Bun test
 

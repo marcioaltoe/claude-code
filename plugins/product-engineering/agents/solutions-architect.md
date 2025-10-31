@@ -53,7 +53,7 @@ For each:
 - Framework: Hono vs Express/Fastify
 - Database: PostgreSQL + Drizzle vs others
 - Cache: Redis (justify if needed)
-- Queue: BullMQ (justify if needed)
+- Queue: AWS SQS with LocalStack local (justify if needed)
 
 **Frontend:**
 

@@ -374,7 +374,7 @@ Required:
 - [ ] Framework: **Hono** (HTTP)
 - [ ] Database: **PostgreSQL** + **Drizzle ORM**
 - [ ] Cache: **Redis** (ioredis)
-- [ ] Queue: **BullMQ**
+- [ ] Queue: **AWS SQS** (LocalStack local)
 - [ ] Validation: **Zod**
 - [ ] Testing: **Bun test** (via `bun run test`, NOT `bun test`)
 

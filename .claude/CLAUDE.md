@@ -38,7 +38,7 @@
 - Framework: Hono
 - Database: PostgreSQL com Drizzle ORM
 - Cache: Redis (via ioredis)
-- Queue: BullMQ
+- Queue: AWS SQS (LocalStack local)
 
 ### Frontend:
 
@@ -235,7 +235,7 @@ src/
     ├── adapters/          # External service adapters
     │   ├── cache/         # Redis adapter (implements CacheService port)
     │   ├── logger/        # Logger adapter (implements Logger port)
-    │   └── queue/         # BullMQ adapter (implements Queue port)
+    │   └── queue/         # SQS adapter (implements Queue port)
     ├── http/              # HTTP layer (framework-specific)
     │   ├── server/
     │   │   └── hono-http-server.adapter.ts  # Hono implementation of HttpServer port

@@ -50,7 +50,7 @@ Document significant architectural decisions with structured ADRs that capture c
 
    - Deployment platform (Vercel vs AWS vs self-hosted)
    - Cache strategy (Redis vs Memcached vs none)
-   - Queue system (BullMQ vs RabbitMQ vs SQS)
+   - Queue system (AWS SQS vs BullMQ vs RabbitMQ)
 
 4. **Cross-Cutting Concerns**
    - Authentication approach (JWT vs sessions)

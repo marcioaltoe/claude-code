@@ -2,6 +2,7 @@
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
+      "Bash(cat:*)",
       "Bash(chmod:*)",
       "Bash(cp:*)",
       "Bash(find:*)",
@@ -11,8 +12,10 @@
       "Bash(mv:*)",
       "Bash(npm:*)",
       "Bash(touch:*)",
+      "Bash(tree:*)",
       "Bash(uv:*)",
       "Edit",
+      "mcp__perplexity__perplexity_ask",
       "Write"
     ],
     "deny": []
