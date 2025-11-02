@@ -104,9 +104,266 @@ src/domain/
 **Key Concepts:**
 
 - **Entities** have identity and lifecycle (User, Order)
-- **Value Objects** are immutable and compared by value (Email, Money)
+- **Value Objects** are immutable and compared by value (Email, Money, UUIDv7)
 - **Ports** are interface contracts (NO "I" prefix) that define boundaries
 - **Domain behavior** lives in entities, not in services
+
+#### Value Object Example: UUIDv7
+
+**UUIDv7 is the recommended identifier for all entities.** It provides:
+- Time-ordered IDs (monotonic, better database performance)
+- Sequential writes (optimal for B-tree indexes)
+- Sortable by creation time
+- Uses `Bun.randomUUIDv7()` internally (available since Bun 1.3+)
+
+```typescript
+// domain/value-objects/uuidv7.value-object.ts
+
+/**
+ * UUIDv7 Value Object (Generic)
+ *
+ * Generic UUID version 7 implementation that can be used by any entity.
+ *
+ * Responsibilities:
+ * - Generate time-ordered UUIDv7 identifiers
+ * - Validate UUID format
+ * - Provide type safety via branded types
+ * - Immutable by design
+ *
+ * Why UUIDv7?
+ * - Time-ordered: Monotonic, better database performance
+ * - Sequential writes: Optimal for B-tree indexes
+ * - Sortable: Natural ordering by creation time
+ * - Encodes: Timestamp + random value + counter
+ *
+ * Usage:
+ * Create specific ID types by extending this class or using branded types:
+ * - UserId
+ * - OrderId
+ * - ProductId
+ * - etc.
+ *
+ * Available since Bun 1.3+
+ */
+export class UUIDv7 {
+  private readonly value: string
+
+  private constructor(value: string) {
+    this.value = value
+  }
+
+  /**
+   * Generates a new UUIDv7 identifier
+   *
+   * Uses Bun.randomUUIDv7() which generates time-ordered UUIDs.
+   *
+   * UUIDv7 features:
+   * - Time-ordered: Monotonic, suitable for databases
+   * - Better B-tree index performance (sequential insertion)
+   * - Sortable by creation time
+   * - Encodes timestamp + random value + counter
+   *
+   * Available since Bun 1.3+
+   */
+  static generate(): UUIDv7 {
+    const uuid = Bun.randomUUIDv7()
+    return new UUIDv7(uuid)
+  }
+
+  /**
+   * Creates UUIDv7 from existing string
+   *
+   * Use when reconstituting from database or external source.
+   *
+   * @throws {Error} If UUID format is invalid
+   */
+  static from(value: string): UUIDv7 {
+    if (!UUIDv7.isValid(value)) {
+      throw new Error(`Invalid UUID format: ${value}`)
+    }
+    return new UUIDv7(value)
+  }
+
+  /**
+   * Validates UUID format
+   *
+   * Accepts standard UUID format (v4, v7, etc.)
+   */
+  private static isValid(value: string): boolean {
+    if (!value || typeof value !== 'string') {
+      return false
+    }
+
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    return uuidRegex.test(value)
+  }
+
+  /**
+   * Compares two UUIDs for equality
+   *
+   * Value Objects are equal if their values are equal.
+   */
+  equals(other: UUIDv7): boolean {
+    return this.value === other.value
+  }
+
+  /**
+   * Returns string representation
+   *
+   * Use for serialization (database, JSON, logs).
+   */
+  toString(): string {
+    return this.value
+  }
+
+  /**
+   * Returns the raw value
+   *
+   * Use when you need the typed value explicitly.
+   */
+  toValue(): string {
+    return this.value
+  }
+}
+
+/**
+ * Factory function to create branded UUID types
+ *
+ * Usage:
+ * ```typescript
+ * export type UserIdBrand = string & { readonly __brand: 'UserId' }
+ * export class UserId extends UUIDv7 {
+ *   protected readonly value!: UserIdBrand
+ *
+ *   protected constructor(value: string) {
+ *     super(value)
+ *     ;(this as any).value = value as UserIdBrand
+ *   }
+ * }
+ * ```
+ */
+export type CreateUUIDBrand<T extends string> = string & { readonly __brand: T }
+
+/**
+ * Type alias for User ID
+ *
+ * Use this type for all User entity ID references.
+ * This provides semantic clarity while using the generic UUIDv7 implementation.
+ */
+export type UserId = UUIDv7
+```
+
+**Usage in Entities:**
+
+```typescript
+// domain/entities/user.entity.ts
+import { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+import type { Email } from "@/domain/value-objects/email.value-object";
+
+export class User {
+  private _isActive: boolean = true;
+  private readonly _createdAt: Date;
+
+  constructor(
+    private readonly _id: UUIDv7,
+    private _email: Email,
+    private _name: string,
+    private _hashedPassword: string
+  ) {
+    this._createdAt = new Date();
+  }
+
+  deactivate(): void {
+    if (!this._isActive) {
+      throw new Error(`User ${this._id.toString()} is already inactive`);
+    }
+    this._isActive = false;
+  }
+
+  get id(): UUIDv7 {
+    return this._id;
+  }
+
+  get email(): Email {
+    return this._email;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  get isActive(): boolean {
+    return this._isActive;
+  }
+
+  get createdAt(): Date {
+    return this._createdAt;
+  }
+}
+```
+
+**Usage in Use Cases:**
+
+```typescript
+// application/use-cases/create-user.use-case.ts
+import { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+import { User } from "@/domain/entities/user.entity";
+import { Email } from "@/domain/value-objects/email.value-object";
+
+export class CreateUserUseCase {
+  async execute(dto: CreateUserDto): Promise<UserResponseDto> {
+    // Generate UUIDv7 for new user
+    const id = UUIDv7.generate();
+    const email = Email.create(dto.email);
+    const user = new User(id, email, dto.name, dto.hashedPassword);
+
+    await this.userRepository.save(user);
+
+    return {
+      id: user.id.toString(),
+      email: user.email.toString(),
+      name: user.name,
+      isActive: user.isActive,
+      createdAt: user.createdAt.toISOString(),
+    };
+  }
+}
+```
+
+**Usage in Repositories:**
+
+```typescript
+// infrastructure/repositories/user.repository.impl.ts
+import { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+import { User } from "@/domain/entities/user.entity";
+
+export class UserRepositoryImpl implements UserRepository {
+  async findById(id: UUIDv7): Promise<User | null> {
+    const row = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.id, id.toString()))
+      .limit(1);
+
+    if (!row) return null;
+
+    // Reconstruct domain entity
+    const userId = UUIDv7.from(row.id);
+    const email = Email.create(row.email);
+    return new User(userId, email, row.name, row.hashedPassword);
+  }
+
+  async save(user: User): Promise<void> {
+    await this.db.insert(users).values({
+      id: user.id.toString(),
+      email: user.email.toString(),
+      name: user.name,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+    });
+  }
+}
+```
 
 **For complete implementation examples of Entities, Value Objects, and Repositories with Drizzle ORM, see `backend-engineer` skill**
 
@@ -155,9 +412,11 @@ src/application/
 ```typescript
 // ✅ Port in Domain layer (domain/ports/repositories/user.repository.ts)
 // NO "I" prefix
+import type { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+
 export interface UserRepository {
   save(user: User): Promise<void>;
-  findById(id: UserId): Promise<User | undefined>;
+  findById(id: UUIDv7): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
 }
 
@@ -245,9 +504,11 @@ src/infrastructure/
 
 ```typescript
 // Port in domain/ports/repositories/user.repository.ts
+import type { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+
 export interface UserRepository {
   save(user: User): Promise<void>;
-  findById(id: UserId): Promise<User | undefined>;
+  findById(id: UUIDv7): Promise<User | undefined>;
 }
 
 // Implementation in infrastructure/repositories/user.repository.impl.ts
@@ -427,11 +688,11 @@ export class CreateUserUseCase {
 import { describe, expect, it } from "bun:test";
 import { User } from "@/domain/entities/user.entity";
 import { Email } from "@/domain/value-objects/email.value-object";
-import { UserId } from "@/domain/value-objects/user-id.value-object";
+import { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
 
 describe("User Entity", () => {
   it("should deactivate user", () => {
-    const userId = UserId.generate();
+    const userId = UUIDv7.generate();
     const email = Email.create("user@example.com");
     const user = new User(userId, email, "John Doe", "hashed_password");
 
@@ -441,7 +702,7 @@ describe("User Entity", () => {
   });
 
   it("should throw error when deactivating already inactive user", () => {
-    const userId = UserId.generate();
+    const userId = UUIDv7.generate();
     const email = Email.create("user@example.com");
     const user = new User(userId, email, "John Doe", "hashed_password");
     user.deactivate();
@@ -505,10 +766,12 @@ describe("CreateUserUseCase", () => {
 ```typescript
 // Port (Domain layer - domain/ports/repositories/order.repository.ts)
 // NO "I" prefix
+import type { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+
 export interface OrderRepository {
   save(order: Order): Promise<void>;
-  findById(id: OrderId): Promise<Order | undefined>;
-  findByUserId(userId: UserId): Promise<Order[]>;
+  findById(id: UUIDv7): Promise<Order | undefined>;
+  findByUserId(userId: UUIDv7): Promise<Order[]>;
 }
 
 // Adapter (Infrastructure layer - infrastructure/repositories/order.repository.impl.ts)
@@ -546,9 +809,12 @@ export class PricingService {
 
 ```typescript
 // Domain Event
+import type { UUIDv7 } from "@/domain/value-objects/uuidv7.value-object";
+import type { Email } from "@/domain/value-objects/email.value-object";
+
 export class UserCreatedEvent {
   constructor(
-    public readonly userId: UserId,
+    public readonly userId: UUIDv7,
     public readonly email: Email,
     public readonly occurredAt: Date = new Date()
   ) {}
@@ -559,7 +825,7 @@ export class CreateUserUseCase {
   async execute(dto: CreateUserDto): Promise<UserResponseDto> {
     // ... create user ...
 
-    await this.eventBus.publish(new UserCreatedEvent(user.id, user.email));
+    await this.eventBus.publish(new UserCreatedEvent(user.id, user.email)); // user.id is UUIDv7
 
     return UserMapper.toDto(user);
   }
