@@ -51,7 +51,6 @@ Document in design's "Complexity Tracking" section:
 
 - ✅ Strict mode enabled in tsconfig.json
 - ✅ No `any` types (use `unknown` with type guards)
-- ✅ Branded types for domain primitives
 - ✅ Discriminated unions for state
 
 **Type Guards:**
@@ -70,21 +69,9 @@ function processData(data: any) {
 }
 ```
 
-**Branded Types:**
-
-```typescript
-// ✅ Good: Branded type for domain primitive
-type UserId = string & { readonly __brand: "UserId" };
-type Email = string & { readonly __brand: "Email" };
-
-// ❌ Bad: Primitive obsession
-function getUser(id: string, email: string) {}
-```
-
 ### Validation Questions
 
 - [ ] No `any` types in codebase?
-- [ ] Using branded types for domain primitives?
 - [ ] Type guards for unknown types?
 - [ ] Discriminated unions for complex state?
 

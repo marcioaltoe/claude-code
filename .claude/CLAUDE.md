@@ -514,7 +514,7 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
 
 - `code-standards` - SOLID principles (SRP, OCP, LSP, ISP, DIP) + Clean Code patterns (KISS, YAGNI, DRY, TDA)
 - `naming-conventions` - File, folder, class, function, and variable naming standards
-- `typescript-type-safety` - Type guards, branded types, avoiding `any` type
+- `typescript-type-safety` - Type guards, avoiding `any` type
 
 ### Quick Reference - When to Use Each Skill
 
@@ -550,7 +550,6 @@ import { UserIdentity } from "../../domain/aggregate/user-identity.aggregate";
    - **ALWAYS use when writing ANY TypeScript code** - Frontend AND backend
    - Never use `any` type (use `unknown` with type guards)
    - Implementing type guards for runtime safety
-   - Using branded types for domain primitives
    - Leveraging discriminated unions
    - Applying conditional types
    - Ensuring strict type safety

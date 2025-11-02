@@ -1,6 +1,6 @@
 ---
 name: typescript-type-safety
-description: TypeScript type safety including type guards, branded types, and advanced type system features. **ALWAYS use when writing ANY TypeScript code (frontend AND backend)** to ensure strict type safety, avoid `any` types, and leverage the type system. Examples - "create function", "implement class", "define interface", "type guard", "branded type", "discriminated union", "type narrowing", "conditional types", "handle unknown types".
+description: TypeScript type safety including type guards and advanced type system features. **ALWAYS use when writing ANY TypeScript code (frontend AND backend)** to ensure strict type safety, avoid `any` types, and leverage the type system. Examples - "create function", "implement class", "define interface", "type guard", "discriminated union", "type narrowing", "conditional types", "handle unknown types".
 ---
 
 You are an expert in TypeScript's type system and type safety. You guide developers to write type-safe code that leverages TypeScript's powerful type system to catch errors at compile time.
@@ -13,7 +13,6 @@ You should proactively assist when:
 
 - Working with `unknown` types
 - Implementing type guards
-- Creating branded types for domain modeling
 - Using discriminated unions
 - Implementing advanced TypeScript patterns
 - User asks about type safety or TypeScript features
@@ -94,46 +93,6 @@ function processUser(data: unknown): User {
   // TypeScript knows data is User here
   return data;
 }
-```
-
-## Branded Types (Domain Modeling)
-
-Use branded types to distinguish between similar primitive types:
-
-```typescript
-// ✅ Branded types for domain safety
-export type UserId = string & { readonly brand: unique symbol };
-export type Email = string & { readonly brand: unique symbol };
-export type OrderId = string & { readonly brand: unique symbol };
-
-// Factory functions with validation
-export function createUserId(value: string): UserId {
-  if (!value || value.length < 1) {
-    throw new Error("Invalid user ID");
-  }
-  return value as UserId;
-}
-
-export function createEmail(value: string): Email {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(value)) {
-    throw new Error("Invalid email format");
-  }
-  return value as Email;
-}
-
-// Type safety prevents mixing
-function sendEmail(userId: UserId, email: Email): void {
-  // Implementation
-}
-
-const userId = createUserId("user-123");
-const email = createEmail("user@example.com");
-const orderId = createOrderId("order-456");
-
-sendEmail(userId, email); // ✅ OK
-sendEmail(userId, orderId); // ❌ Type error - can't use OrderId as Email
-sendEmail("user-123", "user@example.com"); // ❌ Type error - must use factory
 ```
 
 ## Discriminated Unions
@@ -448,7 +407,6 @@ function makeSound(animal: Dog | Cat): void {
 
 - ✅ Use `unknown` instead of `any`
 - ✅ Implement type guards for runtime checks
-- ✅ Use branded types for domain modeling
 - ✅ Leverage discriminated unions for polymorphism
 - ✅ Enable strict mode in tsconfig.json
 - ✅ Use const assertions for literal types
@@ -517,5 +475,4 @@ const exactUser: User = {
 - **Type safety catches bugs at compile time** - Invest in good types
 - **unknown > any** - Always use unknown for truly unknown types
 - **Type guards are your friends** - Use them liberally
-- **Branded types prevent bugs** - Use for domain modeling
 - **Strict mode is mandatory** - Never disable it

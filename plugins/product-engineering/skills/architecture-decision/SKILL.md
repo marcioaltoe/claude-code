@@ -380,7 +380,7 @@ No migration needed (greenfield project). For future reference if porting from E
 **The 7 Gates (from plugins/product-engineering/gates/architecture-gates.md):**
 
 1. **Simplicity Gate**: d3 projects, no future-proofing, Rule of Three before DRY
-2. **Type Safety Gate**: No `any`, branded types, type guards
+2. **Type Safety Gate**: No `any`, type guards
 3. **Clean Code Gate**: Functions <20 lines, SOLID, meaningful names
 4. **Test-First Gate**: TDD (Red-Green-Refactor), tests before code
 5. **Clean Architecture Gate** (Backend): Domain � Application � Infrastructure (with HTTP layer)

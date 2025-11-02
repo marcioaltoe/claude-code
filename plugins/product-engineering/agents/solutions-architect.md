@@ -111,7 +111,7 @@ features/{name}/
 **Run ALL 7 gates:**
 
 1. Simplicity: ≤3 projects? No future-proofing?
-2. Type Safety: No `any`? Branded types?
+2. Type Safety: No `any`? Type guards?
 3. Clean Code: Functions < 20 lines? SOLID?
 4. Test-First: TDD approach? Real dependencies?
 5. Clean Architecture: Dependency flow correct?
@@ -180,7 +180,6 @@ For each major decision:
 **Type Safety:**
 
 - No `any` types
-- Branded types for domain
 - Type guards for unknown
 
 **Clean Code:**

@@ -53,7 +53,7 @@ bun run quality  # Executes all 5 steps
 - [ ] Committed to feature branch? (not main/dev)
 - [ ] Commit message follows conventions?
 
-**For complete TypeScript type safety rules (type guards, branded types), see `typescript-type-safety` skill**
+**For complete TypeScript type safety rules (type guards), see `typescript-type-safety` skill**
 
 ## Bun-Specific Commands
 

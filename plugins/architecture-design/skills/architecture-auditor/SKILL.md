@@ -450,7 +450,6 @@ Required:
 
 - [ ] NO `any` type usage
 - [ ] Proper type guards for `unknown`
-- [ ] Branded types for domain modeling
 - [ ] Discriminated unions where appropriate
 
 **Testing**:

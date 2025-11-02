@@ -52,7 +52,7 @@ Systematically validate implementation through:
 **Run ALL 7 gates:**
 
 1. **Simplicity:** `≤3 projects? No future-proofing?`
-2. **Type Safety:** `No any? Branded types?`
+2. **Type Safety:** `No any? Type guards?`
 3. **Clean Code:** `Functions < 20 lines? SOLID?`
 4. **Test-First:** `TDD? Real dependencies?`
 5. **Clean Architecture:** `Dependency flow correct?`

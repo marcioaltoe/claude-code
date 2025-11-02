@@ -927,20 +927,18 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
-**Focus:** TypeScript type safety including type guards, branded types, and advanced type system features
+**Focus:** TypeScript type safety including type guards and advanced type system features
 
 **Invocation Examples:**
 
 - "Implement type guards for this data"
 - "Working with unknown types"
-- "Create branded types"
 - "Advanced TypeScript patterns"
 
 **Capabilities:**
 
 - NEVER use `any` - Use `unknown` with type guards
 - Proper type guards (type predicates)
-- Branded types for domain modeling
 - Discriminated unions for polymorphic data
 - Conditional types
 - Mapped types (Partial, Readonly, Pick, Omit)

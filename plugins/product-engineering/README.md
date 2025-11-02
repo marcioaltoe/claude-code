@@ -124,7 +124,7 @@ Verify implementation against spec and design:
 **Architecture Gates:**
 
 - ✅ Simplicity Gate: ≤3 projects, no future-proofing
-- ✅ Type Safety Gate: No `any` types, branded types for domain
+- ✅ Type Safety Gate: No `any` types, type guards for validation
 - ✅ Clean Code Gate: Functions < 20 lines, SOLID principles
 
 **Output:** Technical design document + ADRs
@@ -176,7 +176,6 @@ Our workflow enforces these architectural principles (see `gates/architecture-ga
 ### 2. Type Safety
 
 - No `any` types in TypeScript
-- Use branded types for domain primitives
 - Type guards for unknown types
 
 ### 3. Clean Code

@@ -259,7 +259,6 @@ export const userResponseSchema = z.object({
 ### Gate 2: Type Safety Gate ✅
 
 - [ ] No `any` types?
-- [ ] Using branded types for domain primitives?
 - [ ] Type guards for unknown types?
 - [ ] Strict mode enabled?
 

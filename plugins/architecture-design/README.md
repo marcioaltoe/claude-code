@@ -259,13 +259,12 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 
 **Name**: `typescript-type-safety`
 
-**Purpose**: TypeScript type safety including type guards, branded types, and advanced type system features.
+**Purpose**: TypeScript type safety including type guards and advanced type system features.
 
 **When to Use**:
 
 - Working with `unknown` types
 - Implementing type guards
-- Creating branded types for domain modeling
 - Using discriminated unions
 - Implementing advanced TypeScript patterns
 
@@ -273,7 +272,6 @@ Each skill is **highly specialized** following the **Single Responsibility Princ
 
 - NEVER use `any` - Use `unknown` with type guards
 - Proper type guards (type predicates)
-- Branded types for domain modeling
 - Discriminated unions for polymorphic data
 - Conditional types
 - Mapped types (Partial, Readonly, Pick, Omit)
@@ -440,20 +438,6 @@ The plugin enforces:
 7. **Error Handling**: Exceptions with context, Result pattern for expected failures
 
 ## Common Patterns
-
-### Value Object with Branded Type
-
-```typescript
-type Email = string & { readonly brand: unique symbol };
-
-export function createEmail(value: string): Email {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(value)) {
-    throw new ValidationError("Invalid email format", { email: value });
-  }
-  return value as Email;
-}
-```
 
 ### Repository Pattern with Dependency Inversion
 

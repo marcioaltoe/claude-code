@@ -127,7 +127,7 @@ src/domain/
  * Responsibilities:
  * - Generate time-ordered UUIDv7 identifiers
  * - Validate UUID format
- * - Provide type safety via branded types
+ * - Provide type safety
  * - Immutable by design
  *
  * Why UUIDv7?
@@ -137,7 +137,7 @@ src/domain/
  * - Encodes: Timestamp + random value + counter
  *
  * Usage:
- * Create specific ID types by extending this class or using branded types:
+ * Use as-is for entity identifiers:
  * - UserId
  * - OrderId
  * - ProductId
@@ -225,24 +225,6 @@ export class UUIDv7 {
     return this.value
   }
 }
-
-/**
- * Factory function to create branded UUID types
- *
- * Usage:
- * ```typescript
- * export type UserIdBrand = string & { readonly __brand: 'UserId' }
- * export class UserId extends UUIDv7 {
- *   protected readonly value!: UserIdBrand
- *
- *   protected constructor(value: string) {
- *     super(value)
- *     ;(this as any).value = value as UserIdBrand
- *   }
- * }
- * ```
- */
-export type CreateUUIDBrand<T extends string> = string & { readonly __brand: T }
 
 /**
  * Type alias for User ID
