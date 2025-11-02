@@ -566,6 +566,7 @@ export class CreateUserUseCase {
   async execute(dto: CreateUserDto): Promise<User> {
     // 100+ lines of validation, hashing, saving, emailing...
     // Hard to test, hard to read, hard to maintain
+    return User;
   }
 }
 ```
