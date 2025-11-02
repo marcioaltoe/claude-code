@@ -213,7 +213,7 @@ Generate a new Drizzle schema file with table definitions.
 import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
+  id: uuid("id").primaryKey(), // App generates ID using Bun.randomUUIDv7()
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -521,20 +521,19 @@ async function getPaginatedPosts(page: number, pageSize: number = 20) {
 
 1. **Use UUIDv7 for Primary Keys**:
 
-   - Generate in application layer using Value Objects (see ADR 002)
-   - Use `uuid` npm package via Port/Adapter pattern (NOT `Bun.randomUUIDv7()`)
-   - PostgreSQL 17 has no native UUIDv7 support
-   - Better for distributed systems
-   - Improved index performance over UUIDv4
+   - Generate in application layer using `Bun.randomUUIDv7()` (Bun native API)
+   - NEVER use Node.js `crypto.randomUUID()` (generates UUIDv4, not UUIDv7)
+   - NEVER use external libraries like `uuid` npm package
+   - Better for distributed systems and improved index performance over UUIDv4
    - Example:
 
      ```typescript
-     // Domain Value Object generates ID
-     const userId = EntityId.generate(); // Uses uuid library via adapter
+     // Generate UUIDv7 in application code
+     const userId = Bun.randomUUIDv7();
 
      // Drizzle schema (no database default)
      export const users = pgTable("users", {
-       id: uuid("id").primaryKey(), // App generates, NOT database
+       id: uuid("id").primaryKey(), // App generates using Bun.randomUUIDv7()
      });
      ```
 
@@ -731,7 +730,7 @@ bun run db:push
 import { jsonb } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
+  id: uuid("id").primaryKey(), // App generates ID using Bun.randomUUIDv7()
   metadata: jsonb("metadata").$type<{ theme: string; preferences: any }>(),
 });
 ```
@@ -742,7 +741,7 @@ export const users = pgTable("users", {
 import { text } from "drizzle-orm/pg-core";
 
 export const posts = pgTable("posts", {
-  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
+  id: uuid("id").primaryKey(), // App generates ID using Bun.randomUUIDv7()
   tags: text("tags").array(),
 });
 
@@ -758,7 +757,7 @@ const posts = await db
 
 ```typescript
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
+  id: uuid("id").primaryKey(), // App generates ID using Bun.randomUUIDv7()
   name: varchar("name", { length: 255 }).notNull(),
   deletedAt: timestamp("deleted_at"),
 });
@@ -779,7 +778,7 @@ import { index, sql } from "drizzle-orm/pg-core";
 export const posts = pgTable(
   "posts",
   {
-    id: uuid("id").primaryKey(), // App generates ID via EntityId.generate()
+    id: uuid("id").primaryKey(), // App generates ID using Bun.randomUUIDv7()
     title: varchar("title", { length: 255 }).notNull(),
     content: text("content").notNull(),
   },
