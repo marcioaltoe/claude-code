@@ -138,7 +138,7 @@ Shows:
 The skill requires a `.env` file in its installation directory:
 
 ```bash
-# Location: ~/.claude/plugins/reviewer/skills/pull-request-skill/.env
+# Location: ~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill/.env
 GITHUB_TOKEN=ghp_your_personal_access_token_here
 OUTPUT_DIR=./.reviews
 LOG_LEVEL=info
@@ -288,7 +288,7 @@ Issues are automatically categorized:
 
 **Solution**:
 
-1. Create `.env` file: `~/.claude/plugins/reviewer/skills/pull-request-skill/.env`
+1. Create `.env` file: `~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill/.env`
 2. Add: `GITHUB_TOKEN=ghp_...`
 3. Generate token at: https://github.com/settings/tokens
 
@@ -320,7 +320,7 @@ Issues are automatically categorized:
 **Solution**:
 
 ```bash
-cd ~/.claude/plugins/reviewer/skills/pull-request-skill
+cd ~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill
 bun install
 ```
 

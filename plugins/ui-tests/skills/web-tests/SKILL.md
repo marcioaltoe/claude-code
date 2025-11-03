@@ -8,7 +8,7 @@ This skill is installed globally but saves outputs to the user's working directo
 
 Common installation paths:
 
-- Plugin system: `~/.claude/plugins/marketplaces/ui-tests/skills/web-tests`
+- Plugin system: `~/.claude/plugins/marketplaces/claude-craftkit/plugins/ui-tests/skills/web-tests`
 - Manual global: `~/.claude/skills/web-tests`
 - Project-specific: `<project>/.claude/skills/web-tests`
 

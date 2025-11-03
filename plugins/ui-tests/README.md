@@ -23,7 +23,7 @@ A [Claude Code Plugin](https://docs.claude.com/en/docs/claude-code/plugins) that
 /plugin install ui-tests@ui-tests
 
 # Setup dependencies (first time only)
-cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/claude-craftkit/plugins/ui-tests/skills/web-tests
 npm run setup
 ```
 
@@ -164,12 +164,12 @@ Claude will:
 
 This plugin uses a **global tool pattern**:
 
-1. **Skill Installed Once**: Lives in `~/.claude/plugins/ui-tests/`
+1. **Skill Installed Once**: Lives in `~/.claude/plugins/marketplaces/claude-craftkit/plugins/ui-tests/`
 2. **CWD Pattern**: Uses `CWD` environment variable to save outputs to user's repo
 3. **Execution Flow**:
    ```bash
    # Command executed by Claude
-   CWD=$(pwd) cd ~/.claude/plugins/ui-tests/skills/web-tests && \
+   CWD=$(pwd) cd ~/.claude/plugins/marketplaces/claude-craftkit/plugins/ui-tests/skills/web-tests && \
    node run.js .web-tests/scripts/test.js
    ```
 4. **Output Resolution**: `helpers.takeScreenshot()` uses `process.env.CWD` to save to user's directory
@@ -213,7 +213,7 @@ Claude will create custom Playwright code tailored to your request.
 
 **Playwright not installed:**
 ```bash
-cd ~/.claude/plugins/marketplaces/ui-tests/skills/web-tests
+cd ~/.claude/plugins/marketplaces/claude-craftkit/plugins/ui-tests/skills/web-tests
 npm run setup
 ```
 
