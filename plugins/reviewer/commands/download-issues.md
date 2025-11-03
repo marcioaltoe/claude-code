@@ -2,17 +2,25 @@
 description: Download CodeRabbit AI review comments for a Pull Request
 ---
 
-<pr>--pr</pr>
-
 ## Download PR Reviews
 
 This command downloads CodeRabbit AI review comments from a GitHub Pull Request and organizes them by severity for systematic resolution.
 
 **This command works from any directory** - it will save reviews to the current working directory's `.reviews/` folder.
 
+## Usage
+
+```bash
+# With PR number
+/reviewer:download-issues --pr 123
+
+# Without PR number (auto-detects latest open PR)
+/reviewer:download-issues
+```
+
 ## How Claude Code Executes This
 
-When you run `/download --pr 123`, Claude Code will:
+When you run `/reviewer:download-issues --pr 123` or `/reviewer:download-issues`, Claude Code will:
 
 1. Find the installed `pr-reviewer` skill location
 2. Execute the download script from the skill directory
@@ -104,16 +112,16 @@ After downloading reviews:
 
 ```bash
 # Download PR #123 - saves to current directory's .reviews/
-/download --pr 123
+/reviewer:download-issues --pr 123
 
-# Download latest open PR
-/download
+# Download latest open PR (auto-detects)
+/reviewer:download-issues
 
 # With debug logging
-LOG_LEVEL=debug /download --pr 123
+LOG_LEVEL=debug /reviewer:download-issues --pr 123
 
 # Save to custom directory
-OUTPUT_DIR=./my-reviews /download --pr 123
+OUTPUT_DIR=./my-reviews /reviewer:download-issues --pr 123
 ```
 
 ## Troubleshooting
@@ -133,5 +141,5 @@ OUTPUT_DIR=./my-reviews /download --pr 123
 
 ## See Also
 
-- `/fix` - Fix issues from a downloaded PR review
-- `/status` - Check status of PR reviews
+- `/reviewer:fix-issues` - Fix issues from a downloaded PR review
+- `/reviewer:pr-status` - Check status of PR reviews

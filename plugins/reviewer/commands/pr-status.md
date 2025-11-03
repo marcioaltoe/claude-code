@@ -43,7 +43,7 @@ The `summary.md` file contains:
 
 The summary is automatically updated when you:
 
-1. Download PR reviews (`/download`)
+1. Download PR reviews (`/reviewer:download-issues`)
 2. Resolve issues using the resolve script
 
 ## Example Output
@@ -78,5 +78,5 @@ pr-status 123
 
 ## See Also
 
-- `/download` - Download PR reviews
-- `/fix` - Fix issues from a PR review
+- `/reviewer:download-issues` - Download PR reviews
+- `/reviewer:fix-issues` - Fix issues from a PR review

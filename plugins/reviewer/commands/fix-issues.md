@@ -90,10 +90,10 @@ After fixing issues, mark them as resolved:
 
 ```bash
 # Resolve issues 1-10
-~/.claude/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
+~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --from 1 --to 10
 
 # Resolve all unresolved issues
-~/.claude/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --all
+~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill/resolve-pr-issues.sh --pr-dir .reviews/reviews-pr-123 --all
 ```
 
 This will:
@@ -103,5 +103,5 @@ This will:
 
 ## See Also
 
-- `/download` - Download PR reviews
-- `/status` - Check status of PR reviews
+- `/reviewer:download-issues` - Download PR reviews
+- `/reviewer:pr-status` - Check status of PR reviews

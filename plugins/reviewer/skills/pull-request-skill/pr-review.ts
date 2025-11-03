@@ -146,6 +146,23 @@ interface GraphQLResponse {
   }
 }
 
+// ---------- State Persistence Types ----------
+interface ResolvedIssueState {
+  commentId: number // REST comment id
+  nodeId: string // GraphQL global ID
+  path: string
+  line?: number
+  resolvedAt: string
+  resolvedLocally: boolean // true if resolved locally without GitHub API
+  body: string // First 100 chars for identification
+}
+
+interface ResolvedState {
+  pr: number
+  lastUpdate: string
+  resolvedIssues: Record<string, ResolvedIssueState> // key: commentId
+}
+
 // Octokit REST API response types
 type RestReviewComment = Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}/comments']['response']['data'][number]
 type RestIssueComment =
@@ -183,6 +200,90 @@ function getSeverityEmoji(severity: 'critical' | 'major' | 'trivial'): string {
 
 function getSeverityLabel(severity: 'critical' | 'major' | 'trivial'): string {
   return severity.charAt(0).toUpperCase() + severity.slice(1)
+}
+
+// ---------- State Persistence Functions ----------
+
+/**
+ * Load resolved state from previous downloads
+ */
+async function loadResolvedState(outputDir: string, prNumber: number): Promise<ResolvedState | null> {
+  const stateFile = join(outputDir, '.resolved-state.json')
+  try {
+    const content = await fs.readFile(stateFile, 'utf8')
+    const state = JSON.parse(content) as ResolvedState
+    if (state.pr === prNumber) {
+      logger.info('Loaded previous resolved state', {
+        resolvedCount: Object.keys(state.resolvedIssues).length,
+        lastUpdate: state.lastUpdate,
+      })
+      return state
+    }
+    logger.debug('State file exists but for different PR', { statePR: state.pr, currentPR: prNumber })
+    return null
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      logger.debug('No previous state file found')
+      return null
+    }
+    logger.warn('Failed to load resolved state', {
+      error: error instanceof Error ? error.message : String(error),
+    })
+    return null
+  }
+}
+
+/**
+ * Save resolved state for future downloads
+ */
+async function saveResolvedState(outputDir: string, state: ResolvedState): Promise<void> {
+  const stateFile = join(outputDir, '.resolved-state.json')
+  try {
+    await fs.writeFile(stateFile, JSON.stringify(state, null, 2), 'utf8')
+    logger.info('Saved resolved state', {
+      resolvedCount: Object.keys(state.resolvedIssues).length,
+    })
+  } catch (error) {
+    logger.warn('Failed to save resolved state', {
+      error: error instanceof Error ? error.message : String(error),
+    })
+  }
+}
+
+/**
+ * Check if a comment was previously resolved locally
+ */
+function wasResolvedLocally(comment: ReviewComment, previousState: ResolvedState | null): boolean {
+  if (!previousState) return false
+  const key = String(comment.id)
+  return key in previousState.resolvedIssues
+}
+
+/**
+ * Build resolved state from current comments and previous state
+ */
+function buildResolvedState(
+  prNumber: number,
+  comments: ReviewComment[],
+  previousState: ResolvedState | null,
+): ResolvedState {
+  const resolvedIssues: Record<string, ResolvedIssueState> = {}
+
+  // Preserve previously resolved issues that still exist in current comments
+  if (previousState) {
+    for (const comment of comments) {
+      const key = String(comment.id)
+      if (key in previousState.resolvedIssues) {
+        resolvedIssues[key] = previousState.resolvedIssues[key]
+      }
+    }
+  }
+
+  return {
+    pr: prNumber,
+    lastUpdate: new Date().toISOString(),
+    resolvedIssues,
+  }
 }
 
 async function fetchLatestOpenPR(octokit: EnhancedOctokitInstance, owner: string, repo: string): Promise<number> {
@@ -377,6 +478,9 @@ async function main() {
     const dirsToCreate = [outputDir, commentsDir, issuesDir]
     await Promise.all(dirsToCreate.map((dir) => fs.mkdir(dir, { recursive: true })))
 
+    // Load previous resolved state (if exists)
+    const previousState = await loadResolvedState(outputDir, prNumber)
+
     // Update logger to use PR-specific log files
     const prLogFile = join(outputDir, 'pr-review-combined.log')
     const prErrorFile = join(outputDir, 'pr-review-error.log')
@@ -407,13 +511,15 @@ async function main() {
     simpleReviewComments.sort((a, b) => a.created_at.localeCompare(b.created_at))
 
     // Count resolution by policy: thread resolved AND contains "✅ Addressed in commit"
-    const resolvedCount = reviewComments.filter((c) => isCommentResolvedByPolicy(c, reviewThreads)).length
+    // OR previously resolved locally (persisted in state)
+    const resolvedCount = reviewComments.filter((c) => isCommentResolvedByPolicy(c, reviewThreads, previousState)).length
     const unresolvedCount = reviewComments.length - resolvedCount
 
     logger.info('Processing review comments', {
       totalReviewComments: reviewComments.length,
       resolved: resolvedCount,
       unresolved: unresolvedCount,
+      resolvedFromPreviousState: previousState ? Object.keys(previousState.resolvedIssues).length : 0,
     })
 
     logger.info('Creating issue files (resolvable review threads)')
@@ -421,7 +527,7 @@ async function main() {
 
     for (let i = 0; i < reviewComments.length; i++) {
       const severity = getCommentSeverity(reviewComments[i])
-      const isResolved = isCommentResolvedByPolicy(reviewComments[i], reviewThreads)
+      const isResolved = isCommentResolvedByPolicy(reviewComments[i], reviewThreads, previousState)
       severityCounts[severity]++
       // Use global sequential numbering (i + 1) for file names
       await createIssueFile(issuesDir, i + 1, reviewComments[i], reviewThreads, severity, isResolved)
@@ -449,7 +555,12 @@ async function main() {
       unresolvedCount,
       reviewThreads,
       severityCounts,
+      previousState,
     )
+
+    // Build and save resolved state for next download
+    const newState = buildResolvedState(prNumber, reviewComments, previousState)
+    await saveResolvedState(outputDir, newState)
 
     const totalGenerated = reviewComments.length + simpleItems.length
     logger.info('Processing completed successfully', {
@@ -703,10 +814,22 @@ function _isCommentResolved(comment: Comment, reviewThreads: ReviewThread[]): bo
 }
 
 // Policy-level resolution: the thread must be resolved AND contain
-// a confirmation marker "✅ Addressed in commit" somewhere in the thread.
-function isCommentResolvedByPolicy(comment: Comment, reviewThreads: ReviewThread[]): boolean {
+// a confirmation marker "✅ Addressed in commit" somewhere in the thread,
+// OR was previously resolved locally (persisted in state).
+function isCommentResolvedByPolicy(
+  comment: Comment,
+  reviewThreads: ReviewThread[],
+  previousState: ResolvedState | null = null,
+): boolean {
   if (!('path' in comment && 'line' in comment)) return false
   const rc = comment as ReviewComment
+
+  // Check if previously resolved locally
+  if (wasResolvedLocally(rc, previousState)) {
+    return true
+  }
+
+  // Check GitHub thread resolution status
   for (const thread of reviewThreads) {
     const match = thread.comments.nodes.some(
       (tc) =>
@@ -840,6 +963,7 @@ async function createSummaryFile(
   unresolvedCount: number,
   reviewThreads: ReviewThread[],
   severityCounts: { critical: number; major: number; trivial: number },
+  previousState: ResolvedState | null = null,
 ): Promise<void> {
   const now = new Date().toISOString()
   let content = `# PR Review #${prNumber} - CodeRabbit AI Export
@@ -873,7 +997,7 @@ This folder contains exported issues (resolvable review threads) and simple comm
 
   for (let i = 0; i < reviewComments.length; i++) {
     const severity = getCommentSeverity(reviewComments[i])
-    const isResolved = isCommentResolvedByPolicy(reviewComments[i], reviewThreads)
+    const isResolved = isCommentResolvedByPolicy(reviewComments[i], reviewThreads, previousState)
     issuesBySeverity[severity].push({ index: i, comment: reviewComments[i], isResolved })
   }
 
