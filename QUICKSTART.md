@@ -161,7 +161,7 @@ The `ai-sdk-specialist` skill will configure everything automatically.
 Simply ask Claude to configure quality gates:
 
 ```
-Set up complete quality gates for my project with barrel-craft, Biome, Prettier, TypeScript, and Bun test
+Set up complete quality gates for my project with barrel-craft, Biome, Prettier, TypeScript, and Vitest
 ```
 
 The `quality-gates` skill will configure everything automatically.
@@ -281,7 +281,7 @@ Set up complete quality gates for my project:
 - Biome for linting/formatting (TS/JS/CSS)
 - Prettier for markdown
 - TypeScript strict mode
-- Bun test with React Testing Library
+- Vitest with React Testing Library
 - Husky pre-commit hooks
 - Create sample tests for user authentication flow
 ```

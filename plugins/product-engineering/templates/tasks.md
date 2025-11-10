@@ -183,7 +183,7 @@ w
 - [ ] `T017` [backlog] [US1] Run contract tests
 
   - **Story:** US-1
-  - **Command:** `bun test tests/integration/api/{resource}.integration.test.ts`
+  - **Command:** `bun run test tests/integration/api/{resource}.integration.test.ts`
   - **Estimate:** 5 min
   - **Depends:** T006, T011, T012, T014, T015
   - **Expected:** All green
@@ -191,7 +191,7 @@ w
 - [ ] `T018` [backlog] [US1] Run E2E tests
 
   - **Story:** US-1
-  - **Command:** `bun test tests/e2e/{feature}/{story}.e2e.test.ts`
+  - **Command:** `bun run test tests/e2e/{feature}/{story}.e2e.test.ts`
   - **Estimate:** 5 min
   - **Depends:** T007, T015
   - **Expected:** All green
@@ -255,7 +255,7 @@ w
 
 - [ ] `T0XX` [backlog] Run full test suite
 
-  - **Command:** `bun test`
+  - **Command:** `bun run test`
   - **Expected:** All pass
 
 - [ ] `T0XX` [backlog] Type check entire codebase

@@ -126,7 +126,7 @@ This marketplace provides comprehensive support for:
 - **Forms:** TanStack Form + Zod validation
 - **Architecture:** Clean Architecture (domain/application/infrastructure with HTTP layer)
 - **AI:** Vercel AI SDK with OpenAI & Anthropic support
-- **Testing:** Bun built-in test + React Testing Library + Happy DOM
+- **Testing:** Vitest + React Testing Library
 - **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
 - **Workflow:** Git automation with Conventional Commits and PR creation
 - **QoL:** Audio notifications for long-running tasks

@@ -64,7 +64,7 @@ Systematically validate implementation through:
 ```bash
 grep -r ": any" src/  # Type safety
 find src -maxdepth 1 -type d | wc -l  # Simplicity
-bun test --coverage  # Test coverage
+bun run test:coverage # Test coverage
 bun run type-check  # Type errors
 ```
 
@@ -72,7 +72,7 @@ bun run type-check  # Type errors
 
 ```bash
 /quality:check  # Or individual:
-bun test                # All tests pass?
+bun run test           # All tests pass?
 bun run type-check     # No type errors?
 bun run lint           # No lint errors?
 bun run format --check # Properly formatted?

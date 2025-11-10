@@ -1,18 +1,18 @@
 {
   "name": "qa",
   "version": "1.0.0",
-  "description": "Testing and code quality tools for Bun applications with native Bun test, Playwright, and Biome.",
+  "description": "Testing and code quality tools for Bun applications with Vitest (running on Bun), Playwright, and Biome.",
   "author": {
     "name": "Marcio Altoé",
     "email": "marcio.altoe@gmail.com"
   },
   "keywords": [
     "testing",
-    "bun-test",
+    "vitest",
+    "bun",
     "playwright",
     "biome",
     "quality",
-    "bun",
     "test-automation"
   ],
   "license": "MIT"

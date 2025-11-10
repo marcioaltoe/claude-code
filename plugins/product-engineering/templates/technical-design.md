@@ -30,19 +30,19 @@ phase: design
 
 ## 🛠️ Tech Stack
 
-| Layer/Component        | Technology               | Rationale                      |
-| ---------------------- | ------------------------ | ------------------------------ |
-| **Runtime**            | Bun                      | {why chosen over Node.js/Deno} |
-| **Backend Framework**  | Hono                     | {why chosen}                   |
-| **Database**           | PostgreSQL               | {why chosen}                   |
-| **ORM**                | Drizzle                  | {why chosen}                   |
-| **Cache**              | Redis (ioredis)          | {why needed, why Redis}        |
-| **Queue**              | AWS SQS (LocalStack local) | {why needed, why SQS}       |
-| **Frontend Framework** | React 19 + Vite 6        | {why chosen}                   |
-| **Router**             | TanStack Router          | {why chosen}                   |
-| **State Management**   | Zustand + TanStack Query | {why chosen}                   |
-| **UI Components**      | shadcn/ui + Tailwind 4   | {why chosen}                   |
-| **Testing**            | Bun test + Playwright    | {why chosen}                   |
+| Layer/Component        | Technology                 | Rationale                      |
+| ---------------------- | -------------------------- | ------------------------------ |
+| **Runtime**            | Bun                        | {why chosen over Node.js/Deno} |
+| **Backend Framework**  | Hono                       | {why chosen}                   |
+| **Database**           | PostgreSQL                 | {why chosen}                   |
+| **ORM**                | Drizzle                    | {why chosen}                   |
+| **Cache**              | Redis (ioredis)            | {why needed, why Redis}        |
+| **Queue**              | AWS SQS (LocalStack local) | {why needed, why SQS}          |
+| **Frontend Framework** | React 19 + Vite 6          | {why chosen}                   |
+| **Router**             | TanStack Router            | {why chosen}                   |
+| **State Management**   | Zustand + TanStack Query   | {why chosen}                   |
+| **UI Components**      | shadcn/ui + Tailwind 4     | {why chosen}                   |
+| **Testing**            | Vitest + Playwright        | {why chosen}                   |
 
 **Research References:**
 

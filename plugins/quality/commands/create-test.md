@@ -4,7 +4,7 @@ description: Create a test file for a function, class, or API route
 
 # Create Test
 
-Generate a test file using Bun's built-in test runner for functions, classes, or API routes.
+Generate a test file using Vitest for functions, classes, or API routes.
 
 ## Instructions
 
@@ -15,13 +15,14 @@ Generate a test file using Bun's built-in test runner for functions, classes, or
    - Integration test
 2. Create test file following naming convention:
    - `*.test.ts` or `*.test.tsx`
-   - Co-located with source file or in `tests/` directory
+   - Co-located with source file in `__tests__/` folder (unit tests)
+   - Or in root-level `tests/` directory (integration/E2E tests)
 3. Generate test with:
-   - Proper imports from `bun:test`
+   - Proper imports from `vitest`
    - describe block for test suite
    - Individual test cases with `it()`
    - Setup and teardown if needed (beforeEach, afterEach)
-   - Mock implementations using `jest.fn()` from Bun
+   - Mock implementations using `vi.fn()` from Vitest
    - Clear assertions with `expect()`
 4. For utilities and classes, test:
    - Input/output correctness
@@ -37,7 +38,7 @@ Generate a test file using Bun's built-in test runner for functions, classes, or
 ## Unit Test Example
 
 ```typescript
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { calculateDiscount } from "./discount";
 
 describe("calculateDiscount", () => {
@@ -60,13 +61,13 @@ describe("calculateDiscount", () => {
 ## API Route Test Example (Hono)
 
 ```typescript
-import { describe, expect, it, jest } from "bun:test";
+import { describe, expect, it, vi } from "vitest";
 import { Hono } from "hono";
 
 describe("Contract: POST /users", () => {
   it("creates a user and returns 201", async () => {
     const app = new Hono();
-    const createMock = jest.fn(async () => ({ id: "123", name: "John" }));
+    const createMock = vi.fn(async () => ({ id: "123", name: "John" }));
 
     app.post("/users", async (c) => {
       const body = await c.req.json();
@@ -98,6 +99,22 @@ describe("Contract: POST /users", () => {
     expect(response.status).toBe(401);
   });
 });
+```
+
+## Running Tests
+
+```bash
+# Run all tests
+bun run test
+
+# Run tests in watch mode
+bun run test:watch
+
+# Run specific test file
+bun run test path/to/test.test.ts
+
+# Run with coverage
+bun run test:coverage
 ```
 
 Ensure comprehensive test coverage with meaningful assertions and proper error handling.

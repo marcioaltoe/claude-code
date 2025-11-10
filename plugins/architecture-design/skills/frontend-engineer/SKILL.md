@@ -66,7 +66,7 @@ This skill focuses on:
 
 ### Testing:
 
-- **Unit**: Bun test + React Testing Library
+- **Unit**: Vitest + React Testing Library
 - **E2E**: Playwright
 
 → See `project-standards` skill for complete tech stack

@@ -1,6 +1,6 @@
 # Testing & Quality Tools
 
-> Comprehensive testing, code quality, and quality gates workflow for Bun applications with native Bun test, Playwright, Biome, and barrel-craft.
+> Comprehensive testing, code quality, and quality gates workflow for Bun applications with Vitest, Playwright, Biome, and barrel-craft.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Bun](https://img.shields.io/badge/Bun-1.0+-black?logo=bun)](https://bun.sh)
@@ -12,7 +12,7 @@ This plugin provides a complete code quality and testing solution for Bun-based 
 ## Features
 
 - ✅ **Quality Gates Workflow**: Automated quality checks (craft → format → lint → type-check → test)
-- 🧪 **Bun Native Testing**: Full support for Bun's built-in test runner
+- 🧪 **Vitest Testing**: Full support for Vitest test runner
 - 🎭 **E2E Testing**: Playwright integration for browser automation
 - 🛢️ **Barrel Files**: Automated barrel file generation with barrel-craft
 - 🎨 **Code Quality**: Biome + Prettier for linting and formatting
@@ -23,7 +23,7 @@ This plugin provides a complete code quality and testing solution for Bun-based 
 ## Tech Stack
 
 - **Runtime**: [Bun](https://bun.sh) - Fast all-in-one JavaScript runtime
-- **Test Runner**: Bun's native `bun:test` - Built-in testing framework
+- **Test Runner**: [Vitest](https://vitest.dev) - Fast unit test framework
 - **E2E Testing**: [Playwright](https://playwright.dev) - Browser automation
 - **Code Quality**: [Biome](https://biomejs.dev) - Fast linting and formatting
 - **Formatting**: [Prettier](https://prettier.io) - Markdown and package.json formatting
@@ -34,7 +34,7 @@ This plugin provides a complete code quality and testing solution for Bun-based 
 
 ### 🧪 test-engineer
 
-Expert testing and quality engineer for Bun applications with Bun test, Playwright, and Biome.
+Expert testing and quality engineer for Bun applications with Vitest (running on Bun), Playwright, and Biome.
 
 **Use when:**
 
@@ -108,7 +108,7 @@ The quality gates sequence **MUST** be executed in this order:
 2. bun run format       # Format code (Biome + Prettier)
 3. bun run lint         # Lint code (Biome)
 4. bun run type-check   # Type check (TypeScript)
-5. bun test             # Run tests (Bun test)
+5. bun run test         # Run tests (Vitest on Bun runtime)
 ```
 
 ### Quick Start
@@ -118,7 +118,7 @@ The quality gates sequence **MUST** be executed in this order:
 bun run quality
 
 # Or run individually
-bun run craft && bun run format && bun run lint && bun run type-check && bun test
+bun run craft && bun run format && bun run lint && bun run type-check && bun run test
 ```
 
 This sequence MUST be executed:
@@ -140,7 +140,7 @@ Run the complete quality gates workflow (craft → format → lint → type-chec
 2. Format code (`bun run format`)
 3. Lint code (`bun run lint`)
 4. Type check (`bun run type-check`)
-5. Run tests (`bun test`)
+5. Run tests (`bun run test`)
 
 **When to use:**
 
@@ -176,12 +176,12 @@ Setup complete quality gates workflow with all tools and configurations.
 
 ### `/create-test`
 
-Generate a test file using Bun's built-in test runner.
+Generate a test file using Vitest.
 
 **What it does:**
 
 - Creates test file with proper structure
-- Includes Bun test imports (`bun:test`)
+- Includes Vitest imports (`vitest`)
 - Provides examples for unit and API tests
 - Follows best practices and patterns
 
@@ -194,7 +194,7 @@ Generate a test file using Bun's built-in test runner.
 - `.prettierignore` - Prettier ignore patterns
 - `.lintstagedrc.json` - Lint-staged configuration
 - `commitlint.config.js` - Commitlint configuration
-- `bunfig.toml` - Bun test configuration
+- `vitest.config.ts` - Vitest configuration
 - `barrel-craft.json` - Barrel file generation config
 
 ### Hooks
@@ -226,7 +226,6 @@ cp plugins/qa/templates/.prettierrc ./.prettierrc
 cp plugins/qa/templates/.prettierignore ./.prettierignore
 cp plugins/qa/templates/.lintstagedrc.json ./.lintstagedrc.json
 cp plugins/qa/templates/commitlint.config.js ./commitlint.config.js
-cp plugins/qa/templates/bunfig.toml ./bunfig.toml
 
 # Initialize barrel-craft
 barrel-craft init
@@ -256,10 +255,10 @@ Add these scripts to your `package.json`:
     "lint": "biome check --write .",
     "lint:fix": "biome check --write . --unsafe",
     "type-check": "tsc --noEmit",
-    "test": "bun test --timeout 10000",
-    "test:watch": "bun test --watch --timeout 10000",
-    "test:coverage": "bun test --coverage --timeout 10000",
-    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun test",
+    "test": "bun run test",
+    "test:watch": "bun run vitest",
+    "test:coverage": "bun run test --coverage",
+    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun run test",
     "prepare": "husky"
   }
 }
@@ -272,7 +271,7 @@ Add these scripts to your `package.json`:
 #### Unit Testing
 
 ```typescript
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 
 describe("calculateTotal", () => {
   it("sums array of numbers correctly", () => {
@@ -293,13 +292,13 @@ describe("calculateTotal", () => {
 #### API Route Testing (Hono)
 
 ```typescript
-import { describe, expect, it, jest } from "bun:test";
+import { describe, expect, it, vi } from "vitest";
 import { Hono } from "hono";
 
 describe("Contract: POST /users", () => {
   it("creates user and returns 201", async () => {
     const app = new Hono();
-    const createMock = jest.fn(async () => ({ id: "123", name: "John" }));
+    const createMock = vi.fn(async () => ({ id: "123", name: "John" }));
 
     app.post("/users", async (c) => {
       const body = await c.req.json();
@@ -345,11 +344,7 @@ Example `barrel-craft.json` for Clean Architecture:
 {
   "headerComment": "// Auto-generated by barrel-craft\n\n",
   "targets": ["src"],
-  "forceGenerate": [
-    "src/domain",
-    "src/application",
-    "src/infrastructure"
-  ],
+  "forceGenerate": ["src/domain", "src/application", "src/infrastructure"],
   "exclude": ["**/*.test.*", "**/*.spec.*", "**/*.d.ts"],
   "extensions": ["ts", "tsx"],
   "sortExports": true,

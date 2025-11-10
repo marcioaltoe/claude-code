@@ -280,7 +280,7 @@ Comprehensive quality gates workflow with testing, linting, formatting, and auto
 - Biome configuration for linting/formatting (TS/JS/CSS)
 - Prettier for markdown files
 - TypeScript strict mode setup
-- Bun built-in test with React Testing Library + Happy DOM
+- Vitest with React Testing Library
 - Husky pre-commit hooks
 - Test file generation with examples
 - CI/CD integration helpers
@@ -499,10 +499,10 @@ Complete list of all available commands across all plugins.
 
 ### Testing & Quality (2 commands)
 
-| Command        | Description                                                          |
-| -------------- | -------------------------------------------------------------------- |
-| `/create-test` | Generate test files with Bun test and React Testing Library examples |
-| `/check`       | Run complete workflow: craft → format → lint → type-check → test     |
+| Command        | Description                                                        |
+| -------------- | ------------------------------------------------------------------ |
+| `/create-test` | Generate test files with Vitest and React Testing Library examples |
+| `/check`       | Run complete workflow: craft → format → lint → type-check → test   |
 
 ### Git Workflow (3 commands)
 
@@ -669,11 +669,11 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 **Capabilities:**
 
-- Test file generation with Bun test
+- Test file generation with Vitest
 - React Testing Library patterns
-- Mock and stub creation
+- Mock and stub creation with vi utilities
 - Test organization and structure
-- Coverage analysis
+- Coverage analysis with v8 provider
 - Testing best practices enforcement
 
 ### 7. quality-engineer
@@ -798,7 +798,6 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 - Pre-commit checklist (mandatory execution order)
 - Quality gates workflow (craft → format → lint → type-check → test)
-- Bun-specific commands (`bun run test` vs `bun test`)
 - Bun runtime APIs (password hashing, file operations, UUID v7, SQLite)
 - Barrel files workflow (`bun run craft`)
 - Common workflow mistakes prevention
@@ -1338,7 +1337,7 @@ This marketplace provides comprehensive support for modern web development:
 ✅ **Architecture:** Clean Architecture (3-layer: domain/application/infrastructure)
 ✅ **Design System:** Gesttione brand colors and metrics
 ✅ **AI Integration:** Vercel AI SDK with OpenAI & Anthropic support
-✅ **Testing:** Bun built-in test + React Testing Library + Happy DOM
+✅ **Testing:** Vitest + React Testing Library
 ✅ **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
 ✅ **Pre-commit Hooks:** Husky with quality gates
 ✅ **Quality of Life:** Audio notifications for task completion
@@ -1376,7 +1375,7 @@ This marketplace provides comprehensive support for modern web development:
 - **Author:** Marcio Altoé
 - **License:** MIT
 - **Category:** Testing
-- **Keywords:** bun-test, quality-gates, biome, prettier, barrel-craft, husky, testing, typescript
+- **Keywords:** vitest, quality-gates, biome, prettier, barrel-craft, husky, testing, typescript
 
 ### audio-notifications
 

@@ -1,14 +1,14 @@
 {
   "name": "quality",
   "version": "1.0.0",
-  "description": "Testing and code quality tools for Bun applications with native Bun test and Biome.",
+  "description": "Testing and code quality tools for Bun applications with Vitest and Biome.",
   "author": {
     "name": "Marcio Altoé",
     "email": "marcio.altoe@gmail.com"
   },
   "keywords": [
     "testing",
-    "bun-test",
+    "vitest",
     "biome",
     "quality",
     "bun",

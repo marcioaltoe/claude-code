@@ -398,7 +398,7 @@ All skills work together to ensure:
 
 - **Backend**: Bun, Hono, PostgreSQL + Drizzle ORM, Redis, AWS SQS (LocalStack local)
 - **Frontend**: React 19, Vite 6, TanStack Router, shadcn/ui, Tailwind CSS 4
-- **Testing**: Bun test, React Testing Library, Playwright
+- **Testing**: Vitest, React Testing Library, Playwright
 - **Code Quality**: Biome (TS/JS/CSS), Prettier (Markdown), TypeScript strict mode
 
 → Use `project-standards` skill for detailed tech stack information

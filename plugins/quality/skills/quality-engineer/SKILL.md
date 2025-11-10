@@ -43,11 +43,11 @@ You should proactively assist when users mention:
 **Quick Reference - Quality Gates Sequence:**
 
 ```bash
-1. bun run craft        # Generate barrel files
-2. bun run format       # Format code (Biome + Prettier)
-3. bun run lint         # Lint code (Biome)
-4. bun run type-check   # Type check (TypeScript)
-5. bun test             # Run tests (Bun test)
+1. bun run craft             # Generate barrel files
+2. bun run format            # Format code (Biome + Prettier)
+3. bun run lint              # Lint code (Biome)
+4. bun run type-check        # Type check (TypeScript)
+5. bun run test        # Run tests (Vitest on Bun runtime)
 ```
 
 **This skill focuses on:**
@@ -71,8 +71,10 @@ You should proactively assist when users mention:
     "lint": "biome check --write .",
     "lint:fix": "biome check --write . --unsafe",
     "type-check": "tsc --noEmit",
-    "test": "bun test --timeout 10000",
-    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun run test",
     "prepare": "husky"
   }
 }
@@ -300,26 +302,35 @@ export default {
 bunx --no -- commitlint --edit ${1}
 ```
 
-## Bunfig.toml Configuration
+## Vitest Configuration
 
-**Test configuration:**
+**For complete Vitest configuration and projects mode setup, see `test-engineer` skill**
 
-```toml
-[test]
-preload = ["./tests/setup.ts"]
-coverageSkipTestFiles = true
-coverageReporter = ["text", "lcov"]
-coveragePathIgnorePatterns = [
-  "coverage/**",
-  "dist/**",
-  "node_modules/**",
-  "**/*.d.ts",
-  "**/*.config.ts",
-  "**/*.config.js",
-  "**/migrations/**",
-  "**/index.ts",
-  "src/server.ts"
-]
+**Quick Reference - Workspace vitest.config.ts:**
+
+```typescript
+import { defineProject } from "vitest/config";
+
+export default defineProject({
+  test: {
+    name: "workspace-name",
+    environment: "node", // or 'jsdom' for frontend
+    globals: true,
+    setupFiles: ["./tests/setup.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "lcov", "html"],
+      exclude: [
+        "coverage/**",
+        "dist/**",
+        "**/*.d.ts",
+        "**/*.config.ts",
+        "**/migrations/**",
+        "**/index.ts",
+      ],
+    },
+  },
+});
 ```
 
 ## TypeScript File Check Hook
@@ -361,7 +372,7 @@ jobs:
           bun run format
           bun run lint
           bun run type-check
-          bun test
+          bun run test:coverage
 ```
 
 ## Common Issues & Solutions
@@ -472,6 +483,9 @@ EOF
 # During development
 bun run format     # Format as you go
 bun run lint:fix   # Fix lint issues
+
+# Run tests in watch mode
+bun run test:coverage     # Watch mode for quick feedback
 
 # Before committing (automatic via hooks)
 bun run quality    # Full quality gates

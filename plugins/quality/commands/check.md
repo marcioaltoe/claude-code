@@ -14,7 +14,7 @@ Runs the following sequence in order:
 2. **Format** (`bun run format`) - Format code with Biome + Prettier
 3. **Lint** (`bun run lint`) - Lint code with Biome
 4. **Type Check** (`bun run type-check`) - TypeScript type checking
-5. **Tests** (`bun test`) - Run all tests
+5. **Tests** (`bun run test`) - Run all tests
 
 ## When to Use
 
@@ -63,7 +63,7 @@ Run quality gates:
    bun run type-check
 
    # Run tests
-   bun test
+   bun run test
    ```
 
 5. **Re-run quality gates**:
@@ -150,7 +150,7 @@ Fix these errors manually, then run type-check again
 
   1 test failed, 14 passed (15 total)
 
-Fix the failing tests and run again
+Fix the failing tests and run: bun run test
 ```
 
 ## Common Issues
@@ -228,11 +228,12 @@ Tests failing with timeout errors
 
 ```bash
 # Run tests with increased timeout
-bun test --timeout 30000
+bun run test --test-timeout=30000
 
-# Or update bunfig.toml:
-# [test]
-# timeout = 30000
+# Or update vitest.config.ts:
+# test: {
+#   testTimeout: 30000
+# }
 ```
 
 ## Individual Commands
@@ -253,7 +254,7 @@ bun run lint
 bun run type-check
 
 # Step 5: Tests
-bun test
+bun run test
 ```
 
 ## Pre-commit Hook
@@ -350,8 +351,10 @@ Ensure your `package.json` has these scripts:
     "lint": "biome check --write .",
     "lint:fix": "biome check --write . --unsafe",
     "type-check": "tsc --noEmit",
-    "test": "bun test --timeout 10000",
-    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun test"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun run test"
   }
 }
 ```

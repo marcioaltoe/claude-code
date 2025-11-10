@@ -44,7 +44,7 @@ phase: planning
 
 **Testing:**
 
-- {Bun test + React Testing Library + Playwright}
+- {Vitest + React Testing Library + Playwright}
 
 ---
 
@@ -270,7 +270,7 @@ phase: planning
 
 - [ ] **T0XX** Run full test suite (unit + integration + E2E)
 
-  - **Command:** `bun test`
+  - **Command:** `bun run test`
   - **Expected:** All tests pass
 
 - [ ] **T0XX** Type check entire codebase

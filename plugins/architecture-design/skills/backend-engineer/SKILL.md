@@ -32,7 +32,7 @@ You should proactively assist when:
 - **Cache**: Redis (ioredis)
 - **Queue**: AWS SQS (LocalStack local)
 - **Validation**: Zod
-- **Testing**: Bun test
+- **Testing**: Vitest
 
 → Use `project-standards` skill for comprehensive tech stack information
 

@@ -276,7 +276,7 @@ export * from "./UserService";
   "scripts": {
     "craft": "barrel-craft",
     "craft:clean": "barrel-craft clean --force",
-    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun test"
+    "quality": "bun run craft && bun run format && bun run lint && bun run type-check && bun run test"
   }
 }
 ```

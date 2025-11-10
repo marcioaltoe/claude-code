@@ -376,7 +376,7 @@ Required:
 - [ ] Cache: **Redis** (ioredis)
 - [ ] Queue: **AWS SQS** (LocalStack local)
 - [ ] Validation: **Zod**
-- [ ] Testing: **Bun test** (via `bun run test`, NOT `bun test`)
+- [ ] Testing: **Vitest**
 
 **Frontend Stack** (invoke `frontend-engineer` or `project-standards` skill):
 
@@ -391,7 +391,7 @@ Required:
 - [ ] UI Components: **shadcn/ui** (Radix UI primitives)
 - [ ] Styling: **Tailwind CSS 4.x**
 - [ ] Icons: **Lucide React**
-- [ ] Testing: **Bun test** + **React Testing Library**
+- [ ] Testing: **Vitest**
 - [ ] E2E: **Playwright**
 
 **Monorepo** (if applicable):

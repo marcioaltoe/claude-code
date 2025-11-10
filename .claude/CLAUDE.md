@@ -70,10 +70,10 @@ features/[name]/
 
 ### Testing:
 
-- Unit: Bun test + React Testing Library
-- Integration: Bun test (API routes, database, external services)
+- Unit: Vitest + React Testing Library
+- Integration: Vitest (API routes, database, external services)
 - E2E: Playwright
-- Coverage: Bun built-in
+- Coverage: Vitest (v8 provider)
 
 **MANDATORY Test Structure:**
 
