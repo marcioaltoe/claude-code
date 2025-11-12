@@ -11,6 +11,46 @@
   },
   "plugins": [
     {
+      "name": "architecture-design",
+      "source": "./plugins/architecture-design",
+      "description": "Architecture and design patterns with SOLID principles, Clean Code standards, and TypeScript best practices for building maintainable applications",
+      "version": "1.0.0",
+      "category": "development",
+      "keywords": [
+        "architecture",
+        "design-patterns",
+        "solid-principles",
+        "clean-code",
+        "typescript",
+        "naming-conventions",
+        "best-practices"
+      ],
+      "author": {
+        "name": "Marcio Altoé",
+        "email": "marcio.altoe@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "audio-notifications",
+      "source": "./plugins/audio-notifications",
+      "description": "Audio notifications for Claude Code - speaks notification messages out loud",
+      "version": "1.0.0",
+      "category": "qol",
+      "keywords": [
+        "audio",
+        "notifications",
+        "tts",
+        "accessibility",
+        "text-to-speech"
+      ],
+      "author": {
+        "name": "Fred Lacs",
+        "email": "fredlacs@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "db-tools",
       "source": "./plugins/db-tools",
       "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications",
@@ -32,18 +72,19 @@
       "license": "MIT"
     },
     {
-      "name": "ui",
-      "source": "./plugins/ui",
-      "description": "shadcn/ui and Tailwind CSS component generation and design utilities",
+      "name": "git",
+      "source": "./plugins/git",
+      "description": "Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation",
       "version": "1.0.0",
-      "category": "ui",
+      "category": "workflow",
       "keywords": [
-        "shadcn",
-        "tailwind",
-        "ui",
-        "components",
-        "design",
-        "styling"
+        "git",
+        "commit",
+        "conventional-commits",
+        "pull-request",
+        "workflow",
+        "automation",
+        "skills"
       ],
       "author": {
         "name": "Marcio Altoé",
@@ -73,46 +114,6 @@
       "license": "MIT"
     },
     {
-      "name": "audio-notifications",
-      "source": "./plugins/audio-notifications",
-      "description": "Audio notifications for Claude Code - speaks notification messages out loud",
-      "version": "1.0.0",
-      "category": "qol",
-      "keywords": [
-        "audio",
-        "notifications",
-        "tts",
-        "accessibility",
-        "text-to-speech"
-      ],
-      "author": {
-        "name": "Fred Lacs",
-        "email": "fredlacs@gmail.com"
-      },
-      "license": "MIT"
-    },
-    {
-      "name": "git",
-      "source": "./plugins/git",
-      "description": "Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation",
-      "version": "1.0.0",
-      "category": "workflow",
-      "keywords": [
-        "git",
-        "commit",
-        "conventional-commits",
-        "pull-request",
-        "workflow",
-        "automation",
-        "skills"
-      ],
-      "author": {
-        "name": "Marcio Altoé",
-        "email": "marcio.altoe@gmail.com"
-      },
-      "license": "MIT"
-    },
-    {
       "name": "reviewer",
       "source": "./plugins/reviewer",
       "description": "CodeRabbit AI review management - download, organize, and fix PR review comments systematically",
@@ -133,6 +134,26 @@
       "license": "MIT"
     },
     {
+      "name": "ui",
+      "source": "./plugins/ui",
+      "description": "shadcn/ui and Tailwind CSS component generation and design utilities",
+      "version": "1.0.0",
+      "category": "ui",
+      "keywords": [
+        "shadcn",
+        "tailwind",
+        "ui",
+        "components",
+        "design",
+        "styling"
+      ],
+      "author": {
+        "name": "Marcio Altoé",
+        "email": "marcio.altoe@gmail.com"
+      },
+      "license": "MIT"
+    },
+    {
       "name": "ui-tests",
       "source": "./plugins/ui-tests",
       "description": "Browser automation and web testing with Playwright - auto-detects dev servers, creates test scripts, captures screenshots",
@@ -145,27 +166,6 @@
         "e2e",
         "screenshots",
         "web-testing"
-      ],
-      "author": {
-        "name": "Marcio Altoé",
-        "email": "marcio.altoe@gmail.com"
-      },
-      "license": "MIT"
-    },
-    {
-      "name": "architecture-design",
-      "source": "./plugins/architecture-design",
-      "description": "Architecture and design patterns with SOLID principles, Clean Code standards, and TypeScript best practices for building maintainable applications",
-      "version": "1.0.0",
-      "category": "development",
-      "keywords": [
-        "architecture",
-        "design-patterns",
-        "solid-principles",
-        "clean-code",
-        "typescript",
-        "naming-conventions",
-        "best-practices"
       ],
       "author": {
         "name": "Marcio Altoé",
