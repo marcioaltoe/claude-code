@@ -46,14 +46,12 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 ```bash
 /plugin install db-tools@claude-craftkit
 /plugin install ui@claude-craftkit
-/plugin install ai-sdk@claude-craftkit
 /plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
 /plugin install reviewer@claude-craftkit
 /plugin install ui-tests@claude-craftkit
 /plugin install architecture-design@claude-craftkit
-/plugin install product-engineering@claude-craftkit
 ```
 
 ### Or Install Selectively Based on Your Needs
@@ -68,12 +66,6 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 
 ```bash
 /plugin install ui@claude-craftkit
-```
-
-**For AI Features:**
-
-```bash
-/plugin install ai-sdk@claude-craftkit
 ```
 
 **For Testing:**
@@ -112,12 +104,6 @@ git clone https://github.com/marcioaltoe/claude-craftkit.git
 /plugin install architecture-design@claude-craftkit
 ```
 
-**For Product Engineering Workflow (Idea → PRD → Implementation):**
-
-```bash
-/plugin install product-engineering@claude-craftkit
-```
-
 ### Verify Installation
 
 Run `/help` to confirm the marketplace is loaded and plugins are available.
@@ -145,16 +131,6 @@ The `database-architect` skill will handle the setup automatically.
 ```
 
 Install the shadcn/ui components you need for your project.
-
-### Set up AI SDK (Optional)
-
-Simply ask Claude to set up the Vercel AI SDK:
-
-```
-Set up Vercel AI SDK for my Bun + Hono project with OpenAI/Anthropic support
-```
-
-The `ai-sdk-specialist` skill will configure everything automatically.
 
 ### Set up Testing & Quality (Optional)
 
@@ -261,19 +237,7 @@ Claude will automatically:
 - Implement custom DI Container with proper lifetimes (singleton, scoped, transient)
 - Generate all code following SOLID principles and Clean Architecture patterns
 
-### Example 3: AI Chat Feature
-
-```
-Add a chatbot to my app:
-- Chat endpoint with streaming responses
-- Function calling for database queries
-- UI component with message history using shadcn/ui
-- Error boundaries and loading states
-```
-
-The `ai-sdk-specialist` skill will set up everything you need.
-
-### Example 4: Quality Gates Setup
+### Example 3: Quality Gates Setup
 
 ```
 Set up complete quality gates for my project:
@@ -288,7 +252,7 @@ Set up complete quality gates for my project:
 
 The `quality-gates` skill will configure your testing infrastructure and quality workflow.
 
-### Example 5: Git Workflow (Hybrid Approach)
+### Example 4: Git Workflow (Hybrid Approach)
 
 **Autonomous (Skills):**
 
@@ -308,51 +272,6 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 /clean                 # Branch cleanup
 ```
 
-### Example 6: Product Engineering Workflow (Idea → Implementation)
-
-**Complete workflow from rough idea to validated implementation:**
-
-```bash
-# Phase 1: Discover
-/product-engineering:discover
-# Transforms rough idea → discovery document (with MCP research)
-# Output: docs/discovery/DISC-001-feature-name.md
-
-# Phase 2: Specify
-/product-engineering:specify
-# Creates PRD with user stories and requirements
-# Output: docs/specs/SPEC-001-feature-name.md + feature branch
-
-# Phase 3: Design
-/product-engineering:design
-# Designs architecture with ADRs and gates validation
-# Output: docs/design/DESIGN-001-feature-name.md + docs/adr/ADR-*.md
-
-# Phase 4: Plan
-/product-engineering:plan
-# Breaks design into atomic tasks (5-20 min each)
-# Output: docs/plans/PLAN-001-feature-name.md + docs/tasks/TASKS-001-feature-name.md
-
-# Execute tasks (using superpowers plugin)
-/superpowers:execute-plan
-
-# Phase 5: Validate
-/product-engineering:validate
-# Validates implementation against spec and architecture gates
-# Output: Validation report with coverage, gaps, recommendations
-```
-
-**Key Features:**
-
-- MCP-powered research at every phase (Perplexity, Context7, Octocode)
-- 7 architecture gates enforce quality
-- Test-first methodology (TDD mandatory)
-- Full traceability: Idea → Discovery → Spec → Design → Tasks → Code
-- Manual adjustments between phases
-- Editable markdown output with YAML frontmatter
-
-> For complete command reference, see [STRUCTURE.md](STRUCTURE.md#command-reference).
-
 ## Environment Variables
 
 After setup, you may need these in `.env`:
@@ -360,11 +279,6 @@ After setup, you may need these in `.env`:
 ```bash
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
-
-# AI (if using AI SDK)
-OPENAI_API_KEY="sk-..."
-# or
-ANTHROPIC_API_KEY="sk-ant-..."
 
 # Redis (if using cache/sessions)
 REDIS_URL="redis://localhost:6379"
@@ -416,18 +330,6 @@ Build a product page:
 - Add to cart functionality
 - Inventory validation
 - Unit tests for cart logic
-```
-
-### Real-time Chat Application
-
-```
-Create a chat application:
-- WebSocket integration
-- Message storage in PostgreSQL
-- Streaming AI responses using Vercel AI SDK
-- Chat UI with message history
-- Online status indicators
-- Function calling for commands
 ```
 
 ## Pro Tips

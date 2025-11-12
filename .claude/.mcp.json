@@ -3,14 +3,14 @@
     "context7": {
       "type": "stdio",
       "command": "bunx",
-      "args": ["-y", "@upstash/context7-mcp", "--api-key", "CONTEXT7_API_KEY"],
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "$CONTEXT7_API_KEY"],
       "env": {}
     },
     "perplexity": {
       "type": "stdio",
       "command": "perplexity-mcp",
       "env": {
-        "PERPLEXITY_API_KEY": "PERPLEXITY_API_KEY"
+        "PERPLEXITY_API_KEY": "$PERPLEXITY_API_KEY"
       }
     },
     "octocode": {

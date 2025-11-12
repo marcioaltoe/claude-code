@@ -52,28 +52,6 @@
       "license": "MIT"
     },
     {
-      "name": "ai-sdk",
-      "source": "./plugins/ai-sdk",
-      "description": "Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications",
-      "version": "1.0.0",
-      "category": "ai",
-      "keywords": [
-        "ai",
-        "vercel-ai-sdk",
-        "llm",
-        "streaming",
-        "openai",
-        "anthropic",
-        "bun",
-        "hono"
-      ],
-      "author": {
-        "name": "Marcio Altoé",
-        "email": "marcio.altoe@gmail.com"
-      },
-      "license": "MIT"
-    },
-    {
       "name": "quality",
       "source": "./plugins/quality",
       "description": "Testing, linting, and code quality tools for modern web applications",
@@ -188,31 +166,6 @@
         "typescript",
         "naming-conventions",
         "best-practices"
-      ],
-      "author": {
-        "name": "Marcio Altoé",
-        "email": "marcio.altoe@gmail.com"
-      },
-      "license": "MIT"
-    },
-    {
-      "name": "product-engineering",
-      "source": "./plugins/product-engineering",
-      "description": "Complete workflow from idea to implementation: Discovery → Spec → Design → Plan → Validate with MCP integration, architecture gates, and full traceability",
-      "version": "1.0.0",
-      "category": "workflow",
-      "keywords": [
-        "product-engineering",
-        "discovery",
-        "specification",
-        "prd",
-        "technical-design",
-        "architecture-decision-records",
-        "adr",
-        "implementation-planning",
-        "requirements-engineering",
-        "mcp-integration",
-        "traceability"
       ],
       "author": {
         "name": "Marcio Altoé",

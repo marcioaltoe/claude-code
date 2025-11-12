@@ -4,18 +4,17 @@ A comprehensive plugin and skill marketplace for Claude Code, providing speciali
 
 ## Overview
 
-Transform your Claude Code experience with a curated collection of plugins designed for modern web development. From database management with Drizzle ORM to UI components with shadcn/ui, AI integration with Vercel AI SDK, and intelligent git workflows - everything you need to build production-ready applications faster.
+Transform your Claude Code experience with a curated collection of plugins designed for modern web development. From database management with Drizzle ORM to UI components with shadcn/ui, and intelligent git workflows - everything you need to build production-ready applications faster.
 
 **What makes this marketplace special:**
 
-- 🎯 **24 specialized commands** for common development tasks
-- ⚡ **27 intelligent skills** that work proactively
-- 🤖 **8 specialized agents** for complex workflows
+- 🎯 **17 specialized commands** for common development tasks
+- ⚡ **20 intelligent skills** that work proactively
+- 🤖 **3 specialized agents** for complex workflows
 - 🏗️ **Clean Architecture** patterns for backend and frontend applications
 - 🎨 **Hybrid architecture** - choose between automation and explicit control
 - 🎨 **Design system** support (Gesttione branding included)
 - 📐 **SOLID principles** and TypeScript best practices enforcement
-- 🚀 **Complete product workflow** from idea to validated implementation
 - ✅ **100% compliant** with official Claude Code documentation patterns
 
 ## Quick Links
@@ -29,15 +28,13 @@ Transform your Claude Code experience with a curated collection of plugins desig
 | ------------------- | -------- | ------ | ------ | --------------- |
 | db-tools            | 3        | 0      | 1      | Database        |
 | ui                  | 3        | 0      | 2      | UI Architecture |
-| ai-sdk              | 2        | 0      | 1      | AI              |
 | quality             | 2        | 0      | 3      | Testing         |
 | audio-notifications | -        | 0      | -      | QoL             |
 | git                 | 3        | 3      | 2      | Workflow        |
 | reviewer            | 3        | 0      | 1      | Development     |
 | ui-tests            | 3        | 0      | 1      | Testing         |
 | architecture-design | -        | 0      | 10     | Development     |
-| product-engineering | 5        | 5      | 6      | Workflow        |
-| **Total**           | **24**   | **8**  | **27** | -               |
+| **Total**           | **17**   | **3**  | **20** | -               |
 
 > For detailed plugin descriptions, capabilities, and available commands, see [STRUCTURE.md](STRUCTURE.md).
 
@@ -54,14 +51,12 @@ Add this marketplace to Claude Code:
 # Install all plugins
 /plugin install db-tools@claude-craftkit
 /plugin install ui@claude-craftkit
-/plugin install ai-sdk@claude-craftkit
 /plugin install quality@claude-craftkit
 /plugin install audio-notifications@claude-craftkit
 /plugin install git@claude-craftkit
 /plugin install reviewer@claude-craftkit
 /plugin install ui-tests@claude-craftkit
 /plugin install architecture-design@claude-craftkit
-/plugin install product-engineering@claude-craftkit
 ```
 
 Or use the interactive installer: `/plugin` → Browse Plugins
@@ -107,14 +102,6 @@ Claude uses `ui-designer`, `gesttione-design-system`, and architecture-design pl
 
 The `git` plugin offers both autonomous skills and explicit commands.
 
-**AI Integration:**
-
-```
-Create a streaming chat endpoint with function calling
-```
-
-Claude uses the `ai-sdk-specialist` skill with Vercel AI SDK.
-
 ## Tech Stack Coverage
 
 This marketplace provides comprehensive support for:
@@ -125,7 +112,6 @@ This marketplace provides comprehensive support for:
 - **State:** TanStack Query + Zustand + TanStack Store
 - **Forms:** TanStack Form + Zod validation
 - **Architecture:** Clean Architecture (domain/application/infrastructure with HTTP layer)
-- **AI:** Vercel AI SDK with OpenAI & Anthropic support
 - **Testing:** Vitest + React Testing Library
 - **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
 - **Workflow:** Git automation with Conventional Commits and PR creation

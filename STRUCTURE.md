@@ -52,15 +52,6 @@ claude-craftkit/
 │   │   │   └── gesttione-design-system.md
 │   │   └── README.md
 │   │
-│   ├── ai-sdk/
-│   │   ├── .claude-plugin/
-│   │   │   └── plugin.json
-│   │   ├── commands/
-│   │   │   ├── create-endpoint.md
-│   │   │   └── add-function.md
-│   │   └── skills/
-│   │       └── ai-sdk-specialist.md
-│   │
 │   ├── quality/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
@@ -124,36 +115,6 @@ claude-craftkit/
 │   │   │   ├── backend-engineer.md
 │   │   │   └── frontend-engineer.md
 │   │   └── README.md
-│   │
-│   └── product-engineering/
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       ├── commands/
-│       │   ├── discover.md
-│       │   ├── specify.md
-│       │   ├── design.md
-│       │   ├── plan.md
-│       │   └── validate.md
-│       ├── templates/
-│       │   ├── discovery.md
-│       │   ├── spec.md
-│       │   ├── technical-design.md
-│       │   ├── adr.md
-│       │   ├── implementation-plan.md
-│       │   └── tasks.md
-│       ├── agents/
-│       │   ├── discovery-facilitator.md
-│       │   ├── requirements-engineer.md
-│       │   ├── solutions-architect.md
-│       │   ├── task-planner.md
-│       │   └── implementation-validator.md
-│       ├── skills/
-│       │   └── idea-refinement/
-│       │       └── SKILL.md
-│       ├── gates/
-│       │   └── architecture-gates.md
-│       ├── README.md
-│       └── SUMMARY.md
 │
 ├── README.md                         # Main documentation
 ├── QUICKSTART.md                     # Quick start guide
@@ -169,15 +130,13 @@ claude-craftkit/
 | ------------------- | -------- | ------ | ----- | ------ | --------- | --------------- |
 | db-tools            | 3        | 1      | 0     | 0      | 0         | Database        |
 | ui                  | 3        | 2      | 0     | 0      | 0         | UI Architecture |
-| ai-sdk              | 2        | 1      | 0     | 0      | 0         | AI              |
 | quality             | 2        | 3      | 0     | 0      | 0         | Testing         |
 | audio-notifications | 0        | 0      | 3     | 0      | 0         | QoL             |
 | git                 | 3        | 2      | 0     | 3      | 0         | Workflow        |
 | reviewer            | 3        | 1      | 0     | 0      | 0         | Development     |
 | ui-tests            | 3        | 1      | 0     | 0      | 0         | Testing         |
 | architecture-design | 0        | 10     | 0     | 0      | 0         | Development     |
-| product-engineering | 5        | 6      | 0     | 5      | 6         | Workflow        |
-| **TOTAL**           | **24**   | **27** | **3** | **8**  | **6**     | -               |
+| **TOTAL**           | **17**   | **20** | **3** | **3**  | **0**     | -               |
 
 ## Plugin Descriptions
 
@@ -238,33 +197,7 @@ Comprehensive UI/UX toolkit for React applications with shadcn/ui, Tailwind CSS 
 - Applying Gesttione brand identity
 - Rapid UI prototyping
 
-### 3. AI Integration (`ai-sdk`)
-
-**Category:** AI
-**Author:** Leon van Zyl
-**License:** MIT
-
-Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications.
-
-**Features:**
-
-- Vercel AI SDK setup and configuration
-- Streaming response implementation with Hono
-- Multiple LLM provider support (OpenAI, Anthropic)
-- Function calling patterns
-- Chat endpoint generation
-- Error handling and retries
-- Token management
-
-**Use Cases:**
-
-- Setting up AI-powered chat interfaces
-- Implementing streaming responses
-- Adding function calling capabilities
-- Integrating multiple AI providers
-- Building AI-powered features
-
-### 4. Testing & Quality (`quality`)
+### 3. Testing & Quality (`quality`)
 
 **Category:** Testing
 **Author:** Marcio Altoé
@@ -294,7 +227,7 @@ Comprehensive quality gates workflow with testing, linting, formatting, and auto
 - Configuring pre-commit hooks
 - Managing barrel files automatically
 
-### 5. Audio Notifications (`audio-notifications`)
+### 4. Audio Notifications (`audio-notifications`)
 
 **Category:** Quality of Life
 **Author:** Fred Lacs
@@ -319,7 +252,7 @@ Audio notifications for Claude Code - speaks notification messages out loud.
 - Background task notifications
 - Multi-tasking workflow enhancement
 
-### 6. Commit Commands (`git`)
+### 5. Commit Commands (`git`)
 
 **Category:** Workflow
 **Author:** Marcio Altoé
@@ -345,7 +278,7 @@ Git workflow automation with intelligent skills and quick commands for conventio
 - Managing git branches
 - Enforcing commit standards
 
-### 7. PR Reviewer (`reviewer`)
+### 6. PR Reviewer (`reviewer`)
 
 **Category:** Development
 **Author:** Marcio Altoé
@@ -369,7 +302,7 @@ CodeRabbit AI review management - download, organize, and fix PR review comments
 - Organizing and prioritizing review comments
 - Systematic code review improvements
 
-### 8. UI Tests (`ui-tests`)
+### 7. UI Tests (`ui-tests`)
 
 **Category:** Testing
 **Author:** Marcio Altoé
@@ -394,7 +327,7 @@ Browser automation and web testing with Playwright - auto-detects dev servers, c
 - E2E test creation
 - Screenshot documentation
 
-### 9. Architecture & Design (`architecture-design`)
+### 8. Architecture & Design (`architecture-design`)
 
 **Category:** Development
 **Author:** Marcio Altoé
@@ -428,48 +361,6 @@ Architecture and design patterns with SOLID principles, Clean Code standards, an
 - Error handling strategy implementation
 - Project standards compliance
 
-### 10. Product Engineering (`product-engineering`)
-
-**Category:** Workflow
-**Author:** Marcio Altoé
-**License:** MIT
-
-Complete workflow from idea to implementation: Discovery → Specification → Design → Planning → Validation with MCP integration, architecture gates, and full traceability.
-
-**Features:**
-
-- **5-phase workflow:** Discovery → Spec → Design → Plan → Validate
-- **5 commands** (one per phase) for manual control between phases
-- **5 specialized agents** for autonomous execution (discovery-facilitator, requirements-engineer, solutions-architect, task-planner, implementation-validator)
-- **6 specialized skills** (idea-refinement, requirements-elicitation, spec-writing, architecture-decision, technical-design, task-breakdown)
-- **6 templates** with YAML frontmatter and auto-numbering (discovery, spec, technical-design, adr, implementation-plan, tasks)
-- **7 architecture gates** enforce quality (Simplicity, Type Safety, Clean Code, Test-First, Clean Architecture, Feature-Based, Naming)
-- **MCP integration** at every phase (Perplexity, Context7, Octocode)
-- **Test-first methodology** (TDD mandatory with Red-Green-Refactor)
-- **Full traceability:** Idea → Discovery → Spec → Design → Tasks → Code
-- **Editable markdown output** for human review
-- Architecture Decision Records (ADRs) for major technical decisions
-- Integration with superpowers plugin for task execution
-
-**Workflow:**
-
-1. `/product-engineering:discover` - Rough idea → Discovery document (with market research) using idea-refinement skill
-2. `/product-engineering:specify` - Discovery → PRD with user stories and requirements using requirements-elicitation + spec-writing skills
-3. `/product-engineering:design` - PRD → Technical design + ADRs (architecture gates validation) using architecture-decision + technical-design skills
-4. `/product-engineering:plan` - Design → Implementation plan + atomic tasks (5-20 min each) using task-breakdown skill
-5. `/product-engineering:validate` - Validate implementation against spec and gates
-
-**Use Cases:**
-
-- Transforming rough ideas into validated discovery documents
-- Creating comprehensive PRDs with user stories and requirements
-- Designing architecture with research-backed decisions
-- Breaking designs into implementable tasks
-- Validating implementations against requirements
-- Enforcing architecture gates throughout development
-- Maintaining traceability from idea to code
-- Systematic product development workflow
-
 ## Command Reference
 
 Complete list of all available commands across all plugins.
@@ -489,13 +380,6 @@ Complete list of all available commands across all plugins.
 | `/add-shadcn`       | Install shadcn/ui components using MCP server integration            |
 | `/create-component` | Generate custom React components with TypeScript and Tailwind CSS    |
 | `/create-form`      | Create forms with validation, error handling, and shadcn/ui elements |
-
-### AI SDK (2 commands)
-
-| Command            | Description                                                   |
-| ------------------ | ------------------------------------------------------------- |
-| `/create-endpoint` | Create streaming chat API endpoints with error handling       |
-| `/add-function`    | Implement AI function calling with type-safe tool definitions |
 
 ### Testing & Quality (2 commands)
 
@@ -529,16 +413,6 @@ Complete list of all available commands across all plugins.
 | `/check`           | Check webpage for issues (broken links, errors, etc.) |
 | `/take-screenshot` | Take screenshots of web pages                         |
 | `/test-feature`    | Test a webapp feature with Playwright                 |
-
-### Product Engineering (5 commands)
-
-| Command                         | Description                                                                                     |
-| ------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `/product-engineering:discover` | PHASE 1: Transform rough idea into validated discovery document with MCP-powered research       |
-| `/product-engineering:specify`  | PHASE 2: Create PRD with user stories, functional/non-functional requirements, and traceability |
-| `/product-engineering:design`   | PHASE 3: Design architecture with ADRs, tech stack decisions, and architecture gates validation |
-| `/product-engineering:plan`     | PHASE 4: Break design into atomic tasks (5-20 min each) with full traceability                  |
-| `/product-engineering:validate` | PHASE 5: Validate implementation against spec, requirements, and architecture gates             |
 
 ## Intelligent Skills
 
@@ -633,29 +507,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Dependency rule enforcement
 - Layer separation verification
 
-### 5. ai-sdk-specialist
-
-**Plugin:** ai-sdk
-**Type:** Autonomous skill
-**Focus:** Vercel AI SDK and LLM integration
-
-**Invocation Examples:**
-
-- "create a chat endpoint"
-- "add AI streaming"
-- "implement function calling"
-
-**Capabilities:**
-
-- LLM integration patterns
-- Streaming response implementation
-- Function calling setup
-- Error handling and retries
-- Token management strategies
-- Multi-provider support (OpenAI, Anthropic)
-- AI SDK configuration best practices
-
-### 6. test-engineer
+### 5. test-engineer
 
 **Plugin:** quality
 **Type:** Autonomous skill
@@ -676,7 +528,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Coverage analysis with v8 provider
 - Testing best practices enforcement
 
-### 7. quality-engineer
+### 6. quality-engineer
 
 **Plugin:** quality
 **Type:** Autonomous skill
@@ -697,7 +549,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Husky pre-commit hooks
 - Quality workflow automation
 
-### 8. barrel-craft
+### 7. barrel-craft
 
 **Plugin:** quality
 **Type:** Autonomous skill
@@ -717,7 +569,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Import path optimization
 - Module structure maintenance
 
-### 9. git-commit
+### 8. git-commit
 
 **Plugin:** git
 **Type:** Autonomous skill
@@ -747,7 +599,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 4. Validates branch and project state
 5. Executes commit with proper format
 
-### 10. git-pr-creation
+### 9. git-pr-creation
 
 **Plugin:** git
 **Type:** Autonomous skill
@@ -780,7 +632,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 5. Creates detailed PR body with examples
 6. Executes gh pr create command
 
-### 11. project-workflow
+### 10. project-workflow
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -805,7 +657,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 
 **Note:** For complete project rules and standards, see CLAUDE.md (global instructions)
 
-### 12. code-standards
+### 11. code-standards
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -848,7 +700,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Anti-pattern detection (God classes, premature optimization, clever code, magic numbers)
 - When to apply principles (and when NOT to over-apply)
 
-### 13. clean-architecture
+### 12. clean-architecture
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -872,7 +724,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Testing strategy (pure unit tests for domain, mocked tests for application)
 - Anti-patterns to avoid (anemic domain model, fat controllers)
 
-### 14. naming-conventions
+### 13. naming-conventions
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -897,7 +749,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - DTO and Response naming
 - Use Case naming
 
-### 15. error-handling-patterns
+### 14. error-handling-patterns
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -922,7 +774,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Structured error logging
 - HTTP error handling with Hono
 
-### 16. typescript-type-safety
+### 15. typescript-type-safety
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -948,7 +800,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Type narrowing (typeof, instanceof, in operator)
 - TypeScript strict mode configuration
 
-### 17. backend-engineer
+### 16. backend-engineer
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -975,7 +827,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Common patterns (Result type, Domain Events, Repository pattern)
 - Clean Architecture with Hono + Bun + Drizzle ORM
 
-### 18. frontend-engineer
+### 17. frontend-engineer
 
 **Plugin:** architecture-design
 **Type:** Autonomous skill
@@ -1002,7 +854,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Best practices for frontend development
 - React 19 + Vite 6 + TanStack ecosystem integration
 
-### 19. pull-request-skill
+### 18. pull-request-skill
 
 **Plugin:** reviewer
 **Type:** Autonomous skill
@@ -1025,7 +877,7 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Prioritize fixes by impact
 - Monitor progress on review resolution
 
-### 20. web-tests
+### 19. web-tests
 
 **Plugin:** ui-tests
 **Type:** Autonomous skill
@@ -1051,238 +903,6 @@ Skills are autonomous capabilities that Claude invokes automatically based on co
 - Broken link detection
 - Custom test script generation
 - Saves tests to working directory for reusability
-
-### 21. idea-refinement
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Transform rough ideas into validated discovery documents
-
-**Invocation Examples:**
-
-- "I have an idea for a new feature"
-- "Help me refine this product concept"
-- "Research this idea"
-- "Validate this product idea"
-
-**Capabilities:**
-
-- Socratic questioning to elicit details (one question at a time)
-- MCP-powered market research (Perplexity for trends, Context7 for docs, Octocode for reference implementations)
-- Problem validation and solution exploration
-- Alternative analysis (always explore 2-3 alternatives)
-- Evidence-based recommendations
-- Discovery document generation with YAML frontmatter
-- YAGNI enforcement (no technical decisions at discovery phase)
-- Research-first approach with targeted questions
-
-**Process (6 phases):**
-
-1. Initial Understanding - Grasp the rough idea
-2. Market Research - Use MCP servers for competitive analysis and trends
-3. Problem Validation - Ensure problem is real and worth solving
-4. Solution Exploration - Explore 2-3 alternative approaches
-5. Recommendation & Decision - Evidence-based recommendation
-6. Discovery Documentation - Generate docs/discovery/DISC-{###}-{name}.md
-
-**MCP Integration Pattern:**
-
-- Perplexity: Market research, competitors, trends, best practices
-- Context7: Framework documentation, implementation patterns
-- Octocode: Reference implementations from GitHub repositories
-
-### 22. requirements-elicitation
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Transform discovery into testable requirements through Socratic questioning
-
-**Invocation Examples:**
-
-- "Create requirements from discovery document"
-- "Elicit functional requirements"
-- "Create user stories with acceptance criteria"
-- "Define non-functional requirements"
-
-**Capabilities:**
-
-- Socratic questioning for requirements elicitation (one question at a time)
-- Functional requirements derivation with testable criteria
-- Non-functional requirements across 5 categories (Performance, Security, Scalability, Observability, Maintainability)
-- User story creation with Given-When-Then format
-- Independent testability validation
-- Priority assignment (P1-MVP, P2-Important, P3-Nice to have)
-- Rastreabilidade mapping (user stories → requirements)
-- `[NEEDS CLARIFICATION]` marker for uncertainties
-
-**Process (7 phases):**
-
-1. Discovery Analysis - Extract problem, users, solution from discovery doc
-2. Functional Requirements - Derive from recommended solution
-3. Non-Functional Requirements - Performance, Security, Scalability, Observability, Maintainability
-4. User Story Creation - 3-5 prioritized stories with clear value
-5. Acceptance Criteria - Given-When-Then format for each story
-6. Rastreabilidade Mapping - Link stories to requirements
-7. Validation & Documentation - Ensure completeness and testability
-
-### 23. spec-writing
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Write clear, unambiguous specifications with testable acceptance criteria
-
-**Invocation Examples:**
-
-- "Write a specification document"
-- "Create a PRD"
-- "Document requirements"
-- "Create acceptance criteria"
-
-**Capabilities:**
-
-- Active voice requirements ("System MUST verb object")
-- Given-When-Then scenarios for acceptance criteria
-- Avoid ambiguity words (replace "fast" with "< 500ms")
-- Edge case documentation ("What happens when...?")
-- NFR categorization (5 categories)
-- `[NEEDS CLARIFICATION]` for unknowns
-- Independent testability validation
-- Quantify everything measurable
-
-**Key Principles:**
-
-- Precision over brevity
-- Testability is mandatory (clear pass/fail criteria)
-- Solution-agnostic (WHAT not HOW)
-- Quantify everything measurable
-- Mark uncertainties explicitly
-
-### 24. architecture-decision
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Create Architecture Decision Records (ADRs) documenting technical choices
-
-**Invocation Examples:**
-
-- "Document this architecture decision"
-- "Create an ADR"
-- "Why did we choose this technology?"
-- "Document technical trade-offs"
-
-**Capabilities:**
-
-- ADR template with YAML frontmatter
-- Context capture (why this decision is needed)
-- Decision documentation (what we decided)
-- Alternatives analysis (2-3 minimum with pros/cons)
-- Consequences analysis (positive, negative, neutral, risks)
-- Status lifecycle (proposed → accepted → deprecated → superseded)
-- MCP-powered research for alternatives (Context7, Perplexity, Octocode)
-- Architecture gates validation
-
-**Process (8 phases):**
-
-1. Identify Decision - What needs deciding
-2. Research with MCP - Context7 for docs, Perplexity for comparisons, Octocode for implementations
-3. Define Context & Forces - Business constraints, technical constraints, quality attributes
-4. Explore Alternatives - Minimum 2-3 with research-backed pros/cons
-5. Document Decision - The chosen option
-6. Analyze Consequences - Positive, negative, neutral impacts
-7. Architecture Gates Validation - Check against 7 gates
-8. Complete ADR Template - Generate docs/adr/ADR-{####}-{decision}.md
-
-### 25. technical-design
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Create comprehensive technical design documentation covering architecture, data models, and API contracts
-
-**Invocation Examples:**
-
-- "Design the technical architecture"
-- "Create technical design document"
-- "Design the system architecture"
-- "Define data models and APIs"
-
-**Capabilities:**
-
-- Architecture pattern selection (Clean, Hexagonal, Transactional Script)
-- Tech stack decision framework with MCP research
-- System structure design (backend layers + frontend features)
-- Data model design (entities, value objects, aggregates, schema)
-- API design (endpoints, Zod schemas, error handling)
-- Security design (authentication, authorization, encryption)
-- Performance design (caching, optimization, scaling)
-- Architecture gates validation (all 7 gates)
-
-**Process (8 phases):**
-
-1. Specification Analysis - Extract requirements and constraints from spec
-2. Architecture Pattern Selection - Evaluate 2-3 patterns
-3. Tech Stack Decisions - Select runtime, framework, database, cache, queue with MCP research
-4. Data Model Design - Entities, VOs, aggregates, relationships, Drizzle schema
-5. API Design - REST endpoints, Zod schemas, error codes
-6. System Structure - Backend (domain/application/infrastructure with HTTP layer), Frontend (features-based)
-7. Gates Validation - Run all 7 architecture gates
-8. Document Creation - Generate docs/design/DESIGN-{###}-{name}.md + ADRs
-
-### 26. task-breakdown
-
-**Plugin:** product-engineering
-**Type:** Autonomous skill
-**Focus:** Break technical designs into atomic, TDD-driven tasks with 5-20 minute granularity
-
-**Invocation Examples:**
-
-- "Break this design into tasks"
-- "Create implementation tasks"
-- "Plan the implementation"
-- "Create atomic tasks from design"
-
-**Capabilities:**
-
-- Atomic task creation (5-20 min each)
-- TDD ordering (Red → Green → Refactor for each story)
-- Exact file paths specification
-- Dependency mapping (critical path + parallel opportunities)
-- Rastreabilidade (tasks → user stories → requirements)
-- Phase organization (Foundation → US-1 → US-2 → Quality Gates)
-- Parallel task identification ([P] marker)
-- Estimate tracking (X min per task)
-
-**Task Format:**
-
-```
-- [ ] T{###} [P?] [US#] Description
-  - Story: US-#
-  - Requirements: FR-###
-  - Files: exact/path/to/file.ts
-  - Depends: T###, T###
-  - Estimate: X min
-```
-
-**Process (9 phases):**
-
-1. Read Design Documents - Extract architecture, tech stack, structure from design + ADRs + spec
-2. Organize by Phases - Foundation → US-1 (P1-MVP) → US-2 (P2) → Quality Gates
-3. Foundation Tasks - Core infrastructure (T001-T00X) that BLOCKS all stories
-4. Per-Story Tasks (TDD) - For each user story: Tests (Red) → Implementation (Green) → Verification
-5. Task Format & Metadata - T###, Story, Requirements, Files, Depends, Estimate
-6. Dependency Mapping - Critical path and parallel opportunities ([P] marker)
-7. Rastreabilidade - Tasks → User Stories → Requirements table
-8. Generate Implementation Plan - docs/plans/PLAN-{###}-{name}.md
-9. Generate Task List - docs/tasks/TASKS-{###}-{name}.md with status tracking
-
-### 27. Specialized Agents
-
-The product-engineering plugin also includes 5 specialized agents (documented separately):
-
-- **discovery-facilitator** - Guides discovery process through Socratic questioning and MCP research
-- **requirements-engineer** - Elicits and documents requirements, creates user stories
-- **solutions-architect** - Designs architecture, makes tech stack decisions, creates ADRs
-- **task-planner** - Breaks designs into atomic, TDD-driven tasks
-- **implementation-validator** - Validates implementation against spec and gates
 
 ## Hooks
 
@@ -1336,7 +956,6 @@ This marketplace provides comprehensive support for modern web development:
 ✅ **Forms:** TanStack Form + Zod validation
 ✅ **Architecture:** Clean Architecture (3-layer: domain/application/infrastructure)
 ✅ **Design System:** Gesttione brand colors and metrics
-✅ **AI Integration:** Vercel AI SDK with OpenAI & Anthropic support
 ✅ **Testing:** Vitest + React Testing Library
 ✅ **Code Quality:** Biome (TS/JS/CSS) + Prettier (markdown) + barrel-craft
 ✅ **Pre-commit Hooks:** Husky with quality gates
@@ -1360,14 +979,6 @@ This marketplace provides comprehensive support for modern web development:
 - **License:** MIT
 - **Category:** UI Architecture
 - **Keywords:** react, vite, tanstack-router, shadcn, tailwind, clean-architecture, design-system, gesttione
-
-### ai-sdk
-
-- **Version:** 1.0.0
-- **Author:** Leon van Zyl
-- **License:** MIT
-- **Category:** AI
-- **Keywords:** ai, vercel-ai-sdk, llm, streaming, openai, anthropic
 
 ### quality
 
@@ -1418,14 +1029,6 @@ This marketplace provides comprehensive support for modern web development:
 - **Category:** Development
 - **Keywords:** architecture, design-patterns, code-standards, solid-principles, clean-code, typescript, naming-conventions, best-practices
 
-### product-engineering
-
-- **Version:** 1.0.0
-- **Author:** Marcio Altoé
-- **License:** MIT
-- **Category:** Workflow
-- **Keywords:** product-engineering, discovery, specification, prd, technical-design, architecture-decision-records, adr, implementation-planning, requirements-engineering, mcp-integration, traceability
-
 ## Files Overview
 
 ### Marketplace Level
@@ -1438,15 +1041,13 @@ This marketplace provides comprehensive support for modern web development:
 
 ### Plugin Level
 
-- **10** Plugin manifests (`plugin.json` in each plugin)
-- **24** Command files (`.md` files in `commands/` directories)
-- **18** Skill definitions (`.md` files in `skills/` directories)
-- **5** Agent definitions (in product-engineering)
-- **6** Template files (in product-engineering)
+- **8** Plugin manifests (`plugin.json` in each plugin)
+- **17** Command files (`.md` files in `commands/` directories)
+- **20** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
-- **8** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design, product-engineering)
+- **6** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
 
-**Total: 75 files** providing comprehensive Claude Code development support.
+**Total: 55 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 
