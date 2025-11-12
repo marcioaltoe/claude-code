@@ -269,7 +269,6 @@ The `quality-gates` skill will configure your testing infrastructure and quality
 ```
 /commit                # Quick commit when you want control
 /commit-push-pr        # Full workflow when you know exactly what to do
-/clean                 # Branch cleanup
 ```
 
 ## Environment Variables

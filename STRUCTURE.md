@@ -76,8 +76,7 @@ claude-craftkit/
 │   │   │   └── plugin.json
 │   │   ├── commands/
 │   │   │   ├── commit.md
-│   │   │   ├── commit-push-pr.md
-│   │   │   └── clean_gone.md
+│   │   │   └── commit-push-pr.md
 │   │   ├── skills/
 │   │   │   ├── git-commit.md
 │   │   │   └── git-pr-creation.md
@@ -132,11 +131,11 @@ claude-craftkit/
 | ui                  | 3        | 2      | 0     | 0      | 0         | UI Architecture |
 | quality             | 2        | 3      | 0     | 0      | 0         | Testing         |
 | audio-notifications | 0        | 0      | 3     | 0      | 0         | QoL             |
-| git                 | 3        | 2      | 0     | 3      | 0         | Workflow        |
+| git                 | 2        | 2      | 0     | 2      | 0         | Workflow        |
 | reviewer            | 3        | 1      | 0     | 0      | 0         | Development     |
 | ui-tests            | 3        | 1      | 0     | 0      | 0         | Testing         |
 | architecture-design | 0        | 10     | 0     | 0      | 0         | Development     |
-| **TOTAL**           | **17**   | **20** | **3** | **3**  | **0**     | -               |
+| **TOTAL**           | **16**   | **20** | **3** | **2**  | **0**     | -               |
 
 ## Plugin Descriptions
 
@@ -377,7 +376,7 @@ Complete list of all available commands across all plugins.
 
 | Command             | Description                                                          |
 | ------------------- | -------------------------------------------------------------------- |
-| `/add-shadcn`       | Install shadcn/ui components using MCP server integration            |
+| `/add-shadcn`       | Install shadcn/ui components to the project                          |
 | `/create-component` | Generate custom React components with TypeScript and Tailwind CSS    |
 | `/create-form`      | Create forms with validation, error handling, and shadcn/ui elements |
 
@@ -388,13 +387,12 @@ Complete list of all available commands across all plugins.
 | `/create-test` | Generate test files with Vitest and React Testing Library examples |
 | `/check`       | Run complete workflow: craft → format → lint → type-check → test   |
 
-### Git Workflow (3 commands)
+### Git Workflow (2 commands)
 
 | Command           | Description                                                             |
 | ----------------- | ----------------------------------------------------------------------- |
 | `/commit`         | Quick commit with conventional format (explicit control)                |
 | `/commit-push-pr` | Complete workflow: stage → commit → push → create PR (explicit control) |
-| `/clean`          | Clean up local branches that have been deleted on the remote            |
 
 **Note:** The git plugin also includes 2 autonomous skills (`git-commit` and `git-pr-creation`) that work automatically based on context. See [Intelligent Skills](#intelligent-skills) section.
 
@@ -1042,12 +1040,12 @@ This marketplace provides comprehensive support for modern web development:
 ### Plugin Level
 
 - **8** Plugin manifests (`plugin.json` in each plugin)
-- **17** Command files (`.md` files in `commands/` directories)
+- **16** Command files (`.md` files in `commands/` directories)
 - **20** Skill definitions (`.md` files in `skills/` directories)
 - **3** Hook files (in audio-notifications)
 - **6** Plugin READMEs (db-tools, ui, quality, git, reviewer, ui-tests, architecture-design)
 
-**Total: 55 files** providing comprehensive Claude Code development support.
+**Total: 54 files** providing comprehensive Claude Code development support.
 
 ## Installation Size
 
