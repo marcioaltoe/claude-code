@@ -69,7 +69,7 @@ This script displays issues in a clean, readable format with:
   commit the changes with a descriptive message that references the PR and fixed issues.
   Example: `git commit -am "fix(repo): resolve PR #<pr> issues [batch <from>-<end>]"`
   Note: Commit locally only - do NOT push. Multiple batches will be committed separately.
-</after_finish>
+  </after_finish>
 
 ## Examples
 
@@ -97,11 +97,12 @@ After fixing issues, mark them as resolved:
 ```
 
 This will:
+
 - Mark threads as resolved in GitHub
 - Rename files from `*_unresolved.md` to `*_resolved.md`
 - Update the summary
 
 ## See Also
 
-- `/reviewer:download-issues` - Download PR reviews
+- `/reviewer:sync` - Download PR reviews
 - `/reviewer:pr-status` - Check status of PR reviews

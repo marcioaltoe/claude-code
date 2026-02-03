@@ -12,15 +12,15 @@ This command downloads CodeRabbit AI review comments from a GitHub Pull Request 
 
 ```bash
 # With PR number
-/reviewer:download-issues --pr 123
+/reviewer:sync --pr 123
 
 # Without PR number (auto-detects latest open PR)
-/reviewer:download-issues
+/reviewer:sync
 ```
 
 ## How Claude Code Executes This
 
-When you run `/reviewer:download-issues --pr 123` or `/reviewer:download-issues`, Claude Code will:
+When you run `/reviewer:sync --pr 123` or `/reviewer:sync`, Claude Code will:
 
 1. Find the installed `pr-reviewer` skill location
 2. Execute the download script from the skill directory
@@ -112,34 +112,37 @@ After downloading reviews:
 
 ```bash
 # Download PR #123 - saves to current directory's .reviews/
-/reviewer:download-issues --pr 123
+/reviewer:sync --pr 123
 
 # Download latest open PR (auto-detects)
-/reviewer:download-issues
+/reviewer:sync
 
 # With debug logging
-LOG_LEVEL=debug /reviewer:download-issues --pr 123
+LOG_LEVEL=debug /reviewer:sync --pr 123
 
 # Save to custom directory
-OUTPUT_DIR=./my-reviews /reviewer:download-issues --pr 123
+OUTPUT_DIR=./my-reviews /reviewer:sync --pr 123
 ```
 
 ## Troubleshooting
 
 **"GITHUB_TOKEN is not set"**
+
 - Create `.env` file in the skill's installation directory
 - Path: `~/.claude/plugins/marketplaces/claude-craftkit/plugins/reviewer/skills/pull-request-skill/.env`
 
 **"No CodeRabbit AI comments found"**
+
 - CodeRabbit hasn't reviewed the PR yet
 - Check if PR has comments from `@coderabbitai[bot]`
 
 **"Repository information could not be parsed"**
+
 - Verify you're in a git repository
 - Check git remote: `git remote -v`
 - Remote must be: `https://github.com/owner/repo.git`
 
 ## See Also
 
-- `/reviewer:fix-issues` - Fix issues from a downloaded PR review
+- `/reviewer:fix` - Fix issues from a downloaded PR review
 - `/reviewer:pr-status` - Check status of PR reviews

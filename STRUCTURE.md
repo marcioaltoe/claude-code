@@ -86,7 +86,7 @@ claude-craftkit/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── commands/
-│   │   │   ├── download-issues.md
+│   │   │   ├── sync.md
 │   │   │   ├── fix-issues.md
 │   │   │   └── pr-status.md
 │   │   └── README.md
@@ -398,11 +398,11 @@ Complete list of all available commands across all plugins.
 
 ### PR Reviewer (3 commands)
 
-| Command            | Description                                               |
-| ------------------ | --------------------------------------------------------- |
-| `/download-issues` | Download CodeRabbit AI review comments for a Pull Request |
-| `/fix-issues`      | Fix issues for a given PR systematically                  |
-| `/pr-status`       | Check status of PR review issues                          |
+| Command       | Description                                               |
+| ------------- | --------------------------------------------------------- |
+| `/sync`       | Download CodeRabbit AI review comments for a Pull Request |
+| `/fix-issues` | Fix issues for a given PR systematically                  |
+| `/pr-status`  | Check status of PR review issues                          |
 
 ### UI Tests (3 commands)
 

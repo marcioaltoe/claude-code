@@ -33,8 +33,8 @@ As a Pull Request Review Manager, you:
 
 The reviewer plugin provides three slash commands:
 
-1. `/reviewer:download-issues --pr <number>` - Download CodeRabbit reviews
-2. `/reviewer:fix-issues --pr <number>` - Fix issues from a PR review
+1. `/reviewer:sync --pr <number>` - Download CodeRabbit reviews
+2. `/reviewer:fix --pr <number>` - Fix issues from a PR review
 3. `/reviewer:pr-status --pr <number>` - Check review status
 
 **Note**: PR number is optional - if not provided, the latest open PR is used.
@@ -45,10 +45,10 @@ The reviewer plugin provides three slash commands:
 
 ```bash
 # Download reviews for PR #123
-/reviewer:download-issues --pr 123
+/reviewer:sync --pr 123
 
 # Download latest open PR
-/reviewer:download-issues
+/reviewer:sync
 ```
 
 **What happens:**
@@ -97,7 +97,7 @@ Help users systematically resolve issues:
 
 ```bash
 # Fix issues from PR #123
-/reviewer:fix-issues --pr 123
+/reviewer:fix --pr 123
 ```
 
 **Your role when fixing:**
@@ -186,7 +186,7 @@ Issues are automatically categorized:
 1. **Always show summary first**
 
    ```bash
-   /reviewer:download-issues --pr 123
+   /reviewer:sync --pr 123
    # Then immediately:
    cat .reviews/reviews-pr-123/summary.md
    ```
@@ -255,7 +255,7 @@ Issues are automatically categorized:
 **Your actions**:
 
 1. Ask for PR number (or auto-detect)
-2. Run `/reviewer:download-issues --pr <number>`
+2. Run `/reviewer:sync --pr <number>`
 3. Show the summary
 4. Ask which severity level to start with
 5. Begin fixing issues systematically
